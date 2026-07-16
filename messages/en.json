@@ -13,18 +13,19 @@
     "bookByWhatsApp": "Book by WhatsApp"
   },
   "hero": {
-    "eyebrow": "Manuel Antonio · Quepos",
-    "title": "Real wildlife, canopy-level view",
-    "description": "We are ICT-certified guides in the Manuel Antonio and Quepos area. Choose between a ground safari, a mangrove kayak, or a night walk to see the wildlife others only imagine.",
-    "primaryCta": "View tours",
+    "eyebrow": "Explore the wild side of",
+    "title": "Manuel Antonio",
+    "description": "Guided nature tours in Manuel Antonio National Park and surrounding areas. Real wildlife, certified guides.",
+    "primaryCta": "Explore tours",
     "secondaryCta": "Book by WhatsApp"
   },
   "trust": {
     "title": "Book with confidence",
     "badges": {
       "certifiedGuide": "ICT-certified guide",
-      "legalRegistration": "Registered with Hacienda and CCSS",
-      "realExperience": "Real experience in Manuel Antonio"
+      "legalRegistration": "Registered with Hacienda & CCSS",
+      "localGuide": "Local naturalist guide",
+      "region": "Manuel Antonio, Costa Rica"
     }
   },
   "tours": {

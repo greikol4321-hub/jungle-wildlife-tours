@@ -13,18 +13,19 @@
     "bookByWhatsApp": "Reservar por WhatsApp"
   },
   "hero": {
-    "eyebrow": "Manuel Antonio · Quepos",
-    "title": "Vida silvestre real, vista desde el dosel",
-    "description": "Somos guías certificados por el ICT en la zona de Manuel Antonio y Quepos. Elegí entre un safari terrestre, kayak en manglar o una caminata nocturna para ver la fauna que otros solo imaginan.",
+    "eyebrow": "Explorá la vida silvestre de",
+    "title": "Manuel Antonio",
+    "description": "Tours guiados de naturaleza en el Parque Nacional Manuel Antonio y alrededores. Fauna real, guías certificados.",
     "primaryCta": "Ver tours",
     "secondaryCta": "Reservar por WhatsApp"
   },
   "trust": {
     "title": "Reservá con confianza",
     "badges": {
-      "certifiedGuide": "Guía certificado por el ICT",
-      "legalRegistration": "Inscrito en Hacienda y CCSS",
-      "realExperience": "Experiencia real en Manuel Antonio"
+      "certifiedGuide": "Guía certificado ICT",
+      "legalRegistration": "Inscrito ante Hacienda y CCSS",
+      "localGuide": "Guía naturalista local",
+      "region": "Manuel Antonio, Costa Rica"
     }
   },
   "tours": {
