@@ -25,32 +25,16 @@ export function NightSection({ locale }: NightSectionProps) {
 
   return (
     <section
-      className="relative overflow-hidden bg-bg"
+      className="relative overflow-hidden"
       aria-labelledby="night-heading"
       style={{
-        background:
-          "linear-gradient(160deg, #0B1A0F 0%, #060A07 40%, #0D0F08 100%)",
+        background: "linear-gradient(170deg, #0B1A0F 0%, #060D08 50%, #0B1A0F 100%)",
       }}
     >
-      {/* Grid overlay — subtle */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 [background-image:linear-gradient(rgba(78,203,113,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(78,203,113,0.02)_1px,transparent_1px)] [background-size:60px_60px]" />
-      </div>
-
-      {/* Emerald radial glow — right side */}
-      <div
-        className="absolute right-[-80px] top-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(78,203,113,0.06) 0%, rgba(78,203,113,0.02) 40%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Content Column */}
-          <div>
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+          {/* Content — 2 cols */}
+          <div className="lg:col-span-2">
             <Reveal>
               <div className="flex items-center gap-2.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald" />
@@ -63,11 +47,10 @@ export function NightSection({ locale }: NightSectionProps) {
             <Reveal delay={100}>
               <h2
                 id="night-heading"
-                className="mt-3 font-heading font-bold tracking-tight text-text"
+                className="mt-4 font-heading font-bold tracking-tight text-text text-balance"
                 style={{
-                  fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+                  fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
                   lineHeight: 1.1,
-                  textShadow: "0 2px 24px rgba(0,0,0,0.4)",
                 }}
               >
                 {tNight("heading")}
@@ -75,19 +58,19 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
 
             <Reveal delay={180}>
-              <p className="mt-6 text-[17px] font-light text-text-secondary leading-[1.85] max-w-lg">
+              <p className="mt-5 text-[15px] font-light text-text-secondary leading-[1.85] max-w-sm">
                 {tNight("description")}
               </p>
             </Reveal>
 
             <Reveal delay={240}>
-              <ul className="mt-7 space-y-3">
+              <ul className="mt-6 space-y-2.5">
                 {features.map((feat) => (
                   <li
                     key={feat}
-                    className="flex items-center gap-2.5 text-[15px] text-text/80"
+                    className="flex items-center gap-2.5 text-sm text-text/80"
                   >
-                    <CheckCircle className="h-4 w-4 text-emerald/70" />
+                    <CheckCircle className="h-4 w-4 text-emerald/60 flex-shrink-0" />
                     {feat}
                   </li>
                 ))}
@@ -95,7 +78,7 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
 
             <Reveal delay={300}>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/tours/caminata-nocturna"
                   className="btn btn-primary"
@@ -114,88 +97,32 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
           </div>
 
-          {/* Visual Column — Floating Circle */}
-          <Reveal delay={200}>
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-[380px] h-[380px] max-w-full">
-                {/* Outermost ring — rotation */}
-                <div
-                  className="absolute inset-[-12px] rounded-full animate-night-ring-spin"
-                  aria-hidden="true"
-                  style={{
-                    border: "1px solid rgba(78,203,113,0.07)",
-                  }}
-                />
+          {/* Image — 3 cols, editorial rectangular frame */}
+          <Reveal delay={200} className="lg:col-span-3">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border/50">
+              <Image
+                src={`${SUPABASE_STORAGE_URL}/wildlife-sloth-01.jpg`}
+                alt={tNight("imageAlt")}
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover transition-transform duration-700 ease-out hover:scale-[1.02]"
+              />
+              {/* Vignette overlays */}
+              <div className="absolute inset-0 bg-gradient-to-r from-bg/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-transparent pointer-events-none" />
 
-                {/* Glow ring */}
-                <div
-                  className="absolute inset-[-6px] rounded-full"
-                  aria-hidden="true"
-                  style={{
-                    boxShadow:
-                      "0 0 40px rgba(78,203,113,0.08), inset 0 0 30px rgba(78,203,113,0.03)",
-                    border: "1px solid rgba(78,203,113,0.06)",
-                  }}
-                />
+              {/* Corner accent line */}
+              <div className="absolute bottom-0 left-0 w-24 h-px bg-gradient-to-r from-emerald/40 to-transparent" />
+              <div className="absolute top-0 right-0 w-16 h-px bg-gradient-to-l from-emerald/20 to-transparent" />
 
-                {/* Outer ring */}
-                <div className="absolute inset-0 rounded-full p-3 night-circle-outer animate-float-slow" aria-hidden="true">
-                  {/* Middle ring */}
-                  <div className="absolute inset-1 rounded-full night-circle-middle" />
-                  {/* Inner content */}
-                  <div className="relative h-full w-full rounded-full overflow-hidden night-circle-inner">
-                    <Image
-                      src={`${SUPABASE_STORAGE_URL}/wildlife-sloth-01.jpg`}
-                      alt={tNight("imageAlt")}
-                      fill
-                      sizes="380px"
-                      className="object-cover image-zoom"
-                    />
-                    {/* Inner vignette */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent pointer-events-none"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </div>
-
-                {/* Floating particles — 6 total */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  aria-hidden="true"
-                >
-                  {/* emerald — 2px */}
-                  <div
-                    className="absolute top-[18%] left-[22%] h-[2px] w-[2px] rounded-full bg-emerald/40 animate-pulse-slow"
-                    style={{ animationDelay: "0s" }}
-                  />
-                  {/* sand — 1.5px */}
-                  <div
-                    className="absolute top-[32%] right-[18%] h-[1.5px] w-[1.5px] rounded-full bg-sand/40 animate-pulse-slow"
-                    style={{ animationDelay: "0.7s" }}
-                  />
-                  {/* emerald — 1px */}
-                  <div
-                    className="absolute bottom-[38%] left-[16%] h-px w-px rounded-full bg-emerald/30 animate-pulse-slow"
-                    style={{ animationDelay: "1.4s" }}
-                  />
-                  {/* sand — 2px */}
-                  <div
-                    className="absolute bottom-[22%] right-[24%] h-[2px] w-[2px] rounded-full bg-sand/30 animate-pulse-slow"
-                    style={{ animationDelay: "2s" }}
-                  />
-                  {/* emerald — 1.5px */}
-                  <div
-                    className="absolute top-[55%] right-[8%] h-[1.5px] w-[1.5px] rounded-full bg-emerald/25 animate-pulse-slow"
-                    style={{ animationDelay: "2.8s" }}
-                  />
-                  {/* sand — 1px */}
-                  <div
-                    className="absolute top-[8%] right-[42%] h-px w-px rounded-full bg-sand/25 animate-pulse-slow"
-                    style={{ animationDelay: "3.5s" }}
-                  />
-                </div>
-              </div>
+              {/* Subtle glow */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                aria-hidden="true"
+                style={{
+                  background: "radial-gradient(ellipse 40% 40% at 30% 70%, rgba(78,203,113,0.06) 0%, transparent 70%)",
+                }}
+              />
             </div>
           </Reveal>
         </div>
