@@ -1,9 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
 import { TourCardsSection } from "@/components/sections/TourCardsSection";
 import { TrustSection } from "@/components/sections/TrustSection";
+import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
 
 interface Tour {
   id: string;
@@ -46,16 +46,16 @@ export default async function HomePage({
       {/* ── Hero (parallax + mouse-tracking) ──────────────── */}
       <HeroSection locale={locale} />
 
-      {/* ── Trust Badges ───────────────────────────────────── */}
-      <TrustSection locale={locale} />
+      {/* ── Cinematic Parallax Divider ────────────────────── */}
+      <ParallaxDivider locale={locale} />
 
       {/* ── Tour Cards ─────────────────────────────────────── */}
       {featuredTours.length > 0 && (
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
 
-      {/* ── Cinematic Parallax Divider ────────────────────── */}
-      <ParallaxDivider locale={locale} />
+      {/* ── Trust Badges ────────────────────────────────────── */}
+      <TrustSection locale={locale} />
     </main>
   );
 }
