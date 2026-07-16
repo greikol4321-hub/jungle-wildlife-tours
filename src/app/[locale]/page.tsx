@@ -4,7 +4,6 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
 import { TourCardsSection } from "@/components/sections/TourCardsSection";
 import { TrustSection } from "@/components/sections/TrustSection";
-import { NightSection } from "@/components/sections/NightSection";
 
 interface Tour {
   id: string;
@@ -57,9 +56,6 @@ export default async function HomePage({
 
       {/* ── Cinematic Parallax Divider ────────────────────── */}
       <ParallaxDivider locale={locale} />
-
-      {/* ── Night Section ──────────────────────────────────── */}
-      <NightSection locale={locale} />
     </main>
   );
 }
