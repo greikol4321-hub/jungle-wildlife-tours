@@ -83,8 +83,7 @@ function TourCard({
                 <Camera className="h-16 w-16 text-emerald/15" strokeWidth={1} aria-hidden="true" />
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/5 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-surface/30 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-surface" style={{ maskImage: 'linear-gradient(to top, black 0%, transparent 55%)', WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 55%)' }} />
           </div>
 
           <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
@@ -145,7 +144,7 @@ function TourCard({
               <Camera className="h-10 w-10 text-emerald/15" strokeWidth={1} aria-hidden="true" />
             </div>
           )}
-            <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/5 to-transparent" />
+            <div className="absolute inset-0 bg-surface" style={{ maskImage: 'linear-gradient(to top, black 0%, transparent 50%)', WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 50%)' }} />
           {index === 1 && (
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/[0.02] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
           )}
