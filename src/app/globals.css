@@ -143,8 +143,12 @@
 .btn-magnetic-primary {
   background: var(--color-emerald);
   color: var(--color-bg);
+  position: relative;
 }
-.btn-magnetic-primary:hover { opacity: 0.9; box-shadow: 0 8px 32px -8px var(--color-emerald-glow); }
+.btn-magnetic-primary:hover {
+  opacity: 0.9;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
 .btn-magnetic-outline {
   background: transparent;
   color: var(--color-text);
@@ -270,6 +274,9 @@
 /* ── REDUCED MOTION ─────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.visible,
+  .clip-reveal, .clip-reveal.visible,
+  .clip-reveal-left, .clip-reveal-left.visible,
+  .clip-reveal-right, .clip-reveal-right.visible,
   .double-bezel,
   .btn-magnetic,
   .animate-float, .animate-float-slow, .animate-pulse-dot, .animate-fade-up, .animate-pulse-slow,
@@ -280,6 +287,7 @@
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .clip-reveal, .clip-reveal-left, .clip-reveal-right { clip-path: inset(0 0 0 0); }
   .animate-fade-up { opacity: 1; animation: none; }
 }
 
@@ -291,6 +299,56 @@
 
 /* ── TEXT BALANCE ───────────────────────────────────── */
 .text-balance { text-wrap: balance; }
+
+/* ── CLIP-PATH SCROLL REVEAL ────────────────────────── */
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 800ms var(--ease-out);
+}
+.clip-reveal.visible {
+  clip-path: inset(0 0 0 0);
+}
+.clip-reveal-left {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 800ms var(--ease-out);
+}
+.clip-reveal-left.visible {
+  clip-path: inset(0 0 0 0);
+}
+.clip-reveal-right {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 800ms var(--ease-out);
+}
+.clip-reveal-right.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── CTA GLOW PULSE ─────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-emerald-glow); }
+  50% { box-shadow: 0 0 24px 4px var(--color-emerald-glow); }
+}
+.btn-glow-pulse:hover {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ── FILM FRAME CARD ────────────────────────────────── */
+.film-frame {
+  position: relative;
+}
+.film-frame::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-gold) 0%, transparent 40%, transparent 60%, var(--color-gold) 100%);
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+  z-index: -1;
+}
+.film-frame:hover::before {
+  opacity: 0.15;
+}
 
 /* ── SCROLLBAR ──────────────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

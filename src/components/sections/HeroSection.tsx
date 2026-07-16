@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
+import { motion, useScroll, useSpring, useMotionValue, useTransform } from "motion/react";
 
 interface HeroSectionProps {
   locale: string;
@@ -14,61 +16,105 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const SUPABASE_STORAGE_URL =
     "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
-  return (
-    <section className="relative min-h-[100dvh] flex items-end overflow-hidden" aria-labelledby="hero-title">
-      {/* Background Image */}
-      <Image
-        src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
-        alt="Dosel de selva tropical en Manuel Antonio al amanecer"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover scale-[1.08] opacity-30"
-      />
+  const containerRef = useRef<HTMLDivElement>(null);
 
-      {/* Gradient Blend - Bottom to top */}
-      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/85 at-40% to-transparent" />
+  // Scroll-driven parallax on the background image
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.15]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
+
+  // Mouse-tracking parallax (desktop only)
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const springConfig = { stiffness: 50, damping: 20, mass: 0.5 };
+  const mouseParallaxX = useSpring(useTransform(mouseX, [0, 1], [-15, 15]), springConfig);
+  const mouseParallaxY = useSpring(useTransform(mouseY, [0, 1], [-10, 10]), springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative min-h-[100dvh] flex items-end overflow-hidden"
+      aria-labelledby="hero-title"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Background Image — scroll + mouse parallax */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: bgY, scale: bgScale }}
+      >
+        <motion.div
+          className="absolute inset-0"
+          style={{ x: mouseParallaxX, y: mouseParallaxY }}
+        >
+          <Image
+            src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
+            alt="Dosel de selva tropical en Manuel Antonio al amanecer"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Gradient Blend — cinematic bottom fade */}
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/40 via-transparent to-transparent" />
 
       {/* Subtle Radial Glow */}
-      <div className="absolute inset-0 opacity-15" aria-hidden="true">
-        <div className="absolute inset-0 [background:radial-gradient(ellipse_60%_50%_at_30%_40%,var(--color-emerald-dim)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 opacity-20" aria-hidden="true">
+        <div className="absolute inset-0 [background:radial-gradient(ellipse_50%_40%_at_25%_45%,var(--color-emerald-dim)_0%,transparent_70%)]" />
       </div>
 
       {/* Grid Pattern with Mask */}
-      <div className="absolute inset-0 opacity-15 hero-grid-mask" aria-hidden="true">
+      <div className="absolute inset-0 opacity-10 hero-grid-mask" aria-hidden="true">
         <div className="absolute inset-0 [background-image:linear-gradient(var(--color-border)_1px,transparent_1px),linear-gradient(90deg,var(--color-border)_1px,transparent_1px)] [background-size:90px_90px]" />
       </div>
 
-      {/* Noise/Grain Overlay */}
-      <div className="grain-overlay" aria-hidden="true" />
-
-      {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-36 sm:px-6 lg:px-8">
+      {/* Content — fades on scroll */}
+      <motion.div
+        className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-36 sm:px-6 lg:px-8"
+        style={{ opacity: contentOpacity, y: contentY }}
+      >
         <Reveal delay={150}>
-          <p className="font-mono text-xs font-medium tracking-[0.25em] text-emerald uppercase animate-fade-up">
+          <p className="font-mono text-xs font-medium tracking-[0.25em] text-emerald uppercase">
             {t("eyebrow")}
           </p>
         </Reveal>
 
         <Reveal delay={300}>
-          <h1 id="hero-title" className="mt-4 font-heading font-bold tracking-tight text-white leading-[1.02] text-balance animate-fade-up" style={{ fontSize: "clamp(3.5rem, 8vw, 6.5rem)" }}>
+          <h1
+            id="hero-title"
+            className="mt-4 font-heading font-bold text-white leading-[0.92] tracking-[-0.03em] text-balance"
+            style={{ fontSize: "clamp(3.8rem, 9vw, 7.5rem)" }}
+          >
             {t("title")}
           </h1>
         </Reveal>
 
         <Reveal delay={450}>
-          <p className="mt-5 max-w-xl text-base font-light text-text-secondary leading-[1.85] animate-fade-up">
+          <p className="mt-6 max-w-xl text-lg font-light text-text-secondary leading-[1.8]">
             {t("description")}
           </p>
         </Reveal>
 
         <Reveal delay={600}>
-          <div className="mt-12 flex flex-col gap-3 sm:flex-row animate-fade-up">
-            <Link
-              href="/tours"
-              className="btn-magnetic-primary"
-            >
-              {t("primaryCta")}
+          <div className="mt-12 flex flex-col gap-3 sm:flex-row">
+            <Link href="/tours" className="btn-magnetic-primary group">
+              <span className="relative z-10">{t("primaryCta")}</span>
+              <span className="absolute inset-0 rounded-full bg-emerald opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" aria-hidden="true" />
             </Link>
             <a
               href="https://wa.me/50688888888"
@@ -87,7 +133,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Trust indicator strip */}
         <Reveal delay={800}>
-          <div className="mt-16 flex flex-wrap items-center gap-6 text-text-secondary/60 animate-fade-up">
+          <div className="mt-16 flex flex-wrap items-center gap-6 text-text-secondary/60">
             <div className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-emerald">
               <span className="w-2 h-2 rounded-full bg-emerald animate-pulse-dot" aria-hidden="true" />
               Guía certificado ICT
@@ -104,11 +150,11 @@ export function HeroSection({ locale }: HeroSectionProps) {
             </div>
           </div>
         </Reveal>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <Reveal delay={1000}>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary/40 animate-fade-up">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary/40">
           <svg className="h-5 w-5 animate-bounce [animation-duration:2s]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
