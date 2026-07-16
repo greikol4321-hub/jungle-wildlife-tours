@@ -24,7 +24,7 @@ export async function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-amber mb-4">
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald mb-4">
               {t("navigation")}
             </p>
             <ul className="space-y-2.5">
@@ -35,7 +35,7 @@ export async function Footer() {
                 { href: "/contact", key: "contact" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-text-secondary text-sm hover:text-amber transition-colors duration-300">
+                  <Link href={link.href} className="text-text-secondary text-sm hover:text-emerald transition-colors duration-300">
                     {t(`nav.${link.key}`)}
                   </Link>
                 </li>
@@ -45,7 +45,7 @@ export async function Footer() {
 
           {/* Tours */}
           <div>
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-amber mb-4">
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald mb-4">
               {t("popularTours")}
             </p>
             <ul className="space-y-2.5">
@@ -55,7 +55,7 @@ export async function Footer() {
                 { href: "/tours/avistamiento-aves", key: "birdWatching" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-text-secondary text-sm hover:text-amber transition-colors duration-300">
+                  <Link href={link.href} className="text-text-secondary text-sm hover:text-emerald transition-colors duration-300">
                     {t(`tourLinks.${link.key}`)}
                   </Link>
                 </li>
@@ -65,14 +65,14 @@ export async function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-amber mb-4">
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald mb-4">
               {t("contact")}
             </p>
             <ul className="space-y-2.5 text-text-secondary text-sm">
               <li>{t("location")}</li>
               <li>Costa Rica</li>
               <li>
-                <a href="https://wa.me/50688888888" target="_blank" rel="noopener noreferrer" className="hover:text-amber transition-colors duration-300">
+                <a href="https://wa.me/50688888888" target="_blank" rel="noopener noreferrer" className="hover:text-emerald transition-colors duration-300">
                   WhatsApp
                 </a>
               </li>
@@ -84,10 +84,10 @@ export async function Footer() {
         <div className="mt-14 border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-text-muted text-xs">
           <p>© {new Date().getFullYear()} Jungle Wildlife Tours. {t("legal")}</p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-amber transition-colors duration-300">
+            <Link href="/privacy" className="hover:text-emerald transition-colors duration-300">
               {t("privacy")}
             </Link>
-            <Link href="/terms" className="hover:text-amber transition-colors duration-300">
+            <Link href="/terms" className="hover:text-emerald transition-colors duration-300">
               {t("terms")}
             </Link>
           </div>

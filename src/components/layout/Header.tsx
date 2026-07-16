@@ -2,7 +2,7 @@
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -20,11 +20,38 @@ export function Header({ locale }: { locale: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   const otherLocale = locale === "es" ? "en" : "es";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const isScrolled = currentY > 30;
+
+        setScrolled(isScrolled);
+
+        if (currentY < 100) {
+          setNavHidden(false);
+        } else if (currentY > lastScrollY.current + 8) {
+          setNavHidden(true);
+          setOpen(false);
+        } else if (currentY < lastScrollY.current - 8) {
+          setNavHidden(false);
+        }
+
+        lastScrollY.current = currentY;
+        ticking = false;
+      });
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -40,6 +67,12 @@ export function Header({ locale }: { locale: string }) {
           z-index: 50;
           width: calc(100% - 2rem);
           max-width: 960px;
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), opacity 400ms cubic-bezier(0.22, 1, 0.32, 1);
+        }
+        .nav-wrapper.hidden {
+          transform: translateX(-50%) translateY(-120%) scale(0.95);
+          opacity: 0;
+          pointer-events: none;
         }
         .nav-inner {
           display: flex;
@@ -68,8 +101,8 @@ export function Header({ locale }: { locale: string }) {
           color: var(--color-text);
           transition: color 200ms var(--ease-out);
         }
-        .logo:hover { color: var(--color-amber); }
-        .logo-accent { color: var(--color-amber); }
+        .logo:hover { color: var(--color-emerald); }
+        .logo-accent { color: var(--color-emerald); }
         .nav-links {
           display: none;
           gap: 1.5rem;
@@ -88,7 +121,7 @@ export function Header({ locale }: { locale: string }) {
           text-transform: uppercase;
         }
         .nav-links a:hover { color: var(--color-text); }
-        .nav-links a.active { color: var(--color-amber); }
+        .nav-links a.active { color: var(--color-emerald); }
         .locale-btn {
           display: inline-flex;
           align-items: center;
@@ -105,14 +138,14 @@ export function Header({ locale }: { locale: string }) {
         }
         .locale-btn:hover {
           border-color: var(--color-border-hover);
-          color: var(--color-amber);
-          background: var(--color-amber-dim);
+          color: var(--color-emerald);
+          background: var(--color-emerald-dim);
         }
         .nav-cta {
           display: inline-flex;
           align-items: center;
           gap: 0.4rem;
-          background: var(--color-amber) !important;
+          background: var(--color-emerald) !important;
           color: var(--color-bg) !important;
           padding: 0.5rem 1.2rem !important;
           border-radius: 100px !important;
@@ -121,10 +154,10 @@ export function Header({ locale }: { locale: string }) {
           letter-spacing: 0.06em !important;
           text-transform: uppercase !important;
           transition: all 200ms var(--ease-out) !important;
-          box-shadow: 0 2px 12px -2px rgba(200,150,62,0.3);
+          box-shadow: 0 2px 12px -2px rgba(78,203,113,0.3);
         }
         .nav-cta:hover {
-          box-shadow: 0 0 20px 4px rgba(200,150,62,0.2);
+          box-shadow: 0 0 20px 4px rgba(78,203,113,0.2);
         }
         .nav-cta:active { transform: scale(0.97) !important; }
         .hamburger {
@@ -188,7 +221,7 @@ export function Header({ locale }: { locale: string }) {
           color: var(--color-text);
           transition: color 200ms var(--ease-out);
         }
-        .mobile-menu a:hover { color: var(--color-amber); }
+        .mobile-menu a:hover { color: var(--color-emerald); }
         .mobile-menu .mobile-cta {
           margin-top: 1rem;
           padding: 0.75rem 2rem !important;
@@ -208,11 +241,11 @@ export function Header({ locale }: { locale: string }) {
         }
         .mobile-menu .mobile-locale:hover {
           border-color: var(--color-border-hover);
-          color: var(--color-amber);
+          color: var(--color-emerald);
         }
       `}</style>
 
-      <div className="nav-wrapper">
+      <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label="Navegación principal">
           <Link href="/" className="logo" aria-label="Jungle Wildlife Tours - Inicio">
             Jungle <span className="logo-accent">Wildlife</span> Tours
@@ -275,7 +308,7 @@ export function Header({ locale }: { locale: string }) {
               key={item.key}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={cn(pathname === item.href && "text-amber")}
+              className={cn(pathname === item.href && "text-emerald")}
             >
               {t(item.key)}
             </Link>

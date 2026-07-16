@@ -67,9 +67,9 @@ export function HeroSection({ locale }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-bg/50 via-transparent to-transparent" />
 
-      {/* Warm amber glow — subtle top-left */}
+      {/* Warm emerald glow — subtle top-left */}
       <div className="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 [background:radial-gradient(ellipse_40%_35%_at_20%_40%,rgba(200,150,62,0.12)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 [background:radial-gradient(ellipse_40%_35%_at_20%_40%,rgba(78,203,113,0.1)_0%,transparent_70%)]" />
       </div>
 
       {/* Grid pattern */}
@@ -88,7 +88,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
         style={{ opacity: contentOpacity, y: contentY }}
       >
         <Reveal delay={100}>
-          <p className="font-mono text-xs font-medium tracking-[0.3em] text-amber uppercase">
+          <p className="font-mono text-xs font-medium tracking-[0.3em] text-emerald uppercase">
             {t("eyebrow")}
           </p>
         </Reveal>
@@ -100,7 +100,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
             style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)" }}
           >
             <span className="text-text">{t("title")}</span>
-            <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-amber via-sand to-amber" style={{ WebkitBackgroundClip: "text" }}>
+            <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald via-sand to-emerald" style={{ WebkitBackgroundClip: "text" }}>
               {t("subtitle")}
             </span>
           </h1>
@@ -140,12 +140,12 @@ export function HeroSection({ locale }: HeroSectionProps) {
               Guía certificado ICT
             </div>
             <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
-            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-amber">
+            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand">
               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
               Inscrito Hacienda & CCSS
             </div>
             <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
-            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand">
+            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand/70">
               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               Manuel Antonio, Costa Rica
             </div>

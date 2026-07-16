@@ -49,7 +49,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
       {/* Content */}
       <motion.div className="relative z-10 text-center px-4" style={{ opacity, y: textY }}>
         <Reveal>
-          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-amber mb-3">
+          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-emerald mb-3">
             {locale === "es" ? "Experiencia salvaje" : "Wild experience"}
           </p>
         </Reveal>
@@ -73,7 +73,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
       </motion.div>
 
       {/* Bottom line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent" />
     </section>
   );
 }

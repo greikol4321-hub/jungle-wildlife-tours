@@ -34,7 +34,7 @@ export function TrustSection({ locale }: TrustSectionProps) {
         </Reveal>
 
         <Reveal delay={50}>
-          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-amber text-center mb-12">
+          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-emerald text-center mb-12">
             {tTrust("title") || "Confianza y certificaciones"}
           </p>
         </Reveal>

@@ -93,7 +93,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-canopy to-surface">
-                        <svg className="h-12 w-12 text-amber/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <svg className="h-12 w-12 text-emerald/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
@@ -116,7 +116,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
                     {/* Category Tag */}
                     <div className="absolute top-3 right-3 z-10">
-                      <span className="inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 bg-amber/15 backdrop-blur-md border border-amber/25 rounded-full text-amber">
+                      <span className="inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 bg-emerald/15 backdrop-blur-md border border-emerald/25 rounded-full text-emerald">
                         {categoryLabel}
                       </span>
                     </div>
@@ -124,7 +124,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
                   {/* Content */}
                   <div className="p-5 pb-6">
-                    <h3 className="font-heading font-bold text-text group-hover:text-amber transition-colors duration-300" style={{ fontSize: "1.25rem", letterSpacing: "-0.01em", lineHeight: "1.3" }}>
+                    <h3 className="font-heading font-bold text-text group-hover:text-emerald transition-colors duration-300" style={{ fontSize: "1.25rem", letterSpacing: "-0.01em", lineHeight: "1.3" }}>
                       {title}
                     </h3>
 
@@ -136,7 +136,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
                     <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
                       <div className="flex items-baseline gap-1">
-                        <span className="font-heading font-bold text-amber" style={{ fontSize: "1.15rem" }}>
+                        <span className="font-heading font-bold text-sand" style={{ fontSize: "1.15rem" }}>
                           ${tour.price_usd}
                         </span>
                         <span className="font-mono font-normal text-text-muted text-[10px] uppercase tracking-wider">USD</span>

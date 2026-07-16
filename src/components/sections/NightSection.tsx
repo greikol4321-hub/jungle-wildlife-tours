@@ -23,18 +23,18 @@ export function NightSection({ locale }: NightSectionProps) {
     >
       {/* Grid overlay with mask */}
       <div className="absolute inset-0 night-grid-mask">
-        <div className="absolute inset-0 [background-image:linear-gradient(rgba(200,150,62,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,150,62,0.025)_1px,transparent_1px)] [background-size:60px_60px]" />
+        <div className="absolute inset-0 [background-image:linear-gradient(rgba(78,203,113,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(78,203,113,0.025)_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
 
       {/* Ambient glow */}
-      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(200,150,62,0.06)_0%,transparent_70%)] pointer-events-none" aria-hidden="true" />
+      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(78,203,113,0.05)_0%,transparent_70%)] pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Column */}
           <div>
             <Reveal>
-              <p className="font-mono text-xs font-medium tracking-[0.2em] text-amber uppercase">
+              <p className="font-mono text-xs font-medium tracking-[0.2em] text-emerald uppercase">
                 {tTours("categories.night_walk")}
               </p>
             </Reveal>
@@ -99,10 +99,10 @@ export function NightSection({ locale }: NightSectionProps) {
 
                 {/* Floating particles */}
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                  <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 rounded-full bg-amber/30 animate-pulse-slow" style={{ animationDelay: "0s" }} />
-                  <div className="absolute top-1/3 right-1/5 w-1 h-1 rounded-full bg-emerald/40 animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
-                  <div className="absolute bottom-1/3 left-1/5 w-1 h-1 rounded-full bg-amber/30 animate-pulse-slow" style={{ animationDelay: "1s" }} />
-                  <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-emerald/30 animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
+                  <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 rounded-full bg-emerald/30 animate-pulse-slow" style={{ animationDelay: "0s" }} />
+                  <div className="absolute top-1/3 right-1/5 w-1 h-1 rounded-full bg-sand/40 animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
+                  <div className="absolute bottom-1/3 left-1/5 w-1 h-1 rounded-full bg-emerald/30 animate-pulse-slow" style={{ animationDelay: "1s" }} />
+                  <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-sand/30 animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
                 </div>
               </div>
             </div>
