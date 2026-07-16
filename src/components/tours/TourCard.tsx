@@ -224,7 +224,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className={`h-full ${featured ? "md:col-span-2 md:row-span-2" : ""}`}
+      className={`h-full ${featured ? "md:col-span-2" : ""}`}
     >
       <Link
         href={`/tours/${tour.slug}`}
