@@ -82,10 +82,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="h-full antialiased">
-      <body
-        className={`min-h-full flex flex-col bg-bg text-text ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}
-      >
+      <html lang={locale} className={`h-full antialiased ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}>
+      <body className="min-h-full flex flex-col bg-bg text-text">
         <div className="grain-overlay" aria-hidden="true" />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
