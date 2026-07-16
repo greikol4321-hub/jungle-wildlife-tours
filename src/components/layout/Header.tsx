@@ -70,13 +70,16 @@ export function Header({ locale }: { locale: string }) {
       <style jsx>{`
         .nav-wrapper {
           position: fixed;
-          top: 1rem;
+          top: 0.75rem;
           left: 50%;
           transform: translateX(-50%);
           z-index: 50;
-          width: calc(100% - 2rem);
+          width: calc(100% - 1.5rem);
           max-width: 960px;
           transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), opacity 400ms cubic-bezier(0.22, 1, 0.32, 1);
+        }
+        @media (min-width: 768px) {
+          .nav-wrapper { top: 1rem; width: calc(100% - 2rem); }
         }
         .nav-wrapper.hidden {
           transform: translateX(-50%) translateY(-120%) scale(0.95);
@@ -87,13 +90,16 @@ export function Header({ locale }: { locale: string }) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0.7rem 1.5rem;
+          padding: 0.5rem 0.9rem;
           background: rgba(11, 26, 15, 0.85);
           backdrop-filter: blur(20px) saturate(1.3);
           -webkit-backdrop-filter: blur(20px) saturate(1.3);
           border: 1px solid var(--color-border);
           border-radius: 100px;
           transition: background 300ms var(--ease-out), border-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+        }
+        @media (min-width: 768px) {
+          .nav-inner { padding: 0.5rem 1.25rem; }
         }
         .nav-inner.scrolled {
           background: rgba(11, 26, 15, 0.95);
@@ -102,16 +108,31 @@ export function Header({ locale }: { locale: string }) {
         }
         .logo {
           font-family: var(--font-heading);
-          font-size: 1rem;
+          font-size: 0.85rem;
           font-weight: 700;
           letter-spacing: -0.02em;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 120px;
           text-decoration: none;
           color: var(--color-text);
           transition: color 200ms var(--ease-out);
         }
-        .logo:hover { color: var(--color-emerald); }
+        @media (min-width: 768px) {
+          .logo { font-size: 0.95rem; max-width: none; }
+        }
+        @media (hover: hover) {
+          .logo:hover { color: var(--color-emerald); }
+        }
         .logo-accent { color: var(--color-emerald); }
+        .logo-accent-mobile { display: inline; }
+        @media (max-width: 767px) {
+          .logo-accent-desktop { display: none; }
+        }
+        @media (min-width: 768px) {
+          .logo-accent-mobile { display: none; }
+        }
         .nav-links {
           display: none;
           gap: 1.5rem;
@@ -128,9 +149,25 @@ export function Header({ locale }: { locale: string }) {
           transition: color 200ms var(--ease-out);
           letter-spacing: 0.06em;
           text-transform: uppercase;
+          position: relative;
         }
-        .nav-links a:hover { color: var(--color-text); }
+        .nav-links a::after {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 0;
+          width: 0;
+          height: 1.5px;
+          background: var(--color-emerald);
+          border-radius: 2px;
+          transition: width 250ms var(--ease-out);
+        }
+        @media (hover: hover) {
+          .nav-links a:hover { color: var(--color-text); }
+          .nav-links a:hover::after { width: 100%; }
+        }
         .nav-links a.active { color: var(--color-emerald); }
+        .nav-links a.active::after { width: 100%; }
         .locale-btn {
           display: inline-flex;
           align-items: center;
@@ -145,10 +182,12 @@ export function Header({ locale }: { locale: string }) {
           cursor: pointer;
           transition: all 200ms var(--ease-out);
         }
-        .locale-btn:hover {
-          border-color: var(--color-border-hover);
-          color: var(--color-emerald);
-          background: var(--color-emerald-dim);
+        @media (hover: hover) {
+          .locale-btn:hover {
+            border-color: var(--color-border-hover);
+            color: var(--color-emerald);
+            background: var(--color-emerald-dim);
+          }
         }
         .nav-cta {
           display: inline-flex;
@@ -165,8 +204,11 @@ export function Header({ locale }: { locale: string }) {
           transition: all 200ms var(--ease-out) !important;
           box-shadow: 0 2px 12px -2px rgba(78,203,113,0.3);
         }
-        .nav-cta:hover {
-          box-shadow: 0 0 20px 4px rgba(78,203,113,0.2);
+        @media (hover: hover) {
+          .nav-cta:hover {
+            box-shadow: 0 0 20px 4px rgba(78,203,113,0.2);
+            transform: translateY(-1px);
+          }
         }
         .nav-cta:active { transform: scale(0.97) !important; }
 
@@ -176,8 +218,8 @@ export function Header({ locale }: { locale: string }) {
           flex-direction: column;
           justify-content: center;
           gap: 5px;
-          width: 24px;
-          height: 24px;
+          width: 22px;
+          height: 22px;
           background: transparent;
           border: none;
           cursor: pointer;
@@ -196,11 +238,11 @@ export function Header({ locale }: { locale: string }) {
           position: absolute;
           left: 0;
         }
-        .hamburger span:nth-child(1) { top: 5px; width: 100%; }
-        .hamburger span:nth-child(2) { top: 11px; width: 100%; }
-        .hamburger span:nth-child(3) { top: 17px; width: 100%; }
+        .hamburger span:nth-child(1) { top: 4px; width: 100%; }
+        .hamburger span:nth-child(2) { top: 10px; width: 100%; }
+        .hamburger span:nth-child(3) { top: 16px; width: 100%; }
         .hamburger.open span:nth-child(1) {
-          top: 11px;
+          top: 10px;
           transform: rotate(45deg);
           width: 100%;
         }
@@ -209,12 +251,12 @@ export function Header({ locale }: { locale: string }) {
           width: 0;
         }
         .hamburger.open span:nth-child(3) {
-          top: 11px;
+          top: 10px;
           transform: rotate(-45deg);
           width: 100%;
         }
         @media (min-width: 768px) {
-          .hamburger { display: none; }
+          .hamburger { width: 24px; height: 24px; display: none; }
         }
 
         /* Mobile menu - slide from right */
@@ -258,24 +300,27 @@ export function Header({ locale }: { locale: string }) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 1.25rem 1.5rem;
+          padding: 1rem 1.25rem;
           border-bottom: 1px solid var(--color-border);
         }
         .panel-logo {
           font-family: var(--font-heading);
-          font-size: 0.95rem;
+          font-size: 0.85rem;
           font-weight: 700;
           color: var(--color-text);
           text-decoration: none;
           letter-spacing: -0.02em;
+        }
+        @media (min-width: 768px) {
+          .panel-logo { font-size: 0.95rem; }
         }
         .panel-logo-accent { color: var(--color-emerald); }
         .panel-close {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: var(--color-surface);
           border: 1px solid var(--color-border);
@@ -283,39 +328,52 @@ export function Header({ locale }: { locale: string }) {
           cursor: pointer;
           transition: all 200ms var(--ease-out);
         }
-        .panel-close:hover {
-          background: var(--color-surface-elevated);
-          color: var(--color-text);
-          border-color: var(--color-border-strong);
-          transform: scale(1.05);
+        @media (min-width: 768px) {
+          .panel-close { width: 40px; height: 40px; }
+        }
+        @media (hover: hover) {
+          .panel-close:hover {
+            background: var(--color-surface-elevated);
+            color: var(--color-text);
+            border-color: var(--color-border-strong);
+            transform: scale(1.05);
+          }
         }
 
         /* Nav links */
         .panel-nav {
           flex: 1;
-          padding: 1.25rem 1.5rem;
+          padding: 0.75rem 1.25rem;
           display: flex;
           flex-direction: column;
-          gap: 0.25rem;
+          gap: 0.15rem;
+        }
+        @media (min-width: 768px) {
+          .panel-nav { padding: 1.25rem 1.5rem; gap: 0.25rem; }
         }
         .panel-link {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          padding: 1rem 1rem;
-          margin: 0 -1rem;
-          border-radius: 12px;
+          padding: 0.85rem 0.85rem;
+          margin: 0 -0.85rem;
+          border-radius: 10px;
           font-family: var(--font-heading);
-          font-size: 1.15rem;
+          font-size: 1.05rem;
           font-weight: 500;
           text-decoration: none;
           color: var(--color-text-secondary);
           transition: all 200ms var(--ease-out);
           position: relative;
         }
-        .panel-link:hover {
-          background: rgba(255, 255, 255, 0.06);
-          color: var(--color-text);
+        @media (min-width: 768px) {
+          .panel-link { padding: 1rem 1rem; margin: 0 -1rem; font-size: 1.15rem; border-radius: 12px; }
+        }
+        @media (hover: hover) {
+          .panel-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--color-text);
+          }
         }
         .panel-link.active {
           color: var(--color-emerald);
@@ -324,13 +382,16 @@ export function Header({ locale }: { locale: string }) {
         .panel-link.active::before {
           content: '';
           position: absolute;
-          left: -1rem;
+          left: -0.85rem;
           top: 50%;
           transform: translateY(-50%);
           width: 3px;
           height: 20px;
           background: var(--color-emerald);
           border-radius: 0 3px 3px 0;
+        }
+        @media (min-width: 768px) {
+          .panel-link.active::before { left: -1rem; }
         }
         .panel-link-icon {
           width: 20px;
@@ -352,32 +413,40 @@ export function Header({ locale }: { locale: string }) {
 
         /* Panel footer */
         .panel-footer {
-          padding: 1.5rem;
+          padding: 1rem 1.25rem;
           border-top: 1px solid var(--color-border);
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.6rem;
           background: rgba(11, 26, 15, 0.3);
+        }
+        @media (min-width: 768px) {
+          .panel-footer { padding: 1.5rem; gap: 0.75rem; }
         }
         .panel-cta {
           display: inline-flex;
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          padding: 1rem 1.5rem;
+          padding: 0.85rem 1.25rem;
           background: var(--color-emerald);
           color: var(--color-bg);
           border-radius: 100px;
           font-weight: 600;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           letter-spacing: 0.04em;
           text-decoration: none;
           transition: all 200ms var(--ease-out);
           box-shadow: 0 4px 16px -2px rgba(78,203,113,0.4);
         }
-        .panel-cta:hover {
-          box-shadow: 0 4px 24px -2px rgba(78,203,113,0.5);
-          transform: translateY(-1px);
+        @media (min-width: 768px) {
+          .panel-cta { padding: 1rem 1.5rem; font-size: 0.85rem; }
+        }
+        @media (hover: hover) {
+          .panel-cta:hover {
+            box-shadow: 0 4px 24px -2px rgba(78,203,113,0.5);
+            transform: translateY(-1px);
+          }
         }
         .panel-cta:active { transform: scale(0.98); }
         .panel-locale {
@@ -385,10 +454,10 @@ export function Header({ locale }: { locale: string }) {
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          padding: 0.7rem 1.25rem;
+          padding: 0.6rem 1rem;
           border: 1px solid var(--color-border);
           border-radius: 100px;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           color: var(--color-text-secondary);
@@ -396,10 +465,15 @@ export function Header({ locale }: { locale: string }) {
           cursor: pointer;
           transition: all 200ms var(--ease-out);
         }
-        .panel-locale:hover {
-          border-color: var(--color-border-hover);
-          color: var(--color-emerald);
-          background: var(--color-emerald-dim);
+        @media (min-width: 768px) {
+          .panel-locale { padding: 0.7rem 1.25rem; font-size: 0.75rem; }
+        }
+        @media (hover: hover) {
+          .panel-locale:hover {
+            border-color: var(--color-border-hover);
+            color: var(--color-emerald);
+            background: var(--color-emerald-dim);
+          }
         }
         .panel-locale svg {
           width: 14px;
@@ -420,6 +494,15 @@ export function Header({ locale }: { locale: string }) {
         .mobile-panel.open .panel-link:nth-child(5) { animation-delay: 240ms; }
         .mobile-panel.open .panel-link:nth-child(6) { animation-delay: 280ms; }
 
+        .mobile-panel.open .panel-header,
+        .mobile-panel.open .panel-footer {
+          animation: slideInLink 300ms cubic-bezier(0.22, 1, 0.32, 1) forwards;
+          opacity: 0;
+          transform: translateX(15px);
+        }
+        .mobile-panel.open .panel-header { animation-delay: 40ms; }
+        .mobile-panel.open .panel-footer { animation-delay: 320ms; }
+
         @keyframes slideInLink {
           from { opacity: 0; transform: translateX(20px); }
           to { opacity: 1; transform: translateX(0); }
@@ -429,7 +512,7 @@ export function Header({ locale }: { locale: string }) {
       <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
-            Jungle <span className="logo-accent">Wildlife</span> Tours
+            Jungle <span className="logo-accent logo-accent-desktop">Wildlife</span><span className="logo-accent logo-accent-mobile">W.</span> Tours
           </Link>
 
           <div className="nav-links">
