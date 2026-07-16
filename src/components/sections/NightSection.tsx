@@ -16,39 +16,46 @@ export function NightSection({ locale }: NightSectionProps) {
   const tTours = useTranslations("tours");
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(160deg,#0A1A0E_0%,#060A06_40%,#0D0F08_100%)]" aria-labelledby="night-heading">
-      <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_50%_70%_at_70%_50%,black_0%,transparent_70%)]">
+    <section className="relative overflow-hidden" aria-labelledby="night-heading" style={{ background: "linear-gradient(160deg, #0A1A0E 0%, #060A06 40%, #0D0F08 100%)" }}>
+      {/* Grid overlay with mask */}
+      <div className="absolute inset-0 night-grid-mask">
         <div className="absolute inset-0 [background-image:linear-gradient(rgba(184,217,53,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(184,217,53,0.025)_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
-      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(184,217,53,0.06)_0%,transparent_70%)] pointer-events-none" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-28 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Ambient glow */}
+      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(184,217,53,0.08)_0%,transparent_70%)] pointer-events-none" aria-hidden="true" />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Content Column */}
           <div>
             <Reveal>
               <p className="font-mono text-xs font-medium tracking-[0.2em] text-lime uppercase">
                 {tTours("categories.night_walk")}
               </p>
             </Reveal>
+
             <Reveal delay={100}>
-              <h2 id="night-heading" className="mt-1 font-heading font-bold tracking-tight text-white" style={{ fontSize: "clamp(2.2rem, 4vw, 3.2rem)" }}>
+              <h2 id="night-heading" className="mt-2 font-heading font-bold tracking-tight text-white animate-fade-up" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
                 {locale === "es"
                   ? "La selva también se vive de noche"
                   : "The jungle comes alive at night"}
               </h2>
             </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-4 text-base font-light text-text-secondary leading-[1.85]">
+
+            <Reveal delay={180}>
+              <p className="mt-5 text-base font-light text-text-secondary leading-[1.85] max-w-lg animate-fade-up">
                 {locale === "es"
                   ? "La caminata nocturna te muestra una faceta de Manuel Antonio que pocos ven: anfibios, insectos, mamíferos y la actividad que solo ocurre bajo la oscuridad del dosel."
                   : "The night walk reveals a side of Manuel Antonio few see: amphibians, insects, mammals, and the activity that only happens under the canopy of darkness."}
               </p>
             </Reveal>
-            <Reveal delay={300}>
+
+            <Reveal delay={260}>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/tours/caminata-nocturna"
-                  className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-3.5 text-sm font-semibold text-bg shadow-sm transition hover:opacity-90 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+                  className="btn-magnetic btn-magnetic-lime"
                 >
                   {locale === "es" ? "Más información" : "Learn more"}
                 </Link>
@@ -56,7 +63,7 @@ export function NightSection({ locale }: NightSectionProps) {
                   href="https://wa.me/50688888888"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-border px-8 py-3.5 text-sm font-semibold text-text transition hover:border-border-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="btn-magnetic btn-magnetic-ghost"
                 >
                   {tTours("book")}
                 </a>
@@ -64,19 +71,34 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
           </div>
 
+          {/* Visual Column - Floating Circle */}
           <Reveal delay={200}>
             <div className="flex justify-center lg:justify-end">
-              <div className="relative h-[320px] w-[320px] max-w-full">
-                <div className="absolute inset-0 rounded-full p-3 bg-lime/10 border border-lime/10 shadow-[0_0_80px_rgba(184,217,53,0.05),inset_0_1px_0_rgba(255,255,255,0.03)] animate-float">
-                  <div className="relative h-full w-full rounded-full overflow-hidden shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+              <div className="relative w-[340px] h-[340px] max-w-full">
+                {/* Outer ring - double bezel */}
+                <div className="absolute inset-0 rounded-full p-3 night-circle-outer animate-float-slow" aria-hidden="true">
+                  {/* Middle ring */}
+                  <div className="absolute inset-1 rounded-full night-circle-middle" />
+                  {/* Inner content */}
+                  <div className="relative h-full w-full rounded-full overflow-hidden night-circle-inner">
                     <Image
                       src={`${SUPABASE_STORAGE_URL}/wildlife-sloth-01.jpg`}
                       alt={locale === "es" ? "Fauna nocturna en la selva de Manuel Antonio" : "Nocturnal wildlife in Manuel Antonio jungle"}
                       fill
-                      sizes="320px"
-                      className="object-cover transition duration-600 ease-out group-hover:scale-108"
+                      sizes="340px"
+                      className="object-cover image-zoom"
                     />
+                    {/* Inner vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
                   </div>
+                </div>
+
+                {/* Floating particles */}
+                <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                  <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 rounded-full bg-lime/30 animate-pulse-slow" style={{ animationDelay: "0s" }} />
+                  <div className="absolute top-1/3 right-1/5 w-1 h-1 rounded-full bg-emerald/40 animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
+                  <div className="absolute bottom-1/3 left-1/5 w-1 h-1 rounded-full bg-lime/30 animate-pulse-slow" style={{ animationDelay: "1s" }} />
+                  <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-emerald/30 animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
                 </div>
               </div>
             </div>
