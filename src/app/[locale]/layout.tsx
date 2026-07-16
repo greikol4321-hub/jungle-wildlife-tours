@@ -3,38 +3,9 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
-
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-  weight: ["400", "700"],
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -82,16 +53,11 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-      <html lang={locale} className={`h-full antialiased ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}>
-      <body className="min-h-full flex flex-col bg-bg text-text">
-        <div className="grain-overlay" aria-hidden="true" />
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header locale={locale} />
-          {children}
-          <Footer />
-          <WhatsappFloatButton locale={locale} />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <Header locale={locale} />
+      {children}
+      <Footer />
+      <WhatsappFloatButton locale={locale} />
+    </NextIntlClientProvider>
   );
 }
