@@ -102,7 +102,7 @@ export function Header({ locale }: { locale: string }) {
         }
         .logo {
           font-family: var(--font-heading);
-          font-size: 1.1rem;
+          font-size: 1rem;
           font-weight: 700;
           letter-spacing: -0.02em;
           white-space: nowrap;
@@ -121,12 +121,12 @@ export function Header({ locale }: { locale: string }) {
           .nav-links { display: flex; }
         }
         .nav-links a {
-          font-size: 0.7rem;
+          font-size: 0.75rem;
           font-weight: 500;
           text-decoration: none;
           color: var(--color-text-secondary);
           transition: color 200ms var(--ease-out);
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
         }
         .nav-links a:hover { color: var(--color-text); }
@@ -134,10 +134,10 @@ export function Header({ locale }: { locale: string }) {
         .locale-btn {
           display: inline-flex;
           align-items: center;
-          padding: 0.35rem 0.75rem;
+          padding: 0.4rem 0.85rem;
           border: 1px solid var(--color-border);
           border-radius: 100px;
-          font-size: 0.65rem;
+          font-size: 0.7rem;
           font-weight: 600;
           letter-spacing: 0.1em;
           color: var(--color-text-secondary);
@@ -156,10 +156,10 @@ export function Header({ locale }: { locale: string }) {
           gap: 0.4rem;
           background: var(--color-emerald) !important;
           color: var(--color-bg) !important;
-          padding: 0.5rem 1.2rem !important;
+          padding: 0.5rem 1.3rem !important;
           border-radius: 100px !important;
           font-weight: 600 !important;
-          font-size: 0.65rem !important;
+          font-size: 0.7rem !important;
           letter-spacing: 0.06em !important;
           text-transform: uppercase !important;
           transition: all 200ms var(--ease-out) !important;
@@ -306,7 +306,7 @@ export function Header({ locale }: { locale: string }) {
           margin: 0 -1rem;
           border-radius: 12px;
           font-family: var(--font-heading);
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           font-weight: 500;
           text-decoration: none;
           color: var(--color-text-secondary);

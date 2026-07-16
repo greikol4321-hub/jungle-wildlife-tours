@@ -55,11 +55,11 @@ export default async function HomePage({
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
 
-      {/* ── Night Section ──────────────────────────────────── */}
-      <NightSection locale={locale} />
-
       {/* ── Cinematic Parallax Divider ────────────────────── */}
       <ParallaxDivider locale={locale} />
+
+      {/* ── Night Section ──────────────────────────────────── */}
+      <NightSection locale={locale} />
     </main>
   );
 }
