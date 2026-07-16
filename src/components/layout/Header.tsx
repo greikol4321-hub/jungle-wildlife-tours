@@ -234,20 +234,20 @@ export function Header({ locale }: { locale: string }) {
         /* Nav links */
         .panel-nav {
           flex: 1;
-          padding: 0.5rem 0.85rem;
+          padding: 0.5rem 0.75rem;
           display: flex;
           flex-direction: column;
-          gap: 0.15rem;
+          gap: 0.35rem;
         }
         @media (min-width: 768px) {
-          .panel-nav { padding: 0.75rem 1.25rem; gap: 0.25rem; }
+          .panel-nav { padding: 0.75rem 1.25rem; gap: 0.5rem; }
         }
         .panel-link {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 0.85rem;
-          border-radius: 14px;
+          gap: 0.85rem;
+          padding: 0.9rem 1rem;
+          border-radius: 16px;
           font-family: var(--font-heading);
           font-size: 1.05rem;
           font-weight: 500;
@@ -259,32 +259,32 @@ export function Header({ locale }: { locale: string }) {
           position: relative;
         }
         @media (min-width: 768px) {
-          .panel-link { padding: 1rem; font-size: 1.15rem; border-radius: 16px; }
+          .panel-link { padding: 1.1rem 1.25rem; font-size: 1.15rem; border-radius: 18px; }
         }
         @media (hover: hover) {
           .panel-link:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
             color: var(--color-text);
           }
         }
         .panel-link.active {
-          background: linear-gradient(135deg, rgba(78, 203, 113, 0.12), rgba(78, 203, 113, 0.04));
-          border-color: rgba(78, 203, 113, 0.15);
+          background: linear-gradient(135deg, rgba(78, 203, 113, 0.14), rgba(78, 203, 113, 0.05));
+          border-color: rgba(78, 203, 113, 0.2);
           color: var(--color-emerald);
-          box-shadow: 0 4px 20px -8px rgba(78, 203, 113, 0.15);
+          box-shadow: 0 4px 24px -10px rgba(78, 203, 113, 0.2);
         }
         .panel-link-icon {
-          width: 20px;
-          height: 20px;
-          opacity: 0.4;
+          width: 22px;
+          height: 22px;
+          opacity: 0.35;
           flex-shrink: 0;
-          transition: opacity 250ms ease;
+          transition: all 250ms ease;
         }
         @media (min-width: 768px) {
-          .panel-link-icon { width: 22px; height: 22px; }
+          .panel-link-icon { width: 24px; height: 24px; }
         }
-        .panel-link:hover .panel-link-icon { opacity: 0.7; }
+        .panel-link:hover .panel-link-icon { opacity: 0.65; }
         .panel-link.active .panel-link-icon { opacity: 1; color: var(--color-emerald); }
 
         /* Divider */
