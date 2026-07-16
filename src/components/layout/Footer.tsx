@@ -6,12 +6,6 @@ export async function Footer() {
 
   return (
     <footer className="relative">
-      {/* Top gradient fade */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none -mt-24 h-24 bg-gradient-to-b from-bg to-surface"
-      />
-
       <div className="bg-surface border-t border-border">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
