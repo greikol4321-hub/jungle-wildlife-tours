@@ -18,6 +18,7 @@ export function Header({ locale }: { locale: string }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -55,6 +56,9 @@ export function Header({ locale }: { locale: string }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Mount after hydration — prevents SSR flash of mobile panel
+  useEffect(() => { setMounted(true); }, []);
+
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (open) {
@@ -76,8 +80,10 @@ export function Header({ locale }: { locale: string }) {
           z-index: 50;
           width: calc(100% - 1.5rem);
           max-width: 960px;
+          opacity: 0;
           transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), opacity 400ms cubic-bezier(0.22, 1, 0.32, 1);
         }
+        .nav-wrapper.mounted { opacity: 1; }
         @media (min-width: 768px) {
           .nav-wrapper { top: 1rem; width: calc(100% - 2rem); }
         }
@@ -512,7 +518,7 @@ export function Header({ locale }: { locale: string }) {
         }
       `}</style>
 
-      <div className={cn("nav-wrapper", navHidden && "hidden")}>
+      <div className={cn("nav-wrapper", mounted && "mounted", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
             Jungle <span className="logo-accent logo-accent-desktop">Wildlife</span><span className="logo-accent logo-accent-mobile">W.</span> Tours
@@ -564,19 +570,22 @@ export function Header({ locale }: { locale: string }) {
         </nav>
       </div>
 
-      {/* Mobile panel */}
-      <div
-        className={cn("mobile-overlay", open && "open")}
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
-      <div
-        id="mobile-panel"
-        className={cn("mobile-panel", open && "open")}
-        role="dialog"
-        aria-modal="true"
-        aria-label={t("menu")}
-      >
+      {/* Mobile panel — mount después de hydratación para evitar flash */}
+      {mounted && (
+        <div
+          className={cn("mobile-overlay", open && "open")}
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      {mounted && (
+        <div
+          id="mobile-panel"
+          className={cn("mobile-panel", open && "open")}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("menu")}
+        >
         <div className="panel-header">
           <Link href="/" className="panel-logo" onClick={() => setOpen(false)}>
             Jungle <span className="panel-logo-accent">Wildlife</span> Tours
@@ -650,6 +659,7 @@ export function Header({ locale }: { locale: string }) {
           </button>
         </div>
       </div>
+      )}
     </>
   );
 }
