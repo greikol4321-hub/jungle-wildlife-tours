@@ -53,7 +53,7 @@ export function HeroSection(_props: HeroSectionProps) {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] flex items-end overflow-hidden"
+      className="relative min-h-screen flex items-end overflow-hidden"
       aria-labelledby="hero-title"
       onMouseMove={handleMouseMove}
     >
