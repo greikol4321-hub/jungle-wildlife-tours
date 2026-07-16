@@ -120,31 +120,30 @@ export function Header({ locale }: { locale: string }) {
         /* Hamburger */
         .hamburger span {
           display: block;
-          width: 100%;
-          height: 1.5px;
+          width: 20px;
+          height: 2px;
           background: var(--color-text);
-          border-radius: 2px;
-          transition: transform 350ms cubic-bezier(0.22, 1, 0.32, 1), opacity 250ms var(--ease-out), width 350ms cubic-bezier(0.22, 1, 0.32, 1);
+          border-radius: 3px;
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), opacity 300ms var(--ease-out);
           transform-origin: center;
           position: absolute;
-          left: 0;
+          left: 50%;
+          margin-left: -10px;
         }
-        .hamburger span:nth-child(1) { top: 4px; width: 100%; }
-        .hamburger span:nth-child(2) { top: 10px; width: 100%; }
-        .hamburger span:nth-child(3) { top: 16px; width: 100%; }
+        .hamburger span:nth-child(1) { top: 15px; }
+        .hamburger span:nth-child(2) { top: 21px; }
+        .hamburger span:nth-child(3) { top: 27px; }
         .hamburger.open span:nth-child(1) {
-          top: 10px;
+          top: 21px;
           transform: rotate(45deg);
-          width: 100%;
         }
         .hamburger.open span:nth-child(2) {
           opacity: 0;
-          width: 0;
+          transform: scale(0);
         }
         .hamburger.open span:nth-child(3) {
-          top: 10px;
+          top: 21px;
           transform: rotate(-45deg);
-          width: 100%;
         }
 
         /* Mobile menu - slide from right */

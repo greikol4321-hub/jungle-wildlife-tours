@@ -375,20 +375,36 @@
 
 .hamburger {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 5px;
-  width: 22px;
-  height: 22px;
-  background: transparent;
-  border: none;
+  width: 44px;
+  height: 44px;
+  background: rgba(11, 26, 15, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
   cursor: pointer;
   padding: 0;
   z-index: 70;
   position: relative;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 300ms var(--ease-out);
 }
 @media (min-width: 768px) {
-  .hamburger { width: 24px; height: 24px; display: none; }
+  .hamburger { display: none; }
+}
+@media (hover: hover) {
+  .hamburger:hover {
+    border-color: var(--color-border-strong);
+    background: rgba(11, 26, 15, 0.8);
+  }
+}
+.hamburger:active {
+  transform: scale(0.92);
+}
+.hamburger.open {
+  border-color: rgba(78, 203, 113, 0.35);
+  background: rgba(11, 26, 15, 0.8);
 }
 
 /* ── TRUST BADGES ───────────────────────────────────── */
