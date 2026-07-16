@@ -10,7 +10,10 @@
     "gallery": "Galería",
     "reviews": "Reseñas",
     "contact": "Contacto",
-    "bookByWhatsApp": "Reservar por WhatsApp"
+    "bookByWhatsApp": "Reservar por WhatsApp",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "menu": "Menú"
   },
   "hero": {
     "eyebrow": "Explorá la vida silvestre de",

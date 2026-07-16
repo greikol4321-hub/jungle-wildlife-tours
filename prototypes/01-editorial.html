@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opción 1 — Editorial Nature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone: #F4F1EB;
+    --forest: #1A2E1A;
+    --moss: #4A6741;
+    --sage: #8BA888;
+    --amber: #C8913A;
+    --bark: #3D2B1F;
+    --cream: #FAF8F4;
+    --dawn: #E8C87A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bone);
+    color: var(--forest);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ─────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(244,241,235,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,46,26,0.08);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--forest);
+  }
+  .logo span { color: var(--moss); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400;
+    text-decoration: none; color: var(--forest);
+    opacity: 0.7; transition: opacity 0.2s;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--amber) !important; color: var(--cream) !important;
+    padding: 0.6rem 1.4rem !important; border-radius: 100px !important;
+    font-weight: 600 !important; opacity: 1 !important;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem !important;
+    letter-spacing: 0.06em !important;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--bark) !important; }
+
+  /* ── HERO ────────────────────────────── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images/jungle-canopy-01.jpg') center/cover no-repeat;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--forest) 0%, rgba(26,46,26,0.5) 40%, rgba(26,46,26,0.15) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 10;
+    max-width: 800px; padding: 4rem 3rem 5rem;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dawn);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--cream);
+    letter-spacing: -0.03em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dawn);
+  }
+  .hero-desc {
+    margin-top: 1.5rem; max-width: 480px;
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(250,248,244,0.75);
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--moss); color: var(--cream);
+    border: none; border-radius: 100px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--sage); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(250,248,244,0.3); border-radius: 100px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--cream); }
+
+  /* ── SECTION DIVIDER ─────────────────── */
+  .divider {
+    display: flex; align-items: center; gap: 1.5rem;
+    max-width: 1100px; margin: 0 auto; padding: 3rem 3rem 0;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(26,46,26,0.12);
+  }
+  .divider-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    border: 1.5px solid var(--moss);
+  }
+
+  /* ── TOURS ───────────────────────────── */
+  .tours { max-width: 1100px; margin: 0 auto; padding: 3rem 3rem 5rem; }
+  .tours-header { text-align: center; margin-bottom: 3.5rem; }
+  .tours-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .tours-header p {
+    margin-top: 0.75rem; color: var(--moss);
+    font-size: 1.05rem; font-weight: 300;
+  }
+  .tour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .tour-card {
+    background: var(--cream);
+    border: 1px solid rgba(26,46,26,0.06);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    text-decoration: none; color: inherit;
+  }
+  .tour-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(26,46,26,0.08);
+  }
+  .tour-img {
+    width: 140px; height: 140px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--sage);
+  }
+  .tour-img img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .tour-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--amber);
+    text-align: center;
+  }
+  .tour-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700;
+    text-align: center; margin: 0.5rem 0;
+  }
+  .tour-card .desc {
+    font-size: 0.9rem; color: rgba(26,46,26,0.6);
+    text-align: center; line-height: 1.6;
+  }
+  .tour-meta {
+    display: flex; justify-content: center; gap: 1.5rem;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--moss);
+  }
+
+  /* ── TRUST ───────────────────────────── */
+  .trust {
+    background: var(--forest);
+    padding: 3.5rem 3rem;
+  }
+  .trust-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+  .trust-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+  }
+  .trust-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(139,168,136,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trust-icon svg { width: 16px; height: 16px; color: var(--sage); }
+  .trust-text {
+    font-size: 0.85rem; font-weight: 400;
+    color: rgba(250,248,244,0.8);
+    line-height: 1.4;
+  }
+
+  /* ── NIGHT SECTION ───────────────────── */
+  .night {
+    position: relative;
+    background: #0A1A0E;
+    overflow: hidden;
+  }
+  .night-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 5rem 3rem;
+    position: relative; z-index: 10;
+  }
+  .night-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--dawn);
+  }
+  .night-tag::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--dawn);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .night h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; color: var(--cream);
+    margin-top: 1rem; max-width: 500px;
+    line-height: 1.15;
+  }
+  .night p {
+    margin-top: 1rem; max-width: 440px;
+    font-size: 1rem; font-weight: 300;
+    color: rgba(250,248,244,0.6);
+    line-height: 1.7;
+  }
+  .night-btns { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+  .btn-dawn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--dawn); color: var(--forest);
+    border: none; border-radius: 100px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-dawn:hover { background: var(--amber); }
+  .night-glow {
+    position: absolute; right: -100px; top: 50%;
+    width: 400px; height: 400px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,145,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── FOOTER ──────────────────────────── */
+  footer {
+    border-top: 1px solid rgba(26,46,26,0.08);
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+    font-size: 0.8rem; color: rgba(26,46,26,0.5);
+  }
+  footer strong { color: var(--forest); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 3rem 1.5rem 3rem; }
+    .tours { padding: 2rem 1.5rem 4rem; }
+    .tour-grid { grid-template-columns: 1fr; }
+    .trust-inner { grid-template-columns: 1fr 1fr; }
+    .night-inner { padding: 3rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Jungle <span>Wildlife</span> Tours</div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Tours</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Galería</a>
+    <a href="#">Reseñas</a>
+    <a href="#">Contacto</a>
+    <a href="#" class="nav-cta">RESERVAR</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Manuel Antonio · Quepos, Costa Rica</p>
+    <h1>La vida silvestre <em>más cerca</em> que nunca</h1>
+    <p class="hero-desc">Tours guiados de naturaleza en el Parque Nacional Manuel Antonio. Fauna real, guías certificados, experiencia auténtica.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        Ver tours
+      </a>
+      <a href="#" class="btn-ghost">Reservar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-dot"></span></div>
+
+<section class="tours">
+  <div class="tours-header">
+    <h2>Nuestros tours</h2>
+    <p>Elegí la experiencia que mejor se adapte a tu día en la selva.</p>
+  </div>
+  <div class="tour-grid">
+    <a href="#" class="tour-card">
+      <div class="tour-img">
+        <img src="https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images/wildlife-iguana-01.jpg" alt="Iguana">
+      </div>
+      <p class="tour-category">Safari terrestre</p>
+      <h3>Safari · Parque Nacional Manuel Antonio</h3>
+      <p class="desc">Recorrido guiado por los senderos del parque para observar fauna del Pacífico central.</p>
+      <div class="tour-meta">
+        <span>⏱ 3h 0min</span>
+        <span>● Activo</span>
+      </div>
+    </a>
+    <a href="#" class="tour-card">
+      <div class="tour-img">
+        <img src="https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images/jungle-canopy-01.jpg" alt="Manglar">
+      </div>
+      <p class="tour-category">Kayak en manglar</p>
+      <h3>Kayak · Isla Damas</h3>
+      <p class="desc">Navegación en kayak por los canales de manglar de Isla Damas, cerca de Quepos.</p>
+      <div class="tour-meta">
+        <span>⏱ 2h 30min</span>
+        <span>● Activo</span>
+      </div>
+    </a>
+    <a href="#" class="tour-card">
+      <div class="tour-img">
+        <img src="https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images/wildlife-sloth-01.jpg" alt="Nocturna">
+      </div>
+      <p class="tour-category">Caminata nocturna</p>
+      <h3>Night Walk · Jungle</h3>
+      <p class="desc">Caminata guiada de noche para observar anfibios, insectos y fauna activa en la oscuridad.</p>
+      <div class="tour-meta">
+        <span>⏱ 2h 0min</span>
+        <span>● Activo</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+      <p class="trust-text">Guía certificado ICT</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+      <p class="trust-text">Inscrito ante Hacienda y CCSS</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></div>
+      <p class="trust-text">Guía naturalista local</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+      <p class="trust-text">Manuel Antonio, Costa Rica</p>
+    </div>
+  </div>
+</section>
+
+<section class="night">
+  <div class="night-glow"></div>
+  <div class="night-inner">
+    <p class="night-tag">Caminata nocturna</p>
+    <h2>La selva también se vive de noche</h2>
+    <p>La caminata nocturna te muestra una faceta de Manuel Antonio que pocos ven: anfibios, insectos, mamíferos y la actividad que solo ocurre bajo la oscuridad del dosel.</p>
+    <div class="night-btns">
+      <a href="#" class="btn-dawn">Más información</a>
+      <a href="#" class="btn-ghost" style="border-color: rgba(250,248,244,0.2);">Reservar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Jungle Wildlife Tours</strong>
+  <span>Manuel Antonio · Quepos</span>
+  <span>Sitio oficial para la zona de Manuel Antonio, Costa Rica.</span>
+</footer>
+
+</body>
+</html>

@@ -10,7 +10,10 @@
     "gallery": "Gallery",
     "reviews": "Reviews",
     "contact": "Contact",
-    "bookByWhatsApp": "Book by WhatsApp"
+    "bookByWhatsApp": "Book by WhatsApp",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menu": "Menu"
   },
   "hero": {
     "eyebrow": "Explore the wild side of",

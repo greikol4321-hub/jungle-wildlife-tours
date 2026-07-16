@@ -3,28 +3,30 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Public_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
-const publicSans = Public_Sans({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  weight: ["300", "400", "500", "600"],
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500", "600"],
+const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
+  weight: ["400", "700"],
 });
 
 export function generateStaticParams() {
@@ -75,8 +77,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="h-full antialiased">
       <body
-        className={`min-h-full flex flex-col bg-bone-50 text-canopy-950 ${bricolageGrotesque.variable} ${publicSans.variable} ${ibmPlexMono.variable}`}
+        className={`min-h-full flex flex-col bg-bg text-text ${cormorantGaramond.variable} ${dmSans.variable} ${spaceMono.variable}`}
       >
+        <div className="grain-overlay" aria-hidden="true" />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
           {children}
