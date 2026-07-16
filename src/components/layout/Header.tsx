@@ -80,10 +80,8 @@ export function Header({ locale }: { locale: string }) {
           z-index: 50;
           width: calc(100% - 1.5rem);
           max-width: 960px;
-          opacity: 0;
           transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), opacity 400ms cubic-bezier(0.22, 1, 0.32, 1);
         }
-        .nav-wrapper.mounted { opacity: 1; }
         @media (min-width: 768px) {
           .nav-wrapper { top: 1rem; width: calc(100% - 2rem); }
         }
@@ -518,7 +516,7 @@ export function Header({ locale }: { locale: string }) {
         }
       `}</style>
 
-      <div className={cn("nav-wrapper", mounted && "mounted", navHidden && "hidden")}>
+      <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
             Jungle <span className="logo-accent logo-accent-desktop">Wildlife</span><span className="logo-accent logo-accent-mobile">W.</span> Tours
