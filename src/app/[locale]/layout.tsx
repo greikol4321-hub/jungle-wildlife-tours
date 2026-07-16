@@ -3,7 +3,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, Space_Mono, Syne } from "next/font/google";
+import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
@@ -15,11 +15,11 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const spaceMono = Space_Mono({
@@ -84,7 +84,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="h-full antialiased">
       <body
-        className={`min-h-full flex flex-col bg-bg text-text ${cormorantGaramond.variable} ${dmSans.variable} ${spaceMono.variable} ${syne.variable}`}
+        className={`min-h-full flex flex-col bg-bg text-text ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}
       >
         <div className="grain-overlay" aria-hidden="true" />
         <NextIntlClientProvider locale={locale} messages={messages}>

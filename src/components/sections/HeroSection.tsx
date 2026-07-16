@@ -114,20 +114,20 @@ export function HeroSection(_props: HeroSectionProps) {
             id="hero-title"
             className="mt-5 font-heading font-bold tracking-[-0.03em] text-balance"
             style={{
-              fontSize: "clamp(2.5rem, 7vw, 5rem)",
+              fontSize: "clamp(2.8rem, 8vw, 5.5rem)",
               lineHeight: 1,
               textShadow: "0 2px 40px rgba(78,203,113,0.06)",
             }}
           >
             <span className="text-text">{t("title")}</span>
-            <span className="block mt-1 text-emerald font-extrabold">
-              {t("subtitle")}
-            </span>
+              <span className="block mt-1 text-emerald font-extrabold tracking-[-0.04em]">
+                {t("subtitle")}
+              </span>
           </h1>
         </Reveal>
 
         <Reveal delay={300}>
-          <p className="mt-6 max-w-xl text-base sm:text-xl font-light text-text-secondary leading-[1.75]">
+          <p className="mt-6 max-w-xl text-base sm:text-lg md:text-xl font-light text-text-secondary leading-[1.75]">
             {t("description")}
           </p>
         </Reveal>

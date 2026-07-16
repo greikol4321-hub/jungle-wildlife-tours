@@ -63,7 +63,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
           <div className="max-w-2xl">
             <Reveal>
               <p className="font-heading font-bold text-text leading-[1.15] tracking-[-0.02em] text-balance"
-                style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
+                style={{ fontSize: "clamp(1.6rem, 4vw, 2.8rem)" }}
               >
                 &ldquo;{t("heading")}&rdquo;
               </p>

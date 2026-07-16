@@ -83,8 +83,9 @@ function TourCard({
                 <Camera className="h-16 w-16 text-emerald/15" strokeWidth={1} aria-hidden="true" />
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-bg/40 to-transparent" />
+            <div className="absolute inset-0 bg-bg/15" />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-bg/5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-bg/40 to-bg/5" />
           </div>
 
           <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
@@ -145,7 +146,8 @@ function TourCard({
               <Camera className="h-10 w-10 text-emerald/15" strokeWidth={1} aria-hidden="true" />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-bg/10 to-transparent" />
+          <div className="absolute inset-0 bg-bg/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-bg/10 to-bg/5" />
           {index === 1 && (
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/[0.02] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
           )}
@@ -208,7 +210,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
         <h2
           id="tours-heading"
           className="font-heading font-extrabold tracking-tight text-text text-balance"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}
+          style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)" }}
         >
           {tTours("title")}
         </h2>

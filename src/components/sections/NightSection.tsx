@@ -47,7 +47,7 @@ export function NightSection({ locale }: NightSectionProps) {
             <Reveal>
               <div className="flex items-center gap-2.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald" />
-                <p className="font-mono text-[11px] font-medium tracking-[0.22em] text-emerald uppercase">
+                <p className="font-display text-[11px] font-medium tracking-[0.22em] text-emerald uppercase">
                   {tTours("categories.night_walk")}
                 </p>
               </div>
@@ -58,7 +58,7 @@ export function NightSection({ locale }: NightSectionProps) {
                 id="night-heading"
                 className="mt-4 font-heading font-bold tracking-tight text-text text-balance"
                 style={{
-                  fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
+                  fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
                   lineHeight: 1.1,
                 }}
               >
@@ -67,7 +67,7 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
 
             <Reveal delay={180}>
-              <p className="mt-5 text-[15px] font-light text-text-secondary leading-[1.85] max-w-sm">
+              <p className="mt-5 text-[14px] md:text-[16px] font-light text-text-secondary leading-[1.85] max-w-sm">
                 {tNight("description")}
               </p>
             </Reveal>
@@ -77,7 +77,7 @@ export function NightSection({ locale }: NightSectionProps) {
                 {features.map((feat) => (
                   <li
                     key={feat}
-                    className="flex items-center gap-2.5 text-sm text-text/80"
+                    className="flex items-center gap-2.5 text-sm md:text-[15px] text-text/80"
                   >
                     <CheckCircle className="h-4 w-4 text-emerald/60 flex-shrink-0" />
                     {feat}
@@ -144,7 +144,7 @@ export function NightSection({ locale }: NightSectionProps) {
                       <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
                     </svg>
                   </div>
-                  <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-text-secondary/40">
+                  <p className="font-display text-[10px] tracking-[0.2em] uppercase text-text-secondary/40">
                     {tTours("categories.night_walk")}
                   </p>
                 </div>
