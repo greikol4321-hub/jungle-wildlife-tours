@@ -253,8 +253,8 @@ export function Header({ locale }: { locale: string }) {
           font-weight: 500;
           text-decoration: none;
           color: var(--color-text-secondary);
-          background: transparent;
-          border: 1px solid transparent;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.06);
           transition: all 250ms ease;
           position: relative;
         }
@@ -263,28 +263,28 @@ export function Header({ locale }: { locale: string }) {
         }
         @media (hover: hover) {
           .panel-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
             color: var(--color-text);
           }
         }
         .panel-link.active {
-          background: linear-gradient(135deg, rgba(78, 203, 113, 0.14), rgba(78, 203, 113, 0.05));
-          border-color: rgba(78, 203, 113, 0.2);
+          background: linear-gradient(135deg, rgba(78, 203, 113, 0.2), rgba(78, 203, 113, 0.08));
+          border-color: rgba(78, 203, 113, 0.35);
           color: var(--color-emerald);
-          box-shadow: 0 4px 24px -10px rgba(78, 203, 113, 0.2);
+          box-shadow: 0 4px 24px -10px rgba(78, 203, 113, 0.3);
         }
         .panel-link-icon {
           width: 22px;
           height: 22px;
-          opacity: 0.35;
+          opacity: 0.5;
           flex-shrink: 0;
           transition: all 250ms ease;
         }
         @media (min-width: 768px) {
           .panel-link-icon { width: 24px; height: 24px; }
         }
-        .panel-link:hover .panel-link-icon { opacity: 0.65; }
+        .panel-link:hover .panel-link-icon { opacity: 0.75; }
         .panel-link.active .panel-link-icon { opacity: 1; color: var(--color-emerald); }
 
         /* Divider */
