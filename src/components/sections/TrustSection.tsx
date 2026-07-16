@@ -29,29 +29,27 @@ export function TrustSection(_props: TrustSectionProps) {
           {items.map(({ key, icon: Icon, accent }, index) => (
             <Reveal key={key} delay={80 + index * 80}>
               <div
-                className={`flex items-center gap-4 py-5 md:py-7 px-6 md:px-8 transition-colors duration-300 group ${
+                className={`flex items-center gap-4 py-6 md:py-8 px-6 md:px-10 transition-colors duration-300 group ${
                   accent
-                    ? "md:flex-[1.3] bg-emerald/[0.03]"
-                    : "md:flex-1 hover:bg-white/[0.015]"
+                    ? "md:flex-[1.25] bg-emerald/[0.025]"
+                    : "md:flex-1 hover:bg-white/[0.012]"
                 }`}
               >
                 <div
-                  className={`flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 ${
+                  className={`flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ${
                     accent
-                      ? "bg-emerald/10 group-hover:bg-emerald/15"
-                      : "bg-white/[0.03] group-hover:bg-white/[0.06]"
+                      ? "bg-emerald/10 group-hover:bg-emerald/15 ring-1 ring-emerald/20"
+                      : "bg-white/[0.03] group-hover:bg-white/[0.06] ring-1 ring-border"
                   }`}
                 >
                   <Icon
-                    className={`h-5 w-5 ${accent ? "text-emerald" : "text-sand/60"}`}
+                    className={`h-5 w-5 ${accent ? "text-emerald" : "text-sand/70"}`}
                     strokeWidth={1.5}
                     aria-hidden="true"
                   />
                 </div>
                 <p
-                  className={`text-sm font-medium leading-snug ${
-                    accent ? "text-text" : "text-text-secondary"
-                  }`}
+                  className={`text-[13px] font-medium leading-snug ${accent ? "text-text" : "text-text-secondary"}`}
                 >
                   {tTrust(`badges.${key}`)}
                 </p>

@@ -44,3 +44,6 @@ supabase/.temp/
 next-env.d.ts
 
 .vercel
+
+# browser debug
+.playwright-mcp/

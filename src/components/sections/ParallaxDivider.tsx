@@ -19,9 +19,9 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   const SUPABASE_STORAGE_URL =
     "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
@@ -29,8 +29,8 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
   return (
     <section
       ref={ref}
-      className="relative h-[50vh] md:h-[60vh] overflow-hidden flex items-center justify-center"
-      aria-hidden="true"
+      className="relative h-[55vh] md:h-[65vh] overflow-hidden flex items-center"
+      aria-label={t("heading")}
     >
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y }}>
@@ -43,29 +43,48 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
         />
       </motion.div>
 
-      {/* Overlays — clean, minimal */}
-      <div className="absolute inset-0 bg-bg/55" />
-      <div className="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg" />
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-bg/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/30 to-bg/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-transparent to-bg/30" />
 
-      {/* Content */}
+      {/* Content — editorial pull-quote style */}
       <motion.div
-        className="relative z-10 text-center px-4 max-w-xl mx-auto"
+        className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
         style={{ opacity, y: textY }}
       >
-        <Reveal>
-          <h2
-            className="font-heading font-bold text-text leading-[1.1] tracking-[-0.02em] text-balance"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-          >
-            {t("heading")}
-          </h2>
-        </Reveal>
+        <div className="flex gap-6 md:gap-10">
+          {/* Vertical accent */}
+          <div className="hidden md:flex flex-col items-center gap-3" aria-hidden="true">
+            <div className="w-px h-12 bg-gradient-to-b from-emerald/40 to-transparent" />
+            <div className="w-1 h-1 rounded-full bg-emerald" />
+          </div>
 
-        <Reveal delay={120}>
-          <p className="mt-4 max-w-md mx-auto text-text-secondary text-sm leading-relaxed">
-            {t("description")}
-          </p>
-        </Reveal>
+          <div className="max-w-2xl">
+            <Reveal>
+              <p className="font-heading font-bold text-text leading-[1.15] tracking-[-0.02em] text-balance"
+                style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
+              >
+                &ldquo;{t("heading")}&rdquo;
+              </p>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <p className="mt-5 text-text-secondary text-[14px] md:text-[15px] leading-relaxed max-w-lg">
+                {t("description")}
+              </p>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="h-px w-8 bg-emerald/40" />
+                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-emerald/70">
+                  {locale === "es" ? "Manuel Antonio, Costa Rica" : "Manuel Antonio, Costa Rica"}
+                </span>
+              </div>
+            </Reveal>
+          </div>
+        </div>
       </motion.div>
 
       {/* Bottom line */}

@@ -36,10 +36,12 @@ function TourCard({
   tour,
   locale,
   variant,
+  index,
 }: {
   tour: Tour;
   locale: string;
   variant: "featured" | "side";
+  index?: number;
 }) {
   const tTours = useTranslations("tours");
 
@@ -64,8 +66,8 @@ function TourCard({
 
   if (variant === "featured") {
     return (
-      <Link href={`/tours/${tour.slug}`} className="group block md:col-span-2 md:row-span-2">
-        <article className="relative overflow-hidden rounded-2xl bg-surface border border-border transition-all duration-500 hover:border-border-hover h-full min-h-[420px] md:min-h-[500px]">
+        <Link href={`/tours/${tour.slug}`} className="group block md:col-span-2 md:row-span-2">
+        <article className="relative overflow-hidden rounded-2xl bg-surface border border-border transition-all duration-500 hover:border-emerald/40 hover:shadow-[0_0_48px_-12px_rgba(78,203,113,0.2)] h-full min-h-[420px] md:min-h-[500px]">
           <div className="absolute inset-0">
             {cover ? (
               <Image
@@ -144,6 +146,12 @@ function TourCard({
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-bg/10 to-transparent" />
+          {index === 1 && (
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/[0.02] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
+          )}
+          {index === 2 && (
+            <div className="absolute bottom-0 left-0 w-40 h-24 bg-sand/[0.015] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
+          )}
         </div>
 
         <div className="p-5">
@@ -221,7 +229,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
         {tours.slice(1, 3).map((tour, index) => (
           <Reveal key={tour.id} delay={240 + index * 80}>
-            <TourCard tour={tour} locale={locale} variant="side" />
+            <TourCard tour={tour} locale={locale} variant="side" index={index} />
           </Reveal>
         ))}
       </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
-import { ShieldCheck, MapPin, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { motion, useScroll, useSpring, useMotionValue, useTransform } from "motion/react";
 
 interface HeroSectionProps {
@@ -151,25 +151,7 @@ export function HeroSection(_props: HeroSectionProps) {
           </div>
         </Reveal>
 
-        {/* Trust strip — glass card */}
-        <Reveal delay={550}>
-          <div className="mt-14 inline-flex flex-wrap items-center gap-5 backdrop-blur-md bg-bg/40 border border-border/50 rounded-full px-5 py-2.5 transition-colors hover:bg-bg/50">
-            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-emerald">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse-glow" aria-hidden="true" />
-              {t("trustGuide")}
-            </div>
-            <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
-            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand">
-              <ShieldCheck className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
-              {t("trustRegistration")}
-            </div>
-            <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
-            <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand/70">
-              <MapPin className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
-              {t("trustLocation")}
-            </div>
-          </div>
-        </Reveal>
+
       </motion.div>
 
       {/* Scroll indicator with line */}
