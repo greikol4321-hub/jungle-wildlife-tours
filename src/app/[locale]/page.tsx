@@ -46,13 +46,13 @@ export default async function HomePage({
       {/* ── Hero (parallax + mouse-tracking) ──────────────── */}
       <HeroSection locale={locale} />
 
-      {/* ── Cinematic Parallax Divider ────────────────────── */}
-      <ParallaxDivider locale={locale} />
-
       {/* ── Tour Cards ─────────────────────────────────────── */}
       {featuredTours.length > 0 && (
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
+
+      {/* ── Cinematic Parallax Divider ────────────────────── */}
+      <ParallaxDivider locale={locale} />
 
       {/* ── Trust Badges ────────────────────────────────────── */}
       <TrustSection locale={locale} />

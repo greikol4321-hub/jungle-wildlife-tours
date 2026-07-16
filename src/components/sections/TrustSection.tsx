@@ -19,7 +19,7 @@ export function TrustSection(_props: TrustSectionProps) {
   ] as const;
 
   return (
-    <section className="border-y border-border bg-surface/50" aria-labelledby="trust-heading">
+    <section className="border-t border-border bg-surface/50" aria-labelledby="trust-heading">
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Reveal>
