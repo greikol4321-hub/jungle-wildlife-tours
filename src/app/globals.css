@@ -254,12 +254,17 @@
   0%, 100% { box-shadow: 0 0 0 0 var(--color-emerald-glow); }
   50% { box-shadow: 0 0 20px 4px var(--color-emerald-glow); }
 }
+@keyframes night-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
 .animate-pulse-slow { animation: pulse-glow 4s ease-in-out infinite; }
 .animate-fade-up { animation: fade-up 600ms var(--ease-out) forwards; opacity: 0; }
+.animate-night-ring-spin { animation: night-ring-spin 30s linear infinite; }
 
 /* ── NAVBAR ─────────────────────────────────────────── */
 .nav-pill {

@@ -27,7 +27,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
   return (
     <section
       ref={ref}
-      className="relative h-[55vh] md:h-[65vh] overflow-hidden flex items-center justify-center"
+      className="relative h-[60vh] md:h-[70vh] overflow-hidden flex items-center justify-center"
       aria-hidden="true"
     >
       {/* Parallax Background */}
@@ -42,34 +42,60 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
       </motion.div>
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-bg/55" />
+      <div className="absolute inset-0 bg-bg/50" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg" />
-      <div className="absolute inset-0 bg-gradient-to-r from-bg/40 via-transparent to-bg/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/50 via-transparent to-bg/50" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(78,203,113,0.06)_0%,transparent_60%)]" />
+
+      {/* Animated diamond */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80px] z-20"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      >
+        <div className="w-1.5 h-1.5 rotate-45 bg-emerald/40" />
+      </motion.div>
 
       {/* Content */}
-      <motion.div className="relative z-10 text-center px-4" style={{ opacity, y: textY }}>
+      <motion.div className="relative z-10 text-center px-4 max-w-2xl mx-auto" style={{ opacity, y: textY }}>
+        {/* Eyebrow with decorative lines */}
         <Reveal>
-          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-emerald mb-3">
-            {locale === "es" ? "Experiencia salvaje" : "Wild experience"}
-          </p>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="h-px w-10 bg-emerald/30" />
+            <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-emerald">
+              {locale === "es" ? "Experiencia salvaje" : "Wild experience"}
+            </p>
+            <span className="h-px w-10 bg-emerald/30" />
+          </div>
         </Reveal>
+
+        {/* Title */}
         <Reveal delay={150}>
           <h2
-            className="font-heading font-bold text-text leading-[1.05] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.5rem)" }}
+            className="font-heading font-bold text-text leading-[1.05] tracking-[-0.02em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
             {locale === "es"
               ? "Donde la naturaleza dicta el ritmo"
               : "Where nature sets the pace"}
           </h2>
         </Reveal>
+
+        {/* Description */}
         <Reveal delay={300}>
-          <p className="mt-3 max-w-sm mx-auto text-text-secondary/60 text-sm">
+          <p className="mt-4 max-w-md mx-auto text-text-secondary text-[15px] leading-relaxed">
             {locale === "es"
               ? "Cada tour es una inmersión en un ecosistema vivo."
               : "Each tour is an immersion into a living ecosystem."}
           </p>
         </Reveal>
+
+        {/* Flanking emerald lines */}
+        <div className="flex items-center justify-center gap-6 mt-6">
+          <span className="h-px w-16 bg-gradient-to-r from-transparent to-emerald/25" />
+          <span className="w-1 h-1 rounded-full bg-emerald/30" />
+          <span className="h-px w-16 bg-gradient-to-l from-transparent to-emerald/25" />
+        </div>
       </motion.div>
 
       {/* Bottom line */}
