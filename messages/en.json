@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "homeTitle": "Jungle Wildlife Tours · Manuel Antonio, Costa Rica",
+    "homeDescription": "Nature and wildlife tours in Manuel Antonio and Quepos. Ground safari, mangrove kayak on Damas Island, and night walk with an ICT-certified guide."
+  },
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "about": "About",
+    "gallery": "Gallery",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "bookByWhatsApp": "Book by WhatsApp"
+  },
+  "hero": {
+    "eyebrow": "Manuel Antonio · Quepos",
+    "title": "Real wildlife, canopy-level view",
+    "description": "We are ICT-certified guides in the Manuel Antonio and Quepos area. Choose between a ground safari, a mangrove kayak, or a night walk to see the wildlife others only imagine.",
+    "primaryCta": "View tours",
+    "secondaryCta": "Book by WhatsApp"
+  },
+  "trust": {
+    "title": "Book with confidence",
+    "badges": {
+      "certifiedGuide": "ICT-certified guide",
+      "legalRegistration": "Registered with Hacienda and CCSS",
+      "realExperience": "Real experience in Manuel Antonio"
+    }
+  },
+  "tours": {
+    "title": "Our tours",
+    "subtitle": "Choose the experience that best fits your day in the jungle.",
+    "viewDetails": "View details",
+    "book": "Book by WhatsApp",
+    "duration": "Duration",
+    "difficulty": "Difficulty",
+    "minutes": "{value} min",
+    "categories": {
+      "day_park": "Ground safari",
+      "mangrove": "Mangrove kayak",
+      "night_walk": "Night walk"
+    },
+    "emptyState": "No tours published yet."
+  },
+  "tourDetail": {
+    "included": "What is included",
+    "notIncluded": "What is not included",
+    "backToTours": "Back to tours",
+    "bookThisTour": "Book this tour by WhatsApp",
+    "gallery": "Tour gallery",
+    "noImages": "Photos for this tour will be added soon."
+  },
+  "mangrovePlaceholder": {
+    "title": "Mangrove kayak · Damas Island",
+    "note": "There are no real photos for this tour yet. We will replace them with mangrove images once they are available.",
+    "illustrationAlt": "Kayak on mangrove illustration"
+  },
+  "about": {
+    "title": "About us",
+    "intro": "We are a local nature tour company in Manuel Antonio and Quepos, focused on real wildlife experiences in Costa Rica's central Pacific region.",
+    "story": "We were born here and operate here. We are not a travel agency or an intermediary: the guide who meets you is the same person who knows the trails, channels, and local wildlife habits.",
+    "certificationsTitle": "What supports our work",
+    "certifications": {
+      "ict": "Guide certification issued by the ICT",
+      "hacienda": "Active registration with Hacienda",
+      "ccss": "Registration with the CCSS"
+    },
+    "cta": "Contact us on WhatsApp"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Real photos from the Manuel Antonio and Quepos area.",
+    "tabs": {
+      "day": "Day",
+      "wildlife": "Wildlife",
+      "night": "Night",
+      "mangrove": "Mangrove"
+    },
+    "mangroveComingSoon": "Mangrove gallery coming soon.",
+    "mangroveNote": "There are no real photos of the mangrove kayak yet."
+  },
+  "reviews": {
+    "title": "Reviews",
+    "subtitle": "What our visitors say.",
+    "empty": "No reviews published yet.",
+    "by": "from {country}"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have questions or want to book directly? Write to us.",
+    "whatsapp": "WhatsApp",
+    "emailLabel": "Email",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "message": "Message",
+      "tourInterest": "Which tour are you interested in?",
+      "none": "None in particular",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent successfully.",
+      "error": "There was an error sending the message. Please try again."
+    },
+    "directInfo": "You can also contact us directly on WhatsApp or by email."
+  },
+  "footer": {
+    "company": "Jungle Wildlife Tours",
+    "region": "Manuel Antonio · Quepos",
+    "legal": "Official website for the Manuel Antonio area, Costa Rica."
+  }
+}

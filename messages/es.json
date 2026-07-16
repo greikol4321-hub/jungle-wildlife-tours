@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "homeTitle": "Jungle Wildlife Tours · Manuel Antonio, Costa Rica",
+    "homeDescription": "Tours de naturaleza y fauna silvestre en Manuel Antonio y Quepos. Safari terrestre, kayak en manglar de Isla Damas y caminata nocturna con guía certificado por el ICT."
+  },
+  "nav": {
+    "home": "Inicio",
+    "tours": "Tours",
+    "about": "Nosotros",
+    "gallery": "Galería",
+    "reviews": "Reseñas",
+    "contact": "Contacto",
+    "bookByWhatsApp": "Reservar por WhatsApp"
+  },
+  "hero": {
+    "eyebrow": "Manuel Antonio · Quepos",
+    "title": "Vida silvestre real, vista desde el dosel",
+    "description": "Somos guías certificados por el ICT en la zona de Manuel Antonio y Quepos. Elegí entre un safari terrestre, kayak en manglar o una caminata nocturna para ver la fauna que otros solo imaginan.",
+    "primaryCta": "Ver tours",
+    "secondaryCta": "Reservar por WhatsApp"
+  },
+  "trust": {
+    "title": "Reservá con confianza",
+    "badges": {
+      "certifiedGuide": "Guía certificado por el ICT",
+      "legalRegistration": "Inscrito en Hacienda y CCSS",
+      "realExperience": "Experiencia real en Manuel Antonio"
+    }
+  },
+  "tours": {
+    "title": "Nuestros tours",
+    "subtitle": "Elegí la experiencia que mejor se adapte a tu día en la selva.",
+    "viewDetails": "Ver detalle",
+    "book": "Reservar por WhatsApp",
+    "duration": "Duración",
+    "difficulty": "Dificultad",
+    "minutes": "{value} min",
+    "categories": {
+      "day_park": "Safari terrestre",
+      "mangrove": "Kayak en manglar",
+      "night_walk": "Caminata nocturna"
+    },
+    "emptyState": "Todavía no hay tours publicados."
+  },
+  "tourDetail": {
+    "included": "Qué incluye",
+    "notIncluded": "Qué no incluye",
+    "backToTours": "Volver a tours",
+    "bookThisTour": "Reservar este tour por WhatsApp",
+    "gallery": "Galería del tour",
+    "noImages": "Próximamente agregar fotos de este tour."
+  },
+  "mangrovePlaceholder": {
+    "title": "Kayak en manglar · Isla Damas",
+    "note": "Todavía no hay fotos reales de este tour. Cuando las tengamos las reemplazamos por imágenes del manglar.",
+    "illustrationAlt": "Ilustración de kayak sobre manglar"
+  },
+  "about": {
+    "title": "Sobre nosotros",
+    "intro": "Somos una empresa local de tours de naturaleza en Manuel Antonio y Quepos, enfocada en experiencias reales de fauna silvestre en la zona del Pacífico central de Costa Rica.",
+    "story": "Nacimos en la zona y operamos desde aquí. No somos una agena de viaje ni un intermediario: el guía que te recibe es el mismo que conoce los senderos, los canales y los hábitos de la fauna local.",
+    "certificationsTitle": "Lo que respalda nuestro trabajo",
+    "certifications": {
+      "ict": "Certificación de guía otorgada por el ICT",
+      "hacienda": "Inscripción activa en Hacienda",
+      "ccss": "Inscripción en la CCSS"
+    },
+    "cta": "Contactanos por WhatsApp"
+  },
+  "gallery": {
+    "title": "Galería",
+    "subtitle": "Fotos reales de la zona de Manuel Antonio y Quepos.",
+    "tabs": {
+      "day": "Día",
+      "wildlife": "Fauna",
+      "night": "Nocturno",
+      "mangrove": "Manglar"
+    },
+    "mangroveComingSoon": "Galería de manglar próximamente.",
+    "mangroveNote": "Todavía no hay fotos reales del kayak en manglar."
+  },
+  "reviews": {
+    "title": "Reseñas",
+    "subtitle": "Lo que dicen nuestros visitantes.",
+    "empty": "Todavía no hay reseñas publicadas.",
+    "by": "de {country}"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tenés dudas o querés reservar directamente? Escribinos.",
+    "whatsapp": "WhatsApp",
+    "emailLabel": "Correo electrónico",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo",
+      "phone": "Teléfono (opcional)",
+      "message": "Mensaje",
+      "tourInterest": "¿Qué tour te interesa?",
+      "none": "Ninguno en particular",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando…",
+      "success": "Mensaje enviado correctamente.",
+      "error": "Hubo un error al enviar el mensaje. Intentá de nuevo."
+    },
+    "directInfo": "También podés escribirnos directo por WhatsApp o al correo de contacto."
+  },
+  "footer": {
+    "company": "Jungle Wildlife Tours",
+    "region": "Manuel Antonio · Quepos",
+    "legal": "Sitio oficial para la zona de Manuel Antonio, Costa Rica."
+  }
+}

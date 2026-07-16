@@ -1,0 +1,5 @@
+insert into public.tours (slug, category, title_es, title_en, short_description_es, short_description_en, duration_minutes, is_active, display_order)
+values
+  ('safari-manuel-antonio', 'day_park', 'Safari terrestre · Parque Nacional Manuel Antonio', 'Ground safari · Manuel Antonio National Park', 'Recorrido guiado por los senderos del parque para observar fauna del Pacífico central.', 'Guided trail walk through the park to observe wildlife in the central Pacific.', 180, true, 1),
+  ('kayak-manglar-damas', 'mangrove', 'Kayak en manglar · Isla Damas', 'Mangrove kayak · Damas Island', 'Navegación en kayak por los canales de manglar de Isla Damas, cerca de Quepos.', 'Kayak navigation through the Damas Island mangrove channels near Quepos.', 150, true, 2),
+  ('caminata-nocturna', 'night_walk', 'Caminata nocturna', 'Night jungle walk', 'Caminata guiada de noche para observar anfibios, insectos y fauna activa en la oscuridad.', 'Night guided walk to observe frogs, insects, and active wildlife in the dark.', 120, true, 3);

@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canopy-950: #0d1f16;
+  --color-canopy-600: #2f6b45;
+  --color-moss-200: #c7dfc9;
+  --color-bone-50: #f4f6f1;
+  --color-dawn-400: #e3a63e;
+  --color-firefly-400: #cfea6b;
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  }
+}
