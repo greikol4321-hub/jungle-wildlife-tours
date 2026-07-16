@@ -94,7 +94,7 @@ function TourCard({
                 {durationH > 0 ? `${durationH}h` : ""}
                 {durationM > 0 ? ` ${durationM}min` : ""}
               </span>
-              <span className="inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 bg-emerald/10 backdrop-blur-md border border-emerald/20 rounded-full text-emerald">
+              <span className="inline-flex items-center font-display text-[9px] tracking-widest uppercase px-2.5 py-1 bg-emerald/10 backdrop-blur-md border border-emerald/20 rounded-full text-emerald">
                 {categoryLabel}
               </span>
             </div>

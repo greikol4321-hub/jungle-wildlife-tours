@@ -104,7 +104,7 @@ export function HeroSection(_props: HeroSectionProps) {
         style={{ opacity: contentOpacity, y: contentY }}
       >
         <Reveal delay={100}>
-          <p className="font-mono text-xs font-medium tracking-[0.25em] text-emerald/80 uppercase">
+          <p className="font-display text-xs font-medium tracking-[0.25em] text-emerald/80 uppercase">
             {t("eyebrow")}
           </p>
         </Reveal>
@@ -168,7 +168,7 @@ export function HeroSection(_props: HeroSectionProps) {
             aria-hidden="true"
           />
           <ChevronDown className="h-4 w-4 animate-bounce [animation-duration:2.5s]" strokeWidth={1.5} aria-hidden="true" />
-          <span className="font-mono text-[9px] tracking-[0.2em] uppercase">{t("scrollExplore")}</span>
+          <span className="font-display text-[9px] tracking-[0.2em] uppercase">{t("scrollExplore")}</span>
         </div>
       </Reveal>
 

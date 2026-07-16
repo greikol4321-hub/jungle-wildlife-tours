@@ -78,7 +78,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
             <Reveal delay={200}>
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-px w-8 bg-emerald/40" />
-                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-emerald/70">
+                <span className="font-display text-[10px] tracking-[0.2em] uppercase text-emerald/70">
                   {locale === "es" ? "Manuel Antonio, Costa Rica" : "Manuel Antonio, Costa Rica"}
                 </span>
               </div>

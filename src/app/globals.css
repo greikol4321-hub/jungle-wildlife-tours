@@ -32,6 +32,7 @@
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
 
   /* ── EASING ─────────────────────────────────────────── */
   --ease-out: cubic-bezier(0.22, 1, 0.32, 1);

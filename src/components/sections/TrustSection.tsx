@@ -12,47 +12,46 @@ export function TrustSection(_props: TrustSectionProps) {
   const tTrust = useTranslations("trust");
 
   const items = [
-    { key: "certifiedGuide", icon: ShieldCheck, accent: true },
-    { key: "legalRegistration", icon: BadgeCheck, accent: false },
-    { key: "localGuide", icon: Users, accent: false },
-    { key: "region", icon: MapPin, accent: false },
+    { key: "certifiedGuide", icon: ShieldCheck },
+    { key: "legalRegistration", icon: BadgeCheck },
+    { key: "localGuide", icon: Users },
+    { key: "region", icon: MapPin },
   ] as const;
 
   return (
     <section className="border-y border-border bg-surface/50" aria-labelledby="trust-heading">
-      <h2 id="trust-heading" className="sr-only">
-        {tTrust("title")}
-      </h2>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-stretch divide-y md:divide-y-0 md:divide-x divide-border">
-          {items.map(({ key, icon: Icon, accent }, index) => (
-            <Reveal key={key} delay={80 + index * 80}>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <Reveal>
+          <div className="flex items-center gap-3 mb-8 md:mb-10">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            <h2
+              id="trust-heading"
+              className="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-emerald/70"
+            >
+              {tTrust("title")}
+            </h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
+        </Reveal>
+        <div className="grid grid-cols-2 gap-4 md:gap-6">
+          {items.map(({ key, icon: Icon }, index) => (
+            <Reveal key={key} delay={80 + index * 60}>
               <div
-                className={`flex items-center gap-4 py-6 md:py-8 px-6 md:px-10 transition-colors duration-300 group ${
-                  accent
-                    ? "md:flex-[1.25] bg-emerald/[0.025]"
-                    : "md:flex-1 hover:bg-white/[0.012]"
-                }`}
+                className="relative flex flex-col gap-4 p-5 md:p-7 rounded-2xl bg-surface border border-border transition-all duration-300 group hover:border-emerald/20 hover:bg-surface-elevated"
               >
-                <div
-                  className={`flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ${
-                    accent
-                      ? "bg-emerald/10 group-hover:bg-emerald/15 ring-1 ring-emerald/20"
-                      : "bg-white/[0.03] group-hover:bg-white/[0.06] ring-1 ring-border"
-                  }`}
-                >
-                  <Icon
-                    className={`h-5 w-5 ${accent ? "text-emerald" : "text-sand/70"}`}
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
+                {/* Icon */}
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald/10 ring-1 ring-emerald/20 transition-all duration-300 group-hover:bg-emerald/15">
+                  <Icon className="h-5 w-5 text-emerald" strokeWidth={1.5} aria-hidden="true" />
                 </div>
-                <p
-                  className={`text-[13px] font-medium leading-snug ${accent ? "text-text" : "text-text-secondary"}`}
-                >
+
+                {/* Label in Syne display font */}
+                <p className="font-display text-[15px] md:text-base font-semibold text-text leading-snug tracking-[-0.01em]">
                   {tTrust(`badges.${key}`)}
                 </p>
+
+                {/* Subtle bottom corner accent */}
+                <div className="absolute bottom-3 right-3 h-8 w-8 rounded-full bg-emerald/[0.02] blur-xl pointer-events-none" aria-hidden="true" />
               </div>
             </Reveal>
           ))}
