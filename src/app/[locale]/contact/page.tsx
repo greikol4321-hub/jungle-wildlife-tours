@@ -17,6 +17,9 @@ const contactSchema = z.object({
 
 type ContactValues = z.infer<typeof contactSchema>;
 
+const inputClass =
+  "mt-1 block w-full rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition-colors";
+
 export default function ContactPage() {
   const t = useTranslations("contact");
   const [isPending, startTransition] = useTransition();
@@ -37,12 +40,16 @@ export default function ContactPage() {
   });
 
   return (
-    <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
+    <main className="flex-1 px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight font-heading text-canopy-950 sm:text-4xl">
+        <div className="section-divider mb-12" />
+        <h1
+          className="font-heading font-bold text-text"
+          style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}
+        >
           {t("title")}
         </h1>
-        <p className="mt-3 text-canopy-950/70 max-w-2xl">{t("subtitle")}</p>
+        <p className="mt-3 text-text-secondary max-w-2xl">{t("subtitle")}</p>
 
         <form
           onSubmit={handleSubmit((values) =>
@@ -50,54 +57,54 @@ export default function ContactPage() {
               await sendContactMessage(values);
             })
           )}
-          className="mt-10 grid gap-5 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-canopy-950/5 sm:p-8"
+          className="mt-10 grid gap-5 rounded-2xl bg-surface border border-border p-6 sm:p-8"
         >
           <div>
-            <label className="block text-sm font-medium text-canopy-950">
+            <label className="block text-sm font-medium text-text-secondary">
               {t("form.name")}
             </label>
             <input
               type="text"
               {...register("name")}
-              className="mt-1 block w-full rounded-2xl border border-canopy-950/15 bg-bone-50 px-4 py-3 text-sm text-canopy-950 shadow-sm focus:border-canopy-600 focus:outline-none focus:ring-2 focus:ring-canopy-600/30"
+              className={inputClass}
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-600">{errors.name.message}</p>
+              <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-canopy-950">
+            <label className="block text-sm font-medium text-text-secondary">
               {t("form.email")}
             </label>
             <input
               type="email"
               {...register("email")}
-              className="mt-1 block w-full rounded-2xl border border-canopy-950/15 bg-bone-50 px-4 py-3 text-sm text-canopy-950 shadow-sm focus:border-canopy-600 focus:outline-none focus:ring-2 focus:ring-canopy-600/30"
+              className={inputClass}
             />
             {errors.email && (
-              <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>
+              <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-canopy-950">
+            <label className="block text-sm font-medium text-text-secondary">
               {t("form.phone")}
             </label>
             <input
               type="tel"
               {...register("phone")}
-              className="mt-1 block w-full rounded-2xl border border-canopy-950/15 bg-bone-50 px-4 py-3 text-sm text-canopy-950 shadow-sm focus:border-canopy-600 focus:outline-none focus:ring-2 focus:ring-canopy-600/30"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-canopy-950">
+            <label className="block text-sm font-medium text-text-secondary">
               {t("form.tourInterest")}
             </label>
             <select
               {...register("tourInterest")}
-              className="mt-1 block w-full rounded-2xl border border-canopy-950/15 bg-bone-50 px-4 py-3 text-sm text-canopy-950 shadow-sm focus:border-canopy-600 focus:outline-none focus:ring-2 focus:ring-canopy-600/30"
+              className={inputClass}
             >
               <option value="">{t("form.none")}</option>
               <option value="day_park">
@@ -111,16 +118,16 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-canopy-950">
+            <label className="block text-sm font-medium text-text-secondary">
               {t("form.message")}
             </label>
             <textarea
               rows={5}
               {...register("message")}
-              className="mt-1 block w-full rounded-2xl border border-canopy-950/15 bg-bone-50 px-4 py-3 text-sm text-canopy-950 shadow-sm focus:border-canopy-600 focus:outline-none focus:ring-2 focus:ring-canopy-600/30"
+              className={inputClass}
             />
             {errors.message && (
-              <p className="mt-1 text-xs text-red-600">
+              <p className="mt-1 text-xs text-red-400">
                 {errors.message.message}
               </p>
             )}
@@ -129,7 +136,7 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center justify-center rounded-full bg-canopy-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-canopy-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-canopy-600 disabled:opacity-70"
+            className="btn btn-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition disabled:opacity-50"
           >
             {isPending ? t("form.sending") : t("form.submit")}
           </button>

@@ -10,30 +10,40 @@ export default async function AboutPage({
   const t = await getTranslations({ locale, namespace: "about" });
 
   return (
-    <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
+    <main className="flex-1 px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight font-heading text-canopy-950 sm:text-4xl">
+        <div className="section-divider mb-12" />
+        <h1
+          className="font-heading font-bold text-text"
+          style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}
+        >
           {t("title")}
         </h1>
-        <p className="mt-4 text-canopy-950/80 leading-relaxed">{t("intro")}</p>
-        <p className="mt-4 text-canopy-950/80 leading-relaxed">{t("story")}</p>
+        <p className="mt-6 text-text-secondary leading-[1.8]">{t("intro")}</p>
+        <p className="mt-4 text-text-secondary leading-[1.8]">{t("story")}</p>
 
-        <div className="mt-10 rounded-3xl bg-moss-200/60 p-6 sm:p-8">
-          <h2 className="text-lg font-semibold font-heading text-canopy-950">
+        <div className="mt-12 bg-surface border border-border rounded-2xl p-6 sm:p-8">
+          <h2 className="font-heading font-semibold text-text">
             {t("certificationsTitle")}
           </h2>
-          <ul className="mt-4 space-y-3 text-sm text-canopy-950/80">
+          <ul className="mt-4 space-y-3">
             <li className="flex items-start gap-3">
-              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-canopy-600" />
-              {t("certifications.ict")}
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald" />
+              <span className="text-sm text-text-secondary">
+                {t("certifications.ict")}
+              </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-canopy-600" />
-              {t("certifications.hacienda")}
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald" />
+              <span className="text-sm text-text-secondary">
+                {t("certifications.hacienda")}
+              </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-canopy-600" />
-              {t("certifications.ccss")}
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald" />
+              <span className="text-sm text-text-secondary">
+                {t("certifications.ccss")}
+              </span>
             </li>
           </ul>
         </div>

@@ -21,12 +21,20 @@ export default async function GalleryPage({
     locale === "es" ? tour.title_es : tour.title_en;
 
   return (
-    <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
+    <main className="flex-1 px-4 py-24 sm:px-6 lg:px-8">
+      <div className="section-divider">
+        <div className="section-divider-line" />
+        <div className="section-divider-dot" />
+      </div>
+
       <div className="mx-auto max-w-7xl">
-        <h1 className="text-3xl font-semibold tracking-tight font-heading text-canopy-950 sm:text-4xl">
+        <h1
+          className="font-heading font-bold text-text"
+          style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
+        >
           {t("title")}
         </h1>
-        <p className="mt-3 text-canopy-950/70 max-w-2xl">{t("subtitle")}</p>
+        <p className="mt-3 text-text-secondary max-w-2xl">{t("subtitle")}</p>
 
         {images && images.length > 0 ? (
           <div className="mt-10 columns-2 sm:columns-3 lg:columns-4 gap-4">
@@ -45,11 +53,11 @@ export default async function GalleryPage({
                     alt={alt || "Gallery photo"}
                     width={400}
                     height={300}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-cover hover:opacity-80 transition-opacity duration-300"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                   {caption && (
-                    <p className="text-xs text-canopy-950/60 mt-2 px-1">
+                    <p className="text-xs text-text-muted mt-2 px-1">
                       {caption}
                     </p>
                   )}
@@ -58,11 +66,11 @@ export default async function GalleryPage({
             })}
           </div>
         ) : (
-          <div className="mt-10 rounded-3xl border border-dashed border-canopy-950/20 bg-white p-8 text-center">
-            <p className="text-sm text-canopy-950/70">
+          <div className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-8 text-center text-text-secondary">
+            <p className="text-sm text-text-secondary">
               {t("mangroveComingSoon")}
             </p>
-            <p className="mt-2 text-xs text-canopy-950/50">
+            <p className="mt-2 text-xs text-text-muted">
               {t("mangroveNote")}
             </p>
           </div>
