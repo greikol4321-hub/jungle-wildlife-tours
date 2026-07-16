@@ -20,7 +20,6 @@ export function Header({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
 
   const otherLocale = locale === "es" ? "en" : "es";
-  const localeSwitchHref = pathname.replace(`/${locale}`, `/${otherLocale}`);
 
   return (
     <header className="sticky top-0 z-40 border-b border-canopy-950/10 bg-bone-50/80 backdrop-blur supports-[backdrop-filter]:bg-bone-50/60">
@@ -47,7 +46,8 @@ export function Header({ locale }: { locale: string }) {
           ))}
 
           <Link
-            href={localeSwitchHref}
+            href={pathname}
+            locale={otherLocale}
             className="rounded-full border border-canopy-950/15 px-3 py-1.5 text-xs font-semibold text-canopy-950"
           >
             {otherLocale.toUpperCase()}
@@ -96,7 +96,8 @@ export function Header({ locale }: { locale: string }) {
             ))}
 
             <Link
-              href={localeSwitchHref}
+              href={pathname}
+              locale={otherLocale}
               onClick={() => setOpen(false)}
               className="mt-1 inline-flex items-center justify-center rounded-full border border-canopy-950/15 px-4 py-2 text-xs font-semibold text-canopy-950"
             >
