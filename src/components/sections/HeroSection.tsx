@@ -71,8 +71,11 @@ export function HeroSection(_props: HeroSectionProps) {
         </motion.div>
       </motion.div>
 
-      {/* Dark overlay — no gradient stack, avoids mobile edge artifacts */}
+      {/* Dark base — ensures no raw-image bleed on mobile browsers */}
       <div className="absolute inset-0 bg-bg/60" />
+      {/* Gradient stack */}
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-bg/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/60 via-bg/20 to-bg/5" />
 
       {/* Emerald radial glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
