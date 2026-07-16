@@ -98,8 +98,8 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                   <Camera className="h-16 w-16 text-emerald/15" strokeWidth={1} aria-hidden="true" />
                 </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-bg/100 via-bg/60 to-bg/10" aria-hidden="true" />
-              <div className="absolute inset-0 bg-gradient-to-r from-bg/40 to-transparent" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/20 to-transparent" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-r from-bg/30 to-transparent" aria-hidden="true" />
             </div>
 
             {/* Hover shine */}
