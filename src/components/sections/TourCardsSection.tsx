@@ -67,7 +67,7 @@ function TourCard({
   if (variant === "featured") {
     return (
         <Link href={`/tours/${tour.slug}`} className="group block md:col-span-2 md:row-span-2">
-        <article className="relative overflow-hidden rounded-2xl bg-surface border border-border transition-all duration-500 hover:border-emerald/40 hover:shadow-[0_0_48px_-12px_rgba(78,203,113,0.2)] h-full min-h-[420px] md:min-h-[500px]">
+        <article className="card h-full min-h-[420px] md:min-h-[500px] group-hover:border-emerald/40 group-hover:shadow-[0_0_48px_-12px_rgba(78,203,113,0.2)]">
           <div className="absolute inset-0">
             {cover ? (
               <Image
@@ -75,7 +75,7 @@ function TourCard({
                 alt={alt ?? title}
                 fill
                 sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />
             ) : (
@@ -83,7 +83,7 @@ function TourCard({
                 <Camera className="h-16 w-16 text-emerald/15" strokeWidth={1} aria-hidden="true" />
               </div>
             )}
-            <div className="absolute inset-0 bg-bg/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-bg/10" />
           </div>
 
           <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
@@ -128,15 +128,15 @@ function TourCard({
 
   return (
     <Link href={`/tours/${tour.slug}`} className="group block">
-      <article className="relative overflow-hidden rounded-2xl bg-surface border border-border transition-all duration-500 hover:border-border-hover h-full">
-        <div className="relative aspect-[16/10]">
+      <article className="card h-full group-hover:border-border-hover">
+        <div className="relative aspect-[16/10] overflow-hidden">
           {cover ? (
             <Image
               src={`${SUPABASE_STORAGE_URL}/${cover.storage_path}`}
               alt={alt ?? title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               loading="lazy"
             />
           ) : (
@@ -144,6 +144,7 @@ function TourCard({
               <Camera className="h-10 w-10 text-emerald/15" strokeWidth={1} aria-hidden="true" />
             </div>
           )}
+          <div className="absolute inset-0 image-vignette pointer-events-none" aria-hidden="true" />
           {index === 1 && (
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/[0.02] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
           )}
@@ -199,9 +200,16 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
   return (
     <section
-      className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8"
+      className="relative border-t border-border"
       aria-labelledby="tours-heading"
     >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-80 w-[60vw] opacity-[0.04]"
+          style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(78,203,113,1) 0%, transparent 70%)" }}
+        />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
       <Reveal delay={0}>
         <h2
           id="tours-heading"
@@ -218,7 +226,14 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid gap-5 grid-cols-1 md:grid-cols-3 auto-rows-auto">
+      <Reveal delay={120}>
+        <div className="mt-6 mb-14 flex items-center gap-3" aria-hidden="true">
+          <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
+          <div className="h-1 w-1 rounded-full bg-emerald/60" />
+        </div>
+      </Reveal>
+
+      <div className="grid gap-5 grid-cols-1 md:grid-cols-3 auto-rows-auto">
         {tours.length >= 1 && (
           <Reveal delay={160}>
             <TourCard tour={tours[0]} locale={locale} variant="featured" />
@@ -233,16 +248,14 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
       </div>
 
       <Reveal delay={400}>
-        <div className="mt-10 text-center">
-          <Link
-            href="/tours"
-            className="inline-flex items-center gap-2 text-sm font-medium text-emerald hover:text-emerald-bright transition-colors duration-300"
-          >
+        <div className="mt-12 text-center">
+          <Link href="/tours" className="btn btn-secondary">
             {tTours("viewDetails")}
             <ArrowRight className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>
       </Reveal>
+      </div>
     </section>
   );
 }
