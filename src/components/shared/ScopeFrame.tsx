@@ -25,7 +25,7 @@ export function ScopeFrame({
 export function ScopeDivider() {
   return (
     <div className="mx-auto my-10 flex items-center justify-center">
-      <span className="sr-only">Sección</span>
+      <span className="sr-only">Section</span>
       <span className="inline-block h-8 w-8 rounded-full bg-moss-200 ring-1 ring-inset ring-canopy-950/10" />
     </div>
   );

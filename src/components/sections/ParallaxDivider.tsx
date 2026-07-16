@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { useTranslations } from "next-intl";
 
 interface ParallaxDividerProps {
   locale: string;
@@ -11,6 +12,7 @@ interface ParallaxDividerProps {
 
 export function ParallaxDivider({ locale }: ParallaxDividerProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const t = useTranslations("parallax");
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -63,7 +65,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
           <div className="flex items-center justify-center gap-4 mb-4">
             <span className="h-px w-10 bg-emerald/30" />
             <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-emerald">
-              {locale === "es" ? "Experiencia salvaje" : "Wild experience"}
+              {t("eyebrow")}
             </p>
             <span className="h-px w-10 bg-emerald/30" />
           </div>
@@ -75,18 +77,14 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
             className="font-heading font-bold text-text leading-[1.05] tracking-[-0.02em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
-            {locale === "es"
-              ? "Donde la naturaleza dicta el ritmo"
-              : "Where nature sets the pace"}
+            {t("heading")}
           </h2>
         </Reveal>
 
         {/* Description */}
         <Reveal delay={300}>
           <p className="mt-4 max-w-md mx-auto text-text-secondary text-[15px] leading-relaxed">
-            {locale === "es"
-              ? "Cada tour es una inmersión en un ecosistema vivo."
-              : "Each tour is an immersion into a living ecosystem."}
+            {t("description")}
           </p>
         </Reveal>
 

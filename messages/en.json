@@ -8,12 +8,13 @@
     "tours": "Tours",
     "about": "About",
     "gallery": "Gallery",
-    "reviews": "Reviews",
     "contact": "Contact",
     "bookByWhatsApp": "Book by WhatsApp",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "menu": "Menu"
+    "menu": "Menu",
+    "ariaNav": "Main navigation",
+    "ariaLogo": "Jungle Wildlife Tours - Home"
   },
   "hero": {
     "eyebrow": "Explore the wild side of",
@@ -21,7 +22,12 @@
     "subtitle": "awaits you",
     "description": "Guided nature tours in Manuel Antonio National Park and surrounding areas. Real wildlife, certified guides.",
     "primaryCta": "Explore tours",
-    "secondaryCta": "Book by WhatsApp"
+    "secondaryCta": "Book by WhatsApp",
+    "trustGuide": "ICT-certified guide",
+    "trustRegistration": "Registered with Hacienda & CCSS",
+    "trustLocation": "Manuel Antonio, Costa Rica",
+    "scrollExplore": "Explore",
+    "heroImageAlt": "Tropical rainforest canopy in Manuel Antonio at dawn"
   },
   "trust": {
     "title": "Book with confidence",
@@ -36,6 +42,7 @@
     "title": "Our tours",
     "subtitle": "Choose the experience that best fits your day in the jungle.",
     "viewDetails": "View details",
+    "viewTour": "View tour",
     "book": "Book by WhatsApp",
     "duration": "Duration",
     "difficulty": "Difficulty",
@@ -45,7 +52,9 @@
       "mangrove": "Mangrove kayak",
       "night_walk": "Night walk"
     },
-    "emptyState": "No tours published yet."
+    "emptyState": "No tours published yet.",
+    "emptyTitle": "No tours available",
+    "emptyBody": "Check back soon to discover new jungle adventures."
   },
   "tourDetail": {
     "included": "What is included",
@@ -53,7 +62,8 @@
     "backToTours": "Back to tours",
     "bookThisTour": "Book this tour by WhatsApp",
     "gallery": "Tour gallery",
-    "noImages": "Photos for this tour will be added soon."
+    "noImages": "Photos for this tour will be added soon.",
+    "whatsappMessage": "Hi, I'm interested in the tour: {title}"
   },
   "mangrovePlaceholder": {
     "title": "Mangrove kayak · Damas Island",
@@ -70,7 +80,16 @@
       "hacienda": "Active registration with Hacienda",
       "ccss": "Registration with the CCSS"
     },
-    "cta": "Contact us on WhatsApp"
+    "cta": "Contact us on WhatsApp",
+    "whyUsTitle": "Why choose us",
+    "whyUsCards": {
+      "localTitle": "Local expertise",
+      "localBody": "Born and raised in Manuel Antonio. We know every trail, every hiding spot, every season rhythm.",
+      "certifiedTitle": "Certified guides",
+      "certifiedBody": "ICT-certified professionals with deep knowledge of Costa Rica's biodiversity and conservation.",
+      "smallTitle": "Small groups",
+      "smallBody": "Intimate experiences, never crowded. Your pace, your interests, our full attention."
+    }
   },
   "gallery": {
     "title": "Gallery",
@@ -84,17 +103,27 @@
     "mangroveComingSoon": "Mangrove gallery coming soon.",
     "mangroveNote": "There are no real photos of the mangrove kayak yet."
   },
-  "reviews": {
-    "title": "Reviews",
-    "subtitle": "What our visitors say.",
-    "empty": "No reviews published yet.",
-    "by": "from {country}"
+  "night": {
+    "heading": "The jungle comes alive at night",
+    "description": "The night walk reveals a side of Manuel Antonio few see: amphibians, insects, mammals, and the activity that only happens under the canopy of darkness.",
+    "learnMore": "Learn more",
+    "featureGuide": "Specialized guide",
+    "featureEquipment": "Equipment included",
+    "featureDuration": "2-3 hours",
+    "featureGroups": "Small groups",
+    "imageAlt": "Nocturnal wildlife in Manuel Antonio jungle"
+  },
+  "parallax": {
+    "eyebrow": "Wild experience",
+    "heading": "Where nature sets the pace",
+    "description": "Each tour is an immersion into a living ecosystem."
   },
   "contact": {
     "title": "Contact",
     "subtitle": "Have questions or want to book directly? Write to us.",
     "whatsapp": "WhatsApp",
     "emailLabel": "Email",
+    "locationLabel": "Location",
     "form": {
       "name": "Name",
       "email": "Email",
@@ -105,9 +134,19 @@
       "submit": "Send message",
       "sending": "Sending…",
       "success": "Message sent successfully.",
-      "error": "There was an error sending the message. Please try again."
+      "error": "There was an error sending the message. Please try again.",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "you@example.com",
+      "messagePlaceholder": "Tell us about your ideal trip...",
+      "tourDayPark": "Ground safari · Manuel Antonio National Park",
+      "tourMangrove": "Mangrove kayak · Damas Island",
+      "tourNight": "Night walk"
     },
     "directInfo": "You can also contact us directly on WhatsApp or by email."
+  },
+  "notFound": {
+    "message": "We couldn't find the page you were looking for.",
+    "backHome": "Back to home"
   },
   "footer": {
     "company": "Jungle Wildlife Tours",
@@ -132,5 +171,8 @@
     "location": "Manuel Antonio, Quepos",
     "privacy": "Privacy",
     "terms": "Terms"
+  },
+  "whatsapp": {
+    "greeting": "Hi, I'd like information about Jungle Wildlife Tours."
   }
 }

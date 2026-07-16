@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ["es", "en"] as const;
 
-  const routes = ["", "/tours", "/about", "/gallery", "/reviews", "/contact"];
+  const routes = ["", "/tours", "/about", "/gallery", "/contact"];
 
   return routes.flatMap((route) =>
     locales.map((locale) => ({

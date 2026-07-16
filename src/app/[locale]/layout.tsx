@@ -46,9 +46,9 @@ export async function generateMetadata({
 
   return {
     title: meta?.homeTitle ?? "Jungle Wildlife Tours",
-    description:
+      description:
       meta?.homeDescription ??
-      "Tours de naturaleza y fauna silvestre en Manuel Antonio y Quepos, Costa Rica.",
+      "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
     alternates: {
       languages: {
         es: "/es",

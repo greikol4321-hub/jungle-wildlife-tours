@@ -162,7 +162,7 @@ export default async function ToursPage({
                           )}
 
                           <span className="inline-flex items-center gap-1.5 font-medium text-xs text-emerald transition-all duration-300 group-hover:gap-2.5">
-                            {locale === "es" ? "Ver tour" : "View tour"}
+                            {t("viewTour")}
                             <ArrowRight
                               className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
                               strokeWidth={2}
@@ -188,14 +188,10 @@ export default async function ToursPage({
               />
             </div>
             <h2 className="mt-6 font-heading font-bold text-text text-lg">
-              {locale === "es"
-                ? "No hay tours disponibles"
-                : "No tours available"}
+              {t("emptyTitle")}
             </h2>
             <p className="mt-2 max-w-sm text-sm text-text-secondary leading-relaxed">
-              {locale === "es"
-                ? "Vuelve pronto para descubrir nuevas aventuras en la selva."
-                : "Check back soon to discover new jungle adventures."}
+              {t("emptyBody")}
             </p>
           </div>
         )}

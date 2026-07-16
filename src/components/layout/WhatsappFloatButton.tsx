@@ -1,22 +1,19 @@
 import { getTranslations } from "next-intl/server";
 
-function buildWhatsAppLink(locale: string) {
+function buildWhatsAppLink(locale: string, greeting: string) {
   const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
-  const message =
-    locale === "es"
-      ? "Hola, quiero información sobre los tours de Jungle Wildlife Tours."
-      : "Hi, I'd like information about Jungle Wildlife Tours.";
 
   if (!number) {
     return "#whatsapp-placeholder";
   }
 
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(greeting)}`;
 }
 
 export async function WhatsappFloatButton({ locale }: { locale: string }) {
   const t = await getTranslations("nav");
-  const href = buildWhatsAppLink(locale);
+  const tWhatsapp = await getTranslations("whatsapp");
+  const href = buildWhatsAppLink(locale, tWhatsapp("greeting"));
 
   return (
     <a

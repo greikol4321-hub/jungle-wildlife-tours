@@ -182,7 +182,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                         </div>
 
                         <span className="inline-flex items-center gap-1.5 font-medium text-xs text-emerald transition-all duration-300 group-hover:gap-2.5">
-                          {locale === "es" ? "Ver tour" : "View tour"}
+                          {tTours("viewTour")}
                           <ArrowRight
                             className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
                             strokeWidth={2}

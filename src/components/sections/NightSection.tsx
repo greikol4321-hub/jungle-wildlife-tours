@@ -13,23 +13,15 @@ interface NightSectionProps {
   locale: string;
 }
 
-const FEATURES_ES = [
-  "Guía especializado",
-  "Equipo incluido",
-  "2-3 horas",
-  "Grupos pequeños",
-];
-
-const FEATURES_EN = [
-  "Specialized guide",
-  "Equipment included",
-  "2-3 hours",
-  "Small groups",
-];
-
 export function NightSection({ locale }: NightSectionProps) {
   const tTours = useTranslations("tours");
-  const features = locale === "es" ? FEATURES_ES : FEATURES_EN;
+  const tNight = useTranslations("night");
+  const features = [
+    tNight("featureGuide"),
+    tNight("featureEquipment"),
+    tNight("featureDuration"),
+    tNight("featureGroups"),
+  ];
 
   return (
     <section
@@ -78,17 +70,13 @@ export function NightSection({ locale }: NightSectionProps) {
                   textShadow: "0 2px 24px rgba(0,0,0,0.4)",
                 }}
               >
-                {locale === "es"
-                  ? "La selva también se vive de noche"
-                  : "The jungle comes alive at night"}
+                {tNight("heading")}
               </h2>
             </Reveal>
 
             <Reveal delay={180}>
               <p className="mt-6 text-[17px] font-light text-text-secondary leading-[1.85] max-w-lg">
-                {locale === "es"
-                  ? "La caminata nocturna te muestra una faceta de Manuel Antonio que pocos ven: anfibios, insectos, mamíferos y la actividad que solo ocurre bajo la oscuridad del dosel."
-                  : "The night walk reveals a side of Manuel Antonio few see: amphibians, insects, mammals, and the activity that only happens under the canopy of darkness."}
+                {tNight("description")}
               </p>
             </Reveal>
 
@@ -112,7 +100,7 @@ export function NightSection({ locale }: NightSectionProps) {
                   href="/tours/caminata-nocturna"
                   className="btn btn-primary"
                 >
-                  {locale === "es" ? "Más información" : "Learn more"}
+                  {tNight("learnMore")}
                 </Link>
                 <a
                   href="https://wa.me/50688888888"
@@ -158,11 +146,7 @@ export function NightSection({ locale }: NightSectionProps) {
                   <div className="relative h-full w-full rounded-full overflow-hidden night-circle-inner">
                     <Image
                       src={`${SUPABASE_STORAGE_URL}/wildlife-sloth-01.jpg`}
-                      alt={
-                        locale === "es"
-                          ? "Fauna nocturna en la selva de Manuel Antonio"
-                          : "Nocturnal wildlife in Manuel Antonio jungle"
-                      }
+                      alt={tNight("imageAlt")}
                       fill
                       sizes="380px"
                       className="object-cover image-zoom"

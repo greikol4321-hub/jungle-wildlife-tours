@@ -75,7 +75,7 @@ export default function ContactPage() {
               </label>
               <input
                 type="text"
-                placeholder="Tu nombre completo"
+                placeholder={t("form.namePlaceholder")}
                 {...register("name")}
                 className={`mt-0 block w-full rounded-xl border bg-[var(--color-surface-elevated)] px-5 py-3.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)] transition focus:outline-none focus:ring-2 ${
                   errors.name
@@ -97,7 +97,7 @@ export default function ContactPage() {
               </label>
               <input
                 type="email"
-                placeholder="correo@ejemplo.com"
+                placeholder={t("form.emailPlaceholder")}
                 {...register("email")}
                 className={`mt-0 block w-full rounded-xl border bg-[var(--color-surface-elevated)] px-5 py-3.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)] transition focus:outline-none focus:ring-2 ${
                   errors.email
@@ -141,12 +141,12 @@ export default function ContactPage() {
               >
                 <option value="">{t("form.none")}</option>
                 <option value="day_park">
-                  Tour terrestre · Parque Nacional Manuel Antonio
+                  {t("form.tourDayPark")}
                 </option>
                 <option value="mangrove">
-                  Kayak en manglar · Isla Damas
+                  {t("form.tourMangrove")}
                 </option>
-                <option value="night_walk">Caminata nocturna</option>
+                <option value="night_walk">{t("form.tourNight")}</option>
               </select>
             </div>
 
@@ -157,7 +157,7 @@ export default function ContactPage() {
               </label>
               <textarea
                 rows={6}
-                placeholder="Contanos sobre tu viaje ideal..."
+                placeholder={t("form.messagePlaceholder")}
                 {...register("message")}
                 className={`mt-0 block w-full resize-none rounded-xl border bg-[var(--color-surface-elevated)] px-5 py-3.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)] transition focus:outline-none focus:ring-2 ${
                   errors.message
@@ -277,7 +277,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-text-secondary)]">
-                  Ubicación
+                  {t("locationLabel")}
                 </p>
                 <p className="mt-1 text-sm font-medium text-[var(--color-text)]">
                   Manuel Antonio, Puntarenas, Costa Rica

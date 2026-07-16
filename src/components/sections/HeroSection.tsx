@@ -25,6 +25,7 @@ const particles = [
 
 export function HeroSection(_props: HeroSectionProps) {
   const t = useTranslations("hero");
+  const tNav = useTranslations("nav");
   const SUPABASE_STORAGE_URL =
     "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
@@ -65,7 +66,7 @@ export function HeroSection(_props: HeroSectionProps) {
         <motion.div className="absolute inset-0" style={{ x: mouseParallaxX, y: mouseParallaxY }}>
           <Image
             src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
-            alt="Dosel de selva tropical en Manuel Antonio al amanecer"
+            alt={t("heroImageAlt")}
             fill
             priority
             sizes="100vw"
@@ -176,17 +177,17 @@ export function HeroSection(_props: HeroSectionProps) {
           <div className="mt-14 inline-flex flex-wrap items-center gap-5 backdrop-blur-md bg-bg/40 border border-border/50 rounded-full px-5 py-2.5 transition-colors hover:bg-bg/50">
             <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-emerald">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse-glow" aria-hidden="true" />
-              Guía certificado ICT
+              {t("trustGuide")}
             </div>
             <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
             <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand">
               <ShieldCheck className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
-              Inscrito Hacienda & CCSS
+              {t("trustRegistration")}
             </div>
             <div className="w-px h-3.5 bg-border-strong" aria-hidden="true" />
             <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-sand/70">
               <MapPin className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
-              Manuel Antonio, Costa Rica
+              {t("trustLocation")}
             </div>
           </div>
         </Reveal>
@@ -204,7 +205,7 @@ export function HeroSection(_props: HeroSectionProps) {
             aria-hidden="true"
           />
           <ChevronDown className="h-4 w-4 animate-bounce [animation-duration:2.5s]" strokeWidth={1.5} aria-hidden="true" />
-          <span className="font-mono text-[9px] tracking-[0.2em] uppercase">Explorar</span>
+          <span className="font-mono text-[9px] tracking-[0.2em] uppercase">{t("scrollExplore")}</span>
         </div>
       </Reveal>
 

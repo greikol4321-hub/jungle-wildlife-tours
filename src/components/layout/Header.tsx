@@ -10,7 +10,6 @@ const navItems = [
   { key: "tours", href: "/tours" },
   { key: "about", href: "/about" },
   { key: "gallery", href: "/gallery" },
-  { key: "reviews", href: "/reviews" },
   { key: "contact", href: "/contact" },
 ] as const;
 
@@ -428,8 +427,8 @@ export function Header({ locale }: { locale: string }) {
       `}</style>
 
       <div className={cn("nav-wrapper", navHidden && "hidden")}>
-        <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label="Navegación principal">
-          <Link href="/" className="logo" aria-label="Jungle Wildlife Tours - Inicio">
+        <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
+          <Link href="/" className="logo" aria-label={t("ariaLogo")}>
             Jungle <span className="logo-accent">Wildlife</span> Tours
           </Link>
 
@@ -528,9 +527,6 @@ export function Header({ locale }: { locale: string }) {
               )}
               {item.key === "gallery" && (
                 <svg className="panel-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
-              )}
-              {item.key === "reviews" && (
-                <svg className="panel-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
               )}
               {item.key === "contact" && (
                 <svg className="panel-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>

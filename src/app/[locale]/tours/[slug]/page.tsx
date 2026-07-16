@@ -147,7 +147,7 @@ export default async function TourDetailPage({
 
         <div className="mt-12">
           <a
-            href={`https://wa.me/50688888888?text=${encodeURIComponent(`Hola, me interesa el tour: ${title}`)}`}
+            href={`https://wa.me/50688888888?text=${encodeURIComponent(t("whatsappMessage", { title }))}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary inline-flex items-center gap-2 px-6 py-3"

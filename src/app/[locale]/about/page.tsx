@@ -130,7 +130,7 @@ export default async function AboutPage({
           <div className="flex items-center gap-3 mb-8">
             <div className="section-divider-line" />
             <span className="text-xs font-medium uppercase tracking-widest text-emerald">
-              Why choose us
+              {t("whyUsTitle")}
             </span>
             <div className="section-divider-line" />
           </div>
@@ -151,11 +151,10 @@ export default async function AboutPage({
                 </svg>
               </div>
               <h3 className="font-heading text-base font-semibold text-text">
-                Local expertise
+                {t("whyUsCards.localTitle")}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                Born and raised in Manuel Antonio. We know every trail, every
-                hiding spot, every season rhythm.
+                {t("whyUsCards.localBody")}
               </p>
             </div>
 
@@ -173,11 +172,10 @@ export default async function AboutPage({
                 </svg>
               </div>
               <h3 className="font-heading text-base font-semibold text-text">
-                Certified guides
+                {t("whyUsCards.certifiedTitle")}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                ICT-certified professionals with deep knowledge of Costa Rica&apos;s
-                biodiversity and conservation.
+                {t("whyUsCards.certifiedBody")}
               </p>
             </div>
 
@@ -195,11 +193,10 @@ export default async function AboutPage({
                 </svg>
               </div>
               <h3 className="font-heading text-base font-semibold text-text">
-                Small groups
+                {t("whyUsCards.smallTitle")}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                Intimate experiences, never crowded. Your pace, your interests,
-                our full attention.
+                {t("whyUsCards.smallBody")}
               </p>
             </div>
           </div>
