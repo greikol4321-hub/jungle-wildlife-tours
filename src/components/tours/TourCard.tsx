@@ -228,7 +228,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
     >
       <Link
         href={`/tours/${tour.slug}`}
-        className={`group block h-full ${featured ? "min-h-[420px] md:min-h-[520px]" : ""}`}
+        className="group block h-full"
       >
         <article className="relative h-full overflow-hidden" style={{ borderRadius: radius }}>
           {cardBody}
