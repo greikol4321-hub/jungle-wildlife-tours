@@ -53,11 +53,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
+      <NextIntlClientProvider locale={locale} messages={messages}>
       <Header locale={locale} />
       {children}
       <Footer />
       <WhatsappFloatButton locale={locale} />
     </NextIntlClientProvider>
+    </>
   );
 }
