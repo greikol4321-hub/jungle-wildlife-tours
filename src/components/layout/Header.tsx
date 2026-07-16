@@ -241,7 +241,7 @@ export function Header({ locale }: { locale: string }) {
           bottom: 0;
           z-index: 65;
           width: min(320px, 85vw);
-          background: var(--color-bg);
+          background: linear-gradient(180deg, var(--color-bg) 0%, rgba(11, 26, 15, 0.97) 100%);
           border-left: 1px solid var(--color-border);
           transform: translateX(100%);
           transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1);
@@ -275,8 +275,8 @@ export function Header({ locale }: { locale: string }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 32px;
-          height: 32px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           background: var(--color-surface);
           border: 1px solid var(--color-border);
@@ -288,21 +288,22 @@ export function Header({ locale }: { locale: string }) {
           background: var(--color-surface-elevated);
           color: var(--color-text);
           border-color: var(--color-border-strong);
+          transform: scale(1.05);
         }
 
         /* Nav links */
         .panel-nav {
           flex: 1;
-          padding: 1.5rem;
+          padding: 1.25rem 1.5rem;
           display: flex;
           flex-direction: column;
-          gap: 0;
+          gap: 0.25rem;
         }
         .panel-link {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          padding: 0.85rem 1rem;
+          padding: 1rem 1rem;
           margin: 0 -1rem;
           border-radius: 12px;
           font-family: var(--font-heading);
@@ -314,7 +315,7 @@ export function Header({ locale }: { locale: string }) {
           position: relative;
         }
         .panel-link:hover {
-          background: var(--color-surface);
+          background: rgba(255, 255, 255, 0.06);
           color: var(--color-text);
         }
         .panel-link.active {
@@ -346,8 +347,8 @@ export function Header({ locale }: { locale: string }) {
         /* Divider */
         .panel-divider {
           height: 1px;
-          background: var(--color-border);
-          margin: 0.5rem 0;
+          background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+          margin: 0.5rem 1.5rem;
         }
 
         /* Panel footer */
@@ -357,25 +358,26 @@ export function Header({ locale }: { locale: string }) {
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
+          background: rgba(11, 26, 15, 0.3);
         }
         .panel-cta {
           display: inline-flex;
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          padding: 0.85rem 1.5rem;
+          padding: 1rem 1.5rem;
           background: var(--color-emerald);
           color: var(--color-bg);
           border-radius: 100px;
           font-weight: 600;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           letter-spacing: 0.04em;
           text-decoration: none;
           transition: all 200ms var(--ease-out);
-          box-shadow: 0 2px 12px -2px rgba(78,203,113,0.3);
+          box-shadow: 0 4px 16px -2px rgba(78,203,113,0.4);
         }
         .panel-cta:hover {
-          box-shadow: 0 0 24px -4px rgba(78,203,113,0.35);
+          box-shadow: 0 4px 24px -2px rgba(78,203,113,0.5);
           transform: translateY(-1px);
         }
         .panel-cta:active { transform: scale(0.98); }
@@ -500,7 +502,7 @@ export function Header({ locale }: { locale: string }) {
             onClick={() => setOpen(false)}
             aria-label={t("closeMenu")}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 6L6 18" />
               <path d="M6 6l12 12" />
             </svg>

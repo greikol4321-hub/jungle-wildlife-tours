@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
+import { Camera, Clock, ArrowRight } from "lucide-react";
 
 interface Tour {
   id: string;
@@ -93,10 +94,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-canopy to-surface">
-                        <svg className="h-12 w-12 text-emerald/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
+                        <Camera className="h-12 w-12 text-emerald/20" strokeWidth={1.5} aria-hidden="true" />
                       </div>
                     )}
 
@@ -106,9 +104,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                     {/* Duration Badge */}
                     <div className="absolute bottom-3 left-3 z-10">
                       <span className="inline-flex items-center gap-1 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 bg-bg/80 backdrop-blur-md border border-border/50 rounded-full text-text-secondary">
-                        <svg className="h-2.5 w-2.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <Clock className="h-2.5 w-2.5 opacity-60" strokeWidth={2} aria-hidden="true" />
                         {durationH > 0 ? `${durationH}h` : ""}
                         {durationM > 0 ? ` ${durationM}min` : ""}
                       </span>
@@ -144,9 +140,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
                       <span className="inline-flex items-center gap-1.5 font-medium text-xs text-emerald transition-all duration-300 group-hover:gap-2.5">
                         {locale === "es" ? "Ver tour" : "View tour"}
-                        <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                       </span>
                     </div>
                   </div>

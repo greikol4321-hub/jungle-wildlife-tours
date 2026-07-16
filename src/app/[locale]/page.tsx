@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
@@ -47,19 +47,19 @@ export default async function HomePage({
       {/* ── Hero (parallax + mouse-tracking) ──────────────── */}
       <HeroSection locale={locale} />
 
-      {/* ── Cinematic Parallax Divider ────────────────────── */}
-      <ParallaxDivider locale={locale} />
+      {/* ── Trust Badges ───────────────────────────────────── */}
+      <TrustSection locale={locale} />
 
       {/* ── Tour Cards ─────────────────────────────────────── */}
       {featuredTours.length > 0 && (
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
 
-      {/* ── Trust Badges ───────────────────────────────────── */}
-      <TrustSection locale={locale} />
-
       {/* ── Night Section ──────────────────────────────────── */}
       <NightSection locale={locale} />
+
+      {/* ── Cinematic Parallax Divider ────────────────────── */}
+      <ParallaxDivider locale={locale} />
     </main>
   );
 }
