@@ -253,8 +253,8 @@ export function Header({ locale }: { locale: string }) {
           font-weight: 500;
           text-decoration: none;
           color: var(--color-text-secondary);
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
           transition: all 250ms ease;
           position: relative;
         }
@@ -263,16 +263,16 @@ export function Header({ locale }: { locale: string }) {
         }
         @media (hover: hover) {
           .panel-link:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
+            background: var(--color-surface-hover);
+            border-color: var(--color-border-strong);
             color: var(--color-text);
           }
         }
         .panel-link.active {
-          background: linear-gradient(135deg, rgba(78, 203, 113, 0.2), rgba(78, 203, 113, 0.08));
-          border-color: rgba(78, 203, 113, 0.35);
+          background: linear-gradient(135deg, rgba(78, 203, 113, 0.25), rgba(78, 203, 113, 0.1));
+          border-color: rgba(78, 203, 113, 0.45);
           color: var(--color-emerald);
-          box-shadow: 0 4px 24px -10px rgba(78, 203, 113, 0.3);
+          box-shadow: 0 4px 24px -10px rgba(78, 203, 113, 0.35);
         }
         .panel-link-icon {
           width: 22px;
