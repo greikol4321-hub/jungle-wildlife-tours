@@ -111,6 +111,25 @@
   "footer": {
     "company": "Jungle Wildlife Tours",
     "region": "Manuel Antonio · Quepos",
-    "legal": "Official website for the Manuel Antonio area, Costa Rica."
+    "legal": "Official website for the Manuel Antonio area, Costa Rica.",
+    "description": "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
+    "certifiedGuide": "ICT-certified guide",
+    "navigation": "Navigation",
+    "nav": {
+      "home": "Home",
+      "tours": "Tours",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "popularTours": "Popular tours",
+    "tourLinks": {
+      "jungleWalk": "Jungle Walk",
+      "nightWalk": "Night Walk",
+      "birdWatching": "Bird Watching"
+    },
+    "contact": "Contact",
+    "location": "Manuel Antonio, Quepos",
+    "privacy": "Privacy",
+    "terms": "Terms"
   }
 }

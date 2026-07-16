@@ -19,7 +19,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
 
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   const SUPABASE_STORAGE_URL =
     "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
@@ -27,10 +27,10 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
   return (
     <section
       ref={ref}
-      className="relative h-[60vh] md:h-[70vh] overflow-hidden flex items-center justify-center"
+      className="relative h-[55vh] md:h-[65vh] overflow-hidden flex items-center justify-center"
       aria-hidden="true"
     >
-      {/* Parallax Background Image */}
+      {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
           src={`${SUPABASE_STORAGE_URL}/wildlife-sloth-01.jpg`}
@@ -41,25 +41,22 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
         />
       </motion.div>
 
-      {/* Cinematic overlays */}
-      <div className="absolute inset-0 bg-bg/50" />
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-bg/55" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg" />
-      <div className="absolute inset-0 bg-gradient-to-r from-bg/30 via-transparent to-bg/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/40 via-transparent to-bg/40" />
 
       {/* Content */}
-      <motion.div
-        className="relative z-10 text-center px-4"
-        style={{ opacity, y: textY }}
-      >
+      <motion.div className="relative z-10 text-center px-4" style={{ opacity, y: textY }}>
         <Reveal>
-          <p className="font-mono text-xs tracking-[0.3em] uppercase text-emerald mb-4">
+          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-amber mb-3">
             {locale === "es" ? "Experiencia salvaje" : "Wild experience"}
           </p>
         </Reveal>
         <Reveal delay={150}>
           <h2
-            className="font-heading font-bold text-white leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+            className="font-heading font-bold text-text leading-[1.05] tracking-[-0.02em]"
+            style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.5rem)" }}
           >
             {locale === "es"
               ? "Donde la naturaleza dicta el ritmo"
@@ -67,7 +64,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
           </h2>
         </Reveal>
         <Reveal delay={300}>
-          <p className="mt-4 max-w-md mx-auto text-text-secondary/70 text-base">
+          <p className="mt-3 max-w-sm mx-auto text-text-secondary/60 text-sm">
             {locale === "es"
               ? "Cada tour es una inmersión en un ecosistema vivo."
               : "Each tour is an immersion into a living ecosystem."}
@@ -75,8 +72,8 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
         </Reveal>
       </motion.div>
 
-      {/* Diagonal clip reveal — decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald/30 to-transparent" />
+      {/* Bottom line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber/20 to-transparent" />
     </section>
   );
 }

@@ -24,7 +24,7 @@ export async function WhatsappFloatButton({ locale }: { locale: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-full bg-canopy-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-canopy-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-canopy-600"
+      className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-full bg-emerald px-5 py-3 text-sm font-semibold text-bg shadow-lg transition hover:bg-emerald/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald"
     >
       <svg
         aria-hidden="true"

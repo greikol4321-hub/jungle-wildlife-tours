@@ -16,27 +16,31 @@ export function NightSection({ locale }: NightSectionProps) {
   const tTours = useTranslations("tours");
 
   return (
-    <section className="relative overflow-hidden" aria-labelledby="night-heading" style={{ background: "linear-gradient(160deg, #0A1A0E 0%, #060A06 40%, #0D0F08 100%)" }}>
+    <section
+      className="relative overflow-hidden bg-bg"
+      aria-labelledby="night-heading"
+      style={{ background: "linear-gradient(160deg, #0B1A0F 0%, #080C08 40%, #0D0F08 100%)" }}
+    >
       {/* Grid overlay with mask */}
       <div className="absolute inset-0 night-grid-mask">
-        <div className="absolute inset-0 [background-image:linear-gradient(rgba(184,217,53,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(184,217,53,0.025)_1px,transparent_1px)] [background-size:60px_60px]" />
+        <div className="absolute inset-0 [background-image:linear-gradient(rgba(200,150,62,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,150,62,0.025)_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
 
       {/* Ambient glow */}
-      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(184,217,53,0.08)_0%,transparent_70%)] pointer-events-none" aria-hidden="true" />
+      <div className="absolute right-10 top-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(200,150,62,0.06)_0%,transparent_70%)] pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Column */}
           <div>
             <Reveal>
-              <p className="font-mono text-xs font-medium tracking-[0.2em] text-lime uppercase">
+              <p className="font-mono text-xs font-medium tracking-[0.2em] text-amber uppercase">
                 {tTours("categories.night_walk")}
               </p>
             </Reveal>
 
             <Reveal delay={100}>
-              <h2 id="night-heading" className="mt-2 font-heading font-bold tracking-tight text-white animate-fade-up" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
+              <h2 id="night-heading" className="mt-2 font-heading font-bold tracking-tight text-text" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
                 {locale === "es"
                   ? "La selva también se vive de noche"
                   : "The jungle comes alive at night"}
@@ -44,7 +48,7 @@ export function NightSection({ locale }: NightSectionProps) {
             </Reveal>
 
             <Reveal delay={180}>
-              <p className="mt-5 text-base font-light text-text-secondary leading-[1.85] max-w-lg animate-fade-up">
+              <p className="mt-5 text-base font-light text-text-secondary leading-[1.85] max-w-lg">
                 {locale === "es"
                   ? "La caminata nocturna te muestra una faceta de Manuel Antonio que pocos ven: anfibios, insectos, mamíferos y la actividad que solo ocurre bajo la oscuridad del dosel."
                   : "The night walk reveals a side of Manuel Antonio few see: amphibians, insects, mammals, and the activity that only happens under the canopy of darkness."}
@@ -55,7 +59,7 @@ export function NightSection({ locale }: NightSectionProps) {
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/tours/caminata-nocturna"
-                  className="btn-magnetic btn-magnetic-lime"
+                  className="btn btn-primary"
                 >
                   {locale === "es" ? "Más información" : "Learn more"}
                 </Link>
@@ -63,7 +67,7 @@ export function NightSection({ locale }: NightSectionProps) {
                   href="https://wa.me/50688888888"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-magnetic btn-magnetic-ghost"
+                  className="btn btn-secondary"
                 >
                   {tTours("book")}
                 </a>
@@ -95,9 +99,9 @@ export function NightSection({ locale }: NightSectionProps) {
 
                 {/* Floating particles */}
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                  <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 rounded-full bg-lime/30 animate-pulse-slow" style={{ animationDelay: "0s" }} />
+                  <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 rounded-full bg-amber/30 animate-pulse-slow" style={{ animationDelay: "0s" }} />
                   <div className="absolute top-1/3 right-1/5 w-1 h-1 rounded-full bg-emerald/40 animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
-                  <div className="absolute bottom-1/3 left-1/5 w-1 h-1 rounded-full bg-lime/30 animate-pulse-slow" style={{ animationDelay: "1s" }} />
+                  <div className="absolute bottom-1/3 left-1/5 w-1 h-1 rounded-full bg-amber/30 animate-pulse-slow" style={{ animationDelay: "1s" }} />
                   <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-emerald/30 animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
                 </div>
               </div>
