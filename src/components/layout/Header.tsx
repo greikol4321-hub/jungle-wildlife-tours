@@ -285,7 +285,8 @@ export function Header({ locale }: { locale: string }) {
           background: linear-gradient(180deg, var(--color-bg) 0%, rgba(11, 26, 15, 0.97) 100%);
           border-left: 1px solid var(--color-border);
           transform: translateX(100%);
-          transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1);
+          visibility: hidden;
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), visibility 0s 400ms;
           display: flex;
           flex-direction: column;
           overflow-y: auto;
@@ -293,6 +294,8 @@ export function Header({ locale }: { locale: string }) {
         }
         .mobile-panel.open {
           transform: translateX(0);
+          visibility: visible;
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.32, 1), visibility 0s 0s;
         }
 
         /* Panel header */
