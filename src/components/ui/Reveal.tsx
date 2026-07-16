@@ -15,7 +15,7 @@ export function Reveal({ delay = 0, children, className = "", ...props }: Reveal
   return (
     <div
       ref={ref as RefObject<HTMLDivElement>}
-      className={`transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"} ${className}`}
+      className={`transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"} ${className}`}
       {...props}
     >
       {children}

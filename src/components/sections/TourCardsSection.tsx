@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
-import { motion } from "motion/react";
 
 interface Tour {
   id: string;
@@ -38,7 +37,6 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8" aria-labelledby="tours-heading">
-      {/* Section Divider */}
       <Reveal delay={0}>
         <div className="section-divider mb-10">
           <div className="section-divider-line" />
@@ -59,7 +57,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {tours.map((tour, index) => {
           const images = tour.tour_images as {
             storage_path: string;
@@ -77,15 +75,12 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
           return (
             <Reveal key={tour.id} delay={220 + index * 100}>
-              <motion.div
-                whileHover={{ y: -5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              <Link
+                href={`/tours/${tour.slug}`}
+                className="group block"
               >
-                <Link
-                  href={`/tours/${tour.slug}`}
-                  className="group card"
-                >
-                  {/* Image — 16:10 cinematic */}
+                <article className="relative overflow-hidden rounded-2xl bg-surface border border-border transition-all duration-300 hover:border-border-hover hover:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] hover:-translate-y-1">
+                  {/* Image */}
                   <div className="relative aspect-[16/10] overflow-hidden">
                     {cover ? (
                       <Image
@@ -93,7 +88,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                         alt={alt ?? title}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover image-zoom"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                         loading="lazy"
                       />
                     ) : (
@@ -106,48 +101,57 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
                     )}
 
                     {/* Vignette */}
-                    <div className="absolute inset-0 image-vignette pointer-events-none" aria-hidden="true" />
+                    <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 -60px 80px -40px rgba(11,26,15,0.7)" }} aria-hidden="true" />
 
                     {/* Duration Badge */}
-                    <span className="absolute bottom-3 left-3 z-10 font-mono text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 bg-bg/80 backdrop-blur-sm border border-border rounded-full text-text-secondary">
-                      {durationH > 0 ? `${durationH}h` : ""}
-                      {durationM > 0 ? ` ${durationM}min` : ""}
-                    </span>
+                    <div className="absolute bottom-3 left-3 z-10">
+                      <span className="inline-flex items-center gap-1 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 bg-bg/80 backdrop-blur-md border border-border/50 rounded-full text-text-secondary">
+                        <svg className="h-2.5 w-2.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {durationH > 0 ? `${durationH}h` : ""}
+                        {durationM > 0 ? ` ${durationM}min` : ""}
+                      </span>
+                    </div>
 
                     {/* Category Tag */}
-                    <span className="absolute top-3 right-3 z-10 font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 bg-amber/10 border border-amber/20 rounded-full text-amber">
-                      {categoryLabel}
-                    </span>
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 bg-amber/15 backdrop-blur-md border border-amber/25 rounded-full text-amber">
+                        {categoryLabel}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5">
-                    <h3 className="font-heading font-bold text-text group-hover:text-amber transition-colors duration-300" style={{ fontSize: "1.2rem", letterSpacing: "-0.01em" }}>
+                  <div className="p-5 pb-6">
+                    <h3 className="font-heading font-bold text-text group-hover:text-amber transition-colors duration-300" style={{ fontSize: "1.25rem", letterSpacing: "-0.01em", lineHeight: "1.3" }}>
                       {title}
                     </h3>
 
                     {desc && (
-                      <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2">
+                      <p className="mt-2.5 text-sm text-text-secondary leading-relaxed line-clamp-2">
                         {desc}
                       </p>
                     )}
 
                     <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-                      <span className="font-heading font-bold text-amber" style={{ fontSize: "1.05rem" }}>
-                        ${tour.price_usd}
-                        <span className="font-mono font-normal text-text-muted text-xs ml-1">USD</span>
-                      </span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="font-heading font-bold text-amber" style={{ fontSize: "1.15rem" }}>
+                          ${tour.price_usd}
+                        </span>
+                        <span className="font-mono font-normal text-text-muted text-[10px] uppercase tracking-wider">USD</span>
+                      </div>
 
-                      <span className="inline-flex items-center gap-1.5 font-medium text-sm text-emerald transition-all duration-300 group-hover:gap-2">
+                      <span className="inline-flex items-center gap-1.5 font-medium text-xs text-emerald transition-all duration-300 group-hover:gap-2.5">
                         {locale === "es" ? "Ver tour" : "View tour"}
-                        <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                       </span>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
+                </article>
+              </Link>
             </Reveal>
           );
         })}

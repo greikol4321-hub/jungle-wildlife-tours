@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -17,6 +17,7 @@ const navItems = [
 export function Header({ locale }: { locale: string }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -230,10 +231,7 @@ export function Header({ locale }: { locale: string }) {
             <button
               type="button"
               className="locale-btn"
-              onClick={() => {
-                const href = pathname.replace(`/${locale}/`, `/${otherLocale}/`);
-                window.location.href = href;
-              }}
+              onClick={() => router.push(pathname, { locale: otherLocale })}
             >
               {otherLocale.toUpperCase()}
             </button>
@@ -285,8 +283,8 @@ export function Header({ locale }: { locale: string }) {
           <button
             className="mobile-locale"
             onClick={() => {
-              const href = pathname.replace(`/${locale}/`, `/${otherLocale}/`);
-              window.location.href = href;
+              router.push(pathname, { locale: otherLocale });
+              setOpen(false);
             }}
           >
             {otherLocale.toUpperCase()}

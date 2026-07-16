@@ -87,29 +87,32 @@ export function HeroSection({ locale }: HeroSectionProps) {
         className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-36 sm:px-6 lg:px-8"
         style={{ opacity: contentOpacity, y: contentY }}
       >
-        <Reveal delay={150}>
+        <Reveal delay={100}>
           <p className="font-mono text-xs font-medium tracking-[0.3em] text-amber uppercase">
             {t("eyebrow")}
           </p>
         </Reveal>
 
-        <Reveal delay={300}>
+        <Reveal delay={200}>
           <h1
             id="hero-title"
-            className="mt-4 font-heading font-bold text-text leading-[0.92] tracking-[-0.03em] text-balance"
+            className="mt-4 font-heading font-bold leading-[0.92] tracking-[-0.03em] text-balance"
             style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)" }}
           >
-            {t("title")}
+            <span className="text-text">{t("title")}</span>
+            <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-amber via-sand to-amber" style={{ WebkitBackgroundClip: "text" }}>
+              {t("subtitle")}
+            </span>
           </h1>
         </Reveal>
 
-        <Reveal delay={450}>
+        <Reveal delay={300}>
           <p className="mt-6 max-w-xl text-lg font-light text-text-secondary leading-[1.8]">
             {t("description")}
           </p>
         </Reveal>
 
-        <Reveal delay={600}>
+        <Reveal delay={400}>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link href="/tours" className="btn btn-primary">
               {t("primaryCta")}
@@ -130,7 +133,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
         </Reveal>
 
         {/* Trust strip */}
-        <Reveal delay={800}>
+        <Reveal delay={550}>
           <div className="mt-14 flex flex-wrap items-center gap-5 text-text-muted">
             <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-emerald">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse-glow" aria-hidden="true" />
@@ -151,7 +154,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
       </motion.div>
 
       {/* Scroll indicator */}
-      <Reveal delay={1000}>
+      <Reveal delay={700}>
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted">
           <svg className="h-4 w-4 animate-bounce [animation-duration:2.5s]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
