@@ -27,34 +27,10 @@ const es: Record<string, TourDemoData> = {
       "Sumérgete en el hermoso bosque tropical húmedo del Parque Nacional Manuel Antonio acompañado de un guía naturalista certificado que te explicará la historia natural y te ayudará a encontrar la increíble fauna del Parque. Te mostrará con detalle cada especie a través de un telescopio profesional, con el cual es posible hacer fotos de muy alta calidad. Después del avistamiento de animales tendrás la oportunidad de relajarte y disfrutar una de las mejores playas de Costa Rica: Playa Manuel Antonio.",
     itinerary: [
       {
-        time: "7:00",
-        title: "Encuentro en la oficina",
+        time: "8:00",
+        title: "Inicio del tour",
         description:
-          "Check-in rápido, presentación con tu guía y ajuste de equipo. Café de bienvenida.",
-      },
-      {
-        time: "7:30",
-        title: "Ingreso al Parque Nacional",
-        description:
-          "Caminata por el sendero principal. El dosel se abre y la luz de la mañana revela monos, perezosos y tucanes.",
-      },
-      {
-        time: "9:00",
-        title: "Playa Espadilla",
-        description:
-          "Parada en la playa para descansar, fotos y avistamiento de fauna costera.",
-      },
-      {
-        time: "10:30",
-        title: "Sendero La Catarata",
-        description:
-          "Tramo de bosque secundario con alta concentración de fauna. Ideal para spotting de serpientes y ranas.",
-      },
-      {
-        time: "12:30",
-        title: "Regreso y cierre",
-        description:
-          "Salida del parque, fotos grupales y recomendaciones para el resto del día.",
+          "El pickup se coordina según tu ubicación de hospedaje — te confirmamos la hora al reservar.",
       },
     ],
     includes: [
@@ -173,34 +149,10 @@ const en: Record<string, TourDemoData> = {
       "Immerse yourself in the beautiful tropical rainforest of Manuel Antonio National Park accompanied by a certified naturalist guide who will explain the natural history and help you find the incredible wildlife of the Park. They will show you every species in detail through a professional telescope, with which you can take high-quality photos. After the wildlife spotting you'll have the opportunity to relax and enjoy one of the best beaches in Costa Rica: Manuel Antonio Beach.",
     itinerary: [
       {
-        time: "7:00",
-        title: "Meeting at the office",
+        time: "8:00",
+        title: "Tour starts",
         description:
-          "Quick check-in, meet your guide and get your gear ready. Welcome coffee.",
-      },
-      {
-        time: "7:30",
-        title: "Entering the National Park",
-        description:
-          "Hike along the main trail. The canopy opens and the morning light reveals monkeys, sloths and toucans.",
-      },
-      {
-        time: "9:00",
-        title: "Espadilla Beach",
-        description:
-          "Stop at the beach to rest, take photos and spot coastal wildlife.",
-      },
-      {
-        time: "10:30",
-        title: "La Catarata Trail",
-        description:
-          "Secondary forest section with high wildlife concentration. Ideal for spotting snakes and frogs.",
-      },
-      {
-        time: "12:30",
-        title: "Return and wrap-up",
-        description:
-          "Exit the park, group photos and recommendations for the rest of the day.",
+          "Pickup is coordinated based on your accommodation location — we'll confirm the time when you book.",
       },
     ],
     includes: [

@@ -17,6 +17,7 @@
 | Menores de 2 años | **Gratis** |
 | Tipo de precio | Efectivo |
 | Duración | **2h 30min** |
+| Horario | **8:00 AM** (pickup se coordina según hospedaje) |
 | Incluye | Transporte ida+vuelta, boleto de ingreso al Parque, refrigerio, telescopio profesional |
 | Descripción | Sumérgete en el hermoso bosque tropical húmedo del Parque Nacional Manuel Antonio acompañado de un guía naturalista certificado que te explicará la historia natural y te ayudará a encontrar la increíble fauna del Parque. Te mostrará con detalle cada especie a través de un telescopio profesional, con el cual es posible hacer fotos de muy alta calidad. Después del avistamiento de animales tendrás la oportunidad de relajarte y disfrutar una de las mejores playas de Costa Rica: Playa Manuel Antonio. |
 
