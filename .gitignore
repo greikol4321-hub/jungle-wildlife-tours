@@ -47,3 +47,7 @@ next-env.d.ts
 
 # browser debug
 .playwright-mcp/
+
+# debugging artifacts
+captura.cjs
+trust-section.png
