@@ -64,7 +64,7 @@
     "bookThisTour": "Reservar por WhatsApp",
     "gallery": "Galería",
     "noImages": "Próximamente agregar fotos de este tour.",
-    "whatsappMessage": "¡Hola! Me interesa el tour: {title}",
+    "whatsappMessage": "¡Hola! Me gustaría consultar sobre el tour: {title}",
     "itinerary": "Recorrido",
     "details": "Detalles",
     "tariff": "Tarifa",
@@ -199,6 +199,6 @@
     "terms": "Términos"
   },
   "whatsapp": {
-    "greeting": "¡Hola! Me gustaría recibir información sobre los tours de naturaleza en Manuel Antonio, Costa Rica."
+    "greeting": "¡Hola! Quisiera más información sobre las experiencias de naturaleza en Manuel Antonio, Costa Rica."
   }
 }
