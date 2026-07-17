@@ -74,7 +74,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 auto-rows-auto">
           {tours.slice(0, 3).map((tour, index) => (
-            <Reveal key={tour.id} delay={160 + index * 80}>
+            <Reveal key={tour.id} delay={160 + index * 80} className={index === 0 ? "md:row-span-2" : ""}>
               <TourCard
                 tour={tour as Tour}
                 locale={locale}
