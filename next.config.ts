@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/:locale/tours/kayak-manglar-damas",
+        destination: "/:locale/tours/caminata-manglar-damas",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
