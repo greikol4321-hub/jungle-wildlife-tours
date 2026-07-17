@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { Camera, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
@@ -91,33 +91,55 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
 
           {categories.length > 0 && (
             <Reveal delay={120}>
-              <div className="mt-8 flex flex-wrap gap-2">
-                <button
-                  onClick={() => setActiveCat(null)}
-                  className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
-                    activeCat === null
-                      ? "bg-emerald text-bg"
-                      : "bg-surface text-text-secondary border border-border hover:border-emerald/30 hover:text-text"
-                  }`}
-                >
-                  {locale === "es" ? "Todas" : "All"}
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCat(cat)}
+              <LayoutGroup>
+                <div className="mt-8 flex flex-wrap gap-2">
+                  <motion.button
+                    onClick={() => setActiveCat(null)}
                     className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
-                      activeCat === cat
-                        ? "bg-emerald text-bg"
+                      activeCat === null
+                        ? "text-bg"
                         : "bg-surface text-text-secondary border border-border hover:border-emerald/30 hover:text-text"
                     }`}
+                    whileTap={{ scale: 0.97 }}
                   >
-                    {locale === "es"
-                      ? ({ day_park: "Día", mangrove: "Manglar", night_walk: "Nocturno" }[cat] ?? cat)
-                      : ({ day_park: "Day", mangrove: "Mangrove", night_walk: "Night" }[cat] ?? cat)}
-                  </button>
-                ))}
-              </div>
+                    {activeCat === null && (
+                      <motion.span
+                        layoutId="gallery-filter-bg"
+                        className="absolute inset-0 rounded-full bg-emerald"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className="relative z-[1]">
+                      {locale === "es" ? "Todas" : "All"}
+                    </span>
+                  </motion.button>
+                  {categories.map((cat) => (
+                    <motion.button
+                      key={cat}
+                      onClick={() => setActiveCat(cat)}
+                      className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
+                        activeCat === cat
+                          ? "text-bg"
+                          : "bg-surface text-text-secondary border border-border hover:border-emerald/30 hover:text-text"
+                      }`}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      {activeCat === cat && (
+                        <motion.span
+                          layoutId="gallery-filter-bg"
+                          className="absolute inset-0 rounded-full bg-emerald"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span className="relative z-[1]">
+                        {locale === "es"
+                          ? ({ day_park: "Día", mangrove: "Manglar", night_walk: "Nocturno" }[cat] ?? cat)
+                          : ({ day_park: "Day", mangrove: "Mangrove", night_walk: "Night" }[cat] ?? cat)}
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
+              </LayoutGroup>
             </Reveal>
           )}
 
