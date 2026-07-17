@@ -256,8 +256,8 @@ export default function ContactPage() {
                       </div>
                     </a>
                   ) : (
-                    <div className="flex items-start gap-4 border-l border-border pl-5 py-3">
-                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center text-text-muted">
+                    <div className="flex items-start gap-4 border-l border-border pl-5 py-3 transition hover:border-emerald group">
+                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center text-text-muted transition group-hover:text-emerald">
                         {card.icon}
                       </span>
                       <div>
