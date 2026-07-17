@@ -82,8 +82,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
       >
         {featured ? (
           <>
-            {/* Full-bleed image overlay */}
-            <div className="absolute inset-0">
+            <div className="relative aspect-[16/10] overflow-hidden">
               {cover ? (
                 <Image
                   src={`${SUPABASE_URL}/${cover.storage_path}`}
@@ -98,48 +97,40 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                   <Camera className="h-16 w-16 text-emerald/15" strokeWidth={1} aria-hidden="true" />
                 </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/20 to-transparent" aria-hidden="true" />
-              <div className="absolute inset-0 bg-gradient-to-r from-bg/30 to-transparent" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/20 to-transparent" aria-hidden="true" />
+              <div className="absolute top-3 right-3 z-10">
+                <span className={`inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 rounded-full bg-gradient-to-br ${catColor} backdrop-blur-sm`}>
+                  {categoryLabel}
+                </span>
+              </div>
+              <div className="absolute bottom-3 left-3 z-10">
+                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase px-3 py-1.5 bg-bg/60 backdrop-blur-md border border-border/40 rounded-full text-text-secondary">
+                  <Clock className="h-3 w-3 opacity-60" strokeWidth={2} aria-hidden="true" />
+                  {durationH > 0 ? `${durationH}h` : ""}{durationM > 0 ? ` ${durationM}min` : ""}
+                </span>
+              </div>
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                aria-hidden="true"
+                style={{ background: "linear-gradient(135deg, rgba(78,203,113,0.08) 0%, transparent 50%)" }}
+              />
             </div>
 
-            {/* Hover shine */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-[2]"
-              aria-hidden="true"
-              style={{ background: "linear-gradient(135deg, rgba(78,203,113,0.1) 0%, transparent 50%)" }}
-            />
-
-            {/* Badges */}
-            <div className="absolute top-4 right-4 z-10">
-              <span className={`inline-flex items-center font-mono text-[9px] tracking-widest uppercase px-2.5 py-1 rounded-full bg-gradient-to-br ${catColor} backdrop-blur-md`}>
-                {categoryLabel}
-              </span>
-            </div>
-            <div className="absolute top-4 left-4 z-10">
-              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase px-3 py-1.5 bg-bg/60 backdrop-blur-md border border-border/40 rounded-full text-text-secondary">
-                <Clock className="h-3 w-3 opacity-60" strokeWidth={2} aria-hidden="true" />
-                {durationH > 0 ? `${durationH}h` : ""}{durationM > 0 ? ` ${durationM}min` : ""}
-              </span>
-            </div>
-
-            {/* Content overlay */}
-            <div className="relative z-[1] flex flex-col justify-end h-full p-6 md:p-8">
+            <div className="p-5">
               <h3
                 className="font-heading font-bold text-text group-hover:text-emerald transition-colors duration-300 text-balance"
-                style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", lineHeight: 1.1 }}
+                style={{ fontSize: "1.1rem", lineHeight: 1.2 }}
               >
                 {title}
               </h3>
               {desc && (
-                <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2 max-w-lg">
+                <p className="mt-1.5 text-xs text-text-secondary leading-relaxed line-clamp-2">
                   {desc}
                 </p>
               )}
-              <div className="mt-4 flex items-center justify-between max-w-sm">
+              <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                 <div className="flex items-baseline gap-1">
-                  <span className="font-heading font-bold text-sand" style={{ fontSize: "1.35rem" }}>
-                    ${tour.price_usd}
-                  </span>
+                  <span className="font-heading font-bold text-sand text-base">${tour.price_usd}</span>
                   <span className="font-mono text-text-secondary text-[9px] uppercase tracking-wider">USD</span>
                 </div>
                 <span className="inline-flex items-center gap-2 font-medium text-xs text-emerald transition-all duration-300 group-hover:gap-3">
