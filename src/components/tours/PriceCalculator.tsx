@@ -80,8 +80,8 @@ export function PriceCalculator({
 
   const whatsappText =
     locale === "es"
-      ? `Hola, quiero reservar el tour: ${title}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
-      : `Hi, I'd like to book the tour: ${title}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
+      ? `¡Hola! Quiero reservar el tour: ${title}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
+      : `Hi! I'd like to book the tour: ${title}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
 
   return (
     <div className="card p-6 md:p-8">

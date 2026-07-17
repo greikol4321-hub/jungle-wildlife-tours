@@ -64,7 +64,7 @@
     "bookThisTour": "Reservar por WhatsApp",
     "gallery": "Galería",
     "noImages": "Próximamente agregar fotos de este tour.",
-    "whatsappMessage": "Hola, me interesa el tour: {title}",
+    "whatsappMessage": "¡Hola! Me interesa el tour: {title}",
     "itinerary": "Recorrido",
     "details": "Detalles",
     "tariff": "Tarifa",
@@ -199,6 +199,6 @@
     "terms": "Términos"
   },
   "whatsapp": {
-    "greeting": "Hola, quiero información sobre los tours de Jungle Wildlife Tours."
+    "greeting": "¡Hola! Me gustaría recibir información sobre los tours de naturaleza en Manuel Antonio, Costa Rica."
   }
 }
