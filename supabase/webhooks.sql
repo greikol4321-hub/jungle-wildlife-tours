@@ -1,0 +1,15 @@
+-- ============================================================
+-- MÓDULO 03 — Async: webhook para notificaciones de contacto
+-- ============================================================
+-- Configurar desde Supabase Dashboard > Database > Webhooks
+-- o mediante el CLI:
+--   supabase webhooks create \
+--     --table contact_messages \
+--     --events INSERT \
+--     --url 'https://tu-dominio.com/api/webhooks/contact'
+--
+-- El webhook dispara una Edge Function o endpoint que envía
+-- el email de notificación al dueño sin bloquear al usuario.
+--
+-- Alternativa zero-código: Supabase > Project Settings > Webhooks
+-- apuntar a tu email usando un servicio como Resend / SendGrid.

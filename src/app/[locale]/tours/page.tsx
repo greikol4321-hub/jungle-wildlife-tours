@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { ToursHero } from "@/components/tours/ToursHero";
 import { ToursGrid } from "@/components/tours/ToursGrid";
 
+export const revalidate = 3600;
+
 export default async function ToursPage({
   params,
 }: {

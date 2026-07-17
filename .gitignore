@@ -51,3 +51,6 @@ next-env.d.ts
 # debugging artifacts
 captura.cjs
 trust-section.png
+
+# load test output
+load-test-results.json

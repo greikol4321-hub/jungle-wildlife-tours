@@ -23,6 +23,8 @@ interface Tour {
   }[];
 }
 
+export const revalidate = 3600;
+
 export default async function HomePage({
   params,
 }: {
@@ -37,9 +39,10 @@ export default async function HomePage({
     .from("tours")
     .select("*, tour_images(*)")
     .eq("is_active", true)
-    .order("display_order");
+    .order("display_order")
+    .limit(3);
 
-  const featuredTours = (tours ?? []).slice(0, 3) as Tour[];
+  const featuredTours = (tours ?? []) as Tour[];
 
   return (
     <main className="flex-1">

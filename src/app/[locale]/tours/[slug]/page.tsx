@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 import { getTourDemoData, difficultyLabels } from "@/lib/tour-demo-data";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
@@ -40,6 +41,18 @@ const catClasses: Record<string, { ring: string; dot: string; border: string; te
   mangrove: { ring: "ring-cyan/40", dot: "bg-cyan", border: "border-cyan/40", text: "text-cyan" },
   night_walk: { ring: "ring-violet/40", dot: "bg-violet", border: "border-violet/40", text: "text-violet" },
 };
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const supabase = createStaticClient();
+  const { data: tours } = await supabase
+    .from("tours")
+    .select("slug")
+    .eq("is_active", true);
+  const slugs = tours ?? [];
+  return slugs.flatMap((t) => ["es", "en"].map((locale) => ({ locale, slug: t.slug })));
+}
 
 export async function generateMetadata({
   params,

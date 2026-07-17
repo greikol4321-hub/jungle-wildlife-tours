@@ -2,6 +2,8 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { GalleryContent } from "@/components/gallery/GalleryContent";
 
+export const revalidate = 3600;
+
 export default async function GalleryPage({
   params,
 }: {
@@ -15,7 +17,8 @@ export default async function GalleryPage({
   const { data: images } = await supabase
     .from("tour_images")
     .select("*, tours(slug, title_es, title_en, category)")
-    .order("display_order");
+    .order("display_order")
+    .limit(100);
 
   return <GalleryContent images={images ?? []} locale={locale} />;
 }
