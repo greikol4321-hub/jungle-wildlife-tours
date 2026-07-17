@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
+import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
+import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 
 interface ToursHeroProps {
   locale: string;
@@ -20,10 +21,9 @@ const particles = [
 
 export function ToursHero({ locale }: ToursHeroProps) {
   const t = useTranslations("tours");
-  const SUPABASE_STORAGE_URL =
-    "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
-  const ref = useRef<HTMLDivElement>(null);
+  const { ref, springX, springY, handleMouse } = useParallaxMouse();
+  const { x: parallaxX, y: parallaxY } = useParallaxTransform(springX, springY, 10, 6);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -34,19 +34,6 @@ export function ToursHero({ locale }: ToursHeroProps) {
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.6], [0, -60]);
-
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  const springCfg = { stiffness: 30, damping: 20, mass: 1 };
-  const parallaxX = useSpring(useTransform(mouseX, [0, 1], [-10, 10]), springCfg);
-  const parallaxY = useSpring(useTransform(mouseY, [0, 1], [-6, 6]), springCfg);
-
-  const handleMouse = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  };
 
   return (
     <section

@@ -7,9 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Camera, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
-
-const SUPABASE_STORAGE_URL =
-  "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
+import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 
 type GalleryImage = {
   id: string;
@@ -24,17 +22,7 @@ type GalleryImage = {
   } | null;
 };
 
-const CATEGORY_COLORS: Record<string, string> = {
-  day_park: "bg-emerald/15 text-emerald border-emerald/25",
-  mangrove: "bg-cyan-500/15 text-cyan-400 border-cyan-400/25",
-  night_walk: "bg-purple-500/15 text-purple-400 border-purple-400/25",
-};
 
-const CATEGORY_TAB_KEYS: Record<string, string> = {
-  day_park: "day",
-  mangrove: "mangrove",
-  night_walk: "night",
-};
 
 export function GalleryContent({ images, locale }: { images: GalleryImage[]; locale: string }) {
   const t = useTranslations("gallery");
@@ -164,7 +152,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                           <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3">
                             {image.tours?.category && (
                               <span
-                                className={`self-start mb-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase border ${CATEGORY_COLORS[image.tours.category] || "bg-white/10 text-white/70 border-white/20"}`}
+                                className={`self-start mb-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase border ${({ day_park: "bg-emerald/15 text-emerald border-emerald/25", mangrove: "bg-cyan-500/15 text-cyan-400 border-cyan-400/25", night_walk: "bg-purple-500/15 text-purple-400 border-purple-400/25" })[image.tours.category] || "bg-white/10 text-white/70 border-white/20"}`}
                               >
                                 {locale === "es"
                                   ? ({ day_park: "Día", mangrove: "Manglar", night_walk: "Nocturno" }[image.tours.category] ?? image.tours.category)

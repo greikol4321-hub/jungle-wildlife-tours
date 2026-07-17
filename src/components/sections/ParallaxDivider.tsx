@@ -5,12 +5,14 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
+import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 
 interface ParallaxDividerProps {
-  locale: string;
+  locale?: string;
+  imageSrc?: string;
 }
 
-export function ParallaxDivider({ locale }: ParallaxDividerProps) {
+export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-sloth-01.jpg" }: ParallaxDividerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const t = useTranslations("parallax");
 
@@ -23,9 +25,6 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
   const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
   const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
-  const SUPABASE_STORAGE_URL =
-    "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
-
   return (
     <section
       ref={ref}
@@ -35,7 +34,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
-            src={`${SUPABASE_STORAGE_URL}/terrestre/wildlife-sloth-01.jpg`}
+            src={`${SUPABASE_STORAGE_URL}/${imageSrc}`}
           alt=""
           fill
           sizes="100vw"
@@ -79,7 +78,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-px w-8 bg-emerald/40" />
                 <span className="font-display text-[10px] tracking-[0.2em] uppercase text-emerald/70">
-                  {locale === "es" ? "Manuel Antonio, Costa Rica" : "Manuel Antonio, Costa Rica"}
+                  Manuel Antonio, Costa Rica
                 </span>
               </div>
             </Reveal>

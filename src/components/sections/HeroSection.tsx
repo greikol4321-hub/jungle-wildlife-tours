@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion, useScroll, useSpring, useMotionValue, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
+import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 
 interface HeroSectionProps {
   locale: string;
@@ -22,13 +23,12 @@ const particles = [
 export function HeroSection(_props: HeroSectionProps) {
   const t = useTranslations("hero");
   const tNav = useTranslations("nav");
-  const SUPABASE_STORAGE_URL =
-    "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { ref, springX, springY, handleMouse } = useParallaxMouse({ stiffness: 40, damping: 18, mass: 0.8 });
+  const { x: mouseParallaxX, y: mouseParallaxY } = useParallaxTransform(springX, springY, 12, 8);
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: ref,
     offset: ["start start", "end start"],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
@@ -37,25 +37,12 @@ export function HeroSection(_props: HeroSectionProps) {
   const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
   const lineOpacity = useTransform(scrollYProgress, [0.05, 0.25], [0, 1]);
 
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  const springConfig = { stiffness: 40, damping: 18, mass: 0.8 };
-  const mouseParallaxX = useSpring(useTransform(mouseX, [0, 1], [-12, 12]), springConfig);
-  const mouseParallaxY = useSpring(useTransform(mouseY, [0, 1], [-8, 8]), springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  };
-
   return (
     <section
-      ref={containerRef}
+      ref={ref}
       className="relative min-h-screen flex items-end overflow-hidden"
       aria-labelledby="hero-title"
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleMouse}
     >
       {/* Background Image */}
       <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>

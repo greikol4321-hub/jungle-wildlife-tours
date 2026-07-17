@@ -9,6 +9,7 @@ import { getTourDemoData, difficultyLabels } from "@/lib/tour-demo-data";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
+import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
 
 type TourImage = {
   id: string;
@@ -33,14 +34,7 @@ type Tour = {
   tour_images: TourImage[];
 };
 
-const SUPABASE_IMAGE_BASE =
-  "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
-const catClasses: Record<string, { ring: string; dot: string; border: string; text: string }> = {
-  day_park: { ring: "ring-emerald/40", dot: "bg-emerald", border: "border-emerald/40", text: "text-emerald" },
-  mangrove: { ring: "ring-cyan/40", dot: "bg-cyan", border: "border-cyan/40", text: "text-cyan" },
-  night_walk: { ring: "ring-violet/40", dot: "bg-violet", border: "border-violet/40", text: "text-violet" },
-};
 
 export const revalidate = 3600;
 
@@ -106,7 +100,7 @@ export default async function TourDetailPage({
   const categoryLabel =
     tTours(`categories.${typedTour.category}`) ?? typedTour.category;
   const coverImage = typedTour.tour_images[0];
-  const cc = catClasses[typedTour.category] ?? catClasses.day_park;
+  const cc = CATEGORY_STYLES[typedTour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
   const demo = getTourDemoData(typedTour.category, locale);
   const diffLabel = difficultyLabels[locale][demo.difficulty] ?? demo.difficulty;
   const hours = Math.floor(typedTour.duration_minutes / 60);
@@ -118,7 +112,7 @@ export default async function TourDetailPage({
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">
         {coverImage ? (
           <Image
-            src={`${SUPABASE_IMAGE_BASE}/${coverImage.storage_path}`}
+            src={`${SUPABASE_STORAGE_URL}/${coverImage.storage_path}`}
             alt={locale === "es" ? (coverImage.alt_es ?? title) : (coverImage.alt_en ?? title)}
             fill
             className="object-cover"

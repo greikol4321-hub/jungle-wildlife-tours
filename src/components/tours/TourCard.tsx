@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
 import { motion, useReducedMotion } from "motion/react";
 import { Clock, ArrowRight } from "lucide-react";
 
@@ -33,15 +34,6 @@ interface TourCardProps {
   featured?: boolean;
 }
 
-const SUPABASE_URL =
-  "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
-
-const catMeta: Record<string, { ring: string; dot: string }> = {
-  day_park: { ring: "ring-emerald/40", dot: "bg-emerald" },
-  mangrove: { ring: "ring-cyan/40", dot: "bg-cyan" },
-  night_walk: { ring: "ring-purple/40", dot: "bg-purple" },
-};
-
 export function TourCard({ tour, locale, index, featured }: TourCardProps) {
   const tTours = useTranslations("tours");
   const reduce = useReducedMotion();
@@ -56,7 +48,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
   const durationH = Math.floor(tour.duration_minutes / 60);
   const durationM = tour.duration_minutes % 60;
   const categoryLabel = tTours(`categories.${tour.category}`);
-  const meta = catMeta[tour.category] ?? catMeta.day_park;
+  const meta = CATEGORY_STYLES[tour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
 
   return (
     <motion.div
@@ -80,7 +72,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
           >
             {cover ? (
               <Image
-                src={`${SUPABASE_URL}/${cover.storage_path}`}
+                src={`${SUPABASE_STORAGE_URL}/${cover.storage_path}`}
                 alt={alt ?? title}
                 fill
                 sizes={featured ? "(max-width: 768px) 100vw, 60vw" : "(max-width: 768px) 100vw, 40vw"}

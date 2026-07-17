@@ -8,7 +8,7 @@ import { useTransition } from "react";
 import { sendContactMessage } from "../../actions/contact";
 import { ContactHero } from "@/components/contact/ContactHero";
 import { Reveal } from "@/components/ui/Reveal";
-import { MessageSquare, Mail, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { MessageSquare, Mail, MapPin, Send, CheckCircle } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(1),
@@ -23,7 +23,6 @@ type ContactValues = z.infer<typeof contactSchema>;
 export default function ContactPage() {
   const t = useTranslations("contact");
   const [isPending, startTransition] = useTransition();
-  const [status, setStatus] = useTransition();
 
   const {
     register,

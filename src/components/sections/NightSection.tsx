@@ -4,10 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
+import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 import { CheckCircle } from "lucide-react";
-
-const SUPABASE_STORAGE_URL =
-  "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
 
 interface NightSectionProps {
   locale: string;
