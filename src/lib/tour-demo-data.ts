@@ -24,7 +24,7 @@ const es: Record<string, TourDemoData> = {
     childPricePct: 50,
     childPriceUsd: 40,
     fullDescription:
-      "Durante este recorrido caminarás por senderos rodeados de bosque tropical donde es común avistar monos carablanca, perezosos de dos dedos, tucanes, ranas de colores brillantes y una gran diversidad de aves. Tu guía naturalista te ayudará a detectar fauna camuflada y te explicará el comportamiento de cada especie. La luz de la mañana es el mejor momento para la observación.",
+      "Sumérgete en el hermoso bosque tropical húmedo del Parque Nacional Manuel Antonio acompañado de un guía naturalista certificado que te explicará la historia natural y te ayudará a encontrar la increíble fauna del Parque. Te mostrará con detalle cada especie a través de un telescopio profesional, con el cual es posible hacer fotos de muy alta calidad. Después del avistamiento de animales tendrás la oportunidad de relajarte y disfrutar una de las mejores playas de Costa Rica: Playa Manuel Antonio.",
     itinerary: [
       {
         time: "7:00",
@@ -59,12 +59,12 @@ const es: Record<string, TourDemoData> = {
     ],
     includes: [
       "Guía naturalista certificado ICT",
-      "Entrada al Parque Nacional Manuel Antonio",
-      "Binoculares compartidos",
-      "Seguro de responsabilidad civil",
+      "Transporte ida y vuelta",
+      "Boleto de ingreso al Parque Nacional Manuel Antonio",
+      "Refrigerio",
+      "Telescopio profesional",
     ],
     excludes: [
-      "Transporte al punto de encuentro",
       "Alimentación y bebidas",
       "Propinas",
     ],
@@ -170,7 +170,7 @@ const en: Record<string, TourDemoData> = {
     childPricePct: 50,
     childPriceUsd: 40,
     fullDescription:
-      "During this walk you'll hike through trails surrounded by tropical rainforest where it's common to spot white-faced monkeys, two-toed sloths, toucans, brightly colored frogs, and a wide variety of birds. Your naturalist guide will help you spot camouflaged wildlife and explain each species' behavior. Morning light is the best time for observation.",
+      "Immerse yourself in the beautiful tropical rainforest of Manuel Antonio National Park accompanied by a certified naturalist guide who will explain the natural history and help you find the incredible wildlife of the Park. They will show you every species in detail through a professional telescope, with which you can take high-quality photos. After the wildlife spotting you'll have the opportunity to relax and enjoy one of the best beaches in Costa Rica: Manuel Antonio Beach.",
     itinerary: [
       {
         time: "7:00",
@@ -205,12 +205,12 @@ const en: Record<string, TourDemoData> = {
     ],
     includes: [
       "ICT-certified naturalist guide",
+      "Round-trip transportation",
       "Manuel Antonio National Park entrance fee",
-      "Shared binoculars",
-      "Liability insurance",
+      "Refreshment",
+      "Professional telescope",
     ],
     excludes: [
-      "Transportation to meeting point",
       "Food and drinks",
       "Tips",
     ],
