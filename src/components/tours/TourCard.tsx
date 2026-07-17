@@ -81,8 +81,8 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
         }}
       >
         {featured ? (
-          <>
-            <div className="relative aspect-[16/10] overflow-hidden">
+          <div className="flex flex-col h-full">
+            <div className="relative flex-1 overflow-hidden">
               {cover ? (
                 <Image
                   src={`${SUPABASE_URL}/${cover.storage_path}`}
@@ -141,7 +141,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                 </span>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <>
             <div className="relative aspect-[16/10] overflow-hidden">
