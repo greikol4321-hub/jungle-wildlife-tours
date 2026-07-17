@@ -20,33 +20,31 @@ export default async function AdminReviewsPage() {
         </div>
       </div>
 
-      <div className="card overflow-hidden">
+      <div className="admin-card overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-xs font-mono tracking-wider text-text-muted">
-              <Th>Estado</Th>
-              <Th>Autor</Th>
-              <Th>Rating</Th>
-              <Th>Tour</Th>
-              <Th>Comentario</Th>
-              <Th>Fecha</Th>
-              <Th className="text-right">Acciones</Th>
+              <th className="p-3 font-medium">Estado</th>
+              <th className="p-3 font-medium">Autor</th>
+              <th className="p-3 font-medium">Rating</th>
+              <th className="p-3 font-medium">Tour</th>
+              <th className="p-3 font-medium">Comentario</th>
+              <th className="p-3 font-medium">Fecha</th>
+              <th className="p-3 font-medium text-right">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {reviews?.map((review) => (
               <tr key={review.id} className={`border-b border-border/50 last:border-0 hover:bg-surface-elevated/50 transition-colors ${!review.is_approved ? "bg-yellow-500/[0.02]" : ""}`}>
                 <td className="p-3">
-                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono tracking-widest px-1.5 py-0.5 rounded-full ${
-                    review.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"
-                  }`}>
+                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono tracking-widest px-1.5 py-0.5 rounded-full ${review.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${review.is_approved ? "bg-emerald" : "bg-yellow-400"}`} />
                     {review.is_approved ? "APROBADA" : "PENDIENTE"}
                   </span>
                 </td>
                 <td className="p-3 font-medium text-text">
                   {review.author_name}
-                  {review.author_country && <span className="text-text-muted text-[10px] block">{review.author_country}</span>}
+                  {review.author_country && <span className="mono-ui text-text-muted block">{review.author_country}</span>}
                 </td>
                 <td className="p-3">
                   <span className="font-mono text-emerald text-xs">{review.rating}/5</span>
@@ -64,19 +62,19 @@ export default async function AdminReviewsPage() {
                   <div className="flex items-center justify-end gap-0.5">
                     {!review.is_approved ? (
                       <form action={approveReview.bind(null, review.id)}>
-                        <button type="submit" className="p-1.5 rounded-lg text-text-muted hover:text-emerald hover:bg-emerald-dim transition-all" title="Aprobar">
+                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Aprobar">
                           <Check className="h-3.5 w-3.5" strokeWidth={2} />
                         </button>
                       </form>
                     ) : (
                       <form action={rejectReview.bind(null, review.id)}>
-                        <button type="submit" className="p-1.5 rounded-lg text-text-muted hover:text-yellow-400 hover:bg-yellow-500/10 transition-all" title="Rechazar">
+                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Rechazar">
                           <X className="h-3.5 w-3.5" strokeWidth={2} />
                         </button>
                       </form>
                     )}
                     <form action={deleteReview.bind(null, review.id)}>
-                      <button type="submit" className="p-1.5 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all" title="Eliminar"
+                      <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive" title="Eliminar"
                         onClick={(e) => { if (!confirm("¿Eliminar reseña?")) e.preventDefault(); }}>
                         <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>
@@ -93,8 +91,4 @@ export default async function AdminReviewsPage() {
       </div>
     </div>
   );
-}
-
-function Th({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <th className={`p-3 font-medium ${className ?? ""}`}>{children}</th>;
 }

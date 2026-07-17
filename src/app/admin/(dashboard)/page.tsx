@@ -26,7 +26,7 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="card p-5">
+        <div className="admin-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-heading text-sm font-bold text-text">Últimas reseñas</h2>
             <Link href="/admin/reviews" className="text-xs text-text-muted hover:text-emerald flex items-center gap-1 transition-colors">
@@ -41,9 +41,7 @@ export default async function AdminDashboard() {
                     <span className="text-text font-medium truncate block">{r.author_name}</span>
                     <span className="text-text-muted text-xs">{(r.tours as unknown as { title_es: string } | null)?.title_es}</span>
                   </div>
-                  <span className={`text-[10px] font-mono tracking-widest px-1.5 py-0.5 rounded-full shrink-0 ${
-                    r.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"
-                  }`}>
+                  <span className={`mono-ui px-1.5 py-0.5 rounded-full shrink-0 ${r.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"}`}>
                     {r.is_approved ? "APROBADA" : "PENDIENTE"}
                   </span>
                 </div>
@@ -54,7 +52,7 @@ export default async function AdminDashboard() {
           )}
         </div>
 
-        <div className="card p-5">
+        <div className="admin-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-heading text-sm font-bold text-text">Últimos mensajes</h2>
             <Link href="/admin/messages" className="text-xs text-text-muted hover:text-emerald flex items-center gap-1 transition-colors">
@@ -69,11 +67,7 @@ export default async function AdminDashboard() {
                     <span className="text-text font-medium truncate block">{m.name}</span>
                     <span className="text-text-muted text-xs">{m.email}</span>
                   </div>
-                  <span className={`text-[10px] font-mono tracking-widest px-1.5 py-0.5 rounded-full shrink-0 ${
-                    m.status === "new" ? "bg-blue-500/10 text-blue-400" :
-                    m.status === "contacted" ? "bg-yellow-500/10 text-yellow-400" :
-                    "bg-emerald-dim text-emerald"
-                  }`}>
+                  <span className={`mono-ui px-1.5 py-0.5 rounded-full shrink-0 ${m.status === "new" ? "bg-blue-500/10 text-blue-400" : m.status === "contacted" ? "bg-yellow-500/10 text-yellow-400" : "bg-emerald-dim text-emerald"}`}>
                     {m.status?.toUpperCase()}
                   </span>
                 </div>
@@ -93,11 +87,11 @@ function StatCard({ href, icon: Icon, label, value, sub }: {
   label: string; value: number; sub: string;
 }) {
   return (
-    <Link href={href} className="card p-5 hover:border-emerald/30 transition-all">
+    <Link href={href} className="admin-card p-5 hover:border-emerald/30 transition-all">
       <Icon className="h-5 w-5 text-emerald mb-3" strokeWidth={1.5} />
       <p className="text-2xl font-bold text-text">{value}</p>
       <p className="text-xs text-text-muted mt-0.5">{label}</p>
-      {sub && <p className="text-[10px] text-text-muted mt-1">{sub}</p>}
+      {sub && <p className="mono-ui text-text-muted mt-1">{sub}</p>}
     </Link>
   );
 }

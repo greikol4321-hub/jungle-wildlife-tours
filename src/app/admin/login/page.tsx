@@ -37,9 +37,9 @@ export default function AdminLoginPage() {
           <p className="text-sm text-text-muted mt-1">Inicia sesión para gestionar el sitio</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="card p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="admin-card p-6 space-y-4">
           <div>
-            <label htmlFor="email" className="block text-xs font-mono tracking-wider text-text-secondary mb-1.5">
+            <label htmlFor="email" className="mono-ui text-text-secondary mb-1.5 block">
               EMAIL
             </label>
             <input
@@ -48,13 +48,13 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2.5 rounded-lg bg-surface-elevated border border-border text-text text-sm placeholder:text-text-muted focus:outline-none focus:border-emerald transition-colors"
+              className="admin-input"
               placeholder="admin@ejemplo.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-xs font-mono tracking-wider text-text-secondary mb-1.5">
+            <label htmlFor="password" className="mono-ui text-text-secondary mb-1.5 block">
               CONTRASEÑA
             </label>
             <div className="relative">
@@ -64,13 +64,13 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-lg bg-surface-elevated border border-border text-text text-sm placeholder:text-text-muted focus:outline-none focus:border-emerald transition-colors pr-10"
+                className="admin-input pr-10"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            className="admin-btn admin-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <span className="flex items-center gap-2">

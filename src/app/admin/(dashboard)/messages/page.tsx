@@ -2,12 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { updateMessageStatus, deleteContactMessage } from "@/app/actions/admin/messages";
 import { Trash2, Check, Mail, Phone, MessageCircle, X } from "lucide-react";
 
-const STATUS_STYLES: Record<string, string> = {
-  new: "bg-blue-500/10 text-blue-400",
-  contacted: "bg-yellow-500/10 text-yellow-400",
-  closed: "bg-emerald-dim text-emerald",
-};
-
 export default async function AdminMessagesPage() {
   const supabase = await createClient();
   const { data: messages } = await supabase
@@ -31,12 +25,12 @@ export default async function AdminMessagesPage() {
           const canContact = msg.status === "new";
           const canClose = msg.status === "new" || msg.status === "contacted";
           return (
-            <div key={msg.id} className={`card p-5 ${msg.status === "new" ? "border-emerald/20" : "opacity-70 hover:opacity-100 transition-opacity"}`}>
+            <div key={msg.id} className={`admin-card p-5 ${msg.status === "new" ? "border-emerald/20" : "opacity-70 hover:opacity-100 transition-opacity"}`}>
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-heading text-sm font-bold text-text">{msg.name}</span>
-                    <span className={`text-[10px] font-mono tracking-widest px-1.5 py-0.5 rounded-full ${STATUS_STYLES[msg.status ?? "new"]}`}>
+                    <span className={`mono-ui px-1.5 py-0.5 rounded-full ${msg.status === "new" ? "bg-blue-500/10 text-blue-400" : msg.status === "contacted" ? "bg-yellow-500/10 text-yellow-400" : "bg-emerald-dim text-emerald"}`}>
                       {msg.status === "new" ? "SIN LEER" : msg.status === "contacted" ? "CONTACTADO" : "CERRADO"}
                     </span>
                   </div>
@@ -55,27 +49,27 @@ export default async function AdminMessagesPage() {
                 <div className="flex items-center gap-1 shrink-0 mt-1">
                   {canContact && (
                     <form action={updateMessageStatus.bind(null, msg.id, "contacted")}>
-                      <button type="submit" className="p-2 rounded-lg text-text-muted hover:text-emerald hover:bg-emerald-dim transition-all" title="Marcar como contactado">
+                      <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Marcar como contactado">
                         <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>
                     </form>
                   )}
                   {canClose && (
                     <form action={updateMessageStatus.bind(null, msg.id, "closed")}>
-                      <button type="submit" className="p-2 rounded-lg text-text-muted hover:text-emerald hover:bg-emerald-dim transition-all" title="Cerrar">
+                      <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Cerrar">
                         <Check className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>
                     </form>
                   )}
                   {msg.status !== "new" && (
                     <form action={updateMessageStatus.bind(null, msg.id, "new")}>
-                      <button type="submit" className="p-2 rounded-lg text-text-muted hover:text-blue-400 hover:bg-blue-500/10 transition-all" title="Reabrir">
+                      <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Reabrir">
                         <X className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>
                     </form>
                   )}
                   <form action={deleteContactMessage.bind(null, msg.id)}>
-                    <button type="submit" className="p-2 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all" title="Eliminar"
+                    <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive" title="Eliminar"
                       onClick={(e) => { if (!confirm("¿Eliminar mensaje?")) e.preventDefault(); }}>
                       <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </button>

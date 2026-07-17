@@ -7,16 +7,6 @@ import { useRouter } from "next/navigation";
 import { createTour } from "@/app/actions/admin/tours";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 
 const schema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "solo minúsculas, números y guiones"),
@@ -61,7 +51,7 @@ export default function NewTourPage() {
 
   return (
     <div>
-      <Link href="/admin/tours" className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-emerald transition-colors mb-4">
+      <Link href="/admin/tours" className="inline-flex items-center gap-1.5 mono-ui text-text-muted hover:text-emerald transition-colors mb-4">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
         Volver a tours
       </Link>
@@ -70,10 +60,10 @@ export default function NewTourPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-5">
         <div className="grid grid-cols-2 gap-4">
           <Field label="Slug" error={errors.slug?.message}>
-            <input {...register("slug")} className="input" />
+            <input {...register("slug")} className="admin-input" />
           </Field>
           <Field label="Categoría" error={errors.category?.message}>
-            <select {...register("category")} className="input">
+            <select {...register("category")} className="admin-input appearance-none cursor-pointer">
               <option value="day_park">Day Park</option>
               <option value="mangrove">Manglar</option>
               <option value="night_walk">Night Walk</option>
@@ -83,28 +73,28 @@ export default function NewTourPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <Field label="Título (ES)" error={errors.title_es?.message}>
-            <input {...register("title_es")} className="input" />
+            <input {...register("title_es")} className="admin-input" />
           </Field>
           <Field label="Título (EN)" error={errors.title_en?.message}>
-            <input {...register("title_en")} className="input" />
+            <input {...register("title_en")} className="admin-input" />
           </Field>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <Field label="Desc. (ES)" error={errors.description_es?.message}>
-            <textarea {...register("description_es")} rows={4} className="input" />
+            <textarea {...register("description_es")} rows={4} className="admin-input admin-textarea" />
           </Field>
           <Field label="Desc. (EN)" error={errors.description_en?.message}>
-            <textarea {...register("description_en")} rows={4} className="input" />
+            <textarea {...register("description_en")} rows={4} className="admin-input admin-textarea" />
           </Field>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <Field label="Duración (min)" error={errors.duration_minutes?.message}>
-            <input {...register("duration_minutes")} type="number" className="input" />
+            <input {...register("duration_minutes")} type="number" className="admin-input" />
           </Field>
           <Field label="Dificultad" error={errors.difficulty?.message}>
-            <select {...register("difficulty")} className="input">
+            <select {...register("difficulty")} className="admin-input appearance-none cursor-pointer">
               <option value="">—</option>
               <option value="easy">Fácil</option>
               <option value="moderate">Moderada</option>
@@ -112,22 +102,22 @@ export default function NewTourPage() {
             </select>
           </Field>
           <Field label="Orden" error={errors.display_order?.message}>
-            <input {...register("display_order")} type="number" className="input" />
+            <input {...register("display_order")} type="number" className="admin-input" />
           </Field>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <Field label="Precio (USD)" error={errors.price_usd?.message}>
-            <input {...register("price_usd")} type="number" step="0.01" className="input" />
+            <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
           </Field>
           <Field label="Edad mínima" error={errors.min_age?.message}>
-            <input {...register("min_age")} type="number" className="input" />
+            <input {...register("min_age")} type="number" className="admin-input" />
           </Field>
         </div>
 
         <div className="flex gap-3 pt-2">
-          <Button type="submit" className="btn btn-primary">Crear tour</Button>
-          <Link href="/admin/tours" className="btn btn-ghost">Cancelar</Link>
+          <button type="submit" className="admin-btn admin-btn-primary">Crear tour</button>
+          <Link href="/admin/tours" className="admin-btn admin-btn-ghost">Cancelar</Link>
         </div>
       </form>
     </div>
@@ -137,7 +127,7 @@ export default function NewTourPage() {
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-mono tracking-wider text-text-secondary mb-1.5">{label.toUpperCase()}</label>
+      <label className="block mono-ui text-text-secondary mb-1.5">{label.toUpperCase()}</label>
       {children}
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>

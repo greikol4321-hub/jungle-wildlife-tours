@@ -14,7 +14,7 @@ const nav = [
 export function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="hidden md:flex md:w-60 flex-col border-r border-border bg-surface">
+    <aside className="admin-sidebar">
       <div className="flex items-center gap-2 px-5 h-16 border-b border-border">
         <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
         <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
@@ -26,13 +26,9 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
-                isActive
-                  ? "bg-emerald-dim text-emerald font-semibold"
-                  : "text-text-secondary hover:text-text hover:bg-surface-elevated"
-              }`}
+              className={`admin-sidebar-item ${isActive ? "active" : ""}`}
             >
-              <item.icon className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+              <item.icon className="admin-sidebar-icon" strokeWidth={1.5} aria-hidden="true" />
               {item.label}
             </Link>
           );
@@ -40,7 +36,7 @@ export function Sidebar() {
       </nav>
       <div className="p-3 border-t border-border">
         <form action="/admin/logout" method="post">
-          <button type="submit" className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm text-text-muted hover:text-red-400 hover:bg-surface-elevated transition-all duration-200">
+          <button type="submit" className="admin-btn admin-btn-ghost w-full justify-start">
             <LogOut className="h-4 w-4" strokeWidth={1.5} />
             Cerrar sesión
           </button>

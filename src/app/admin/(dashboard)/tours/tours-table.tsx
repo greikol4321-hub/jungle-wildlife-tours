@@ -4,24 +4,6 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Plus, Edit, Eye, EyeOff, Search } from "lucide-react";
 import { toggleTourActive } from "@/app/actions/admin/tours";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 type Tour = {
   id: string;
@@ -40,12 +22,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   day_park: "Day Park",
   mangrove: "Manglar",
   night_walk: "Night Walk",
-};
-
-const CATEGORY_COLORS: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  day_park: "default",
-  mangrove: "secondary",
-  night_walk: "outline",
 };
 
 export function ToursTable({ tours }: { tours: Tour[] }) {
@@ -69,107 +45,108 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
     <div className="space-y-4">
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
-          <Input
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" strokeWidth={1.5} />
+          <input
+            type="text"
             placeholder="Buscar tours..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
+            className="admin-input pl-9"
           />
         </div>
-        <Select value={category} onValueChange={(v) => v && setCategory(v)}>
-          <SelectTrigger className="w-[140px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todas</SelectItem>
-            <SelectItem value="day_park">Day Park</SelectItem>
-            <SelectItem value="mangrove">Manglar</SelectItem>
-            <SelectItem value="night_walk">Night Walk</SelectItem>
-          </SelectContent>
-        </Select>
+        <select
+          value={category}
+          onChange={(v) => v && setCategory(v.target.value)}
+          className="admin-input w-[140px] cursor-pointer appearance-none bg-surface-elevated"
+        >
+          <option value="all">Todas</option>
+          <option value="day_park">Day Park</option>
+          <option value="mangrove">Manglar</option>
+          <option value="night_walk">Night Walk</option>
+        </select>
         <Link href="/admin/tours/new" className="ml-auto">
-          <Button size="sm">
+          <button className="admin-btn admin-btn-primary admin-btn-sm">
             <Plus className="h-4 w-4 mr-1.5" strokeWidth={2} />
             Nuevo tour
-          </Button>
+          </button>
         </Link>
       </div>
 
-      <div className="rounded-lg border bg-card">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-10"></TableHead>
-              <TableHead>Título</TableHead>
-              <TableHead className="hidden md:table-cell">Slug</TableHead>
-              <TableHead>Categoría</TableHead>
-              <TableHead className="hidden sm:table-cell">Orden</TableHead>
-              <TableHead className="hidden lg:table-cell">Duración</TableHead>
-              <TableHead className="hidden lg:table-cell">Precio</TableHead>
-              <TableHead className="text-right w-20">Acciones</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <div className="rounded-lg border border-border bg-card admin-scrollbar">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th className="w-10"></th>
+              <th>Título</th>
+              <th className="hidden md:table-cell">Slug</th>
+              <th>Categoría</th>
+              <th className="hidden sm:table-cell">Orden</th>
+              <th className="hidden lg:table-cell">Duración</th>
+              <th className="hidden lg:table-cell">Precio</th>
+              <th className="text-right w-20">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
             {filtered.map((tour) => (
-              <TableRow key={tour.id}>
-                <TableCell>
-                  <span className={`inline-block w-2 h-2 rounded-full ${tour.is_active ? "bg-emerald" : "bg-muted-foreground"}`} />
-                </TableCell>
-                <TableCell className="font-medium">
+              <tr key={tour.id}>
+                <td>
+                  <span className={`inline-block w-2 h-2 rounded-full ${tour.is_active ? "bg-emerald" : "bg-text-muted"}`} />
+                </td>
+                <td className="font-medium">
                   <div className="truncate max-w-[200px]">{tour.title_es}</div>
                   {tour.title_en && (
-                    <div className="text-xs text-muted-foreground truncate">{tour.title_en}</div>
+                    <div className="text-xs text-text-muted truncate">{tour.title_en}</div>
                   )}
-                </TableCell>
-                <TableCell className="hidden md:table-cell text-muted-foreground font-mono text-xs">
+                </td>
+                <td className="hidden md:table-cell text-text-muted font-mono text-xs">
                   {tour.slug}
-                </TableCell>
-                <TableCell>
-                  <Badge variant={CATEGORY_COLORS[tour.category] ?? "outline"}>
+                </td>
+                <td>
+                  <span className="admin-badge">
+                    <span className={`w-1.5 h-1.5 rounded-full ${tour.category === "day_park" ? "bg-emerald" : tour.category === "mangrove" ? "bg-sand" : "bg-canopy"}`} />
                     {CATEGORY_LABELS[tour.category] ?? tour.category}
-                  </Badge>
-                </TableCell>
-                <TableCell className="hidden sm:table-cell text-muted-foreground font-mono text-xs">
+                  </span>
+                </td>
+                <td className="hidden sm:table-cell text-text-muted font-mono text-xs">
                   #{tour.display_order}
-                </TableCell>
-                <TableCell className="hidden lg:table-cell text-muted-foreground">
+                </td>
+                <td className="hidden lg:table-cell text-text-muted">
                   {tour.duration_minutes
                     ? `${Math.floor(tour.duration_minutes / 60)}h ${tour.duration_minutes % 60}m`
                     : "—"}
-                </TableCell>
-                <TableCell className="hidden lg:table-cell text-muted-foreground font-mono">
+                </td>
+                <td className="hidden lg:table-cell text-text-muted font-mono">
                   {tour.price_usd ? `$${tour.price_usd}` : "—"}
-                </TableCell>
-                <TableCell className="text-right">
+                </td>
+                <td className="text-right">
                   <div className="flex items-center justify-end gap-0.5">
                     <form action={toggleTourActive.bind(null, tour.id, !tour.is_active)}>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" title={tour.is_active ? "Desactivar" : "Activar"}>
+                      <button className="admin-btn admin-btn-ghost admin-btn-icon" title={tour.is_active ? "Desactivar" : "Activar"}>
                         {tour.is_active ? <EyeOff className="h-3.5 w-3.5" strokeWidth={1.5} /> : <Eye className="h-3.5 w-3.5" strokeWidth={1.5} />}
-                      </Button>
+                      </button>
                     </form>
                     <Link href={`/admin/tours/${tour.id}/edit`}>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" title="Editar">
-                        <Edit className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      </Button>
+                      <button className="admin-btn admin-btn-ghost admin-btn-icon" title="Editar">
+                        <svg className="h-3.5 w-3.5" strokeWidth={1.5} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+                      </button>
                     </Link>
                   </div>
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ))}
             {filtered.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={8} className="text-center py-12 text-muted-foreground">
+              <tr>
+                <td colSpan={8} className="text-center py-12 text-text-muted">
                   {search || category !== "all"
                     ? "No se encontraron tours con esos filtros."
                     : "No hay tours todavía."}
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             )}
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
       </div>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs text-text-muted">
         {filtered.length} de {tours.length} tours
       </p>
     </div>
