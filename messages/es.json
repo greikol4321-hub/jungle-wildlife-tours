@@ -189,9 +189,9 @@
     },
     "popularTours": "Tours populares",
     "tourLinks": {
-      "jungleWalk": "Caminata por la Selva",
-      "nightWalk": "Caminata Nocturna",
-      "birdWatching": "Avistamiento de Aves"
+      "groundSafari": "Safari terrestre",
+      "mangroveWalk": "Caminata en manglar",
+      "nightWalk": "Caminata nocturna"
     },
     "contact": "Contacto",
     "location": "Manuel Antonio, Quepos",
