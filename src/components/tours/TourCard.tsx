@@ -19,8 +19,8 @@ interface Tour {
   slug: string;
   title_es: string;
   title_en: string;
-  short_description_es: string | null;
-  short_description_en: string | null;
+  description_es: string | null;
+  description_en: string | null;
   duration_minutes: number;
   price_usd: number;
   category: string;
@@ -41,7 +41,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
   const images = tour.tour_images as TourImage[];
   const cover = images?.find((img) => img.is_cover) ?? images?.[0];
   const title = locale === "es" ? tour.title_es : tour.title_en;
-  const desc = locale === "es" ? tour.short_description_es : tour.short_description_en;
+  const desc = locale === "es" ? tour.description_es : tour.description_en;
   const alt = cover
     ? locale === "es" ? cover.alt_text_es : cover.alt_text_en
     : title;

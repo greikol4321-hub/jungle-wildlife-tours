@@ -25,8 +25,6 @@ type Tour = {
   title_en: string;
   description_es: string;
   description_en: string;
-  full_description_es: string | null;
-  full_description_en: string | null;
   category: string;
   duration_minutes: number;
   price_usd: number | null;
@@ -93,10 +91,6 @@ export default async function TourDetailPage({
   const title = locale === "es" ? typedTour.title_es : typedTour.title_en;
   const description =
     locale === "es" ? typedTour.description_es : typedTour.description_en;
-  const fullDescription =
-    locale === "es"
-      ? (typedTour.full_description_es ?? null)
-      : (typedTour.full_description_en ?? null);
   const categoryLabel =
     tTours(`categories.${typedTour.category}`) ?? typedTour.category;
   const coverImage = typedTour.tour_images[0];
@@ -184,9 +178,6 @@ export default async function TourDetailPage({
         <section className="mt-12 md:mt-16 max-w-3xl">
           <p className="text-base md:text-lg leading-[1.8] text-text-secondary">
             {description}
-          </p>
-          <p className="mt-6 text-sm md:text-base leading-[1.8] text-text-muted border-l-2 border-emerald/30 pl-5">
-            {fullDescription ?? demo.fullDescription}
           </p>
         </section>
 

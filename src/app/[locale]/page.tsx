@@ -10,8 +10,8 @@ interface Tour {
   slug: string;
   title_es: string;
   title_en: string;
-  short_description_es: string | null;
-  short_description_en: string | null;
+  description_es: string | null;
+  description_en: string | null;
   duration_minutes: number;
   price_usd: number;
   category: string;

@@ -27,10 +27,8 @@ const schema = z.object({
   category: z.enum(["day_park", "mangrove", "night_walk"]),
   title_es: z.string().min(1),
   title_en: z.string().min(1),
-  short_description_es: z.string().min(1),
-  short_description_en: z.string().min(1),
-  full_description_es: z.string().optional(),
-  full_description_en: z.string().optional(),
+  description_es: z.string().min(1),
+  description_en: z.string().min(1),
   duration_minutes: z.coerce.number(),
   difficulty: z.enum(["easy", "moderate", "challenging"]).optional(),
   min_age: z.coerce.number().optional(),
@@ -41,8 +39,7 @@ const schema = z.object({
 type FormData = {
   slug: string; category: "day_park" | "mangrove" | "night_walk";
   title_es: string; title_en: string;
-  short_description_es: string; short_description_en: string;
-  full_description_es?: string; full_description_en?: string;
+  description_es: string; description_en: string;
   duration_minutes: number;
   difficulty?: "easy" | "moderate" | "challenging";
   min_age?: number; price_usd?: number;
@@ -179,20 +176,11 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Desc. corta (ES)" error={errors.short_description_es?.message}>
-            <textarea {...register("short_description_es")} rows={3} className="input" />
+          <Field label="Desc. (ES)" error={errors.description_es?.message}>
+            <textarea {...register("description_es")} rows={4} className="input" />
           </Field>
-          <Field label="Desc. corta (EN)" error={errors.short_description_en?.message}>
-            <textarea {...register("short_description_en")} rows={3} className="input" />
-          </Field>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Desc. completa (ES)" error={errors.full_description_es?.message}>
-            <textarea {...register("full_description_es")} rows={4} className="input" />
-          </Field>
-          <Field label="Desc. completa (EN)" error={errors.full_description_en?.message}>
-            <textarea {...register("full_description_en")} rows={4} className="input" />
+          <Field label="Desc. (EN)" error={errors.description_en?.message}>
+            <textarea {...register("description_en")} rows={4} className="input" />
           </Field>
         </div>
 
