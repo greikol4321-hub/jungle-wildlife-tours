@@ -161,7 +161,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                   {tTours("from")}
                 </span>
                 <span
-                  className="font-heading font-bold text-sand"
+                  className="font-mono font-bold text-sand"
                   style={{ fontSize: featured ? "1.5rem" : "1.2rem" }}
                 >
                   ${tour.price_usd}
