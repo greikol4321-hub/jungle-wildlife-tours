@@ -177,6 +177,9 @@ export async function Footer() {
                 © {new Date().getFullYear()} Jungle Wildlife Tours.{" "}
                 {t("legal")}
               </p>
+              <p className="text-text-muted/60 text-[10px] tracking-wider">
+                Desarrollado por <span className="text-emerald/60">Greikol Q.A</span>
+              </p>
               <div className="flex items-center gap-4">
                 <Link
                   href="/privacy"
