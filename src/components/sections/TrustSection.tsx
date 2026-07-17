@@ -42,12 +42,12 @@ export function TrustSection(_props: TrustSectionProps) {
                 {/* Top accent bar */}
                 <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
 
-                <div className="p-5 md:p-7 flex flex-col gap-4">
+                <div className="px-5 md:px-7 pt-5 md:pt-7 pb-7 md:pb-9 flex flex-col gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald/10 ring-1 ring-emerald/15 transition-all duration-300 group-hover:bg-emerald/15 group-hover:ring-emerald/25">
                     <Icon className="h-5 w-5 text-emerald" strokeWidth={1.5} aria-hidden="true" />
                   </div>
 
-                  <p className="font-display text-[15px] md:text-base font-semibold text-text leading-snug tracking-[-0.01em]">
+                  <p className="font-display text-[15px] md:text-base font-semibold text-text leading-[2] tracking-[-0.01em]">
                     {tTrust(`badges.${key}`)}
                   </p>
                 </div>
