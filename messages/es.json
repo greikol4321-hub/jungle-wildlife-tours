@@ -145,6 +145,7 @@
   },
   "contact": {
     "title": "Contacto",
+    "heroSubtitle": "Escribinos",
     "subtitle": "¿Tenés dudas o querés reservar directamente? Escribinos.",
     "whatsapp": "WhatsApp",
     "emailLabel": "Correo electrónico",
