@@ -8,7 +8,7 @@ import { useTransition } from "react";
 import { sendContactMessage } from "../../actions/contact";
 import { ContactHero } from "@/components/contact/ContactHero";
 import { Reveal } from "@/components/ui/Reveal";
-import { MessageSquare, Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(1),
@@ -52,19 +52,35 @@ export default function ContactPage() {
 
   const infoCards = [
     {
-      icon: MessageSquare,
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M8 9h8" />
+          <path d="M8 13h6" />
+          <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
+        </svg>
+      ),
       label: "WhatsApp",
       value: "+506 8888-8888",
       href: "https://wa.me/50688888888",
     },
     {
-      icon: Mail,
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+          <path d="M3 7l9 6l9 -6" />
+        </svg>
+      ),
       label: t("emailLabel"),
       value: "info@junglewildlifetours.com",
       href: "mailto:info@junglewildlifetours.com",
     },
     {
-      icon: MapPin,
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+          <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+        </svg>
+      ),
       label: t("locationLabel"),
       value: "Manuel Antonio, Puntarenas, Costa Rica",
     },
@@ -229,24 +245,24 @@ export default function ContactPage() {
                       href={card.href}
                       target={card.href.startsWith("http") ? "_blank" : undefined}
                       rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="group flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 transition hover:border-emerald/30 hover:bg-surface-elevated"
+                      className="flex items-start gap-4 border-l border-border pl-5 py-3 transition hover:border-emerald group"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald/10 transition group-hover:bg-emerald/15">
-                        <card.icon className="h-5 w-5 text-emerald" strokeWidth={1.5} />
-                      </div>
+                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center text-text-muted transition group-hover:text-emerald">
+                        {card.icon}
+                      </span>
                       <div>
-                        <p className="font-mono text-xs uppercase tracking-widest text-text-secondary">{card.label}</p>
-                        <p className="mt-1 text-sm font-medium text-text">{card.value}</p>
+                        <p className="font-mono text-[11px] tracking-[0.12em] text-text">{card.label}</p>
+                        <p className="mt-1 text-[13px] text-text-secondary">{card.value}</p>
                       </div>
                     </a>
                   ) : (
-                    <div className="group flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 transition hover:border-emerald/30 hover:bg-surface-elevated">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald/10 transition group-hover:bg-emerald/15">
-                        <card.icon className="h-5 w-5 text-emerald" strokeWidth={1.5} />
-                      </div>
+                    <div className="flex items-start gap-4 border-l border-border pl-5 py-3">
+                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center text-text-muted">
+                        {card.icon}
+                      </span>
                       <div>
-                        <p className="font-mono text-xs uppercase tracking-widest text-text-secondary">{card.label}</p>
-                        <p className="mt-1 text-sm font-medium text-text">{card.value}</p>
+                        <p className="font-mono text-[11px] tracking-[0.12em] text-text">{card.label}</p>
+                        <p className="mt-1 text-[13px] text-text-secondary">{card.value}</p>
                       </div>
                     </div>
                   )}

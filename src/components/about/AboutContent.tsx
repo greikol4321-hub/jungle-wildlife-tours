@@ -5,22 +5,74 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
-import { ShieldCheck, BadgeCheck, Users, MapPin, Heart, ScrollText, Trees } from "lucide-react";
 
-const certifications = [
-  { key: "ict", icon: ShieldCheck },
-  { key: "hacienda", icon: BadgeCheck },
-  { key: "ccss", icon: Users },
-] as const;
+const certificationSigils: Record<string, React.ReactNode> = {
+  ict: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" />
+      <path d="M15 19l2 2l4 -4" />
+    </svg>
+  ),
+  hacienda: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M15 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+      <path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5" />
+      <path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73" />
+      <path d="M6 9l12 0" />
+      <path d="M6 12l3 0" />
+      <path d="M6 15l2 0" />
+    </svg>
+  ),
+  ccss: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+      <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+    </svg>
+  ),
+};
 
-const whyUsCards = [
-  { key: "local", icon: MapPin },
-  { key: "certified", icon: ScrollText },
-  { key: "small", icon: Heart },
-] as const;
+const whyUsSigils: Record<string, React.ReactNode> = {
+  local: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+      <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+    </svg>
+  ),
+  certified: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+      <path d="M9 9l1 0" />
+      <path d="M9 13l6 0" />
+      <path d="M9 17l6 0" />
+    </svg>
+  ),
+  small: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+    </svg>
+  ),
+};
 
-export function AboutContent() {
+const certSubtitles: Record<string, [string, string]> = {
+  ict: ["ICT·GARANTÍA", "ICT·GUARANTEE"],
+  hacienda: ["HÁGALO LEGAL", "FULLY LEGAL"],
+  ccss: ["SEGURIDAD SOCIAL", "SOCIAL SECURITY"],
+};
+
+const whyUsSubtitles: Record<string, [string, string]> = {
+  local: ["LOCAL·100%", "100%·LOCAL"],
+  certified: ["PROFESIONAL", "PROFESSIONAL"],
+  small: ["EXCLUSIVO", "EXCLUSIVE"],
+};
+
+export function AboutContent({ locale }: { locale: string }) {
   const tA = useTranslations("about");
+
+  const certKeys = ["ict", "hacienda", "ccss"] as const;
+  const whyUsKeys = ["local", "certified", "small"] as const;
 
   return (
     <>
@@ -94,7 +146,7 @@ export function AboutContent() {
       </section>
 
       {/* ── Certifications ───────────────────────────────── */}
-      <section className="relative border-t border-border bg-surface/50">
+      <section className="relative border-t border-border">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
           <div
             className="absolute -top-40 left-1/2 -translate-x-1/2 h-80 w-[60vw] opacity-[0.03]"
@@ -120,24 +172,25 @@ export function AboutContent() {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5">
-            {certifications.map(({ key, icon: Icon }, index) => (
-              <Reveal key={key} delay={80 + index * 60}>
-                <div className="group relative rounded-2xl bg-surface border border-border transition-all duration-300 hover:border-emerald/20 hover:shadow-[0_0_40px_-12px_rgba(78,203,113,0.15)]">
-                  <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-
-                  <div className="p-5 md:p-7 flex flex-col gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald/10 ring-1 ring-emerald/15 transition-all duration-300 group-hover:bg-emerald/15 group-hover:ring-emerald/25">
-                      <Icon className="h-5 w-5 text-emerald" strokeWidth={1.5} aria-hidden="true" />
-                    </div>
-
-                    <p className="font-display text-[15px] md:text-base font-semibold text-text leading-snug tracking-[-0.01em]">
+          <div className="grid sm:grid-cols-3 border-t border-border">
+            {certKeys.map((key, index) => {
+              const sub = certSubtitles[key];
+              return (
+                <Reveal key={key} delay={80 + index * 60}>
+                  <div className={`h-full p-6 md:p-10 border-b border-border ${index < 2 ? "sm:border-r border-border" : ""} sm:last:border-b-0`}>
+                    <span className="flex h-7 w-7 items-center justify-center text-emerald">
+                      {certificationSigils[key]}
+                    </span>
+                    <p className="mt-5 font-mono text-[11px] leading-[1.6] tracking-[0.12em] text-text">
                       {tA(`certifications.${key}`)}
                     </p>
+                    <p className="mt-2 font-mono text-[8px] tracking-[0.2em] text-text-muted uppercase">
+                      — {sub[locale === "es" ? 0 : 1]}
+                    </p>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
 
           <Reveal delay={240}>
@@ -148,7 +201,12 @@ export function AboutContent() {
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
               >
-                <Trees className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 13l-2 -2" />
+                  <path d="M12 12l2 -2" />
+                  <path d="M12 21v-13" />
+                  <path d="M9.824 16a3 3 0 0 1 -2.743 -3.69a3 3 0 0 1 .304 -4.833a3 3 0 0 1 4.615 -3.707a3 3 0 0 1 4.614 3.707a3 3 0 0 1 .305 4.833a3 3 0 0 1 -2.919 3.695h-4z" />
+                </svg>
                 {tA("cta")}
               </Link>
             </div>
@@ -202,27 +260,31 @@ export function AboutContent() {
             </div>
           </Reveal>
 
-          <div className="grid gap-5 grid-cols-1 md:grid-cols-3 auto-rows-auto">
-            {whyUsCards.map(({ key, icon: Icon }, index) => (
-              <Reveal key={key} delay={160 + index * 80}>
-                <div className="group rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:border-emerald/25 hover:bg-surface-elevated hover:shadow-glow-emerald">
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-dim">
-                    <Icon className="h-5 w-5 text-emerald" strokeWidth={1.5} aria-hidden="true" />
+          <div className="grid md:grid-cols-3 border-t border-border">
+            {whyUsKeys.map((key, index) => {
+              const sub = whyUsSubtitles[key];
+              return (
+                <Reveal key={key} delay={160 + index * 80}>
+                  <div className={`h-full p-6 md:p-10 border-b border-border ${index < 2 ? "md:border-r border-border" : ""} md:last:border-b-0`}>
+                    <span className="flex h-7 w-7 items-center justify-center text-emerald">
+                      {whyUsSigils[key]}
+                    </span>
+                    <h3 className="mt-5 font-mono text-[11px] leading-[1.6] tracking-[0.12em] text-text">
+                      {tA(`whyUsCards.${key}Title`)}
+                    </h3>
+                    <p className="mt-2 font-mono text-[8px] tracking-[0.2em] text-text-muted uppercase">
+                      — {sub[locale === "es" ? 0 : 1]}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-text-secondary">
+                      {tA(`whyUsCards.${key}Body`)}
+                    </p>
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-text">
-                    {tA(`whyUsCards.${key}Title`)}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                    {tA(`whyUsCards.${key}Body`)}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
     </>
   );
 }
-
-

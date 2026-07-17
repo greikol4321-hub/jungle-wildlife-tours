@@ -13,7 +13,7 @@ export default async function AboutPage({
   return (
     <main className="flex-1">
       <AboutHero />
-      <AboutContent />
+      <AboutContent locale={locale} />
     </main>
   );
 }
