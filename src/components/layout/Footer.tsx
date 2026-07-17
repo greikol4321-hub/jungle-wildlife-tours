@@ -71,7 +71,7 @@ export async function Footer() {
               <ul className="space-y-3">
                 {[
                   { href: "/tours/safari-manuel-antonio", key: "groundSafari" },
-                  { href: "/tours/kayak-manglar-damas", key: "mangroveWalk" },
+                  { href: "/tours/caminata-manglar-damas", key: "mangroveWalk" },
                   { href: "/tours/caminata-nocturna", key: "nightWalk" },
                 ].map((link) => (
                   <li key={link.href}>

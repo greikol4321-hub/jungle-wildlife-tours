@@ -23,7 +23,7 @@ const toursTTFB = new Trend("tours_ttfb");
 const detailTTFB = new Trend("detail_ttfb");
 const galleryTTFB = new Trend("gallery_ttfb");
 
-const SLUGS = ["safari-manuel-antonio", "kayak-manglar-damas", "caminata-nocturna"];
+const SLUGS = ["safari-manuel-antonio", "caminata-manglar-damas", "caminata-nocturna"];
 
 export const options = {
   stages: [
