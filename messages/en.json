@@ -85,7 +85,9 @@
     "duration": "Duration",
     "includes": "Includes",
     "excludes": "Not included",
-    "aboutExperience": "About the experience"
+    "aboutExperience": "About the experience",
+    "askPrice": "Ask for price",
+    "askPriceSub": "This tour doesn't have a published price. Write to us and we'll get back to you."
   },
   "mangrovePlaceholder": {
     "title": "Mangrove walk · Damas Island",

@@ -36,20 +36,20 @@ function Stepper({
           type="button"
           onClick={() => onChange(Math.max(min, value - 1))}
           disabled={value <= min}
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
           </svg>
         </button>
-        <span className="font-heading text-2xl font-bold text-text w-8 text-center tabular-nums">
+        <span className="font-mono text-2xl font-bold text-text w-8 text-center tabular-nums leading-none">
           {value}
         </span>
         <button
           type="button"
           onClick={() => onChange(Math.min(max, value + 1))}
           disabled={value >= max}
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
@@ -83,8 +83,43 @@ export function PriceCalculator({
       ? `¡Hola! Quiero reservar el tour: ${title}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
       : `Hi! I'd like to book the tour: ${title}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
 
+  const whatsappNumberFallback = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50688888888";
+
+  if (priceUsd === 0) {
+    return (
+      <div className="card p-6 md:p-8">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald/10">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald" aria-hidden="true">
+              <line x1="12" x2="12" y1="2" y2="22" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </span>
+          <div>
+            <h3 className="font-heading text-lg font-bold text-text">{t("calculator")}</h3>
+            <p className="text-sm text-text-secondary">{t("calculatorSub")}</p>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-xl bg-surface border border-border px-4 py-6 text-center">
+          <p className="font-heading text-xl text-text mb-1">{t("askPrice")}</p>
+          <p className="text-sm text-text-secondary">{t("askPriceSub")}</p>
+        </div>
+
+        <a
+          href={`https://wa.me/${whatsappNumberFallback}?text=${encodeURIComponent(whatsappText)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary mt-5 w-full"
+        >
+          {t("bookThisTour")}
+        </a>
+      </div>
+    );
+  }
+
   return (
-    <div className="card p-6 md:p-8">
+    <div className="card p-6 md:p-8 pb-20 md:pb-24">
       <div className="flex items-center gap-3">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald/10">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald" aria-hidden="true">
@@ -105,7 +140,7 @@ export function PriceCalculator({
           {t("adult")} <span className="text-sand">${priceUsd}</span>
         </span>
         <span className="font-heading text-sm font-bold text-text">
-          {t("child")} <span className="text-sand">${childPrice}</span>
+          {t("child")} <span className="text-sand">${childPrice.toFixed(0)}</span>
         </span>
         {childPriceUsd && (
           <>
@@ -149,14 +184,14 @@ export function PriceCalculator({
           <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted">
             {t("totalLabel")}
           </p>
-          <p className="font-heading text-3xl font-bold text-sand tabular-nums">
+          <p className="font-mono text-xl font-bold text-sand tabular-nums">
             ${total.toFixed(0)}
           </p>
         </div>
       </div>
 
       <a
-        href={`https://wa.me/50688888888?text=${encodeURIComponent(whatsappText)}`}
+        href={`https://wa.me/${whatsappNumberFallback}?text=${encodeURIComponent(whatsappText)}`}
         target="_blank"
         rel="noopener noreferrer"
         className="btn btn-primary mt-5 w-full"

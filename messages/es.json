@@ -85,7 +85,9 @@
     "duration": "Duración",
     "includes": "Incluye",
     "excludes": "No incluye",
-    "aboutExperience": "Sobre la experiencia"
+    "aboutExperience": "Sobre la experiencia",
+    "askPrice": "Consultá tarifa",
+    "askPriceSub": "Este tour no tiene tarifa publicada. Escribinos y te pasamos el precio."
   },
   "mangrovePlaceholder": {
     "title": "Caminata en manglar · Isla Damas",
