@@ -134,7 +134,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
           )}
 
           {filtered.length > 0 ? (
-            <div className="mt-10 columns-2 sm:columns-3 lg:columns-4 gap-4">
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               <AnimatePresence mode="popLayout">
                 {filtered.map((image, i) => {
                   const alt = locale === "es" ? image.alt_text_es : image.alt_text_en;
@@ -152,14 +152,13 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                         <button
                           type="button"
                           onClick={() => setSelected(i)}
-                          className="break-inside-avoid mb-4 group relative rounded-2xl overflow-hidden border border-border/50 transition-all duration-300 hover:border-emerald/30 hover:shadow-glow-emerald cursor-pointer text-left w-full"
+                          className="group relative rounded-2xl overflow-hidden border border-border/50 transition-all duration-300 hover:border-emerald/30 hover:shadow-glow-emerald cursor-pointer text-left w-full aspect-[4/3]"
                         >
                           <Image
                             src={`${SUPABASE_STORAGE_URL}/${image.storage_path}`}
                             alt={alt || "Gallery photo"}
-                            width={400}
-                            height={300}
-                            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                           />
                           <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3">
