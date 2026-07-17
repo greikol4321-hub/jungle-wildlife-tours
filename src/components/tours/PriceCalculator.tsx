@@ -1,0 +1,168 @@
+"use client";
+
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+
+interface Props {
+  priceUsd: number;
+  title: string;
+  childPricePct: number;
+  childPriceUsd?: number;
+  locale: string;
+}
+
+function Stepper({
+  label,
+  value,
+  onChange,
+  min,
+  max,
+  price,
+}: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min: number;
+  max: number;
+  price: number;
+}) {
+  return (
+    <div>
+      <p className="font-mono text-[11px] tracking-widest uppercase text-text-muted mb-2">
+        {label}
+      </p>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => onChange(Math.max(min, value - 1))}
+          disabled={value <= min}
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+          </svg>
+        </button>
+        <span className="font-heading text-2xl font-bold text-text w-8 text-center tabular-nums">
+          {value}
+        </span>
+        <button
+          type="button"
+          onClick={() => onChange(Math.min(max, value + 1))}
+          disabled={value >= max}
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </button>
+      </div>
+      <p className="mt-1.5 font-mono text-[10px] tracking-wider text-text-muted">
+        ${price.toFixed(0)} × {value}
+      </p>
+    </div>
+  );
+}
+
+export function PriceCalculator({
+  priceUsd,
+  title,
+  childPricePct,
+  childPriceUsd,
+  locale,
+}: Props) {
+  const t = useTranslations("tourDetail");
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+
+  const childPrice = childPriceUsd ?? priceUsd * (childPricePct / 100);
+  const total = adults * priceUsd + children * childPrice;
+
+  const whatsappText =
+    locale === "es"
+      ? `Hola, quiero reservar el tour: ${title}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
+      : `Hi, I'd like to book the tour: ${title}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
+
+  return (
+    <div className="card p-6 md:p-8">
+      <div className="flex items-center gap-3">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald/10">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald" aria-hidden="true">
+            <line x1="12" x2="12" y1="2" y2="22" />
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        </span>
+        <div>
+          <h3 className="font-heading text-lg font-bold text-text">{t("calculator")}</h3>
+          <p className="text-sm text-text-secondary">{t("calculatorSub")}</p>
+        </div>
+      </div>
+
+      {/* ── Tarifa ── */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-xl bg-surface border border-border px-4 py-3">
+        <span className="font-mono text-[10px] tracking-widest uppercase text-text-muted">{t("tariff")}</span>
+        <span className="font-heading text-sm font-bold text-text">
+          {t("adult")} <span className="text-sand">${priceUsd}</span>
+        </span>
+        <span className="font-heading text-sm font-bold text-text">
+          {t("child")} <span className="text-sand">${childPrice}</span>
+        </span>
+        {childPriceUsd && (
+          <>
+            <span className="text-[10px] text-text-muted">|</span>
+            <span className="font-mono text-[10px] tracking-wider text-text-muted">{t("freeUnder2")}</span>
+          </>
+        )}
+        <span className="text-[10px] text-text-muted">|</span>
+        <span className="font-mono text-[10px] tracking-wider text-emerald">{t("cashPrice")}</span>
+      </div>
+
+      <div className="mt-4 grid gap-6 sm:grid-cols-2">
+        <Stepper
+          label={t("adults")}
+          value={adults}
+          onChange={setAdults}
+          min={1}
+          max={20}
+          price={priceUsd}
+        />
+        <Stepper
+          label={t("children")}
+          value={children}
+          onChange={setChildren}
+          min={0}
+          max={20}
+          price={childPrice}
+        />
+      </div>
+
+      <div className="mt-6 flex items-end justify-between gap-4 border-t border-border pt-5">
+        <div className="text-sm text-text-secondary leading-relaxed">
+          <p>{adults} {t("adultLabel")} × ${priceUsd}</p>
+          {children > 0 && (
+            <p>
+              {children} {t("childLabel")} × ${childPrice.toFixed(0)}
+            </p>
+          )}
+        </div>
+        <div className="text-right">
+          <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted">
+            {t("totalLabel")}
+          </p>
+          <p className="font-heading text-3xl font-bold text-sand tabular-nums">
+            ${total.toFixed(0)}
+          </p>
+        </div>
+      </div>
+
+      <a
+        href={`https://wa.me/50688888888?text=${encodeURIComponent(whatsappText)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-primary mt-5 w-full"
+      >
+        {t("bookThisTour")}
+      </a>
+    </div>
+  );
+}
