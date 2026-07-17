@@ -1,0 +1,328 @@
+/* Admin-specific styles — override shadcn components to use forest palette */
+
+@reference "tailwindcss";
+
+@layer base {
+  .admin-section {
+    /* Override shadcn CSS variables for admin */
+    --background: #0B1A0F;
+    --foreground: #E8E4DC;
+    --card: #142318;
+    --card-foreground: #E8E4DC;
+    --popover: #1A2E1C;
+    --popover-foreground: #E8E4DC;
+    --primary: #4ECB71;
+    --primary-foreground: #0B1A0F;
+    --secondary: #2D5A3D;
+    --secondary-foreground: #E8E4DC;
+    --muted: #1A2E1C;
+    --muted-foreground: rgba(232,228,220,0.55);
+    --accent: #4ECB71;
+    --accent-foreground: #0B1A0F;
+    --destructive: #EF4444;
+    --destructive-foreground: #E8E4DC;
+    --border: rgba(212,197,160,0.08);
+    --input: rgba(212,197,160,0.14);
+    --ring: #4ECB71;
+    --radius: 0.625rem;
+    color-scheme: dark;
+  }
+}
+
+@layer components {
+  /* ── TABLE ────────────────────────────────────────────── */
+  .admin-table {
+    width: 100%;
+    caption-side: bottom;
+    font-size: 0.875rem;
+  }
+  .admin-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .admin-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    opacity: 0.5;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+  }
+  .admin-table tbody tr:hover {
+    background-color: var(--color-surface-elevated);
+    opacity: 1;
+  }
+  .admin-table tbody tr:last-child {
+    border-bottom: none;
+  }
+  .admin-table th {
+    height: 3rem;
+    padding: 1rem;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+  .admin-table td {
+    padding: 1rem;
+    vertical-align: middle;
+  }
+  .admin-table tfoot {
+    border-top: 1px solid var(--border);
+    background-color: var(--card);
+    opacity: 0.5;
+    font-weight: 500;
+  }
+
+  /* ── BADGE ────────────────────────────────────────────── */
+  .admin-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.625rem;
+    font-family: var(--font-mono), monospace;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .admin-badge-default {
+    background-color: var(--border);
+    color: var(--foreground);
+  }
+  .admin-badge-secondary {
+    background-color: var(--color-emerald-dim);
+    color: var(--color-emerald);
+  }
+  .admin-badge-destructive {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+  }
+  .admin-badge-outline {
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: var(--muted-foreground);
+  }
+
+  /* ── BUTTON ───────────────────────────────────────────── */
+  .admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    transition-timing-function: var(--ease-out);
+  }
+  .admin-btn:active {
+    transform: scale(0.97);
+  }
+  .admin-btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: 0 2px 12px -2px rgba(78, 203, 113, 0.3);
+  }
+  .admin-btn-primary:hover {
+    background-color: var(--color-emerald-bright);
+    box-shadow: var(--shadow-glow-emerald);
+  }
+  .admin-btn-secondary {
+    background-color: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+  .admin-btn-secondary:hover {
+    border-color: var(--color-border-hover);
+    background-color: var(--color-emerald-dim);
+    color: var(--color-emerald);
+  }
+  .admin-btn-ghost {
+    background-color: transparent;
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
+  }
+  .admin-btn-ghost:hover {
+    border-color: var(--border);
+    color: var(--foreground);
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+  .admin-btn-sand {
+    background-color: var(--color-sand);
+    color: var(--background);
+  }
+  .admin-btn-sand:hover {
+    box-shadow: var(--shadow-glow-sand);
+  }
+  .admin-btn-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+  }
+  .admin-btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ── INPUT ────────────────────────────────────────────── */
+  .admin-input {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    background-color: var(--color-surface-elevated);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+  }
+  .admin-input:focus {
+    outline: none;
+    border-color: var(--color-emerald);
+  }
+  .admin-input::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  /* ── SELECT ───────────────────────────────────────────── */
+  .admin-select-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    background-color: var(--color-surface-elevated);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+  }
+  .admin-select-trigger:hover {
+    border-color: var(--color-border-strong);
+  }
+  .admin-select-content {
+    position: relative;
+    z-index: 50;
+    min-width: 8rem;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background-color: var(--color-surface-elevated);
+    padding: 0.25rem;
+    font-size: 0.875rem;
+    box-shadow: var(--shadow-card);
+  }
+  .admin-select-item {
+    display: flex;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--foreground);
+  }
+  .admin-select-item:hover,
+  .admin-select-item[data-state="checked"] {
+    background-color: var(--color-emerald-dim);
+    color: var(--color-emerald);
+  }
+  .admin-select-separator {
+    margin: 0.25rem -0.25rem;
+    height: 1px;
+    background-color: var(--border);
+  }
+
+  /* ── SEPARATOR ────────────────────────────────────────── */
+  .admin-separator {
+    background-color: var(--border);
+  }
+
+  /* ── AVATAR ───────────────────────────────────────────── */
+  .admin-avatar {
+    position: relative;
+    display: flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 9999px;
+  }
+  .admin-avatar-image {
+    aspect-ratio: 1;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .admin-avatar-fallback {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--color-emerald-dim);
+    color: var(--color-emerald);
+  }
+
+  /* ── TEXTAREA ─────────────────────────────────────────── */
+  .admin-textarea {
+    min-height: 5rem;
+    resize: vertical;
+  }
+
+  /* ── DIALOG ───────────────────────────────────────────── */
+  .admin-dialog-content {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 50;
+    width: 100%;
+    max-width: 32rem;
+    transform: translate(-50%, -50%);
+    display: grid;
+    gap: 1rem;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-xl);
+  }
+  .admin-dialog-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    text-align: center;
+  }
+  .admin-dialog-title {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+  .admin-dialog-description {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* ── SCROLLBAR ────────────────────────────────────────── */
+  .admin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) var(--color-bg);
+  }
+  .admin-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .admin-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  .admin-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 3px;
+  }
+  .admin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-emerald);
+  }
+}

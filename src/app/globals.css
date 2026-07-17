@@ -12,7 +12,7 @@
   --color-border-strong: rgba(212,197,160,0.14);
   --color-border-hover: rgba(78,203,113,0.35);
 
-  --color-text: #E8E4DC;
+  --color-text: --secondary-foreground: #E8E4DC;
   --color-text-secondary: rgba(232,228,220,0.55);
   --color-text-muted: rgba(232,228,220,0.3);
 

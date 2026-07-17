@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./globals.css";
+import "./admin/admin.css";
 import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 
 const cormorantGaramond = Cormorant_Garamond({

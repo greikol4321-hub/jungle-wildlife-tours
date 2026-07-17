@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-bg p-4">
+    <div className="flex min-h-dvh items-center justify-center bg-bg p-4 admin-section">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="h-2 w-2 rounded-full bg-emerald mx-auto animate-pulse-glow mb-3" />

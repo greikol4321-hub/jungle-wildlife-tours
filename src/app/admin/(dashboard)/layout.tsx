@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { Sidebar } from "./sidebar";
+import "@/app/admin/admin.css";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -15,7 +16,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!admin) redirect("/admin/login");
 
   return (
-    <div className="flex min-h-dvh bg-bg">
+    <div className="flex min-h-dvh bg-bg admin-section">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <header className="md:hidden flex items-center justify-between px-4 h-14 border-b border-border bg-surface">
