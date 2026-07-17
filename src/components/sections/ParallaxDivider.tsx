@@ -35,7 +35,7 @@ export function ParallaxDivider({ locale }: ParallaxDividerProps) {
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
-            src={`${SUPABASE_STORAGE_URL}/jungle/wildlife-sloth-01.jpg`}
+            src={`${SUPABASE_STORAGE_URL}/terrestre/wildlife-sloth-01.jpg`}
           alt=""
           fill
           sizes="100vw"
