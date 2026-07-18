@@ -194,7 +194,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
                 src={img.storage_path}
                 alt=""
                 fill
-                className="object-contain p-1"
+                className="object-cover"
                 sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
               />
               {img.is_cover ? (
