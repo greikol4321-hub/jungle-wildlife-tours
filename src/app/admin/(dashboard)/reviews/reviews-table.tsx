@@ -2,8 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { approveReview, rejectReview, deleteReview } from "@/app/actions/admin/reviews";
-import { Check, X, Trash2, Search, Star } from "lucide-react";
-import Link from "next/link";
+import { Check, X, Trash2, Search, Star, MessageSquareQuote } from "lucide-react";
 
 type Review = {
   id: string;
@@ -16,6 +15,19 @@ type Review = {
   created_at: string | null;
   tours: { title_es: string } | null;
 };
+
+function Stars({ rating, size = "sm" }: { rating: number; size?: "sm" | "xs" }) {
+  const cls = size === "sm" ? "h-4 w-4" : "h-3 w-3";
+  return (
+    <span className="inline-flex gap-[1px]" aria-label={`${rating} de 5`}>
+      {[1, 2, 3, 4, 5].map((s) => (
+        <svg key={s} className={`${cls} ${s <= rating ? "text-sand" : "text-text-muted/15"}`} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
 
 export function ReviewsTable({ reviews }: { reviews: Review[] }) {
   const [search, setSearch] = useState("");
@@ -43,8 +55,8 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" strokeWidth={1.5} />
           <input
             type="text"
@@ -57,30 +69,33 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
         <select
           value={filter}
           onChange={(v) => v && setFilter(v.target.value as typeof filter)}
-          className="admin-input w-[150px] cursor-pointer appearance-none bg-surface-elevated"
+          className="admin-input w-[160px] cursor-pointer appearance-none bg-surface-elevated"
         >
-          <option value="all">Todas</option>
+          <option value="all">Todas las reseñas</option>
           <option value="pending">Pendientes ({pending})</option>
           <option value="approved">Aprobadas</option>
         </select>
       </div>
 
-      <div className="rounded-lg border border-border bg-card admin-scrollbar">
+      <div className="rounded-xl border border-border bg-card overflow-hidden admin-scrollbar">
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Estado</th>
+              <th className="w-24">Estado</th>
               <th>Autor</th>
-              <th>Valoración</th>
+              <th className="w-28">Valoración</th>
               <th className="hidden md:table-cell">Tour</th>
               <th className="hidden sm:table-cell">Comentario</th>
-              <th>Fecha</th>
-              <th className="text-right w-24">Acciones</th>
+              <th className="hidden sm:table-cell w-24">Fecha</th>
+              <th className="text-right w-28">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((review) => (
-              <tr key={review.id} className={!review.is_approved ? "bg-yellow-500/[0.02]" : ""}>
+              <tr
+                key={review.id}
+                className={!review.is_approved ? "border-l-2 border-l-yellow-400/40" : ""}
+              >
                 <td>
                   <span className={`admin-badge ${review.is_approved ? "active" : "pending"}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${review.is_approved ? "bg-emerald" : "bg-yellow-400"}`} />
@@ -88,23 +103,35 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   </span>
                 </td>
                 <td className="font-medium">
-                  {review.author_name}
-                  {review.author_country && (
-                    <span className="block mono-ui text-text-muted mt-0.5">{review.author_country}</span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-emerald-dim flex items-center justify-center text-[10px] font-bold text-emerald shrink-0">
+                      {review.author_name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <span className="text-text">{review.author_name}</span>
+                      {review.author_country && (
+                        <span className="block text-text-muted font-mono text-[9px] tracking-wider">{review.author_country}</span>
+                      )}
+                    </div>
+                  </div>
                 </td>
                 <td>
-                  <span className="font-mono text-xs text-emerald">{review.rating}/5</span>
+                  <Stars rating={review.rating} />
+                  <span className="block text-[10px] text-text-muted font-mono mt-0.5">{review.rating}/5</span>
                 </td>
-                <td className="hidden md:table-cell text-text-muted text-xs max-w-[140px] truncate">
-                  {review.tours?.title_es ?? "—"}
+                <td className="hidden md:table-cell text-text-muted text-xs max-w-[140px]">
+                  <span className="truncate block">{review.tours?.title_es ?? "—"}</span>
                 </td>
-                <td className="hidden sm:table-cell text-text-muted text-xs max-w-[200px]">
-                  <p className="truncate">{review.comment_es ?? review.comment_en ?? ""}</p>
+                <td className="hidden sm:table-cell text-text-muted text-xs max-w-[220px]">
+                  {(review.comment_es ?? review.comment_en) ? (
+                    <p className="truncate">{review.comment_es ?? review.comment_en}</p>
+                  ) : (
+                    <span className="text-text-muted/40 italic">Sin comentario</span>
+                  )}
                 </td>
-                <td className="text-text-muted font-mono text-[10px] whitespace-nowrap">
+                <td className="hidden sm:table-cell text-text-muted font-mono text-[10px] whitespace-nowrap">
                   {review.created_at
-                    ? new Date(review.created_at).toLocaleDateString("es", { day: "2-digit", month: "2-digit", year: "numeric" })
+                    ? new Date(review.created_at).toLocaleDateString("es", { day: "2-digit", month: "short", year: "numeric" })
                     : "—"}
                 </td>
                 <td className="text-right">
@@ -125,7 +152,7 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                     {deleting === review.id ? (
                       <div className="flex items-center gap-0.5">
                         <form action={deleteReview.bind(null, review.id)}>
-                          <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive text-[10px] px-2 w-auto">
+                          <button type="submit" className="admin-btn admin-btn-ghost admin-btn-destructive text-[10px] px-2.5 py-1 h-auto rounded-full">
                             Confirmar
                           </button>
                         </form>
@@ -152,13 +179,13 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   {search || filter !== "all" ? (
                     <div>
                       <p className="text-sm text-text-muted">No se encontraron reseñas con esos filtros</p>
-                      <p className="text-xs text-text-muted/50 mt-1">Probá con otros términos de búsqueda</p>
+                      <p className="text-xs text-text-muted/50 mt-1">Probá con otros términos</p>
                     </div>
                   ) : (
                     <div>
-                      <Star className="h-8 w-8 text-text-muted/30 mx-auto mb-2" strokeWidth={1.5} />
+                      <MessageSquareQuote className="h-10 w-10 text-text-muted/20 mx-auto mb-3" strokeWidth={1.5} />
                       <p className="text-sm text-text-muted">No hay reseñas todavía</p>
-                      <p className="text-xs text-text-muted/50 mt-1">Las reseñas aparecerán aquí cuando los clientes las escriban</p>
+                      <p className="text-xs text-text-muted/50 mt-1">Aparecerán cuando los clientes escriban</p>
                     </div>
                   )}
                 </td>

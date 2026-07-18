@@ -8,7 +8,7 @@ import { use, useTransition, useState, useEffect } from "react";
 import { updateTour } from "@/app/actions/admin/tours";
 import { uploadTourImage, deleteTourImage } from "@/app/actions/admin/tour-images";
 import { createAdminClient } from "@/lib/supabase/admin-client";
-import { ArrowLeft, Plus, Trash2, Upload } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Upload, FileText, Clock, DollarSign, Globe, MapPin, ListOrdered } from "lucide-react";
 import Link from "next/link";
 import type { Tables } from "@/types/database";
 import { useToast } from "@/components/admin/toast";
@@ -199,10 +199,9 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-8">
-        {/* ── INFORMACIÓN BÁSICA ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Información básica</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-6">
+        <div className="admin-card p-6">
+          <SectionHeading icon={FileText} title="Información básica" />
           <div className="grid grid-cols-2 gap-4">
             <Field label="Slug" error={errors.slug?.message}>
               <input {...register("slug")} className="admin-input" />
@@ -223,11 +222,10 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <input {...register("title_en")} className="admin-input" />
             </Field>
           </div>
-        </section>
+        </div>
 
-        {/* ── DESCRIPCIONES ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Descripciones</h2>
+        <div className="admin-card p-6">
+          <SectionHeading icon={FileText} title="Descripciones" />
           <div className="grid grid-cols-2 gap-4">
             <Field label="Desc. corta (ES)" error={errors.description_es?.message}>
               <textarea {...register("description_es")} rows={3} className="admin-input admin-textarea" />
@@ -236,12 +234,11 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <textarea {...register("description_en")} rows={3} className="admin-input admin-textarea" />
             </Field>
           </div>
-        </section>
+        </div>
 
-        {/* ── DURACIÓN Y DIFICULTAD ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Duración y dificultad</h2>
-          <div className="grid grid-cols-4 gap-4">
+        <div className="admin-card p-6">
+          <SectionHeading icon={Clock} title="Duración y dificultad" />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <Field label="Duración (min)" error={errors.duration_minutes?.message}>
               <input {...register("duration_minutes")} type="number" className="admin-input" />
             </Field>
@@ -260,12 +257,11 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <input {...register("max_people")} type="number" className="admin-input" />
             </Field>
           </div>
-        </section>
+        </div>
 
-        {/* ── PRECIOS ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Precios</h2>
-          <div className="grid grid-cols-3 gap-4">
+        <div className="admin-card p-6">
+          <SectionHeading icon={DollarSign} title="Precios" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Field label="Precio adulto (USD)" error={errors.price_usd?.message}>
               <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
@@ -273,15 +269,14 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <input {...register("child_price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
           </div>
-        </section>
+        </div>
 
-        {/* ── IDIOMAS E INCLUYE/EXCLUYE ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Idiomas e ítems</h2>
+        <div className="admin-card p-6">
+          <SectionHeading icon={Globe} title="Idiomas e ítems" />
           <Field label="Idiomas (separados por coma)" error={errors.languages?.message}>
             <input {...register("languages")} className="admin-input" placeholder="Español, English" />
           </Field>
-          <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             <Field label="Incluye (uno por línea)" error={errors.includes?.message}>
               <textarea {...register("includes")} rows={5} className="admin-input admin-textarea" />
             </Field>
@@ -289,32 +284,31 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <textarea {...register("excludes")} rows={5} className="admin-input admin-textarea" />
             </Field>
           </div>
-        </section>
+        </div>
 
-        {/* ── ITINERARIO ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Itinerario</h2>
+        <div className="admin-card p-6">
+          <SectionHeading icon={MapPin} title="Itinerario" />
           <div className="space-y-3">
             {fields.map((field, i) => (
-              <div key={field.id} className="p-3 rounded-lg border border-border bg-surface-elevated/50">
-                <div className="flex items-start justify-between mb-2">
-                  <span className="mono-ui text-xs text-text-muted">Paso {i + 1}</span>
+              <div key={field.id} className="p-4 rounded-xl border border-border bg-surface-elevated/30">
+                <div className="flex items-start justify-between mb-3">
+                  <span className="mono-ui text-[10px] text-text-muted bg-surface px-2 py-0.5 rounded-full">Paso {i + 1}</span>
                   <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors">
                     <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                   </button>
                 </div>
-                <div className="grid grid-cols-3 gap-2 mb-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
                   <div>
-                    <label className="block mono-ui text-text-secondary mb-1.5">HORA</label>
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">HORA</label>
                     <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
                   </div>
-                  <div className="col-span-2">
-                    <label className="block mono-ui text-text-secondary mb-1.5">TÍTULO</label>
+                  <div className="sm:col-span-2">
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">TÍTULO</label>
                     <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
                   </div>
                 </div>
                 <div>
-                  <label className="block mono-ui text-text-secondary mb-1.5">DESCRIPCIÓN</label>
+                  <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">DESCRIPCIÓN</label>
                   <textarea {...register(`itinerary.${i}.description`)} rows={2} className="admin-input admin-textarea" placeholder="Descripción de este paso" />
                 </div>
               </div>
@@ -323,15 +317,16 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Agregar paso
             </button>
           </div>
-        </section>
+        </div>
 
-        {/* ── ORDEN ── */}
-        <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Orden</h2>
-          <Field label="Orden de visualización" error={errors.display_order?.message}>
-            <input {...register("display_order")} type="number" className="admin-input" />
-          </Field>
-        </section>
+        <div className="admin-card p-6">
+          <SectionHeading icon={ListOrdered} title="Orden" />
+          <div className="max-w-[200px]">
+            <Field label="Orden de visualización" error={errors.display_order?.message}>
+              <input {...register("display_order")} type="number" className="admin-input" />
+            </Field>
+          </div>
+        </div>
 
         <div className="flex gap-3 pt-2">
           <button type="submit" disabled={isPending} className="admin-btn admin-btn-primary disabled:opacity-50">
@@ -340,6 +335,17 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           <Link href="/admin/tours" className="admin-btn admin-btn-ghost">Cancelar</Link>
         </div>
       </form>
+    </div>
+  );
+}
+
+function SectionHeading({ icon: Icon, title }: { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; title: string }) {
+  return (
+    <div className="flex items-center gap-2 mb-5 pb-3 border-b border-border">
+      <div className="w-7 h-7 rounded-lg bg-emerald-dim flex items-center justify-center">
+        <Icon className="h-3.5 w-3.5 text-emerald" strokeWidth={1.5} />
+      </div>
+      <h2 className="font-heading text-sm font-bold text-text tracking-wide">{title}</h2>
     </div>
   );
 }

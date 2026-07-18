@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { Palmtree, Star, MessageSquare, TrendingUp } from "lucide-react";
+import { TreePalm, Star, SquarePen, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
@@ -9,75 +9,125 @@ export default async function AdminDashboard() {
     supabase.from("tours").select("*", { count: "exact", head: true }).eq("is_active", true),
     supabase.from("reviews").select("*", { count: "exact", head: true }),
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("is_approved", false),
-    supabase.from("reviews").select("id, author_name, rating, is_approved, created_at, tours(title_es)").order("created_at", { ascending: false }).limit(5),
+    supabase.from("reviews").select("id, author_name, rating, is_approved, created_at, tours(title_es)").order("created_at", { ascending: false }).limit(6),
   ]);
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-xl font-bold text-text">Dashboard</h1>
-          <p className="text-sm text-text-muted mt-0.5">Resumen del estado actual</p>
-        </div>
-        <span className="mono-ui text-text-muted text-[10px]">
+    <div className="space-y-10">
+      <div>
+        <p className="mono-ui text-emerald text-[11px] tracking-[0.25em] mb-2">
           {new Date().toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
-        </span>
+        </p>
+        <h1 className="font-heading text-2xl font-bold text-text">Panel de control</h1>
+        <p className="text-sm text-text-muted mt-1">Resumen general del sistema</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard href="/admin/tours" icon={Palmtree} label="Tours" value={tourCount ?? 0} sub={`${activeCount ?? 0} activos`} />
-        <StatCard href="/admin/reviews" icon={Star} label="Reseñas" value={reviewCount ?? 0} sub={`${pendingReviews ?? 0} pendientes`} />
-        <StatCard href="/admin/tours" icon={TrendingUp} label="Tours activos" value={activeCount ?? 0} sub="en publicación" />
+      <div className="grid grid-cols-3 gap-px bg-border rounded-xl overflow-hidden">
+        <MetricBox value={tourCount ?? 0} label="Tours totales" sub={`${activeCount ?? 0} activos`} accent="emerald" />
+        <MetricBox value={reviewCount ?? 0} label="Reseñas" sub={`${pendingReviews ?? 0} pendientes`} accent="sand" />
+        <MetricBox value={activeCount ?? 0} label="Tours activos" sub="en publicación" accent="canopy" />
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        <div className="admin-card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-heading text-sm font-bold text-text">Últimas reseñas</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 admin-card p-6">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="font-heading text-sm font-bold text-text tracking-wide">Actividad reciente</h2>
             {(reviewCount ?? 0) > 0 && (
-              <Link href="/admin/reviews" className="text-xs text-text-muted hover:text-emerald flex items-center gap-1 transition-colors">
-                Ver todas
-                <svg className="h-3 w-3" strokeWidth={1.5} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              <Link href="/admin/reviews" className="mono-ui text-[10px] text-text-muted hover:text-emerald flex items-center gap-1.5 transition-colors">
+                Ver todo <ArrowRight className="h-3 w-3" strokeWidth={1.5} />
               </Link>
             )}
           </div>
           {recentReviews?.length ? (
-            <div className="space-y-3">
-              {recentReviews.map((r) => (
-                <div key={r.id} className="flex items-center justify-between text-sm py-2 first:pt-0 last:pb-0">
-                  <div className="min-w-0 flex-1">
-                    <span className="text-text font-medium truncate block">{r.author_name}</span>
-                    <span className="text-text-muted text-xs">{(r.tours as unknown as { title_es: string } | null)?.title_es}</span>
+            <div className="space-y-0 divide-y divide-border/50">
+              {recentReviews.map((r, i) => (
+                <div
+                  key={r.id}
+                  className="flex items-center gap-4 py-3.5 first:pt-0 last:pb-0 group"
+                >
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-surface-elevated flex items-center justify-center text-[11px] font-mono text-text-muted group-hover:text-emerald transition-colors">
+                    {r.rating}
                   </div>
-                  <span className={`mono-ui px-1.5 py-0.5 rounded-full shrink-0 ml-3 ${r.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"}`}>
-                    {r.is_approved ? "APROBADA" : "PENDIENTE"}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-text font-medium truncate">{r.author_name}</span>
+                      <Stars rating={r.rating} />
+                    </div>
+                    <p className="text-xs text-text-muted truncate mt-0.5">
+                      {(r.tours as unknown as { title_es: string } | null)?.title_es ?? "—"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className={`mono-ui text-[9px] px-2 py-0.5 rounded-full ${r.is_approved ? "bg-emerald-dim text-emerald" : "bg-yellow-500/10 text-yellow-400"}`}>
+                      {r.is_approved ? "APROBADA" : "PENDIENTE"}
+                    </span>
+                    <span className="mono-ui text-[9px] text-text-muted/50 hidden sm:block">
+                      {new Date(r.created_at ?? "").toLocaleDateString("es", { day: "2-digit", month: "2-digit" })}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8">
-              <Star className="h-8 w-8 text-text-muted/30 mx-auto mb-2" strokeWidth={1.5} />
+            <div className="text-center py-10">
+              <Star className="h-8 w-8 text-text-muted/20 mx-auto mb-3" strokeWidth={1.5} />
               <p className="text-sm text-text-muted">Aún no hay reseñas</p>
-              <p className="text-xs text-text-muted/50 mt-1">Las reseñas aparecerán aquí cuando los clientes las escriban</p>
+              <p className="text-xs text-text-muted/50 mt-1">Aparecerán aquí cuando los clientes escriban</p>
             </div>
           )}
+        </div>
+
+        <div className="admin-card p-6">
+          <h2 className="font-heading text-sm font-bold text-text tracking-wide mb-5">Accesos rápidos</h2>
+          <div className="space-y-2">
+            <QuickLink href="/admin/tours/new" icon={SquarePen} label="Nuevo tour" sub="Crear un tour desde cero" />
+            <QuickLink href="/admin/reviews" icon={Star} label="Moderar reseñas" sub={`${pendingReviews} pendientes`} />
+            <QuickLink href="/admin/tours" icon={TreePalm} label="Gestionar tours" sub="Editar, activar, ordenar" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function StatCard({ href, icon: Icon, label, value, sub }: {
-  href: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  label: string; value: number; sub: string;
-}) {
+function MetricBox({ value, label, sub, accent }: { value: number; label: string; sub: string; accent: string }) {
+  const accentMap: Record<string, string> = {
+    emerald: "after:bg-emerald",
+    sand: "after:bg-sand",
+    canopy: "after:bg-canopy",
+  };
   return (
-    <Link href={href} className="admin-card p-5 hover:border-emerald/30 transition-all block">
-      <Icon className="h-5 w-5 text-emerald mb-3" strokeWidth={1.5} />
-      <p className="text-2xl font-bold text-text">{value}</p>
-      <p className="text-xs text-text-muted mt-0.5">{label}</p>
-      {sub && <p className="mono-ui text-text-muted mt-1">{sub}</p>}
+    <div className={`bg-surface p-5 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] ${accentMap[accent] ?? "after:bg-emerald"}`}>
+      <p className="text-3xl font-bold text-text font-heading leading-none">{value}</p>
+      <p className="text-xs text-text-muted mt-2">{label}</p>
+      <p className="mono-ui text-[9px] text-text-muted/50 mt-1">{sub}</p>
+    </div>
+  );
+}
+
+function Stars({ rating }: { rating: number }) {
+  return (
+    <span className="inline-flex gap-[1px]" aria-label={`${rating} de 5 estrellas`}>
+      {[1, 2, 3, 4, 5].map((s) => (
+        <svg key={s} className={`h-3 w-3 ${s <= rating ? "text-sand" : "text-text-muted/20"}`} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+function QuickLink({ href, icon: Icon, label, sub }: { href: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; label: string; sub: string }) {
+  return (
+    <Link href={href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/50 transition-colors group">
+      <div className="w-9 h-9 rounded-lg bg-emerald-dim flex items-center justify-center shrink-0 group-hover:bg-emerald-dim/80 transition-colors">
+        <Icon className="h-4 w-4 text-emerald" strokeWidth={1.5} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm text-text font-medium">{label}</p>
+        <p className="mono-ui text-[9px] text-text-muted/60 mt-0.5">{sub}</p>
+      </div>
+      <ArrowRight className="h-3.5 w-3.5 text-text-muted/30 group-hover:text-emerald transition-colors" strokeWidth={1.5} />
     </Link>
   );
 }
