@@ -21,8 +21,9 @@ type ItineraryStop = {
 type TourImage = {
   id: string;
   storage_path: string;
-  alt_es?: string;
-  alt_en?: string;
+  is_cover: boolean;
+  alt_text_es?: string;
+  alt_text_en?: string;
 };
 
 type Tour = {
@@ -108,7 +109,7 @@ export default async function TourDetailPage({
     locale === "es" ? typedTour.description_es : typedTour.description_en;
   const categoryLabel =
     tTours(`categories.${typedTour.category}`) ?? typedTour.category;
-  const coverImage = typedTour.tour_images[0];
+  const coverImage = typedTour.tour_images.find((img) => img.is_cover) ?? typedTour.tour_images[0];
   const cc = CATEGORY_STYLES[typedTour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
   const diffLabel = difficultyLabels[locale][typedTour.difficulty ?? 'easy'] ?? typedTour.difficulty;
   const hours = Math.floor(typedTour.duration_minutes / 60);
@@ -121,7 +122,7 @@ export default async function TourDetailPage({
         {coverImage ? (
           <Image
             src={`${SUPABASE_STORAGE_URL}/${coverImage.storage_path}`}
-            alt={locale === "es" ? (coverImage.alt_es ?? title) : (coverImage.alt_en ?? title)}
+            alt={locale === "es" ? (coverImage.alt_text_es ?? title) : (coverImage.alt_text_en ?? title)}
             fill
             className="object-cover"
             priority
