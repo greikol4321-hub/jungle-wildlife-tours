@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Plus, Edit, Eye, EyeOff, Search } from "lucide-react";
+import { Plus, Eye, EyeOff, Search, Trees, Waves, Moon, Pencil } from "lucide-react";
 import { toggleTourActive } from "@/app/actions/admin/tours";
 
 type Tour = {
@@ -18,10 +18,10 @@ type Tour = {
   difficulty: string | null;
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  day_park: "Day Park",
-  mangrove: "Manglar",
-  night_walk: "Night Walk",
+const CATEGORY_META: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
+  day_park: { label: "Day Park", icon: <Trees className="h-3.5 w-3.5" />, color: "bg-emerald-dim text-emerald border-emerald/20" },
+  mangrove: { label: "Manglar", icon: <Waves className="h-3.5 w-3.5" />, color: "bg-sand-dim text-sand border-sand/20" },
+  night_walk: { label: "Night Walk", icon: <Moon className="h-3.5 w-3.5" />, color: "bg-blue-500/10 text-blue-400 border-blue-400/20" },
 };
 
 export function ToursTable({ tours }: { tours: Tour[] }) {
@@ -41,8 +41,15 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
     });
   }, [tours, search, category]);
 
+  const statusDots: Record<string, string> = {
+    day_park: "bg-emerald",
+    mangrove: "bg-sand",
+    night_walk: "bg-blue-400",
+  };
+
   return (
     <div className="space-y-4">
+      {/* Search + Filter + New */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" strokeWidth={1.5} />
@@ -51,102 +58,153 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
             placeholder="Buscar tours..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="admin-input pl-9"
+            className="admin-input pl-9 text-sm"
           />
         </div>
         <select
           value={category}
           onChange={(v) => v && setCategory(v.target.value)}
-          className="admin-input w-[140px] cursor-pointer appearance-none bg-surface-elevated"
+          className="admin-input w-[130px] cursor-pointer appearance-none bg-surface-elevated text-sm"
         >
           <option value="all">Todas</option>
           <option value="day_park">Day Park</option>
           <option value="mangrove">Manglar</option>
           <option value="night_walk">Night Walk</option>
         </select>
-        <Link href="/admin/tours/new" className="ml-auto">
+        <Link href="/admin/tours/new" className="ml-auto shrink-0">
           <button className="admin-btn admin-btn-primary admin-btn-sm">
-            <Plus className="h-4 w-4 mr-1.5" strokeWidth={2} />
-            Nuevo tour
+            <Plus className="h-4 w-4" strokeWidth={2} />
+            <span className="hidden sm:inline">Nuevo</span>
           </button>
         </Link>
       </div>
 
-      <div className="rounded-lg border border-border bg-card admin-scrollbar">
+      {/* Mobile: cards */}
+      <div className="sm:hidden space-y-2">
+        {filtered.map((tour) => {
+          const cat = CATEGORY_META[tour.category] ?? CATEGORY_META.day_park;
+          return (
+            <div key={tour.id} className={`rounded-xl border p-3.5 transition-colors ${tour.is_active ? "bg-surface border-border" : "bg-surface/50 border-border/60 opacity-60"}`}>
+              <div className="flex items-center gap-3">
+                {/* Category icon */}
+                <div className={`flex items-center justify-center w-9 h-9 rounded-lg border ${cat.color}`}>
+                  {cat.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-heading font-bold text-sm text-text truncate">{tour.title_es}</span>
+                    <span className={`shrink-0 w-2 h-2 rounded-full ${tour.is_active ? "bg-emerald" : "bg-text-muted"}`} />
+                  </div>
+                  <div className="flex items-center gap-2 mt-0.5 text-xs text-text-muted flex-wrap">
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-mono tracking-widest border ${cat.color}`}>
+                      {cat.icon}
+                      {cat.label}
+                    </span>
+                    {tour.price_usd && <span className="font-mono text-emerald/80">${tour.price_usd}</span>}
+                    <span>#{tour.display_order}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+                <form action={toggleTourActive.bind(null, tour.id, !tour.is_active)} className="flex-1">
+                  <button className="admin-btn admin-btn-ghost w-full text-xs py-2">
+                    {tour.is_active ? <EyeOff className="h-3.5 w-3.5" strokeWidth={1.5} /> : <Eye className="h-3.5 w-3.5" strokeWidth={1.5} />}
+                    {tour.is_active ? "Desactivar" : "Activar"}
+                  </button>
+                </form>
+                <Link href={`/admin/tours/${tour.id}/edit`} className="flex-1">
+                  <button className="admin-btn admin-btn-ghost w-full text-xs py-2">
+                    <Pencil className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    Editar
+                  </button>
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+        {filtered.length === 0 && (
+          <div className="text-center py-12 text-text-muted text-sm">
+            <Trees className="h-8 w-8 mx-auto mb-2 opacity-30" strokeWidth={1.5} />
+            {search || category !== "all" ? "No se encontraron tours." : "No hay tours."}
+          </div>
+        )}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden sm:block rounded-lg border border-border bg-card admin-scrollbar">
         <table className="admin-table">
           <thead>
             <tr>
               <th className="w-10"></th>
               <th>Título</th>
-              <th className="hidden md:table-cell">Slug</th>
               <th>Categoría</th>
-              <th className="hidden sm:table-cell">Orden</th>
-              <th className="hidden lg:table-cell">Duración</th>
-              <th className="hidden lg:table-cell">Precio</th>
-              <th className="text-right w-20">Acciones</th>
+              <th>Orden</th>
+              <th>Precio</th>
+              <th>Duración</th>
+              <th className="text-right w-24">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((tour) => (
-              <tr key={tour.id}>
-                <td>
-                  <span className={`inline-block w-2 h-2 rounded-full ${tour.is_active ? "bg-emerald" : "bg-text-muted"}`} />
-                </td>
-                <td className="font-medium">
-                  <div className="truncate max-w-[200px]">{tour.title_es}</div>
-                  {tour.title_en && (
-                    <div className="text-xs text-text-muted truncate">{tour.title_en}</div>
-                  )}
-                </td>
-                <td className="hidden md:table-cell text-text-muted font-mono text-xs">
-                  {tour.slug}
-                </td>
-                <td>
-                  <span className="admin-badge">
-                    <span className={`w-1.5 h-1.5 rounded-full ${tour.category === "day_park" ? "bg-emerald" : tour.category === "mangrove" ? "bg-sand" : "bg-canopy"}`} />
-                    {CATEGORY_LABELS[tour.category] ?? tour.category}
-                  </span>
-                </td>
-                <td className="hidden sm:table-cell text-text-muted font-mono text-xs">
-                  #{tour.display_order}
-                </td>
-                <td className="hidden lg:table-cell text-text-muted">
-                  {tour.duration_minutes
-                    ? `${Math.floor(tour.duration_minutes / 60)}h ${tour.duration_minutes % 60}m`
-                    : "—"}
-                </td>
-                <td className="hidden lg:table-cell text-text-muted font-mono">
-                  {tour.price_usd ? `$${tour.price_usd}` : "—"}
-                </td>
-                <td className="text-right">
-                  <div className="flex items-center justify-end gap-0.5">
-                    <form action={toggleTourActive.bind(null, tour.id, !tour.is_active)}>
-                      <button className="admin-btn admin-btn-ghost admin-btn-icon" title={tour.is_active ? "Desactivar" : "Activar"}>
-                        {tour.is_active ? <EyeOff className="h-3.5 w-3.5" strokeWidth={1.5} /> : <Eye className="h-3.5 w-3.5" strokeWidth={1.5} />}
-                      </button>
-                    </form>
-                    <Link href={`/admin/tours/${tour.id}/edit`}>
-                      <button className="admin-btn admin-btn-ghost admin-btn-icon" title="Editar">
-                        <svg className="h-3.5 w-3.5" strokeWidth={1.5} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
-                      </button>
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {filtered.map((tour) => {
+              const cat = CATEGORY_META[tour.category] ?? CATEGORY_META.day_park;
+              return (
+                <tr key={tour.id}>
+                  <td>
+                    <span className={`inline-block w-2 h-2 rounded-full ${tour.is_active ? "bg-emerald" : "bg-text-muted"}`} />
+                  </td>
+                  <td className="font-medium">
+                    <div className="truncate max-w-[220px]">{tour.title_es}</div>
+                    {tour.title_en && (
+                      <div className="text-xs text-text-muted truncate max-w-[220px]">{tour.title_en}</div>
+                    )}
+                  </td>
+                  <td>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-mono tracking-widest border ${cat.color}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${statusDots[tour.category] ?? "bg-text-muted"}`} />
+                      {cat.label}
+                    </span>
+                  </td>
+                  <td className="text-text-muted font-mono text-xs">
+                    #{tour.display_order}
+                  </td>
+                  <td className="text-text-muted font-mono">
+                    {tour.price_usd ? <span className="text-emerald/80">${tour.price_usd}</span> : "—"}
+                  </td>
+                  <td className="text-text-muted">
+                    {tour.duration_minutes
+                      ? `${Math.floor(tour.duration_minutes / 60)}h ${tour.duration_minutes % 60}m`
+                      : "—"}
+                  </td>
+                  <td className="text-right">
+                    <div className="flex items-center justify-end gap-0.5">
+                      <form action={toggleTourActive.bind(null, tour.id, !tour.is_active)}>
+                        <button className="admin-btn admin-btn-ghost admin-btn-icon" title={tour.is_active ? "Desactivar" : "Activar"}>
+                          {tour.is_active ? <EyeOff className="h-3.5 w-3.5" strokeWidth={1.5} /> : <Eye className="h-3.5 w-3.5" strokeWidth={1.5} />}
+                        </button>
+                      </form>
+                      <Link href={`/admin/tours/${tour.id}/edit`}>
+                        <button className="admin-btn admin-btn-ghost admin-btn-icon" title="Editar">
+                          <Pencil className="h-3.5 w-3.5" strokeWidth={1.5} />
+                        </button>
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="text-center py-12 text-text-muted">
-                  {search || category !== "all"
-                    ? "No se encontraron tours con esos filtros."
-                    : "No hay tours todavía."}
+                <td colSpan={7} className="text-center py-12 text-text-muted">
+                  {search || category !== "all" ? "No se encontraron tours." : "No hay tours."}
                 </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-      <p className="text-xs text-text-muted">
+
+      <p className="text-xs text-text-muted px-1">
         {filtered.length} de {tours.length} tours
       </p>
     </div>
