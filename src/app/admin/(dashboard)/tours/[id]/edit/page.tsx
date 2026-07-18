@@ -66,6 +66,26 @@ function dataToForm(tour: Tables<"tours">): FormData {
   };
 }
 
+function ImagePreview({ src, onClose }: { src: string; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
+      <div className="relative max-h-full max-w-full" onClick={(e) => e.stopPropagation()}>
+        <Image src={src} alt="" width={1200} height={800} className="max-h-[90vh] w-auto rounded-xl" />
+        <button type="button" onClick={onClose} className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/50 text-white hover:bg-black/70 transition-colors" aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6L6 18" /><path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function EditTourPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -73,6 +93,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   const [images, setImages] = useState<Tables<"tour_images">[]>([]);
   const [uploading, setUploading] = useState(false);
   const [confirmDeleteImage, setConfirmDeleteImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { toast } = useToast();
   const id = use(params).id;
 
@@ -168,12 +189,12 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
         <h2 className="font-heading text-sm font-bold text-text mb-3">Imágenes</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-4">
           {images.map((img) => (
-            <div key={img.id} className="relative group aspect-square rounded-xl overflow-hidden bg-surface-elevated border border-border">
+            <div key={img.id} className="relative group aspect-[4/3] rounded-xl overflow-hidden bg-surface-elevated border border-border cursor-pointer" onClick={() => setPreviewImage(img.storage_path)}>
               <Image
                 src={img.storage_path}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-contain p-1"
                 sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
               />
               {img.is_cover ? (
@@ -380,6 +401,10 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           <Link href="/admin/tours" className="admin-btn admin-btn-ghost">Cancelar</Link>
         </div>
       </form>
+
+      {previewImage && (
+        <ImagePreview src={previewImage} onClose={() => setPreviewImage(null)} />
+      )}
     </div>
   );
 }
