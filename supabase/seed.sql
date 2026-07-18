@@ -22,7 +22,7 @@ values
     '{"Español","English"}',
     '{"Guía naturalista certificado ICT","Transporte ida y vuelta","Boleto de ingreso al Parque Nacional Manuel Antonio","Refrigerio","Telescopio profesional"}',
     '{"Alimentación y bebidas","Propinas"}',
-    '[{"time":"8:00","title":"Inicio del tour","description":"El pickup se coordina según tu ubicación de hospedaje — te confirmamos la hora al reservar."}]'::jsonb,
+    '[{"time":"8:00","title":"Inicio del tour","description":"El pickup se coordina según tu ubicación de hospedaje y te confirmamos la hora al reservar."}]'::jsonb,
     true, 1
   ),
   (
