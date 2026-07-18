@@ -7,7 +7,7 @@ export async function Footer() {
   return (
     <footer className="relative">
       <div className="bg-surface border-t border-border">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {/* ─── Brand ─── */}
             <div className="sm:col-span-2 lg:col-span-1">
@@ -226,7 +226,7 @@ export async function Footer() {
             </div>
 
             {/* Nature-inspired decorative line */}
-            <div className="mt-6 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent" />
+            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent" />
           </div>
         </div>
       </div>

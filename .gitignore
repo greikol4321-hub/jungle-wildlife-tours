@@ -54,3 +54,5 @@ trust-section.png
 
 # load test output
 load-test-results.json
+
+.env*
