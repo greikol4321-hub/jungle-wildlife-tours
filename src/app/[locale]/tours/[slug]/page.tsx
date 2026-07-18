@@ -121,7 +121,6 @@ export default async function TourDetailPage({
       .eq("tours.category", "mangrove")
       .eq("tours.is_active", true)
       .neq("tour_id", typedTour.id)
-      .neq("is_cover", true)
       .order("display_order");
     if (siblings) galleryImages = [...typedTour.tour_images, ...siblings];
   }
@@ -392,7 +391,7 @@ export default async function TourDetailPage({
         </section>
 
         {/* ── GALLERY ── */}
-        {galleryImages.length > 1 && (
+        {galleryImages.length > 0 && (
           <section className="mt-16 md:mt-20">
             <div className="h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" aria-hidden="true" />
             <h2 className="mt-8 font-heading text-xl md:text-2xl font-bold text-text">
@@ -406,7 +405,7 @@ export default async function TourDetailPage({
           </section>
         )}
 
-        {galleryImages.length <= 1 && (
+        {galleryImages.length === 0 && (
           <p className="mt-16 md:mt-20 font-mono text-xs tracking-wider text-text-muted italic">{t("noImages")}</p>
         )}
 
