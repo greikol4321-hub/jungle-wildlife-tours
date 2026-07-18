@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Plus, Edit, Eye, EyeOff, Search } from "lucide-react";
+import { Plus, PenSquare, Eye, EyeOff, Search } from "lucide-react";
 import { toggleTourActive } from "@/app/actions/admin/tours";
 
 type Tour = {
@@ -127,7 +127,7 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
                     </form>
                     <Link href={`/admin/tours/${tour.id}/edit`}>
                       <button className="admin-btn admin-btn-ghost admin-btn-icon" title="Editar">
-                        <svg className="h-3.5 w-3.5" strokeWidth={1.5} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+                        <PenSquare className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>
                     </Link>
                   </div>
@@ -136,10 +136,21 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="text-center py-12 text-text-muted">
-                  {search || category !== "all"
-                    ? "No se encontraron tours con esos filtros."
-                    : "No hay tours todavía."}
+                <td colSpan={8} className="text-center py-16">
+                  {search || category !== "all" ? (
+                    <div>
+                      <p className="text-sm text-text-muted">No se encontraron tours con esos filtros</p>
+                      <p className="text-xs text-text-muted/50 mt-1">Probá con otros términos de búsqueda</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-sm text-text-muted">No hay tours todavía</p>
+                      <Link href="/admin/tours/new" className="inline-flex items-center gap-1.5 text-xs text-emerald hover:text-emerald-bright transition-colors mt-3">
+                        <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                        Crear el primer tour
+                      </Link>
+                    </div>
+                  )}
                 </td>
               </tr>
             )}

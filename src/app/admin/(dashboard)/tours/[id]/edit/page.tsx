@@ -69,6 +69,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   const [tour, setTour] = useState<Tables<"tours"> | null>(null);
   const [images, setImages] = useState<Tables<"tour_images">[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [confirmDeleteImage, setConfirmDeleteImage] = useState<string | null>(null);
   const { toast } = useToast();
   const id = use(params).id;
 
@@ -131,7 +132,6 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   }
 
   async function handleDeleteImage(imageId: string, storagePath: string) {
-    if (!confirm("¿Eliminar esta imagen?")) return;
     try {
       await deleteTourImage(imageId, storagePath);
       toast("success", "Imagen eliminada");
@@ -165,12 +165,29 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
                   Cover
                 </span>
               )}
-              <button
-                onClick={() => handleDeleteImage(img.id, img.storage_path)}
-                className="absolute top-1 right-1 p-1 rounded bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <Trash2 className="h-3 w-3" strokeWidth={2} />
-              </button>
+              {confirmDeleteImage === img.id ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl gap-1">
+                  <button
+                    onClick={() => { setConfirmDeleteImage(null); handleDeleteImage(img.id, img.storage_path); }}
+                    className="text-[10px] px-2 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-400 transition-colors"
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    onClick={() => setConfirmDeleteImage(null)}
+                    className="text-[10px] px-2 py-1 rounded bg-surface text-text-muted hover:text-text transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmDeleteImage(img.id)}
+                  className="absolute top-1 right-1 p-1 rounded bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <Trash2 className="h-3 w-3" strokeWidth={2} />
+                </button>
+              )}
             </div>
           ))}
         </div>
