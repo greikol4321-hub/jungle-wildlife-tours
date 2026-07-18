@@ -24,7 +24,6 @@ const schema = z.object({
   min_age: z.coerce.number().optional(),
   max_people: z.coerce.number().optional(),
   price_usd: z.coerce.number().optional(),
-  child_price_pct: z.coerce.number().optional(),
   child_price_usd: z.coerce.number().optional(),
   languages: z.string().optional(),
   includes: z.string().optional(),
@@ -48,7 +47,6 @@ function dataToForm(tour: Tables<"tours">): FormData {
     min_age: tour.min_age ?? undefined,
     max_people: tour.max_people ?? undefined,
     price_usd: tour.price_usd ?? undefined,
-    child_price_pct: tour.child_price_pct ?? undefined,
     child_price_usd: tour.child_price_usd ?? undefined,
     languages: (tour.languages ?? []).join(", "),
     includes: (tour.includes ?? []).join("\n"),
@@ -241,10 +239,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
             <Field label="Precio adulto (USD)" error={errors.price_usd?.message}>
               <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
-            <Field label="Child price %" error={errors.child_price_pct?.message}>
-              <input {...register("child_price_pct")} type="number" min={0} max={100} className="admin-input" />
-            </Field>
-            <Field label="Child price (USD)" error={errors.child_price_usd?.message}>
+            <Field label="Precio niño (USD)" error={errors.child_price_usd?.message}>
               <input {...register("child_price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
           </div>

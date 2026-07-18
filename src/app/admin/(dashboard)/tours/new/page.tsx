@@ -141,10 +141,7 @@ export default function NewTourPage() {
             <Field label="Precio adulto (USD)" error={errors.price_usd?.message}>
               <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
-            <Field label="Child price %" error={errors.child_price_pct?.message}>
-              <input {...register("child_price_pct")} type="number" min={0} max={100} className="admin-input" />
-            </Field>
-            <Field label="Child price (USD)" error={errors.child_price_usd?.message}>
+            <Field label="Precio niño (USD)" error={errors.child_price_usd?.message}>
               <input {...register("child_price_usd")} type="number" step="0.01" className="admin-input" />
             </Field>
           </div>

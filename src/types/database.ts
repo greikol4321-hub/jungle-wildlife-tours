@@ -140,7 +140,6 @@ export type Database = {
       tours: {
         Row: {
           category: string
-          child_price_pct: number | null
           child_price_usd: number | null
           created_at: string | null
           description_en: string
@@ -164,7 +163,6 @@ export type Database = {
         }
         Insert: {
           category: string
-          child_price_pct?: number | null
           child_price_usd?: number | null
           created_at?: string | null
           description_en: string
@@ -187,7 +185,6 @@ export type Database = {
         }
         Update: {
           category?: string
-          child_price_pct?: number | null
           child_price_usd?: number | null
           created_at?: string | null
           description_en?: string

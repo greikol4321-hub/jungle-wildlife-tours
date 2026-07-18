@@ -16,7 +16,6 @@ const tourSchema = z.object({
   min_age: z.coerce.number().int().min(0).optional(),
   max_people: z.coerce.number().int().min(1).optional(),
   price_usd: z.coerce.number().positive().optional(),
-  child_price_pct: z.coerce.number().int().min(0).max(100).optional(),
   child_price_usd: z.coerce.number().positive().optional(),
   languages: z.array(z.string()).optional(),
   includes: z.array(z.string()).optional(),

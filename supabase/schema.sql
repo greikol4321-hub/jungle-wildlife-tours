@@ -13,7 +13,6 @@ create table public.tours (
   min_age integer,
   max_people integer,
   price_usd numeric(10,2),
-  child_price_pct integer,
   child_price_usd numeric(10,2),
   languages text[] default '{"Español","English"}',
   includes text[],
