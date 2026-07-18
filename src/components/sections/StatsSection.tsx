@@ -62,7 +62,11 @@ export function StatsSection({ locale }: { locale: string }) {
           <h2 id="stats-heading" className="font-heading font-extrabold tracking-tight text-text text-center text-balance" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
             {t("title")}
           </h2>
-          <div className="mx-auto mt-4 h-0.5 w-12 rounded-full bg-emerald" />
+          <div className="mx-auto mt-4 flex items-center justify-center gap-3" aria-hidden="true">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent via-emerald/40 to-emerald/60" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald shadow-[0_0_6px_rgba(78,203,113,0.4)]" />
+            <div className="h-px w-8 bg-gradient-to-r from-emerald/60 via-emerald/40 to-transparent" />
+          </div>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
@@ -86,9 +90,9 @@ export function StatsSection({ locale }: { locale: string }) {
 
         <Reveal delay={200}>
           <div className="mt-14 flex items-center justify-center gap-3" aria-hidden="true">
-            <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
-            <div className="h-1 w-1 rounded-full bg-emerald/60" />
-            <div className="h-px w-12 bg-gradient-to-l from-emerald/40 to-transparent" />
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-emerald/40 to-emerald/60" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald shadow-[0_0_6px_rgba(78,203,113,0.4)]" />
+            <div className="h-px w-16 bg-gradient-to-r from-emerald/60 via-emerald/40 to-transparent" />
           </div>
         </Reveal>
       </div>
