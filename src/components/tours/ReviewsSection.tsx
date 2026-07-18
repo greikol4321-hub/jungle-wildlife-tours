@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { submitReview, getApprovedReviews } from "@/app/actions/reviews";
 import { Star } from "lucide-react";
 import { useToast } from "@/components/admin/toast";
@@ -18,12 +18,44 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
   const { toast } = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState("");
-  const [country, setCountry] = useState("");
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("");
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+
+  type FormState = {
+    name: string;
+    country: string;
+    rating: number;
+    comment: string;
+    sending: boolean;
+    sent: boolean;
+  };
+
+  type FormAction =
+    | { type: "SET_FIELD"; field: "name" | "country" | "comment"; value: string }
+    | { type: "SET_RATING"; value: number }
+    | { type: "SUBMIT_START" }
+    | { type: "SUBMIT_DONE" }
+    | { type: "SUBMIT_ERROR" }
+    | { type: "RESET_FORM" };
+
+  function formReducer(state: FormState, action: FormAction): FormState {
+    switch (action.type) {
+      case "SET_FIELD":
+        return { ...state, [action.field]: action.value };
+      case "SET_RATING":
+        return { ...state, rating: action.value };
+      case "SUBMIT_START":
+        return { ...state, sending: true };
+      case "SUBMIT_DONE":
+        return { ...state, sending: false, sent: true, name: "", country: "", rating: 5, comment: "" };
+      case "SUBMIT_ERROR":
+        return { ...state, sending: false };
+      case "RESET_FORM":
+        return { name: "", country: "", rating: 5, comment: "", sending: false, sent: false };
+      default:
+        return state;
+    }
+  }
+
+  const [form, dispatch] = useReducer(formReducer, { name: "", country: "", rating: 5, comment: "", sending: false, sent: false });
 
   useEffect(() => {
     getApprovedReviews(tourId).then((data) => {
@@ -34,20 +66,16 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !comment.trim()) return;
-    setSending(true);
+    if (!form.name.trim() || !form.comment.trim()) return;
+    dispatch({ type: "SUBMIT_START" });
     try {
-      await submitReview({ author_name: name, author_country: country, rating, comment, tour_id: tourId });
+      await submitReview({ author_name: form.name, author_country: form.country, rating: form.rating, comment: form.comment, tour_id: tourId });
       toast("success", locale === "es" ? "Reseña enviada para revisión" : "Review submitted for approval");
-      setSent(true);
-      setName("");
-      setCountry("");
-      setRating(5);
-      setComment("");
+      dispatch({ type: "SUBMIT_DONE" });
     } catch {
       toast("error", locale === "es" ? "Error al enviar reseña" : "Error submitting review");
+      dispatch({ type: "SUBMIT_ERROR" });
     }
-    setSending(false);
   }
 
   const starLabels = locale === "es"
@@ -105,7 +133,7 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
         </div>
       )}
 
-      {sent ? (
+      {form.sent ? (
         <div className="mt-8 rounded-lg border border-emerald/30 bg-emerald-dim p-5 text-center">
           <p className="text-emerald font-heading font-bold">
             {locale === "es" ? "¡Gracias por tu reseña!" : "Thank you for your review!"}
@@ -122,15 +150,15 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
 
           <div className="grid grid-cols-2 gap-3">
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={form.name}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "name", value: e.target.value })}
               placeholder={locale === "es" ? "Tu nombre" : "Your name"}
               required
               className="admin-input"
             />
             <input
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={form.country}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "country", value: e.target.value })}
               placeholder={locale === "es" ? "País (opcional)" : "Country (optional)"}
               className="admin-input"
             />
@@ -142,30 +170,30 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
             </span>
             <div className="flex items-center gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
-                <button key={i} type="button" onClick={() => setRating(i + 1)}>
+                <button key={i} type="button" onClick={() => dispatch({ type: "SET_RATING", value: i + 1 })}>
                   <Star
-                    className={`h-5 w-5 transition-colors ${i < rating ? "text-emerald fill-emerald" : "text-border-strong hover:text-emerald/50"}`}
+                    className={`h-5 w-5 transition-colors ${i < form.rating ? "text-emerald fill-emerald" : "text-border-strong hover:text-emerald/50"}`}
                     strokeWidth={1.5}
                   />
                 </button>
               ))}
             </div>
-            <span className="text-[10px] text-text-muted font-mono ml-1">{starLabels[rating - 1]}</span>
+            <span className="text-[10px] text-text-muted font-mono ml-1">{starLabels[form.rating - 1]}</span>
           </div>
 
           <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={form.comment}
+            onChange={(e) => dispatch({ type: "SET_FIELD", field: "comment", value: e.target.value })}
             placeholder={locale === "es" ? "Escribe tu reseña..." : "Write your review..."}
             required
             rows={3}
             className="admin-input admin-textarea"
           />
 
-          <button type="submit" disabled={sending || !name.trim() || !comment.trim()}
+          <button type="submit" disabled={form.sending || !form.name.trim() || !form.comment.trim()}
             className="btn btn-primary text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {sending
+            {form.sending
               ? (locale === "es" ? "Enviando..." : "Sending...")
               : (locale === "es" ? "Enviar reseña" : "Submit review")}
           </button>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { motion, useScroll, useTransform } from "motion/react";
+import { m, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
 
@@ -36,8 +36,8 @@ export function AboutHero() {
       className="relative min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden"
       onMouseMove={handleMouse}
     >
-      <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
-        <motion.div className="absolute inset-0" style={{ x: parallaxX, y: parallaxY }}>
+      <m.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
+        <m.div className="absolute inset-0" style={{ x: parallaxX, y: parallaxY }}>
           <Image
             src="jungle-canopy-01.jpg"
             alt=""
@@ -46,8 +46,8 @@ export function AboutHero() {
             sizes="100vw"
             className="object-cover"
           />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-bg/10" />
       <div className="absolute inset-0 bg-gradient-to-r from-bg/70 via-bg/20 to-transparent" />
@@ -78,21 +78,21 @@ export function AboutHero() {
         />
       ))}
 
-      <motion.div
+      <m.div
         className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-20 pb-16"
         style={{ opacity: contentOpacity, y: contentY }}
       >
         <div className="max-w-2xl">
-          <motion.p
+          <m.p
             className="font-display text-xs font-medium tracking-[0.25em] text-emerald/80 uppercase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             Manuel Antonio · Costa Rica
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             className="mt-5 font-heading font-bold tracking-[-0.03em] text-balance"
             style={{
               fontSize: "clamp(2.8rem, 7vw, 5rem)",
@@ -106,24 +106,24 @@ export function AboutHero() {
             <span className="block mt-2 text-emerald font-extrabold tracking-[-0.04em]">
               Jungle Wildlife Tours
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             className="mt-5 max-w-lg text-base md:text-lg font-light text-text-secondary leading-[1.75]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             {t("intro")}
-          </motion.p>
+          </m.p>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         style={{ opacity: contentOpacity }}
       >
-        <motion.span
+        <m.span
           className="block w-px h-5"
           style={{
             background: "linear-gradient(to bottom, transparent, var(--color-emerald))",
@@ -132,7 +132,7 @@ export function AboutHero() {
           aria-hidden="true"
         />
         <ChevronDown className="h-4 w-4 text-text-muted animate-bounce [animation-duration:2.5s]" strokeWidth={1.5} />
-      </motion.div>
+      </m.div>
 
       <div
         className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald/25 to-transparent"

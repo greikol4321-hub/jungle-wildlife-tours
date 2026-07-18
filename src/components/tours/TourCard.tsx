@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { CATEGORY_STYLES } from "@/lib/constants";
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { Clock, ArrowRight } from "lucide-react";
 
 interface TourImage {
@@ -51,7 +51,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
   const meta = CATEGORY_STYLES[tour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
 
   return (
-    <motion.div
+    <m.div
       initial={reduce ? false : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -191,6 +191,6 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
           </div>
         </article>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 interface ToursFilterProps {
   categories: { key: string; label: string }[];
@@ -11,7 +11,7 @@ interface ToursFilterProps {
 export function ToursFilter({ categories, active, onSelect }: ToursFilterProps) {
   return (
     <div className="flex flex-wrap gap-2">
-      <motion.button
+      <m.button
         onClick={() => onSelect(null)}
         className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
           active === null
@@ -21,7 +21,7 @@ export function ToursFilter({ categories, active, onSelect }: ToursFilterProps) 
         whileTap={{ scale: 0.97 }}
       >
         {active === null && (
-          <motion.span
+          <m.span
             layoutId="filter-bg"
             className="absolute inset-0 rounded-full bg-emerald"
             aria-hidden="true"
@@ -30,10 +30,10 @@ export function ToursFilter({ categories, active, onSelect }: ToursFilterProps) 
         <span className="relative z-[1]">
           {active === null ? "Todos" : "Todos"}
         </span>
-      </motion.button>
+      </m.button>
 
       {categories.map((cat) => (
-        <motion.button
+        <m.button
           key={cat.key}
           onClick={() => onSelect(cat.key)}
           className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
@@ -44,14 +44,14 @@ export function ToursFilter({ categories, active, onSelect }: ToursFilterProps) 
           whileTap={{ scale: 0.97 }}
         >
           {active === cat.key && (
-            <motion.span
+            <m.span
               layoutId="filter-bg"
               className="absolute inset-0 rounded-full bg-emerald"
               aria-hidden="true"
             />
           )}
           <span className="relative z-[1]">{cat.label}</span>
-        </motion.button>
+        </m.button>
       ))}
     </div>
   );

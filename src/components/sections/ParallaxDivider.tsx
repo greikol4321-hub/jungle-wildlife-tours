@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
+import { m, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
@@ -32,7 +32,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
       aria-label={t("heading")}
     >
       {/* Parallax Background */}
-      <motion.div className="absolute inset-0" style={{ y }}>
+      <m.div className="absolute inset-0" style={{ y }}>
         <Image
             src={imageSrc}
           alt=""
@@ -40,7 +40,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
           sizes="100vw"
           className="object-cover"
         />
-      </motion.div>
+      </m.div>
 
       {/* Overlays */}
       <div className="absolute inset-0 bg-bg/60" />
@@ -48,7 +48,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
       <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-transparent to-bg/30" />
 
       {/* Content — editorial pull-quote style */}
-      <motion.div
+      <m.div
         className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
         style={{ opacity, y: textY }}
       >
@@ -84,7 +84,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
             </Reveal>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Bottom line */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald/15 to-transparent" />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { m, useScroll, useTransform } from "motion/react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
 
 interface HeroSectionProps {
@@ -44,8 +44,8 @@ export function HeroSection(_props: HeroSectionProps) {
       onMouseMove={handleMouse}
     >
       {/* Background Image */}
-      <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
-        <motion.div className="absolute inset-0" style={{ x: mouseParallaxX, y: mouseParallaxY }}>
+      <m.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
+        <m.div className="absolute inset-0" style={{ x: mouseParallaxX, y: mouseParallaxY }}>
           <Image
             src="jungle-canopy-01.jpg"
             alt={t("heroImageAlt")}
@@ -54,8 +54,8 @@ export function HeroSection(_props: HeroSectionProps) {
             sizes="100vw"
             className="object-cover"
           />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Dark base — ensures no raw-image bleed on mobile browsers */}
       <div className="absolute inset-0 bg-bg/60" />
@@ -85,7 +85,7 @@ export function HeroSection(_props: HeroSectionProps) {
       ))}
 
       {/* Content */}
-      <motion.div
+      <m.div
         className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-36 sm:px-6 lg:px-8"
         style={{ opacity: contentOpacity, y: contentY }}
       >
@@ -140,12 +140,12 @@ export function HeroSection(_props: HeroSectionProps) {
         </Reveal>
 
 
-      </motion.div>
+      </m.div>
 
       {/* Scroll indicator with line */}
       <Reveal delay={700}>
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted">
-          <motion.span
+          <m.span
             className="block w-px h-6 origin-top"
             style={{
               background: "linear-gradient(to bottom, transparent, var(--color-emerald))",
@@ -159,7 +159,7 @@ export function HeroSection(_props: HeroSectionProps) {
       </Reveal>
 
       {/* Animated emerald line at bottom */}
-      <motion.div
+      <m.div
         className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald/30 to-transparent"
         style={{ opacity: lineOpacity }}
         aria-hidden="true"

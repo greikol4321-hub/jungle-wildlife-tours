@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useEffectEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence, LayoutGroup } from "motion/react";
+import { m, AnimatePresence, LayoutGroup } from "motion/react";
 import { Camera, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
@@ -44,20 +44,22 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
 
   useEffect(() => { setSelected(null); }, [activeCat]);
 
+  const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+
   useEffect(() => {
     if (selected === null) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
+    const handler = (e: KeyboardEvent) => onKeyDown(e);
     window.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
     };
-  }, [selected, close, prev, next]);
+  }, [selected]);
 
   const tourTitle = (tour: { title_es: string; title_en: string }) =>
     locale === "es" ? tour.title_es : tour.title_en;
@@ -93,7 +95,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
             <Reveal delay={120}>
               <LayoutGroup>
                 <div className="mt-8 flex flex-wrap gap-2">
-                  <motion.button
+                  <m.button
                     onClick={() => setActiveCat(null)}
                     className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
                       activeCat === null
@@ -103,7 +105,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                     whileTap={{ scale: 0.97 }}
                   >
                     {activeCat === null && (
-                      <motion.span
+                      <m.span
                         layoutId="gallery-filter-bg"
                         className="absolute inset-0 rounded-full bg-emerald"
                         aria-hidden="true"
@@ -112,9 +114,9 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                     <span className="relative z-[1]">
                       {locale === "es" ? "Todas" : "All"}
                     </span>
-                  </motion.button>
+                  </m.button>
                   {categories.map((cat) => (
-                    <motion.button
+                    <m.button
                       key={cat}
                       onClick={() => setActiveCat(cat)}
                       className={`relative px-4 py-2 rounded-full text-[11px] font-medium tracking-wider uppercase transition-all duration-300 ${
@@ -125,7 +127,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                       whileTap={{ scale: 0.97 }}
                     >
                       {activeCat === cat && (
-                        <motion.span
+                        <m.span
                           layoutId="gallery-filter-bg"
                           className="absolute inset-0 rounded-full bg-emerald"
                           aria-hidden="true"
@@ -136,7 +138,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                           ? ({ day_park: "Día", mangrove: "Manglar", night_walk: "Nocturno" }[cat] ?? cat)
                           : ({ day_park: "Day", mangrove: "Mangrove", night_walk: "Night" }[cat] ?? cat)}
                       </span>
-                    </motion.button>
+                    </m.button>
                   ))}
                 </div>
               </LayoutGroup>
@@ -150,7 +152,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                   const alt = locale === "es" ? image.alt_text_es : image.alt_text_en;
                   const caption = image.tours ? tourTitle(image.tours) : null;
                   return (
-                    <motion.div
+                    <m.div
                       key={image.id}
                       layout
                       initial={{ opacity: 0, scale: 0.95 }}
@@ -189,7 +191,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                           </div>
                         </button>
                       </Reveal>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
               </AnimatePresence>
@@ -208,7 +210,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
 
       <AnimatePresence>
         {selected !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -264,7 +266,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                 {selected + 1} / {filtered.length}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

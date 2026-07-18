@@ -3,6 +3,7 @@ import "./globals.css";
 import "./admin/admin.css";
 import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { AppToastProvider } from "@/components/app-toast-provider";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -36,9 +37,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={`h-full antialiased ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}>
       <body className="min-h-full flex flex-col bg-bg text-text">
-        <AppToastProvider>
-          {children}
-        </AppToastProvider>
+        <MotionProvider>
+          <AppToastProvider>
+            {children}
+          </AppToastProvider>
+        </MotionProvider>
       </body>
     </html>
   );

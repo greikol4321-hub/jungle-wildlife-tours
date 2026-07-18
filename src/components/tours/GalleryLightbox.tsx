@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useEffectEvent } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -31,20 +31,22 @@ export function GalleryLightbox({ images, locale, title }: Props) {
     setSelected((s) => (s !== null ? (s + 1) % images.length : null));
   }, [images.length]);
 
+  const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+
   useEffect(() => {
     if (selected === null) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
+    const handler = (e: KeyboardEvent) => onKeyDown(e);
     window.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
     };
-  }, [selected, close, prev, next]);
+  }, [selected]);
 
   return (
     <>
