@@ -61,9 +61,9 @@ export function TrustSection({ locale }: TrustSectionProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <Reveal delay={80}>
           <div className="flex items-center gap-3 mb-12 md:mb-16" aria-hidden="true">
-            <div className="h-px w-12 bg-gradient-to-r from-emerald/30 to-transparent" />
-            <div className="h-1.5 w-1.5 bg-emerald/40" />
-            <div className="h-px flex-1 bg-gradient-to-r from-emerald/20 to-transparent" />
+            <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald" />
+            <div className="h-px flex-1 bg-gradient-to-r from-emerald/40 to-transparent" />
           </div>
         </Reveal>
 

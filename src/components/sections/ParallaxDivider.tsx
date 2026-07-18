@@ -56,7 +56,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
           {/* Vertical accent */}
           <div className="hidden md:flex flex-col items-center gap-3" aria-hidden="true">
             <div className="w-px h-12 bg-gradient-to-b from-emerald/40 to-transparent" />
-            <div className="w-1 h-1 rounded-full bg-emerald" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald" />
           </div>
 
           <div className="max-w-2xl">

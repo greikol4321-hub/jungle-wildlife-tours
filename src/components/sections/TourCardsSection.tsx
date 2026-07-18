@@ -70,7 +70,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
         <Reveal delay={120}>
           <div className="mt-6 mb-14 flex items-center gap-3" aria-hidden="true">
             <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
-            <div className="h-1 w-1 rounded-full bg-emerald/60" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald" />
           </div>
         </Reveal>
 

@@ -48,7 +48,7 @@ export function FAQSection({ locale }: { locale: string }) {
         <Reveal delay={100}>
           <div className="mt-6 mb-12 flex items-center justify-center gap-3" aria-hidden="true">
             <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
-            <div className="h-1 w-1 rounded-full bg-emerald/60" />
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald" />
             <div className="h-px w-12 bg-gradient-to-l from-emerald/40 to-transparent" />
           </div>
         </Reveal>
