@@ -110,14 +110,6 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
               </span>
             </div>
 
-            {/* ── Decorative glow dots ── */}
-            {index === 1 && (
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/[0.03] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
-            )}
-            {index === 2 && (
-              <div className="absolute bottom-0 left-0 w-40 h-24 bg-sand/[0.02] blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
-            )}
-
             {/* ── Hover glow overlay ── */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
