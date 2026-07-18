@@ -215,7 +215,7 @@ export function AboutContent({ locale }: { locale: string }) {
       </section>
 
       {/* ── Parallax Divider ──────────────────────────────── */}
-      <ParallaxDivider imageSrc="jungle/wildlife-sloth-01.jpg" />
+      <ParallaxDivider imageSrc="terrestre/wildlife-sloth-01.jpg" />
 
       {/* ── Why Choose Us ──────────────────────────────────── */}
       <section className="relative border-t border-border">
