@@ -8,6 +8,7 @@ import { createStaticClient } from "@/lib/supabase/static";
 import { difficultyLabels } from "@/lib/tour-demo-data";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
+import { ReviewsSection } from "@/components/tours/ReviewsSection";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
 import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
 
@@ -314,6 +315,7 @@ export default async function TourDetailPage({
               childPricePct={typedTour.child_price_pct ?? 50}
               childPriceUsd={typedTour.child_price_usd ?? undefined}
               locale={locale}
+              tourId={typedTour.id}
             />
           </div>
         </section>
@@ -336,6 +338,8 @@ export default async function TourDetailPage({
         {typedTour.tour_images.length <= 1 && (
           <p className="mt-16 md:mt-20 font-mono text-xs tracking-wider text-text-muted italic">{t("noImages")}</p>
         )}
+
+        <ReviewsSection tourId={typedTour.id} locale={locale} />
       </div>
     </main>
   );
