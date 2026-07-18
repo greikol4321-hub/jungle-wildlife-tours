@@ -123,9 +123,16 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                 <td className="hidden md:table-cell text-text-muted text-xs max-w-[140px]">
                   <span className="truncate block">{review.tours?.title_es ?? "—"}</span>
                 </td>
-                <td className="hidden sm:table-cell text-text-muted text-xs max-w-[220px]">
-                  {(review.comment_es ?? review.comment_en) ? (
-                    <p className="truncate">{review.comment_es ?? review.comment_en}</p>
+                <td className="hidden sm:table-cell text-text-muted text-xs max-w-[280px]">
+                  {review.comment_es || review.comment_en ? (
+                    <div className="space-y-1">
+                      {review.comment_es && (
+                        <p className="truncate before:content-['ES_'] before:text-[9px] before:text-emerald/60 before:font-mono">{review.comment_es}</p>
+                      )}
+                      {review.comment_en && (
+                        <p className="truncate before:content-['EN_'] before:text-[9px] before:text-sand/60 before:font-mono">{review.comment_en}</p>
+                      )}
+                    </div>
                   ) : (
                     <span className="text-text-muted/40 italic">Sin comentario</span>
                   )}

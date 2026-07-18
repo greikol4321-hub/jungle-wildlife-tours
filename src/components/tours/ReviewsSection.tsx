@@ -11,6 +11,7 @@ type Review = {
   author_country: string | null;
   rating: number;
   comment_es: string | null;
+  comment_en: string | null;
   created_at: string | null;
 };
 
@@ -121,7 +122,7 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
                 </div>
               </div>
               <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                {r.comment_es}
+                {locale === "es" ? (r.comment_es ?? r.comment_en) : (r.comment_en ?? r.comment_es)}
               </p>
               {r.created_at && (
                 <p className="mt-2 text-[10px] text-text-muted font-mono">
