@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { submitReview, getApprovedReviews } from "@/app/actions/reviews";
 import { Star } from "lucide-react";
+import { useToast } from "@/components/admin/toast";
 
 type Review = {
   id: string;
@@ -14,6 +15,7 @@ type Review = {
 };
 
 export function ReviewsSection({ tourId, locale }: { tourId: string; locale: string }) {
+  const { toast } = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
@@ -36,13 +38,14 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
     setSending(true);
     try {
       await submitReview({ author_name: name, author_country: country, rating, comment, tour_id: tourId });
+      toast("success", locale === "es" ? "Reseña enviada para revisión" : "Review submitted for approval");
       setSent(true);
       setName("");
       setCountry("");
       setRating(5);
       setComment("");
     } catch {
-      alert("Error al enviar reseña");
+      toast("error", locale === "es" ? "Error al enviar reseña" : "Error submitting review");
     }
     setSending(false);
   }

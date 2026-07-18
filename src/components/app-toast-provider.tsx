@@ -2,6 +2,6 @@
 
 import { ToastProvider } from "@/components/admin/toast";
 
-export function DashboardClient({ children }: { children: React.ReactNode }) {
+export function AppToastProvider({ children }: { children: React.ReactNode }) {
   return <ToastProvider>{children}</ToastProvider>;
 }

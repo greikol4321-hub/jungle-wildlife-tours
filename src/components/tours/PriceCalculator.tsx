@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { saveBookingLead } from "@/app/actions/booking-lead";
+import { useToast } from "@/components/admin/toast";
 
 interface Props {
   priceUsd: number;
@@ -72,6 +73,7 @@ export function PriceCalculator({
   locale,
   tourId,
 }: Props) {
+  const { toast } = useToast();
   const t = useTranslations("tourDetail");
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -99,9 +101,10 @@ export function PriceCalculator({
         message: whatsappText,
         tour_id: tourId,
       });
+      toast("success", locale === "es" ? "Datos guardados. Abriendo WhatsApp..." : "Saved. Opening WhatsApp...");
       window.open(`https://wa.me/${whatsappNumberFallback}?text=${encodeURIComponent(whatsappText)}`, "_blank");
     } catch {
-      alert("Error al guardar. Abriendo WhatsApp de todos modos.");
+      toast("error", locale === "es" ? "Error al guardar. Abriendo WhatsApp de todos modos." : "Error saving. Opening WhatsApp anyway.");
       window.open(`https://wa.me/${whatsappNumberFallback}?text=${encodeURIComponent(whatsappText)}`, "_blank");
     }
     setSaving(false);
