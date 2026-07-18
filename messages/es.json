@@ -1,7 +1,7 @@
 {
   "metadata": {
     "homeTitle": "Jungle Wildlife Tours · Manuel Antonio, Costa Rica",
-    "homeDescription": "Tours de naturaleza y fauna silvestre en Manuel Antonio y Quepos. Safari terrestre, caminata en manglar de Isla Damas y caminata nocturna con guía certificado por el ICT."
+    "homeDescription": "Tours de naturaleza y fauna silvestre en Manuel Antonio y Quepos. Safari terrestre, tour en kayak en manglar de Isla Damas y caminata nocturna con guía certificado por el ICT."
   },
   "nav": {
     "home": "Inicio",
@@ -57,7 +57,7 @@
     "minutes": "{value} min",
     "categories": {
       "day_park": "Safari terrestre",
-      "mangrove": "Caminata en manglar",
+      "mangrove": "Manglar",
       "night_walk": "Caminata nocturna"
     },
     "emptyState": "Todavía no hay tours publicados.",
@@ -111,9 +111,9 @@
     "askPriceSub": "Este tour no tiene tarifa publicada. Escribinos y te pasamos el precio."
   },
   "mangrovePlaceholder": {
-    "title": "Caminata en manglar · Isla Damas",
+    "title": "Tour en kayak en manglar · Isla Damas",
     "note": "Todavía no hay fotos reales de este tour. Cuando las tengamos las reemplazamos por imágenes del manglar.",
-    "illustrationAlt": "Ilustración de caminata en manglar"
+    "illustrationAlt": "Ilustración de tour en kayak en manglar"
   },
   "about": {
     "title": "Sobre nosotros",
@@ -149,7 +149,7 @@
       "mangrove": "Manglar"
     },
     "mangroveComingSoon": "Galería de manglar próximamente.",
-    "mangroveNote": "Todavía no hay fotos reales de la caminata en manglar."
+    "mangroveNote": "Todavía no hay fotos reales del tour en kayak en manglar."
   },
   "night": {
     "heading": "Cuando cae la noche, la selva despierta",
@@ -173,7 +173,7 @@
     "transportIncluded": "¿El transporte está incluido?",
     "transportIncludedAnswer": "Sí, el transporte ida y vuelta desde hoteles en Manuel Antonio y Quepos está incluido en todos nuestros tours. La hora de recogida se confirma después de la reserva.",
     "canChildren": "¿Pueden participar niños?",
-    "canChildrenAnswer": "Por supuesto. Nuestro safari terrestre y caminata en manglar son aptos para toda la familia. La caminata nocturna es recomendada para niños de 6 años en adelante que se sientan cómodos con poca luz.",
+    "canChildrenAnswer": "Por supuesto. Nuestro safari terrestre y tour en kayak en manglar son aptos para toda la familia. La caminata nocturna es recomendada para niños de 6 años en adelante que se sientan cómodos con poca luz.",
     "whatWildlife": "¿Qué fauna puedo esperar ver?",
     "whatWildlifeAnswer": "Varía según la temporada y la hora del día. Perezosos, monos, tucanes, iguanas, ranas, serpientes y mariposas son comunes. Recordá — la naturaleza nunca sigue un guion.",
     "ifRains": "¿Qué pasa si llueve?",
@@ -203,7 +203,8 @@
       "emailPlaceholder": "correo@ejemplo.com",
       "messagePlaceholder": "Contanos sobre tu viaje ideal...",
       "tourDayPark": "Tour terrestre · Parque Nacional Manuel Antonio",
-      "tourMangrove": "Caminata en manglar · Isla Damas",
+      "tourMangrove": "Tour en kayak en manglar · Isla Damas",
+      "tourBoatMangrove": "Tour en barco por los manglares · Isla Damas",
       "tourNight": "Caminata nocturna"
     },
     "directInfo": "También podés escribirnos directo por WhatsApp o al correo de contacto."
@@ -228,7 +229,8 @@
     "popularTours": "Tours populares",
     "tourLinks": {
       "groundSafari": "Safari terrestre",
-      "mangroveWalk": "Caminata en manglar",
+      "mangroveWalk": "Tour en kayak en manglar",
+      "boatMangrove": "Tour en barco por los manglares",
       "nightWalk": "Caminata nocturna"
     },
     "contact": "Contacto",

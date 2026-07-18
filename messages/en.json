@@ -1,7 +1,7 @@
 {
   "metadata": {
     "homeTitle": "Jungle Wildlife Tours · Manuel Antonio, Costa Rica",
-    "homeDescription": "Nature and wildlife tours in Manuel Antonio and Quepos. Ground safari, mangrove walk on Damas Island, and night walk with an ICT-certified guide."
+    "homeDescription": "Nature and wildlife tours in Manuel Antonio and Quepos. Ground safari, mangrove kayak tour on Damas Island, and night walk with an ICT-certified guide."
   },
   "nav": {
     "home": "Home",
@@ -57,7 +57,7 @@
     "minutes": "{value} min",
     "categories": {
       "day_park": "Ground safari",
-      "mangrove": "Mangrove walk",
+      "mangrove": "Mangrove",
       "night_walk": "Night walk"
     },
     "emptyState": "No tours published yet.",
@@ -111,9 +111,9 @@
     "askPriceSub": "This tour doesn't have a published price. Write to us and we'll get back to you."
   },
   "mangrovePlaceholder": {
-    "title": "Mangrove walk · Damas Island",
+    "title": "Mangrove kayak tour · Damas Island",
     "note": "There are no real photos for this tour yet. We will replace them with mangrove images once they are available.",
-    "illustrationAlt": "Mangrove walk illustration"
+    "illustrationAlt": "Mangrove kayak tour illustration"
   },
   "about": {
     "title": "About us",
@@ -149,7 +149,7 @@
       "mangrove": "Mangrove"
     },
     "mangroveComingSoon": "Mangrove gallery coming soon.",
-    "mangroveNote": "There are no real photos of the mangrove walk yet."
+    "mangroveNote": "There are no real photos of the mangrove kayak tour yet."
   },
   "night": {
     "heading": "When darkness falls, the jungle wakes",
@@ -173,7 +173,7 @@
     "transportIncluded": "Is transportation included?",
     "transportIncludedAnswer": "Yes, round-trip transportation from Manuel Antonio and Quepos hotels is included in all our tours. Pick-up times are confirmed after booking.",
     "canChildren": "Can children participate?",
-    "canChildrenAnswer": "Absolutely. Our ground safari and mangrove walk are family-friendly. The night walk is suitable for kids 6 and up who are comfortable in low-light settings.",
+    "canChildrenAnswer": "Absolutely. Our ground safari and mangrove kayak tour are family-friendly. The night walk is suitable for kids 6 and up who are comfortable in low-light settings.",
     "whatWildlife": "What wildlife can I expect to see?",
     "whatWildlifeAnswer": "It varies by season and time of day. Sloths, monkeys, toucans, iguanas, frogs, snakes, and butterflies are common. Remember — nature never follows a script.",
     "ifRains": "What happens if it rains?",
@@ -203,7 +203,8 @@
       "emailPlaceholder": "you@example.com",
       "messagePlaceholder": "Tell us about your ideal trip...",
       "tourDayPark": "Ground safari · Manuel Antonio National Park",
-      "tourMangrove": "Mangrove walk · Damas Island",
+      "tourMangrove": "Mangrove kayak tour · Damas Island",
+      "tourBoatMangrove": "Mangrove boat tour · Damas Island",
       "tourNight": "Night walk"
     },
     "directInfo": "You can also contact us directly on WhatsApp or by email."
@@ -228,7 +229,8 @@
     "popularTours": "Popular tours",
     "tourLinks": {
       "groundSafari": "Ground safari",
-      "mangroveWalk": "Mangrove walk",
+      "mangroveWalk": "Mangrove kayak tour",
+      "boatMangrove": "Mangrove boat tour",
       "nightWalk": "Night walk"
     },
     "contact": "Contact",
