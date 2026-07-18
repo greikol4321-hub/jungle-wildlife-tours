@@ -45,8 +45,16 @@ type Tour = {
   includes: string[] | null;
   excludes: string[] | null;
   itinerary: ItineraryStop[] | null;
+  tide_table: TideEntry[] | null;
   is_active: boolean;
   tour_images: TourImage[];
+};
+
+type TideEntry = {
+  date: string;
+  time: string;
+  height_m: number;
+  type: "high" | "low";
 };
 
 
@@ -101,6 +109,21 @@ export default async function TourDetailPage({
   if (!tour) notFound();
 
   const typedTour = tour as Tour;
+
+  // Compartir galería entre tours de manglar
+  let galleryImages = typedTour.tour_images;
+  if (typedTour.category === "mangrove") {
+    const { data: siblings } = await supabase
+      .from("tour_images")
+      .select("*, tours!inner(slug, title_es, title_en)")
+      .eq("tours.category", "mangrove")
+      .eq("tours.is_active", true)
+      .neq("tour_id", typedTour.id)
+      .neq("is_cover", true)
+      .order("display_order");
+    if (siblings) galleryImages = [...typedTour.tour_images, ...siblings];
+  }
+
   const title = locale === "es" ? typedTour.title_es : typedTour.title_en;
   const description =
     locale === "es" ? typedTour.description_es : typedTour.description_en;
@@ -315,6 +338,49 @@ export default async function TourDetailPage({
           </div>
         </section>
 
+        {/* ── TIDE TABLE ── */}
+        {typedTour.tide_table && typedTour.tide_table.length > 0 && (
+          <section className="mt-16 md:mt-20">
+            <div className="h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" aria-hidden="true" />
+            <h2 className="mt-8 font-heading text-xl md:text-2xl font-bold text-text">
+              Tabla de mareas
+            </h2>
+            <p className="mt-2 text-sm text-text-secondary">
+              Horarios estimados de mareas para la navegación en el manglar.
+            </p>
+            <div className="mt-6 overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-text-muted font-mono text-[10px] tracking-widest uppercase">
+                    <th className="py-3 pr-4 text-left">Fecha</th>
+                    <th className="py-3 pr-4 text-left">Hora</th>
+                    <th className="py-3 pr-4 text-left">Altura</th>
+                    <th className="py-3 text-left">Marea</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {typedTour.tide_table.map((entry, i) => (
+                    <tr key={`tide-${entry.date}-${entry.time}`} className="border-b border-border/50 last:border-0">
+                      <td className="py-3 pr-4 text-text">{entry.date}</td>
+                      <td className="py-3 pr-4 text-text">{entry.time}</td>
+                      <td className="py-3 pr-4 text-text">{entry.height_m}m</td>
+                      <td className="py-3 text-text">
+                        <span className={`inline-block px-2 py-0.5 rounded-full font-mono text-[10px] tracking-wider uppercase ${
+                          entry.type === "high"
+                            ? "bg-sky-500/10 text-sky-500"
+                            : "bg-amber-500/10 text-amber-500"
+                        }`}>
+                          {entry.type === "high" ? "Alta" : "Baja"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
         {/* ── PRICE CALCULATOR ── */}
         <section className="mt-16 md:mt-20">
           <div className="h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" aria-hidden="true" />
@@ -333,21 +399,21 @@ export default async function TourDetailPage({
         </section>
 
         {/* ── GALLERY ── */}
-        {typedTour.tour_images.length > 1 && (
+        {galleryImages.length > 1 && (
           <section className="mt-16 md:mt-20">
             <div className="h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" aria-hidden="true" />
             <h2 className="mt-8 font-heading text-xl md:text-2xl font-bold text-text">
               {t("gallery")}
             </h2>
             <GalleryLightbox
-              images={typedTour.tour_images}
+              images={galleryImages}
               locale={locale}
               title={title}
             />
           </section>
         )}
 
-        {typedTour.tour_images.length <= 1 && (
+        {galleryImages.length <= 1 && (
           <p className="mt-16 md:mt-20 font-mono text-xs tracking-wider text-text-muted italic">{t("noImages")}</p>
         )}
 
