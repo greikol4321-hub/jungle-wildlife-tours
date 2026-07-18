@@ -66,6 +66,11 @@ alter table public.contact_messages enable row level security;
 create policy "tours activos visibles" on public.tours
   for select using (is_active = true);
 
+create policy "admins pueden ver todos los tours" on public.tours
+  for select using (
+    exists (select 1 from public.admin_users where user_id = auth.uid())
+  );
+
 create policy "imagenes de tours activos visibles" on public.tour_images
   for select using (
     exists (select 1 from public.tours t where t.id = tour_id and t.is_active = true)
