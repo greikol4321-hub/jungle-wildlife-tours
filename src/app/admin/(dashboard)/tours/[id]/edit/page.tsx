@@ -145,6 +145,16 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
     }
   }
 
+  async function handleSetCover(imageId: string) {
+    try {
+      await setTourCover(id, imageId);
+      toast("success", "Cover actualizado");
+      setImages(images.map((img) => ({ ...img, is_cover: img.id === imageId })));
+    } catch (e) {
+      toast("error", e instanceof Error ? e.message : "Error al cambiar cover");
+    }
+  }
+
   return (
     <div>
       <Link href="/admin/tours" className="inline-flex items-center gap-1.5 mono-ui text-text-muted hover:text-emerald transition-colors mb-4">
@@ -173,7 +183,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               ) : (
                 <button
                   type="button"
-                  onClick={() => setTourCover(id, img.id)}
+                  onClick={() => handleSetCover(img.id)}
                   className="absolute top-1 left-1 mono-ui px-1.5 py-0.5 rounded bg-surface/80 text-text-muted hover:text-emerald hover:bg-emerald-dim text-[10px] transition-colors opacity-0 group-hover:opacity-100"
                 >
                   Cover
