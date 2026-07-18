@@ -90,10 +90,7 @@ export function Header({ locale }: { locale: string }) {
             <button
               type="button"
               className="locale-btn"
-              onClick={() => {
-                document.body.setAttribute("data-locale-loading", "true");
-                router.push(pathname, { locale: otherLocale });
-              }}
+              onClick={() => router.push(pathname, { locale: otherLocale })}
             >
               {otherLocale.toUpperCase()}
             </button>
@@ -203,7 +200,6 @@ export function Header({ locale }: { locale: string }) {
             type="button"
             className="panel-locale"
             onClick={() => {
-              document.body.setAttribute("data-locale-loading", "true");
               router.push(pathname, { locale: otherLocale });
               setOpen(false);
             }}

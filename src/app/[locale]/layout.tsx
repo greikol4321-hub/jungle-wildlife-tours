@@ -8,7 +8,6 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { LocaleLoader } from "@/components/ui/LocaleLoader";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -63,7 +62,6 @@ export default async function LocaleLayout({
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
-      <LocaleLoader />
       <ScrollProgress />
       <NextIntlClientProvider locale={locale} messages={messages}>
       <Header locale={locale} />
