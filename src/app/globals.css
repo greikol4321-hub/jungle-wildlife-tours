@@ -123,31 +123,6 @@
   pointer-events: none;
 }
 
-/* ── LOADING SCREEN (locale switch) ─────────────────── */
-.loading-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg);
-}
-.loading-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-emerald);
-  animation: loadingPulse 1.2s ease-in-out infinite;
-}
-.loading-dot:nth-child(2) { animation-delay: 0.2s; }
-.loading-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes loadingPulse {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
 /* ── GRAIN OVERLAY ──────────────────────────────────── */
 .grain-overlay::after {
   content: '';
