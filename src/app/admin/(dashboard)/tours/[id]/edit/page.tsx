@@ -22,19 +22,41 @@ const schema = z.object({
   duration_minutes: z.coerce.number(),
   difficulty: z.enum(["easy", "moderate", "challenging"]).optional(),
   min_age: z.coerce.number().optional(),
+  max_people: z.coerce.number().optional(),
   price_usd: z.coerce.number().optional(),
+  child_price_pct: z.coerce.number().optional(),
+  child_price_usd: z.coerce.number().optional(),
+  languages: z.string().optional(),
+  includes: z.string().optional(),
+  excludes: z.string().optional(),
+  itinerary: z.string().optional(),
   display_order: z.coerce.number().default(0),
 });
 
-type FormData = {
-  slug: string; category: "day_park" | "mangrove" | "night_walk";
-  title_es: string; title_en: string;
-  description_es: string; description_en: string;
-  duration_minutes: number;
-  difficulty?: "easy" | "moderate" | "challenging";
-  min_age?: number; price_usd?: number;
-  display_order: number;
-};
+type FormData = z.infer<typeof schema>;
+
+function dataToForm(tour: Tables<"tours">): FormData {
+  return {
+    slug: tour.slug,
+    category: tour.category as "day_park" | "mangrove" | "night_walk",
+    title_es: tour.title_es,
+    title_en: tour.title_en,
+    description_es: tour.description_es,
+    description_en: tour.description_en,
+    duration_minutes: tour.duration_minutes,
+    difficulty: (tour.difficulty as "easy" | "moderate" | "challenging") ?? undefined,
+    min_age: tour.min_age ?? undefined,
+    max_people: tour.max_people ?? undefined,
+    price_usd: tour.price_usd ?? undefined,
+    child_price_pct: tour.child_price_pct ?? undefined,
+    child_price_usd: tour.child_price_usd ?? undefined,
+    languages: (tour.languages ?? []).join(", "),
+    includes: (tour.includes ?? []).join("\n"),
+    excludes: (tour.excludes ?? []).join("\n"),
+    itinerary: tour.itinerary ? JSON.stringify(tour.itinerary, null, 2) : "",
+    display_order: tour.display_order ?? 0,
+  };
+}
 
 export default function EditTourPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -45,7 +67,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   const id = use(params).id;
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
-    resolver: zodResolver(schema as never),
+    resolver: zodResolver(schema) as never,
   });
 
   useEffect(() => {
@@ -54,7 +76,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       const { data: t } = await supabase.from("tours").select("*").eq("id", id).single();
       if (t) {
         setTour(t as Tables<"tours">);
-        reset(t as unknown as FormData);
+        reset(dataToForm(t as Tables<"tours">));
       }
       const { data: imgs } = await supabase.from("tour_images").select("*").eq("tour_id", id).order("display_order");
       setImages((imgs ?? []) as Tables<"tour_images">[]);
@@ -62,10 +84,17 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
     load();
   }, [id, reset]);
 
-  function onSubmit(values: FormData) {
+  function onSubmit(raw: FormData) {
     startTransition(async () => {
       try {
-        await updateTour(id, values);
+        const payload = {
+          ...raw,
+          languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
+          includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
+          excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
+          itinerary: raw.itinerary ? JSON.parse(raw.itinerary) : undefined,
+        };
+        await updateTour(id, payload);
         router.push("/admin/tours");
         router.refresh();
       } catch (e) {
@@ -142,63 +171,120 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-5">
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Slug" error={errors.slug?.message}>
-            <input {...register("slug")} className="admin-input" />
-          </Field>
-          <Field label="Categoría" error={errors.category?.message}>
-            <select {...register("category")} className="admin-input appearance-none cursor-pointer">
-              <option value="day_park">Day Park</option>
-              <option value="mangrove">Manglar</option>
-              <option value="night_walk">Night Walk</option>
-            </select>
-          </Field>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-8">
+        {/* ── INFORMACIÓN BÁSICA ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Información básica</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Slug" error={errors.slug?.message}>
+              <input {...register("slug")} className="admin-input" />
+            </Field>
+            <Field label="Categoría" error={errors.category?.message}>
+              <select {...register("category")} className="admin-input appearance-none cursor-pointer">
+                <option value="day_park">Day Park</option>
+                <option value="mangrove">Manglar</option>
+                <option value="night_walk">Night Walk</option>
+              </select>
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Field label="Título (ES)" error={errors.title_es?.message}>
+              <input {...register("title_es")} className="admin-input" />
+            </Field>
+            <Field label="Título (EN)" error={errors.title_en?.message}>
+              <input {...register("title_en")} className="admin-input" />
+            </Field>
+          </div>
+        </section>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Título (ES)" error={errors.title_es?.message}>
-            <input {...register("title_es")} className="admin-input" />
-          </Field>
-          <Field label="Título (EN)" error={errors.title_en?.message}>
-            <input {...register("title_en")} className="admin-input" />
-          </Field>
-        </div>
+        {/* ── DESCRIPCIONES ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Descripciones</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Desc. corta (ES)" error={errors.description_es?.message}>
+              <textarea {...register("description_es")} rows={3} className="admin-input admin-textarea" />
+            </Field>
+            <Field label="Desc. corta (EN)" error={errors.description_en?.message}>
+              <textarea {...register("description_en")} rows={3} className="admin-input admin-textarea" />
+            </Field>
+          </div>
+        </section>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Desc. (ES)" error={errors.description_es?.message}>
-            <textarea {...register("description_es")} rows={4} className="admin-input admin-textarea" />
-          </Field>
-          <Field label="Desc. (EN)" error={errors.description_en?.message}>
-            <textarea {...register("description_en")} rows={4} className="admin-input admin-textarea" />
-          </Field>
-        </div>
+        {/* ── DURACIÓN Y DIFICULTAD ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Duración y dificultad</h2>
+          <div className="grid grid-cols-4 gap-4">
+            <Field label="Duración (min)" error={errors.duration_minutes?.message}>
+              <input {...register("duration_minutes")} type="number" className="admin-input" />
+            </Field>
+            <Field label="Dificultad" error={errors.difficulty?.message}>
+              <select {...register("difficulty")} className="admin-input appearance-none cursor-pointer">
+                <option value="">—</option>
+                <option value="easy">Fácil</option>
+                <option value="moderate">Moderada</option>
+                <option value="challenging">Exigente</option>
+              </select>
+            </Field>
+            <Field label="Edad mínima" error={errors.min_age?.message}>
+              <input {...register("min_age")} type="number" className="admin-input" />
+            </Field>
+            <Field label="Max. personas" error={errors.max_people?.message}>
+              <input {...register("max_people")} type="number" className="admin-input" />
+            </Field>
+          </div>
+        </section>
 
-        <div className="grid grid-cols-3 gap-4">
-          <Field label="Duración (min)" error={errors.duration_minutes?.message}>
-            <input {...register("duration_minutes")} type="number" className="admin-input" />
+        {/* ── PRECIOS ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Precios</h2>
+          <div className="grid grid-cols-3 gap-4">
+            <Field label="Precio adulto (USD)" error={errors.price_usd?.message}>
+              <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
+            </Field>
+            <Field label="Child price %" error={errors.child_price_pct?.message}>
+              <input {...register("child_price_pct")} type="number" min={0} max={100} className="admin-input" />
+            </Field>
+            <Field label="Child price (USD)" error={errors.child_price_usd?.message}>
+              <input {...register("child_price_usd")} type="number" step="0.01" className="admin-input" />
+            </Field>
+          </div>
+        </section>
+
+        {/* ── IDIOMAS E INCLUYE/EXCLUYE ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Idiomas e ítems</h2>
+          <Field label="Idiomas (separados por coma)" error={errors.languages?.message}>
+            <input {...register("languages")} className="admin-input" placeholder="Español, English" />
           </Field>
-          <Field label="Dificultad" error={errors.difficulty?.message}>
-            <select {...register("difficulty")} className="admin-input appearance-none cursor-pointer">
-              <option value="">—</option>
-              <option value="easy">Fácil</option>
-              <option value="moderate">Moderada</option>
-              <option value="challenging">Exigente</option>
-            </select>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Field label="Incluye (uno por línea)" error={errors.includes?.message}>
+              <textarea {...register("includes")} rows={5} className="admin-input admin-textarea" />
+            </Field>
+            <Field label="No incluye (uno por línea)" error={errors.excludes?.message}>
+              <textarea {...register("excludes")} rows={5} className="admin-input admin-textarea" />
+            </Field>
+          </div>
+        </section>
+
+        {/* ── ITINERARIO ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Itinerario (JSON)</h2>
+          <Field label="Arreglo de {time, title, description}" error={errors.itinerary?.message}>
+            <textarea
+              {...register("itinerary")}
+              rows={6}
+              className="admin-input admin-textarea font-mono text-xs"
+            />
           </Field>
-          <Field label="Orden" error={errors.display_order?.message}>
+        </section>
+
+        {/* ── ORDEN ── */}
+        <section>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Orden</h2>
+          <Field label="Orden de visualización" error={errors.display_order?.message}>
             <input {...register("display_order")} type="number" className="admin-input" />
           </Field>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Precio (USD)" error={errors.price_usd?.message}>
-            <input {...register("price_usd")} type="number" step="0.01" className="admin-input" />
-          </Field>
-          <Field label="Edad mínima" error={errors.min_age?.message}>
-            <input {...register("min_age")} type="number" className="admin-input" />
-          </Field>
-        </div>
+        </section>
 
         <div className="flex gap-3 pt-2">
           <button type="submit" disabled={isPending} className="admin-btn admin-btn-primary disabled:opacity-50">

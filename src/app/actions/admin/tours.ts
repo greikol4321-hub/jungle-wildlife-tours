@@ -14,7 +14,18 @@ const tourSchema = z.object({
   duration_minutes: z.coerce.number().int().positive(),
   difficulty: z.enum(["easy", "moderate", "challenging"]).optional(),
   min_age: z.coerce.number().int().min(0).optional(),
+  max_people: z.coerce.number().int().min(1).optional(),
   price_usd: z.coerce.number().positive().optional(),
+  child_price_pct: z.coerce.number().int().min(0).max(100).optional(),
+  child_price_usd: z.coerce.number().positive().optional(),
+  languages: z.array(z.string()).optional(),
+  includes: z.array(z.string()).optional(),
+  excludes: z.array(z.string()).optional(),
+  itinerary: z.array(z.object({
+    time: z.string(),
+    title: z.string(),
+    description: z.string(),
+  })).optional(),
   is_active: z.boolean().default(true),
   display_order: z.coerce.number().int().default(0),
 });

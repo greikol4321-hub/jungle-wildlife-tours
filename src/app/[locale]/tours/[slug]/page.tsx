@@ -5,11 +5,17 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
-import { getTourDemoData, difficultyLabels } from "@/lib/tour-demo-data";
+import { difficultyLabels } from "@/lib/tour-demo-data";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
 import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
+
+type ItineraryStop = {
+  time: string;
+  title: string;
+  description: string;
+};
 
 type TourImage = {
   id: string;
@@ -27,7 +33,16 @@ type Tour = {
   description_en: string;
   category: string;
   duration_minutes: number;
+  difficulty: string | null;
+  min_age: number | null;
+  max_people: number | null;
   price_usd: number | null;
+  child_price_pct: number | null;
+  child_price_usd: number | null;
+  languages: string[] | null;
+  includes: string[] | null;
+  excludes: string[] | null;
+  itinerary: ItineraryStop[] | null;
   is_active: boolean;
   tour_images: TourImage[];
 };
@@ -95,8 +110,7 @@ export default async function TourDetailPage({
     tTours(`categories.${typedTour.category}`) ?? typedTour.category;
   const coverImage = typedTour.tour_images[0];
   const cc = CATEGORY_STYLES[typedTour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
-  const demo = getTourDemoData(typedTour.category, locale);
-  const diffLabel = difficultyLabels[locale][demo.difficulty] ?? demo.difficulty;
+  const diffLabel = difficultyLabels[locale][typedTour.difficulty ?? 'easy'] ?? typedTour.difficulty;
   const hours = Math.floor(typedTour.duration_minutes / 60);
   const minutes = typedTour.duration_minutes % 60;
 
@@ -155,8 +169,8 @@ export default async function TourDetailPage({
           {[
             { icon: Clock, label: t("duration"), value: `${hours > 0 ? `${hours}h ` : ""}${minutes > 0 ? `${minutes}min` : ""}` },
             { icon: ChevronRight, label: t("difficulty"), value: diffLabel },
-            { icon: Users, label: t("maxPeople"), value: `${demo.maxPeople}` },
-            { icon: Globe, label: t("language"), value: demo.languages.join(" / ") },
+            { icon: Users, label: t("maxPeople"), value: `${typedTour.max_people ?? '—'}` },
+            { icon: Globe, label: t("language"), value: (typedTour.languages ?? []).join(" / ") || 'Español / English' },
           ].map((item, i) => (
             <div key={i} className="card p-4 md:p-5 flex items-center gap-3 md:gap-4">
               <span className="flex h-9 w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-xl bg-surface-elevated border border-border">
@@ -189,7 +203,7 @@ export default async function TourDetailPage({
           </h2>
 
           <div className="mt-8">
-            {demo.itinerary.length === 1 ? (
+            {(typedTour.itinerary ?? []).length === 1 ? (
               /* Single stop = coordination info card */
               <div className="rounded-lg border border-border bg-surface/50 p-5 md:p-6 flex items-start gap-4">
                 <span className="shrink-0 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-dim border border-emerald/20" aria-hidden="true">
@@ -201,14 +215,14 @@ export default async function TourDetailPage({
                 <div className="min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
                     <span className="font-mono text-xs tracking-wider text-emerald shrink-0">
-                      {demo.itinerary[0].time}
+                      {(typedTour.itinerary ?? [])[0].time}
                     </span>
                     <h3 className="font-heading font-semibold text-text mt-0.5 sm:mt-0">
-                      {demo.itinerary[0].title}
+                      {(typedTour.itinerary ?? [])[0].title}
                     </h3>
                   </div>
                   <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                    {demo.itinerary[0].description}
+                    {(typedTour.itinerary ?? [])[0].description}
                   </p>
                 </div>
               </div>
@@ -217,7 +231,7 @@ export default async function TourDetailPage({
               <div className="relative">
                 <div className="absolute left-3.5 top-2 bottom-2 w-px bg-gradient-to-b from-emerald/40 via-border-strong to-transparent" aria-hidden="true" />
                 <div className="space-y-8">
-                  {demo.itinerary.map((stop, i) => (
+                  {(typedTour.itinerary ?? []).map((stop, i) => (
                     <div key={i} className="relative pl-10">
                       <span
                         className={`absolute left-0 top-1 flex h-7 w-7 items-center justify-center rounded-full border-2 ${cc.border} bg-bg text-xs font-bold ${cc.text}`}
@@ -260,7 +274,7 @@ export default async function TourDetailPage({
                 {t("includes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {demo.includes.map((item, i) => (
+                {(typedTour.includes ?? []).map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald" strokeWidth={2.5} aria-hidden="true" />
                     {item}
@@ -276,7 +290,7 @@ export default async function TourDetailPage({
                 {t("excludes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {demo.excludes.map((item, i) => (
+                {(typedTour.excludes ?? []).map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-text-muted" strokeWidth={2} aria-hidden="true" />
                     {item}
@@ -297,8 +311,8 @@ export default async function TourDetailPage({
             <PriceCalculator
               priceUsd={typedTour.price_usd ?? 0}
               title={title}
-              childPricePct={demo.childPricePct}
-              childPriceUsd={demo.childPriceUsd}
+              childPricePct={typedTour.child_price_pct ?? 50}
+              childPriceUsd={typedTour.child_price_usd ?? undefined}
               locale={locale}
             />
           </div>

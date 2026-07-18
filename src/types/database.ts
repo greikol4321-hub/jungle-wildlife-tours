@@ -140,14 +140,22 @@ export type Database = {
       tours: {
         Row: {
           category: string
+          child_price_pct: number | null
+          child_price_usd: number | null
           created_at: string | null
+          description_en: string
+          description_es: string
           difficulty: string | null
           display_order: number | null
           duration_minutes: number
-          description_en: string
-          description_es: string
+          excludes: string[] | null
+
           id: string
+          includes: string[] | null
           is_active: boolean | null
+          itinerary: Json | null
+          languages: string[] | null
+          max_people: number | null
           min_age: number | null
           price_usd: number | null
           slug: string
@@ -156,14 +164,21 @@ export type Database = {
         }
         Insert: {
           category: string
+          child_price_pct?: number | null
+          child_price_usd?: number | null
           created_at?: string | null
+          description_en: string
+          description_es: string
           difficulty?: string | null
           display_order?: number | null
           duration_minutes: number
-          description_en: string
-          description_es: string
+          excludes?: string[] | null
           id?: string
+          includes?: string[] | null
           is_active?: boolean | null
+          itinerary?: Json | null
+          languages?: string[] | null
+          max_people?: number | null
           min_age?: number | null
           price_usd?: number | null
           slug: string
@@ -172,14 +187,21 @@ export type Database = {
         }
         Update: {
           category?: string
+          child_price_pct?: number | null
+          child_price_usd?: number | null
           created_at?: string | null
+          description_en?: string
+          description_es?: string
           difficulty?: string | null
           display_order?: number | null
           duration_minutes?: number
-          description_en?: string
-          description_es?: string
+          excludes?: string[] | null
           id?: string
+          includes?: string[] | null
           is_active?: boolean | null
+          itinerary?: Json | null
+          languages?: string[] | null
+          max_people?: number | null
           min_age?: number | null
           price_usd?: number | null
           slug?: string

@@ -6,18 +6,25 @@ create table public.tours (
   category text not null check (category in ('day_park','mangrove','night_walk')),
   title_es text not null,
   title_en text not null,
-  short_description_es text not null,
-  short_description_en text not null,
-  full_description_es text,
-  full_description_en text,
+  description_es text not null,
+  description_en text not null,
   duration_minutes integer not null,
   difficulty text,
   min_age integer,
+  max_people integer,
   price_usd numeric(10,2),
+  child_price_pct integer,
+  child_price_usd numeric(10,2),
+  languages text[] default '{"Español","English"}',
+  includes text[],
+  excludes text[],
+  itinerary jsonb,
   is_active boolean default true,
   display_order integer default 0,
   created_at timestamptz default now()
 );
+
+create index if not exists idx_tours_itinerary on public.tours using gin (itinerary);
 
 create table public.tour_images (
   id uuid primary key default gen_random_uuid(),
