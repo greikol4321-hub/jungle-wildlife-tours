@@ -14,6 +14,7 @@ export async function Footer() {
               <p className="font-heading text-xl font-bold text-text tracking-tight">
                 Jungle Wildlife Tours
               </p>
+              <div className="mt-2 h-0.5 w-10 rounded-full bg-emerald" />
               <p className="mt-3 text-text-secondary text-sm leading-relaxed max-w-[260px]">
                 {t("description")}
               </p>

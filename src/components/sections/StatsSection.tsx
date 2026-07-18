@@ -62,6 +62,7 @@ export function StatsSection({ locale }: { locale: string }) {
           <h2 id="stats-heading" className="font-heading font-extrabold tracking-tight text-text text-center text-balance" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
             {t("title")}
           </h2>
+          <div className="mx-auto mt-4 h-0.5 w-12 rounded-full bg-emerald" />
         </Reveal>
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
