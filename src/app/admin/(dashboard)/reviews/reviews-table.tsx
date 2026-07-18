@@ -32,7 +32,7 @@ function Stars({ rating, size = "sm" }: { rating: number; size?: "sm" | "xs" }) 
 export function ReviewsTable({ reviews }: { reviews: Review[] }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
-  const [deleting, setDeleting] = useState<string | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     return reviews.filter((r) => {
@@ -157,28 +157,15 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                         </button>
                       </form>
                     )}
-                    {deleting === review.id ? (
-                      <div className="flex items-center gap-0.5">
-                        <form action={deleteReview.bind(null, review.id)}>
-                          <button type="submit" className="admin-btn admin-btn-ghost admin-btn-destructive text-[10px] px-2.5 py-1 h-auto rounded-full">
-                            Confirmar
-                          </button>
-                        </form>
-                        <button type="button" onClick={() => setDeleting(null)} className="admin-btn admin-btn-ghost admin-btn-icon" aria-label="Cancelar">
-                          <X className="h-3 w-3" strokeWidth={1.5} />
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => setDeleting(review.id)}
-                        className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive"
-                        title="Eliminar"
-                        aria-label="Eliminar reseña"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => setShowDeleteModal(review.id)}
+                      className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive"
+                      title="Eliminar"
+                      aria-label="Eliminar reseña"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -207,6 +194,27 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
       <p className="text-xs text-text-muted">
         {filtered.length} de {reviews.length} reseñas
       </p>
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowDeleteModal(null)}>
+          <div className="bg-surface border border-border rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-heading text-lg font-bold text-text">Eliminar reseña</h3>
+            <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+              Esta acción no se puede deshacer. La reseña se borrará permanentemente.
+            </p>
+            <div className="mt-6 flex items-center justify-end gap-2">
+              <button type="button" onClick={() => setShowDeleteModal(null)} className="admin-btn admin-btn-ghost px-4 py-2 text-sm">
+                Cancelar
+              </button>
+              <form action={deleteReview.bind(null, showDeleteModal)} onSubmit={() => setShowDeleteModal(null)}>
+                <button type="submit" className="admin-btn admin-btn-destructive px-4 py-2 text-sm">
+                  Eliminar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
