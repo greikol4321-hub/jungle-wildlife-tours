@@ -26,14 +26,14 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 const CATEGORY_COLORS: Record<string, string> = {
   day_park: "border-l-emerald",
-  mangrove: "border-l-sand",
-  night_walk: "border-l-canopy",
+  mangrove: "border-l-teal-500",
+  night_walk: "border-l-amber-500",
 };
 
 const CATEGORY_DOTS: Record<string, string> = {
   day_park: "bg-emerald",
-  mangrove: "bg-sand",
-  night_walk: "bg-canopy",
+  mangrove: "bg-teal-500",
+  night_walk: "bg-amber-500",
 };
 
 function formatDuration(min: number | null): string {
@@ -111,8 +111,8 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
               </div>
               <span className={`inline-flex items-center gap-1.5 mono-ui text-[9px] px-2 py-1 rounded-full shrink-0 ${
                 tour.category === "day_park" ? "bg-emerald-dim text-emerald" :
-                tour.category === "mangrove" ? "bg-sand-dim text-sand" :
-                "bg-canopy-deep text-canopy"
+                tour.category === "mangrove" ? "bg-teal-500/10 text-teal-500" :
+                "bg-amber-500/10 text-amber-500"
               }`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${CATEGORY_DOTS[tour.category] ?? "bg-emerald"}`} />
                 {CATEGORY_LABELS[tour.category] ?? tour.category}
