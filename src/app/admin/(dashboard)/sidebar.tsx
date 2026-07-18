@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, TreePalm, Star, MessageSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, TreePalm, Star, LogOut } from "lucide-react";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/tours", label: "Tours", icon: TreePalm },
   { href: "/admin/reviews", label: "Reseñas", icon: Star },
-  { href: "/admin/messages", label: "Mensajes", icon: MessageSquare },
 ] as const;
 
 export function Sidebar() {
