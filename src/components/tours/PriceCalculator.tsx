@@ -7,7 +7,6 @@ import { saveBookingLead } from "@/app/actions/booking-lead";
 interface Props {
   priceUsd: number;
   title: string;
-  childPricePct: number;
   childPriceUsd?: number;
   locale: string;
   tourId?: string;
@@ -69,7 +68,6 @@ function Stepper({
 export function PriceCalculator({
   priceUsd,
   title,
-  childPricePct,
   childPriceUsd,
   locale,
   tourId,
@@ -81,7 +79,7 @@ export function PriceCalculator({
   const [phone, setPhone] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const childPrice = childPriceUsd ?? priceUsd * (childPricePct / 100);
+  const childPrice = childPriceUsd ?? 0;
   const total = adults * priceUsd + children * childPrice;
 
   const whatsappText =

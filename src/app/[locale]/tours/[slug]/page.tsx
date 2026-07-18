@@ -38,7 +38,6 @@ type Tour = {
   min_age: number | null;
   max_people: number | null;
   price_usd: number | null;
-  child_price_pct: number | null;
   child_price_usd: number | null;
   languages: string[] | null;
   includes: string[] | null;
@@ -312,7 +311,6 @@ export default async function TourDetailPage({
             <PriceCalculator
               priceUsd={typedTour.price_usd ?? 0}
               title={title}
-              childPricePct={typedTour.child_price_pct ?? 50}
               childPriceUsd={typedTour.child_price_usd ?? undefined}
               locale={locale}
               tourId={typedTour.id}
