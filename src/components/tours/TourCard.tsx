@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { CATEGORY_STYLES } from "@/lib/constants";
+import { CATEGORY_STYLES, difficultyLabels } from "@/lib/constants";
 import { m, useReducedMotion } from "motion/react";
-import { Clock, ArrowRight, Footprints, Languages, Bus, Sun, Heart } from "lucide-react";
+import { Clock, ArrowRight, Footprints, Languages, Heart } from "lucide-react";
 
 interface TourImage {
   storage_path: string;
@@ -24,6 +24,8 @@ interface Tour {
   duration_minutes: number;
   price_usd: number;
   category: string;
+  difficulty: string | null;
+  languages: string[] | null;
   tour_images: TourImage[];
 }
 
@@ -34,17 +36,9 @@ interface TourCardProps {
   featured?: boolean;
 }
 
-const BADGE_MAP: Record<string, string> = {
-  day_park: "mostPopular",
-  night_walk: "bestSeller",
-  mangrove: "familyFriendly",
-};
-
 const INFO_ITEMS = [
-  { key: "difficulty", icon: Footprints, getValue: (d: number) => d > 180 ? "Moderate" : "Easy" },
-  { key: "languages", icon: Languages, getValue: () => "ES / EN" },
-  { key: "transportIncluded", icon: Bus, getValue: () => "✓" },
-  { key: "bestTime", icon: Sun, getValue: () => "6:00 AM" },
+  { key: "difficulty", icon: Footprints },
+  { key: "languages", icon: Languages },
 ] as const;
 
 export function TourCard({ tour, locale, index, featured }: TourCardProps) {
@@ -120,16 +114,6 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                   {tTours("badges.mostPopular")}
                 </span>
               )}
-              {tour.category === "mangrove" && (
-                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full bg-sand/20 backdrop-blur-sm ring-1 ring-sand/40 text-sand transition-all duration-300 group-hover:bg-sand/30">
-                  {tTours("badges.familyFriendly")}
-                </span>
-              )}
-              {tour.category === "night_walk" && (
-                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full bg-emerald/15 backdrop-blur-sm ring-1 ring-emerald/30 text-emerald/80 transition-all duration-300 group-hover:bg-emerald/25">
-                  {tTours("badges.bestSeller")}
-                </span>
-              )}
             </div>
 
             <div className="absolute top-3 right-3 z-10">
@@ -183,14 +167,18 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
 
             {/* ── Tour Info Icons ── */}
             <div className={`flex flex-wrap gap-3 ${desc ? "mt-3" : "mt-2"}`}>
-              {INFO_ITEMS.map(({ key, icon: Icon, getValue }) => (
-                <span key={key} className="inline-flex items-center gap-1 text-text-muted" title={tTours(`info.${key}`)}>
-                  <Icon className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
-                  <span className="font-mono text-[9px] tracking-wider uppercase">
-                    {getValue(tour.duration_minutes)}
-                  </span>
+              <span className="inline-flex items-center gap-1 text-text-muted" title={tTours("info.difficulty")}>
+                <Footprints className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
+                <span className="font-mono text-[9px] tracking-wider uppercase">
+                  {tour.difficulty ? difficultyLabels[locale][tour.difficulty] ?? tour.difficulty : "—"}
                 </span>
-              ))}
+              </span>
+              <span className="inline-flex items-center gap-1 text-text-muted" title={tTours("info.languages")}>
+                <Languages className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
+                <span className="font-mono text-[9px] tracking-wider uppercase">
+                  {tour.languages?.join(" / ") ?? "ES / EN"}
+                </span>
+              </span>
             </div>
 
             <div

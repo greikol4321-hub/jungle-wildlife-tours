@@ -17,6 +17,8 @@ interface Tour {
   duration_minutes: number;
   price_usd: number;
   category: string;
+  difficulty: string | null;
+  languages: string[] | null;
   tour_images: {
     storage_path: string;
     is_cover: boolean;
@@ -48,24 +50,18 @@ export default async function HomePage({
 
   return (
     <main className="flex-1">
-      {/* ── Hero (parallax + mouse-tracking) ──────────────── */}
       <HeroSection locale={locale} />
 
-      {/* ── Tour Cards ─────────────────────────────────────── */}
+      <TrustSection locale={locale} />
+
       {featuredTours.length > 0 && (
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
 
-      {/* ── Stats Counters ────────────────────────────────── */}
       <StatsSection locale={locale} />
 
-      {/* ── Cinematic Parallax Divider ────────────────────── */}
       <ParallaxDivider locale={locale} />
 
-      {/* ── Trust Badges ────────────────────────────────────── */}
-      <TrustSection locale={locale} />
-
-      {/* ── FAQ ─────────────────────────────────────────────── */}
       <FAQSection locale={locale} />
     </main>
   );

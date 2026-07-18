@@ -23,6 +23,8 @@ interface Tour {
   duration_minutes: number;
   price_usd: number;
   category: string;
+  difficulty: string | null;
+  languages: string[] | null;
   tour_images: TourImage[];
 }
 
