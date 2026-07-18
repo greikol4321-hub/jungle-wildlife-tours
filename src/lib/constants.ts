@@ -1,6 +1,3 @@
-export const SUPABASE_STORAGE_URL =
-  "https://pxujzdhvftpzupaszzna.supabase.co/storage/v1/object/tour-images";
-
 export const TOUR_CATEGORIES = ["day_park", "mangrove", "night_walk"] as const;
 
 export type TourCategory = (typeof TOUR_CATEGORIES)[number];

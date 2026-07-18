@@ -7,7 +7,7 @@ import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { Camera, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 
 type GalleryImage = {
   id: string;
@@ -165,7 +165,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
                           className="group relative rounded-2xl overflow-hidden border border-border/50 transition-all duration-300 hover:border-emerald/30 hover:shadow-glow-emerald cursor-pointer text-left w-full aspect-[4/3]"
                         >
                           <Image
-                            src={`${SUPABASE_STORAGE_URL}/${image.storage_path}`}
+                            src={image.storage_path}
                             alt={alt || "Gallery photo"}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -253,7 +253,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
               role="presentation"
             >
               <Image
-                src={`${SUPABASE_STORAGE_URL}/${filtered[selected].storage_path}`}
+                src={filtered[selected].storage_path}
                 alt={locale === "es" ? (filtered[selected].alt_text_es ?? "Gallery photo") : (filtered[selected].alt_text_en ?? "Gallery photo")}
                 width={1200}
                 height={900}

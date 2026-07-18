@@ -3,13 +3,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "pxujzdhvftpzupaszzna.supabase.co",
-        pathname: "/storage/v1/object/**",
-      },
-    ],
+    loader: "custom",
+    loaderFile: "./src/lib/supabase/images.ts",
   },
   async redirects() {
     return [

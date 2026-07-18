@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 
 const particles = [
   { top: "12%", left: "8%", size: 2.5, color: "bg-emerald", opacity: "opacity-20", delay: 0 },
@@ -39,7 +39,7 @@ export function AboutHero() {
       <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
         <motion.div className="absolute inset-0" style={{ x: parallaxX, y: parallaxY }}>
           <Image
-            src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
+            src="jungle-canopy-01.jpg"
             alt=""
             fill
             priority

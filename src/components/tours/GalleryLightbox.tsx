@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 
 interface GalleryImage {
   id: string;
@@ -58,7 +58,7 @@ export function GalleryLightbox({ images, locale, title }: Props) {
           >
             <div className="aspect-[4/3]">
               <Image
-                src={`${SUPABASE_STORAGE_URL}/${image.storage_path}`}
+                src={image.storage_path}
                 alt={locale === "es" ? (image.alt_es ?? title) : (image.alt_en ?? title)}
                 width={400}
                 height={300}
@@ -111,7 +111,7 @@ export function GalleryLightbox({ images, locale, title }: Props) {
             role="presentation"
           >
             <Image
-              src={`${SUPABASE_STORAGE_URL}/${images[selected].storage_path}`}
+              src={images[selected].storage_path}
               alt={locale === "es" ? (images[selected].alt_es ?? title) : (images[selected].alt_en ?? title)}
               width={1200}
               height={900}

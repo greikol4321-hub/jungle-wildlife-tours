@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 
 interface ParallaxDividerProps {
   locale?: string;
@@ -34,7 +34,7 @@ export function ParallaxDivider({ locale = "en", imageSrc = "terrestre/wildlife-
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
-            src={`${SUPABASE_STORAGE_URL}/${imageSrc}`}
+            src={imageSrc}
           alt=""
           fill
           sizes="100vw"

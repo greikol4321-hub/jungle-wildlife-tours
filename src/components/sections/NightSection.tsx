@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 import { CheckCircle } from "lucide-react";
 
 interface NightSectionProps {
@@ -29,7 +29,7 @@ export function NightSection({ locale }: NightSectionProps) {
       {/* Dark background with subtle canopy texture */}
       <div className="absolute inset-0">
         <Image
-          src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
+          src="jungle-canopy-01.jpg"
           alt=""
           fill
           sizes="100vw"

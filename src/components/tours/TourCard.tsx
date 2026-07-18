@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
+import { CATEGORY_STYLES } from "@/lib/constants";
 import { motion, useReducedMotion } from "motion/react";
 import { Clock, ArrowRight } from "lucide-react";
 
@@ -72,7 +72,7 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
           >
             {cover ? (
               <Image
-                src={`${SUPABASE_STORAGE_URL}/${cover.storage_path}`}
+                src={cover.storage_path}
                 alt={alt ?? title}
                 fill
                 sizes={featured ? "(max-width: 768px) 100vw, 60vw" : "(max-width: 768px) 100vw, 40vw"}

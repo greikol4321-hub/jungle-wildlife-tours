@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
 
 interface HeroSectionProps {
   locale: string;
@@ -48,7 +47,7 @@ export function HeroSection(_props: HeroSectionProps) {
       <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
         <motion.div className="absolute inset-0" style={{ x: mouseParallaxX, y: mouseParallaxY }}>
           <Image
-            src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
+            src="jungle-canopy-01.jpg"
             alt={t("heroImageAlt")}
             fill
             priority

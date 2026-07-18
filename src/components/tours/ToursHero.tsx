@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
-import { SUPABASE_STORAGE_URL } from "@/lib/constants";
+
 
 interface ToursHeroProps {
   locale: string;
@@ -44,7 +44,7 @@ export function ToursHero({ locale }: ToursHeroProps) {
       <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
         <motion.div className="absolute inset-0" style={{ x: parallaxX, y: parallaxY }}>
           <Image
-            src={`${SUPABASE_STORAGE_URL}/jungle-canopy-01.jpg`}
+            src="jungle-canopy-01.jpg"
             alt=""
             fill
             priority

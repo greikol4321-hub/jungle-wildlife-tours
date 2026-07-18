@@ -10,7 +10,7 @@ import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { ReviewsSection } from "@/components/tours/ReviewsSection";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
-import { SUPABASE_STORAGE_URL, CATEGORY_STYLES } from "@/lib/constants";
+import { CATEGORY_STYLES } from "@/lib/constants";
 
 type ItineraryStop = {
   time: string;
@@ -121,7 +121,7 @@ export default async function TourDetailPage({
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">
         {coverImage ? (
           <Image
-            src={`${SUPABASE_STORAGE_URL}/${coverImage.storage_path}`}
+            src={coverImage.storage_path}
             alt={locale === "es" ? (coverImage.alt_text_es ?? title) : (coverImage.alt_text_en ?? title)}
             fill
             className="object-cover"
