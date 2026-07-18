@@ -29,6 +29,7 @@ export async function approveReview(id: string) {
   const { error } = await supabase.from("reviews").update({ is_approved: true }).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
+  revalidatePath("/admin");
 }
 
 export async function rejectReview(id: string) {
@@ -37,6 +38,7 @@ export async function rejectReview(id: string) {
   const { error } = await supabase.from("reviews").update({ is_approved: false }).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
+  revalidatePath("/admin");
 }
 
 export async function deleteReview(id: string) {
@@ -45,4 +47,5 @@ export async function deleteReview(id: string) {
   const { error } = await supabase.from("reviews").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
+  revalidatePath("/admin");
 }

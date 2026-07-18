@@ -46,6 +46,7 @@ export async function createTour(values: unknown) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
+  revalidatePath("/admin");
 }
 
 export async function updateTour(id: string, values: unknown) {
@@ -56,6 +57,7 @@ export async function updateTour(id: string, values: unknown) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
+  revalidatePath("/admin");
 }
 
 export async function toggleTourActive(id: string, isActive: boolean) {
@@ -65,4 +67,5 @@ export async function toggleTourActive(id: string, isActive: boolean) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
+  revalidatePath("/admin");
 }
