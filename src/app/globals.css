@@ -77,7 +77,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overscroll-behavior: none;
+  }
 
+  dialog {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
