@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { TreePalm, Star, SquarePen, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { TourStatusList } from "@/components/admin/TourStatusList";
 
 const dateStr = new Date().toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
@@ -12,12 +13,13 @@ const accentMap: Record<string, string> = {
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
-  const [{ count: tourCount }, { count: activeCount }, { count: reviewCount }, { count: pendingReviews }, { data: recentReviews }] = await Promise.all([
+  const [{ count: tourCount }, { count: activeCount }, { count: reviewCount }, { count: pendingReviews }, { data: recentReviews }, { data: tours }] = await Promise.all([
     supabase.from("tours").select("*", { count: "exact", head: true }),
     supabase.from("tours").select("*", { count: "exact", head: true }).eq("is_active", true),
     supabase.from("reviews").select("*", { count: "exact", head: true }),
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("is_approved", false),
     supabase.from("reviews").select("id, author_name, rating, is_approved, created_at, tours(title_es)").order("created_at", { ascending: false }).limit(6),
+    supabase.from("tours").select("id, slug, title_es, title_en, category, is_active").order("display_order"),
   ]);
 
   return (
@@ -93,6 +95,17 @@ export default async function AdminDashboard() {
             <QuickLink href="/admin/tours" icon={TreePalm} label="Gestionar tours" sub="Editar, activar, ordenar" />
           </div>
         </div>
+      </div>
+
+      <div className="admin-card p-6">
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="font-heading text-sm font-bold text-text tracking-wide">Tours</h2>
+          <Link href="/admin/tours" className="mono-ui text-[10px] text-text-muted hover:text-emerald flex items-center gap-1.5 transition-colors">
+            Gestionar <ArrowRight className="h-3 w-3" strokeWidth={1.5} />
+          </Link>
+        </div>
+        <p className="text-xs text-text-muted mb-5">{activeCount ?? 0} activos de {tourCount ?? 0} totales</p>
+        <TourStatusList tours={tours ?? []} />
       </div>
     </div>
   );
