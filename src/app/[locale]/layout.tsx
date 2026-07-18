@@ -7,6 +7,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -25,9 +27,14 @@ export async function generateMetadata({
 
   return {
     title: meta?.homeTitle ?? "Jungle Wildlife Tours",
-      description:
+    description:
       meta?.homeDescription ??
       "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
+    openGraph: {
+      title: meta?.homeTitle ?? "Jungle Wildlife Tours",
+      description: meta?.homeDescription ?? "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
+      locale: locale === "es" ? "es_CR" : "en_US",
+    },
     alternates: {
       languages: {
         es: "/es",
@@ -56,6 +63,8 @@ export default async function LocaleLayout({
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
+      <LoadingScreen />
+      <ScrollProgress />
       <NextIntlClientProvider locale={locale} messages={messages}>
       <Header locale={locale} />
       <main className="flex-1">{children}</main>

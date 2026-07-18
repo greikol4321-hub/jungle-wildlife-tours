@@ -17,16 +17,16 @@
     "ariaLogo": "Jungle Wildlife Tours - Home"
   },
   "hero": {
-    "eyebrow": "Explore the wild side of",
+    "eyebrow": "Every trail tells a wild story",
     "title": "Manuel Antonio",
-    "subtitle": "awaits you",
-    "description": "Guided nature tours in Manuel Antonio National Park and surrounding areas. Real wildlife, certified guides.",
+    "subtitle": "Find your adventure",
+    "description": "Guided nature tours through Manuel Antonio's hidden corners — with local guides who know every track, every season, every creature.",
     "primaryCta": "Explore tours",
     "secondaryCta": "Book by WhatsApp",
     "trustGuide": "ICT-certified guide",
     "trustRegistration": "Registered with Hacienda & CCSS",
     "trustLocation": "Manuel Antonio, Costa Rica",
-    "scrollExplore": "Explore",
+    "scrollExplore": "Keep exploring",
     "heroImageAlt": "Tropical rainforest canopy in Manuel Antonio at dawn"
   },
   "trust": {
@@ -38,10 +38,17 @@
       "region": "Manuel Antonio, Costa Rica"
     }
   },
+  "stats": {
+    "title": "By the numbers",
+    "visitors": "Happy Visitors",
+    "species": "Wildlife Species Observed",
+    "experience": "Years of Experience",
+    "reviews": "Positive Reviews"
+  },
   "tours": {
     "title": "Our tours",
-    "subtitle": "Choose the experience that best fits your day in the jungle.",
-    "viewDetails": "View details",
+    "subtitle": "No two tours are ever the same — wildlife doesn't punch a clock.",
+    "viewDetails": "View all tours",
     "from": "From",
     "viewTour": "View tour",
     "book": "Book by WhatsApp",
@@ -55,7 +62,21 @@
     },
     "emptyState": "No tours published yet.",
     "emptyTitle": "No tours available",
-    "emptyBody": "Check back soon to discover new jungle adventures."
+    "emptyBody": "Check back soon to discover new jungle adventures.",
+    "badges": {
+      "mostPopular": "Most Popular",
+      "familyFriendly": "Family Friendly",
+      "bestSeller": "Best Seller",
+      "ecoFriendly": "Eco Friendly",
+      "availableToday": "Available Today"
+    },
+    "info": {
+      "difficulty": "Difficulty",
+      "kidFriendly": "Kid Friendly",
+      "languages": "Languages",
+      "transportIncluded": "Transport Included",
+      "bestTime": "Best Time"
+    }
   },
   "tourDetail": {
     "included": "Included",
@@ -97,7 +118,7 @@
   "about": {
     "title": "About us",
     "intro": "We are a local nature tour company in Manuel Antonio and Quepos, focused on real wildlife experiences in Costa Rica's central Pacific region.",
-    "story": "We were born here and operate here. We are not a travel agency or an intermediary: the guide who meets you is the same person who knows the trails, channels, and local wildlife habits.",
+    "story": "Born here, based here. We're not a travel agency or an intermediary: the guide who meets you is the same person who knows every trail, every channel, every creature's hiding spot.",
     "storyEyebrow": "Our story",
     "certificationsTitle": "What supports our work",
     "certifications": {
@@ -131,8 +152,8 @@
     "mangroveNote": "There are no real photos of the mangrove walk yet."
   },
   "night": {
-    "heading": "The jungle comes alive at night",
-    "description": "The night walk reveals a side of Manuel Antonio few see: amphibians, insects, mammals, and the activity that only happens under the canopy of darkness.",
+    "heading": "When darkness falls, the jungle wakes",
+    "description": "Most visitors leave before sunset. That's when Manuel Antonio reveals its second act — amphibians calling, insects glowing, mammals stirring where no daytime crowd reaches.",
     "learnMore": "Learn more",
     "featureGuide": "Specialized guide",
     "featureEquipment": "Equipment included",
@@ -142,8 +163,23 @@
   },
   "parallax": {
     "eyebrow": "Wild experience",
-    "heading": "Where nature sets the pace",
-    "description": "Each tour is an immersion into a living ecosystem."
+    "heading": "Nature never follows a script",
+    "description": "That's the beauty of it. No two tours are ever the same — and that's exactly how it should be."
+  },
+  "faq": {
+    "title": "Frequent questions",
+    "whatBring": "What should I bring?",
+    "whatBringAnswer": "Comfortable walking shoes, insect repellent, sunscreen, a reusable water bottle, and your camera. We recommend light, long clothing for the night walk.",
+    "transportIncluded": "Is transportation included?",
+    "transportIncludedAnswer": "Yes, round-trip transportation from Manuel Antonio and Quepos hotels is included in all our tours. Pick-up times are confirmed after booking.",
+    "canChildren": "Can children participate?",
+    "canChildrenAnswer": "Absolutely. Our ground safari and mangrove walk are family-friendly. The night walk is suitable for kids 6 and up who are comfortable in low-light settings.",
+    "whatWildlife": "What wildlife can I expect to see?",
+    "whatWildlifeAnswer": "It varies by season and time of day. Sloths, monkeys, toucans, iguanas, frogs, snakes, and butterflies are common. Remember — nature never follows a script.",
+    "ifRains": "What happens if it rains?",
+    "ifRainsAnswer": "Rain is part of the rainforest experience. Tours run rain or shine unless there's a safety concern. The wildlife is often more active during and after light showers.",
+    "beginnerFriendly": "Are the tours suitable for beginners?",
+    "beginnerFriendlyAnswer": "Yes. Our guides adjust the pace to your group. No special fitness level required — just curiosity and comfortable walking shoes."
   },
   "contact": {
     "title": "Contact",
@@ -198,7 +234,12 @@
     "contact": "Contact",
     "location": "Manuel Antonio, Quepos",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "followUs": "Follow us"
+  },
+  "share": {
+    "share": "Share",
+    "copied": "Link copied!"
   },
   "whatsapp": {
     "greeting": "Hi! I'd love to learn more about the nature experiences in Manuel Antonio, Costa Rica."

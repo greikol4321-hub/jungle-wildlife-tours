@@ -2,8 +2,29 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { ToursHero } from "@/components/tours/ToursHero";
 import { ToursGrid } from "@/components/tours/ToursGrid";
+import type { Metadata } from "next";
 
 export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = locale === "es"
+    ? "Tours de Naturaleza · Manuel Antonio, Costa Rica"
+    : "Nature Tours · Manuel Antonio, Costa Rica";
+  const description = locale === "es"
+    ? "Explorá nuestros tours guiados en Manuel Antonio: safari terrestre, caminata en manglar y caminata nocturna. Guías locales certificados."
+    : "Explore our guided tours in Manuel Antonio: ground safari, mangrove walk, and night walk. Certified local guides.";
+
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+  };
+}
 
 export default async function ToursPage({
   params,

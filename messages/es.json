@@ -17,16 +17,16 @@
     "ariaLogo": "Jungle Wildlife Tours - Inicio"
   },
   "hero": {
-    "eyebrow": "Explorá la vida silvestre de",
+    "eyebrow": "Cada sendero cuenta una historia salvaje",
     "title": "Manuel Antonio",
-    "subtitle": "te espera",
-    "description": "Tours guiados de naturaleza en el Parque Nacional Manuel Antonio y alrededores. Fauna real, guías certificados.",
+    "subtitle": "Viví la aventura",
+    "description": "Tours guiados de naturaleza por los rincones más auténticos de Manuel Antonio, con guías locales que conocen cada huella, cada temporada, cada criatura.",
     "primaryCta": "Ver tours",
     "secondaryCta": "Reservar por WhatsApp",
     "trustGuide": "Guía certificado ICT",
     "trustRegistration": "Inscrito Hacienda & CCSS",
     "trustLocation": "Manuel Antonio, Costa Rica",
-    "scrollExplore": "Explorar",
+    "scrollExplore": "Seguí explorando",
     "heroImageAlt": "Dosel de selva tropical en Manuel Antonio al amanecer"
   },
   "trust": {
@@ -38,10 +38,17 @@
       "region": "Manuel Antonio, Costa Rica"
     }
   },
+  "stats": {
+    "title": "En números",
+    "visitors": "Visitantes Felices",
+    "species": "Especies de Fauna Observadas",
+    "experience": "Años de Experiencia",
+    "reviews": "Reseñas Positivas"
+  },
   "tours": {
     "title": "Nuestros tours",
-    "subtitle": "Elegí la experiencia que mejor se adapte a tu día en la selva.",
-    "viewDetails": "Ver detalle",
+    "subtitle": "No hay dos tours iguales — la fauna no tiene horario.",
+    "viewDetails": "Ver todos los tours",
     "from": "Desde",
     "viewTour": "Ver tour",
     "book": "Reservar por WhatsApp",
@@ -55,7 +62,21 @@
     },
     "emptyState": "Todavía no hay tours publicados.",
     "emptyTitle": "No hay tours disponibles",
-    "emptyBody": "Vuelve pronto para descubrir nuevas aventuras en la selva."
+    "emptyBody": "Vuelve pronto para descubrir nuevas aventuras en la selva.",
+    "badges": {
+      "mostPopular": "Más Popular",
+      "familyFriendly": "Familia",
+      "bestSeller": "Más Vendido",
+      "ecoFriendly": "Eco Friendly",
+      "availableToday": "Disponible Hoy"
+    },
+    "info": {
+      "difficulty": "Dificultad",
+      "kidFriendly": "Apto para niños",
+      "languages": "Idiomas",
+      "transportIncluded": "Transporte Incluido",
+      "bestTime": "Mejor horario"
+    }
   },
   "tourDetail": {
     "included": "Incluye",
@@ -97,7 +118,7 @@
   "about": {
     "title": "Sobre nosotros",
     "intro": "Somos una empresa local de tours de naturaleza en Manuel Antonio y Quepos, enfocada en experiencias reales de fauna silvestre en la zona del Pacífico central de Costa Rica.",
-    "story": "Nacimos en la zona y operamos desde aquí. No somos una agencia de viaje ni un intermediario: el guía que te recibe es el mismo que conoce los senderos, los canales y los hábitos de la fauna local.",
+    "story": "Nacimos acá y operamos desde acá. No somos agencia de viajes ni intermediario: el guía que te recibe es el mismo que conoce cada sendero, cada canal, el escondite de cada criatura.",
     "storyEyebrow": "Nuestra historia",
     "certificationsTitle": "Lo que respalda nuestro trabajo",
     "certifications": {
@@ -131,8 +152,8 @@
     "mangroveNote": "Todavía no hay fotos reales de la caminata en manglar."
   },
   "night": {
-    "heading": "La selva también se vive de noche",
-    "description": "La caminata nocturna te muestra una faceta de Manuel Antonio que pocos ven: anfibios, insectos, mamíferos y la actividad que solo ocurre bajo la oscuridad del dosel.",
+    "heading": "Cuando cae la noche, la selva despierta",
+    "description": "La mayoría se va antes del atardecer. Ahí es cuando Manuel Antonio muestra su segundo acto — anfibios que cantan, insectos que brillan, mamíferos que se mueven donde ningún turista llega.",
     "learnMore": "Más información",
     "featureGuide": "Guía especializado",
     "featureEquipment": "Equipo incluido",
@@ -142,8 +163,23 @@
   },
   "parallax": {
     "eyebrow": "Experiencia salvaje",
-    "heading": "Donde la naturaleza dicta el ritmo",
-    "description": "Cada tour es una inmersión en un ecosistema vivo."
+    "heading": "La naturaleza nunca sigue un guion",
+    "description": "Esa es su belleza. No hay dos tours iguales — y así debe ser."
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "whatBring": "¿Qué debo llevar?",
+    "whatBringAnswer": "Calzado cómodo, repelente de insectos, bloqueador solar, una botella de agua reutilizable y tu cámara. Recomendamos ropa ligera y larga para la caminata nocturna.",
+    "transportIncluded": "¿El transporte está incluido?",
+    "transportIncludedAnswer": "Sí, el transporte ida y vuelta desde hoteles en Manuel Antonio y Quepos está incluido en todos nuestros tours. La hora de recogida se confirma después de la reserva.",
+    "canChildren": "¿Pueden participar niños?",
+    "canChildrenAnswer": "Por supuesto. Nuestro safari terrestre y caminata en manglar son aptos para toda la familia. La caminata nocturna es recomendada para niños de 6 años en adelante que se sientan cómodos con poca luz.",
+    "whatWildlife": "¿Qué fauna puedo esperar ver?",
+    "whatWildlifeAnswer": "Varía según la temporada y la hora del día. Perezosos, monos, tucanes, iguanas, ranas, serpientes y mariposas son comunes. Recordá — la naturaleza nunca sigue un guion.",
+    "ifRains": "¿Qué pasa si llueve?",
+    "ifRainsAnswer": "La lluvia es parte de la experiencia de la selva. Los tours se realizan llueva o truene, a menos que haya un riesgo de seguridad. La fauna suele estar más activa durante y después de lluvias ligeras.",
+    "beginnerFriendly": "¿Los tours son aptos para principiantes?",
+    "beginnerFriendlyAnswer": "Sí. Nuestros guías ajustan el ritmo a tu grupo. No se requiere un nivel de condición física especial — solo curiosidad y zapatos cómodos."
   },
   "contact": {
     "title": "Contacto",
@@ -198,7 +234,12 @@
     "contact": "Contacto",
     "location": "Manuel Antonio, Quepos",
     "privacy": "Privacidad",
-    "terms": "Términos"
+    "terms": "Términos",
+    "followUs": "Seguinos"
+  },
+  "share": {
+    "share": "Compartir",
+    "copied": "¡Link copiado!"
   },
   "whatsapp": {
     "greeting": "¡Hola! Quisiera más información sobre las experiencias de naturaleza en Manuel Antonio, Costa Rica."

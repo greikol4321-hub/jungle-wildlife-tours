@@ -169,9 +169,37 @@ export async function Footer() {
             </div>
           </div>
 
+          {/* ─── Social ─── */}
+          <div className="mt-10 pt-8 border-t border-border">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald">
+                {t("followUs")}
+              </p>
+              <div className="flex items-center gap-3">
+                {[
+                  { name: "Facebook", href: "#", icon: "M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" },
+                  { name: "Instagram", href: "#", icon: "M16 4H8a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4V8a4 4 0 00-4-4zm-4 12a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4zm5-3a1 1 0 110-2 1 1 0 010 2z" },
+                  { name: "TripAdvisor", href: "#", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" },
+                ].map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-secondary transition-all duration-300 hover:border-emerald/40 hover:bg-emerald-dim hover:text-emerald"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                      <path d={s.icon} />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* ─── Bottom bar ─── */}
-          <div className="mt-14 border-t border-border">
-            <div className="h-px w-full bg-gradient-to-r from-emerald/30 via-emerald/10 to-transparent" />
+          <div className="mt-8 border-t border-border">
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-text-muted text-xs">
               <p>
                 © {new Date().getFullYear()} Jungle Wildlife Tours.{" "}
@@ -196,6 +224,9 @@ export async function Footer() {
                 </Link>
               </div>
             </div>
+
+            {/* Nature-inspired decorative line */}
+            <div className="mt-6 h-px bg-gradient-to-r from-transparent via-emerald/20 to-transparent" />
           </div>
         </div>
       </div>

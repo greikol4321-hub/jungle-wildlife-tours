@@ -2,8 +2,10 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TourCardsSection } from "@/components/sections/TourCardsSection";
-import { TrustSection } from "@/components/sections/TrustSection";
+import { StatsSection } from "@/components/sections/StatsSection";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
+import { TrustSection } from "@/components/sections/TrustSection";
+import { FAQSection } from "@/components/sections/FAQSection";
 
 interface Tour {
   id: string;
@@ -54,11 +56,17 @@ export default async function HomePage({
         <TourCardsSection locale={locale} tours={featuredTours} />
       )}
 
+      {/* ── Stats Counters ────────────────────────────────── */}
+      <StatsSection locale={locale} />
+
       {/* ── Cinematic Parallax Divider ────────────────────── */}
       <ParallaxDivider locale={locale} />
 
       {/* ── Trust Badges ────────────────────────────────────── */}
       <TrustSection locale={locale} />
+
+      {/* ── FAQ ─────────────────────────────────────────────── */}
+      <FAQSection locale={locale} />
     </main>
   );
 }
