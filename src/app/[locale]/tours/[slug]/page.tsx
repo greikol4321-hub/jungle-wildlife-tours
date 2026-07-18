@@ -44,6 +44,8 @@ type Tour = {
   languages: string[] | null;
   includes: string[] | null;
   excludes: string[] | null;
+  includes_en: string[] | null;
+  excludes_en: string[] | null;
   itinerary: ItineraryStop[] | null;
   tide_table: TideEntry[] | null;
   is_active: boolean;
@@ -129,6 +131,8 @@ export default async function TourDetailPage({
     locale === "es" ? typedTour.description_es : typedTour.description_en;
   const categoryLabel =
     tTours(`categories.${typedTour.category}`) ?? typedTour.category;
+  const includesList = locale === "en" && typedTour.includes_en ? typedTour.includes_en : typedTour.includes;
+  const excludesList = locale === "en" && typedTour.excludes_en ? typedTour.excludes_en : typedTour.excludes;
   const coverImage = typedTour.tour_images.find((img) => img.is_cover) ?? typedTour.tour_images[0];
   const cc = CATEGORY_STYLES[typedTour.category as keyof typeof CATEGORY_STYLES] ?? CATEGORY_STYLES.day_park;
   const diffLabel = difficultyLabels[locale][typedTour.difficulty ?? 'easy'] ?? typedTour.difficulty;
@@ -311,7 +315,7 @@ export default async function TourDetailPage({
                 {t("includes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {(typedTour.includes ?? []).map((item) => (
+                {(includesList ?? []).map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald" strokeWidth={2.5} aria-hidden="true" />
                     {item}
@@ -327,7 +331,7 @@ export default async function TourDetailPage({
                 {t("excludes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {(typedTour.excludes ?? []).map((item) => (
+                {(excludesList ?? []).map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-text-muted" strokeWidth={2} aria-hidden="true" />
                     {item}
