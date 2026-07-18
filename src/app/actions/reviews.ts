@@ -12,49 +12,48 @@ const reviewSchema = z.object({
   tour_id: z.uuid(),
 });
 
-const LT_URL = "https://libretranslate.com";
+const DEEPL_URL = "https://api-free.deepl.com/v2";
 
-async function libretranslate(path: string, body: Record<string, unknown>) {
-  const res = await fetch(`${LT_URL}${path}`, {
+async function deeplTranslate(text: string, targetLang: string): Promise<{ translatedText: string; detectedLang: string }> {
+  const apiKey = process.env.DEEPL_API_KEY;
+  if (!apiKey) throw new Error("DEEPL_API_KEY no configurada");
+
+  const res = await fetch(`${DEEPL_URL}/translate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `DeepL-Auth-Key ${apiKey}`,
+    },
+    body: JSON.stringify({ text: [text], target_lang: targetLang }),
   });
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`LibreTranslate error ${res.status}: ${text}`);
+    const body = await res.text().catch(() => "");
+    throw new Error(`DeepL error ${res.status}: ${body}`);
   }
-  return res.json();
-}
-
-async function detectLanguage(text: string): Promise<string> {
-  const data = await libretranslate("/detect", { q: text });
-  return data[0]?.language ?? "en";
-}
-
-async function translate(text: string, target: string): Promise<string> {
-  const data = await libretranslate("/translate", {
-    q: text, source: "auto", target, format: "text",
-  });
-  return data.translatedText ?? text;
+  const data = await res.json();
+  return {
+    translatedText: data.translations[0].text,
+    detectedLang: data.translations[0].detected_source_language,
+  };
 }
 
 export async function submitReview(values: unknown) {
   const data = reviewSchema.parse(values);
 
-  const lang = await detectLanguage(data.comment);
   let comment_es: string;
   let comment_en: string;
 
-  if (lang === "es") {
+  const { translatedText, detectedLang } = await deeplTranslate(data.comment, "EN");
+
+  if (detectedLang === "ES") {
     comment_es = data.comment;
-    comment_en = await translate(data.comment, "en");
-  } else if (lang === "en") {
+    comment_en = translatedText;
+  } else if (detectedLang === "EN") {
     comment_en = data.comment;
-    comment_es = await translate(data.comment, "es");
+    comment_es = await deeplTranslate(data.comment, "ES").then(r => r.translatedText);
   } else {
     comment_en = data.comment;
-    comment_es = await translate(data.comment, "es");
+    comment_es = translatedText;
   }
 
   const supabase = await createClient();
