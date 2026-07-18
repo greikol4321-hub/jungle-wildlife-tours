@@ -207,7 +207,7 @@
     padding: 0.75rem 1.75rem;
     font-size: 0.875rem;
     font-weight: 600;
-    font-family: inherit;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     transition: all 150ms var(--ease-out);
     transition-timing-function: var(--ease-out);
     white-space: nowrap;
@@ -279,7 +279,7 @@
     padding: 0.625rem 0.75rem;
     border-radius: 0.75rem;
     font-size: 0.875rem;
-    font-family: inherit;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     transition: all 150ms var(--ease-out);
     background: var(--color-surface-elevated);
     border: 1px solid var(--color-border);
@@ -310,7 +310,7 @@
     padding: 0.625rem 0.75rem;
     border-radius: 0.75rem;
     font-size: 0.875rem;
-    font-family: inherit;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     transition: all 150ms var(--ease-out);
     background: var(--color-surface-elevated);
     border: 1px solid var(--color-border);
@@ -339,6 +339,7 @@
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     outline: none;
     transition: all 150ms var(--ease-out);
     color: var(--color-text);
@@ -445,6 +446,7 @@
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     outline: none;
     transition: all 150ms var(--ease-out);
     color: var(--color-text);
