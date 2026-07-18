@@ -91,7 +91,7 @@ export function Header({ locale }: { locale: string }) {
               type="button"
               className="locale-btn"
               onClick={() => {
-                document.body.classList.add("locale-switching");
+                document.body.setAttribute("data-locale-loading", "true");
                 router.push(pathname, { locale: otherLocale });
               }}
             >
@@ -203,7 +203,7 @@ export function Header({ locale }: { locale: string }) {
             type="button"
             className="panel-locale"
             onClick={() => {
-              document.body.classList.add("locale-switching");
+              document.body.setAttribute("data-locale-loading", "true");
               router.push(pathname, { locale: otherLocale });
               setOpen(false);
             }}
