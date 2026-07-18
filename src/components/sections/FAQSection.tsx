@@ -45,7 +45,15 @@ export function FAQSection({ locale }: { locale: string }) {
           </h2>
         </Reveal>
 
-        <div className="mt-12 space-y-3">
+        <Reveal delay={100}>
+          <div className="mt-6 mb-12 flex items-center justify-center gap-3" aria-hidden="true">
+            <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
+            <div className="h-1 w-1 rounded-full bg-emerald/60" />
+            <div className="h-px w-12 bg-gradient-to-l from-emerald/40 to-transparent" />
+          </div>
+        </Reveal>
+
+        <div className="mt-0 space-y-3">
           {faqKeys.map((key, i) => {
             const isOpen = openIndex === i;
 

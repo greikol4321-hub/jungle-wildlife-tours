@@ -50,7 +50,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
         />
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pt-14 pb-24 sm:px-6 lg:px-8">
         <Reveal delay={0}>
           <h2
             id="tours-heading"

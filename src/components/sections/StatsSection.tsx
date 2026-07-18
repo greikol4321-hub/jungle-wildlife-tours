@@ -81,6 +81,14 @@ export function StatsSection({ locale }: { locale: string }) {
             );
           })}
         </div>
+
+        <Reveal delay={200}>
+          <div className="mt-14 flex items-center justify-center gap-3" aria-hidden="true">
+            <div className="h-px w-12 bg-gradient-to-r from-emerald/40 to-transparent" />
+            <div className="h-1 w-1 rounded-full bg-emerald/60" />
+            <div className="h-px w-12 bg-gradient-to-l from-emerald/40 to-transparent" />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
