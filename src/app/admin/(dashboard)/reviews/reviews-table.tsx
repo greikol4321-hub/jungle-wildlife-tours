@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { approveReview, rejectReview, deleteReview } from "@/app/actions/admin/reviews";
-import { Check, X, Trash2, Search, Star, MessageSquareQuote } from "lucide-react";
+import { Check, X, Trash2, Search, MessageSquareQuote } from "lucide-react";
 
 type Review = {
   id: string;
@@ -33,6 +33,7 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
   const [showDeleteModal, setShowDeleteModal] = useState<string | null>(null);
+  const [showCommentModal, setShowCommentModal] = useState<{ es: string | null; en: string | null } | null>(null);
 
   const filtered = useMemo(() => {
     return reviews.filter((r) => {
@@ -127,10 +128,16 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   {review.comment_es || review.comment_en ? (
                     <div className="space-y-1">
                       {review.comment_es && (
-                        <p className="truncate before:content-['ES_'] before:text-[9px] before:text-emerald/60 before:font-mono">{review.comment_es}</p>
+                        <p className="truncate cursor-pointer hover:text-text transition-colors before:content-['ES_'] before:text-[9px] before:text-emerald/60 before:font-mono"
+                          onClick={() => setShowCommentModal({ es: review.comment_es, en: review.comment_en })}>
+                          {review.comment_es}
+                        </p>
                       )}
                       {review.comment_en && (
-                        <p className="truncate before:content-['EN_'] before:text-[9px] before:text-sand/60 before:font-mono">{review.comment_en}</p>
+                        <p className="truncate cursor-pointer hover:text-text transition-colors before:content-['EN_'] before:text-[9px] before:text-sand/60 before:font-mono"
+                          onClick={() => setShowCommentModal({ es: review.comment_es, en: review.comment_en })}>
+                          {review.comment_en}
+                        </p>
                       )}
                     </div>
                   ) : (
@@ -211,6 +218,33 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   Eliminar
                 </button>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showCommentModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowCommentModal(null)}>
+          <div className="bg-surface border border-border rounded-2xl shadow-2xl p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading text-lg font-bold text-text">Comentario completo</h3>
+              <button type="button" onClick={() => setShowCommentModal(null)} className="admin-btn admin-btn-ghost admin-btn-icon" aria-label="Cerrar">
+                <X className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </div>
+            <div className="space-y-4">
+              {showCommentModal.es && (
+                <div>
+                  <span className="mono-ui text-[9px] tracking-wider text-emerald/60 uppercase">ES</span>
+                  <p className="mt-1 text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">{showCommentModal.es}</p>
+                </div>
+              )}
+              {showCommentModal.en && (
+                <div>
+                  <span className="mono-ui text-[9px] tracking-wider text-sand/60 uppercase">EN</span>
+                  <p className="mt-1 text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">{showCommentModal.en}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
