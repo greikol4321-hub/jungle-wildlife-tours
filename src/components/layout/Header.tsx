@@ -74,7 +74,7 @@ export function Header({ locale }: { locale: string }) {
       <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
-            Jungle <span className="logo-accent logo-accent-desktop">Wildlife</span><span className="logo-accent logo-accent-mobile">W.</span> Tours
+            Jungle <span className="logo-accent">Wildlife</span> Tours
           </Link>
 
           <div className="nav-links">
