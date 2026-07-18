@@ -57,7 +57,7 @@ export default async function LocaleLayout({
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
       <NextIntlClientProvider locale={locale} messages={messages}>
       <Header locale={locale} />
-      {children}
+      <main className="flex-1">{children}</main>
       <Footer />
       <WhatsappFloatButton locale={locale} />
     </NextIntlClientProvider>
