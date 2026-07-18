@@ -197,6 +197,7 @@ export function Header({ locale }: { locale: string }) {
             {t("bookByWhatsApp")}
           </a>
           <button
+            type="button"
             className="panel-locale"
             onClick={() => {
               router.push(pathname, { locale: otherLocale });

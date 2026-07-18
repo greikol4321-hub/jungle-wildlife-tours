@@ -67,8 +67,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const supabase = await createClient();
+  const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
   const { data: tour } = await supabase
     .from("tours")
     .select("title_es, title_en")
@@ -87,13 +86,11 @@ export default async function TourDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, slug } = await params;
+  const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "tourDetail" });
   const tTours = await getTranslations({ locale, namespace: "tours" });
-
-  const supabase = await createClient();
   const { data: tour } = await supabase
     .from("tours")
     .select("*, tour_images(*)")
@@ -172,8 +169,8 @@ export default async function TourDetailPage({
             { icon: ChevronRight, label: t("difficulty"), value: diffLabel },
             { icon: Users, label: t("maxPeople"), value: `${typedTour.max_people ?? '—'}` },
             { icon: Globe, label: t("language"), value: (typedTour.languages ?? []).join(" / ") || 'Español / English' },
-          ].map((item, i) => (
-            <div key={i} className="card p-4 md:p-5 flex items-center gap-3 md:gap-4">
+          ].map((item) => (
+            <div key={item.label} className="card p-4 md:p-5 flex items-center gap-3 md:gap-4">
               <span className="flex h-9 w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-xl bg-surface-elevated border border-border">
                 <item.icon className="h-4 w-4 text-emerald" strokeWidth={1.5} aria-hidden="true" />
               </span>
@@ -232,6 +229,7 @@ export default async function TourDetailPage({
               <div className="relative">
                 <div className="absolute left-3.5 top-2 bottom-2 w-px bg-gradient-to-b from-emerald/40 via-border-strong to-transparent" aria-hidden="true" />
                 <div className="space-y-8">
+                  {/* index key safe: static array, never reordered */}
                   {(typedTour.itinerary ?? []).map((stop, i) => (
                     <div key={i} className="relative pl-10">
                       <span
@@ -275,6 +273,7 @@ export default async function TourDetailPage({
                 {t("includes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
+                {/* index key safe: static array, never reordered */}
                 {(typedTour.includes ?? []).map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald" strokeWidth={2.5} aria-hidden="true" />
@@ -291,6 +290,7 @@ export default async function TourDetailPage({
                 {t("excludes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
+                {/* index key safe: static array, never reordered */}
                 {(typedTour.excludes ?? []).map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-text-muted" strokeWidth={2} aria-hidden="true" />

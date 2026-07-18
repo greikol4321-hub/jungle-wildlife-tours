@@ -182,12 +182,16 @@ export default function NewTourPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
                   <div>
-                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">HORA</label>
-                    <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">
+                      HORA
+                      <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
+                    </label>
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">TÍTULO</label>
-                    <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">
+                      TÍTULO
+                      <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
+                    </label>
                   </div>
                 </div>
                 <Field label="Descripción">
@@ -235,8 +239,7 @@ function SectionHeading({ icon: Icon, title }: { icon: React.ComponentType<{ cla
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block mono-ui text-text-secondary mb-1.5">{label.toUpperCase()}</label>
-      {children}
+      <label className="block mono-ui text-text-secondary mb-1.5">{label.toUpperCase()}{children}</label>
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );

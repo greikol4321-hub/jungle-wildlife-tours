@@ -84,7 +84,7 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
           <option value="night_walk">Night Walk</option>
         </select>
         <Link href="/admin/tours/new" className="ml-auto">
-          <button className="admin-btn admin-btn-primary admin-btn-sm">
+          <button type="button" className="admin-btn admin-btn-primary admin-btn-sm">
             <Plus className="h-4 w-4 mr-1.5" strokeWidth={2} />
             Nuevo tour
           </button>

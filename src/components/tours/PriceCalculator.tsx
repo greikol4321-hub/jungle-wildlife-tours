@@ -186,6 +186,7 @@ export function PriceCalculator({
           required
         />
         <button
+          type="button"
           onClick={handleBook}
           disabled={saving || !name.trim() || !phone.trim()}
           className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"

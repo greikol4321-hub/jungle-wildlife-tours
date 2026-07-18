@@ -3,13 +3,14 @@
 import { useMotionValue, useSpring, useTransform, MotionValue } from "motion/react";
 import { useRef, useCallback } from "react";
 
+const defaultConfig = { stiffness: 80, damping: 20 };
+
 export function useParallaxMouse(
   springConfig: { stiffness?: number; damping?: number; mass?: number } = {}
 ) {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
-  const defaultConfig = { stiffness: 80, damping: 20 };
   const config = { ...defaultConfig, ...springConfig };
   const springX = useSpring(mouseX, config);
   const springY = useSpring(mouseY, config);

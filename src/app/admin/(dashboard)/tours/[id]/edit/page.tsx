@@ -8,6 +8,7 @@ import { use, useTransition, useState, useEffect } from "react";
 import { updateTour } from "@/app/actions/admin/tours";
 import { uploadTourImage, deleteTourImage } from "@/app/actions/admin/tour-images";
 import { createAdminClient } from "@/lib/supabase/admin-client";
+import Image from "next/image";
 import { ArrowLeft, Plus, Trash2, Upload, FileText, Clock, DollarSign, Globe, MapPin, ListOrdered } from "lucide-react";
 import Link from "next/link";
 import type { Tables } from "@/types/database";
@@ -155,10 +156,12 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-4">
           {images.map((img) => (
             <div key={img.id} className="relative group aspect-square rounded-xl overflow-hidden bg-surface-elevated border border-border">
-              <img
-                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tour-images/${img.storage_path}`}
+              <Image
+                src={img.storage_path}
                 alt=""
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
               />
               {img.is_cover && (
                 <span className="absolute top-1 left-1 mono-ui px-1.5 py-0.5 rounded bg-emerald text-bg">
@@ -168,12 +171,14 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               {confirmDeleteImage === img.id ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl gap-1">
                   <button
+                    type="button"
                     onClick={() => { setConfirmDeleteImage(null); handleDeleteImage(img.id, img.storage_path); }}
                     className="text-[10px] px-2 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-400 transition-colors"
                   >
                     Eliminar
                   </button>
                   <button
+                    type="button"
                     onClick={() => setConfirmDeleteImage(null)}
                     className="text-[10px] px-2 py-1 rounded bg-surface text-text-muted hover:text-text transition-colors"
                   >
@@ -182,8 +187,10 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
                 </div>
               ) : (
                 <button
+                  type="button"
                   onClick={() => setConfirmDeleteImage(img.id)}
                   className="absolute top-1 right-1 p-1 rounded bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label="Eliminar imagen"
                 >
                   <Trash2 className="h-3 w-3" strokeWidth={2} />
                 </button>
@@ -293,23 +300,29 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <div key={field.id} className="p-4 rounded-xl border border-border bg-surface-elevated/30">
                 <div className="flex items-start justify-between mb-3">
                   <span className="mono-ui text-[10px] text-text-muted bg-surface px-2 py-0.5 rounded-full">Paso {i + 1}</span>
-                  <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors">
+                  <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors" aria-label="Eliminar paso">
                     <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                   </button>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
                   <div>
-                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">HORA</label>
-                    <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">
+                      HORA
+                      <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
+                    </label>
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">TÍTULO</label>
-                    <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
+                    <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">
+                      TÍTULO
+                      <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
+                    </label>
                   </div>
                 </div>
                 <div>
-                  <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">DESCRIPCIÓN</label>
-                  <textarea {...register(`itinerary.${i}.description`)} rows={2} className="admin-input admin-textarea" placeholder="Descripción de este paso" />
+                  <label className="block mono-ui text-text-secondary mb-1.5 text-[10px]">
+                    DESCRIPCIÓN
+                    <textarea {...register(`itinerary.${i}.description`)} rows={2} className="admin-input admin-textarea" placeholder="Descripción de este paso" />
+                  </label>
                 </div>
               </div>
             ))}
@@ -353,8 +366,7 @@ function SectionHeading({ icon: Icon, title }: { icon: React.ComponentType<{ cla
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block mono-ui text-text-secondary mb-1.5">{label.toUpperCase()}</label>
-      {children}
+      <label className="block mono-ui text-text-secondary mb-1.5">{label.toUpperCase()}{children}</label>
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );

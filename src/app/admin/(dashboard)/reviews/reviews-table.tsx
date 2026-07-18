@@ -138,13 +138,13 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   <div className="flex items-center justify-end gap-0.5">
                     {!review.is_approved ? (
                       <form action={approveReview.bind(null, review.id)}>
-                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Aprobar">
+                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Aprobar" aria-label="Aprobar reseña">
                           <Check className="h-3.5 w-3.5 text-emerald" strokeWidth={2} />
                         </button>
                       </form>
                     ) : (
                       <form action={rejectReview.bind(null, review.id)}>
-                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Rechazar">
+                        <button type="submit" className="admin-btn admin-btn-ghost admin-btn-icon" title="Rechazar" aria-label="Rechazar reseña">
                           <X className="h-3.5 w-3.5 text-yellow-400" strokeWidth={2} />
                         </button>
                       </form>
@@ -156,15 +156,17 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                             Confirmar
                           </button>
                         </form>
-                        <button onClick={() => setDeleting(null)} className="admin-btn admin-btn-ghost admin-btn-icon">
+                        <button type="button" onClick={() => setDeleting(null)} className="admin-btn admin-btn-ghost admin-btn-icon" aria-label="Cancelar">
                           <X className="h-3 w-3" strokeWidth={1.5} />
                         </button>
                       </div>
                     ) : (
                       <button
+                        type="button"
                         onClick={() => setDeleting(review.id)}
                         className="admin-btn admin-btn-ghost admin-btn-icon admin-btn-destructive"
                         title="Eliminar"
+                        aria-label="Eliminar reseña"
                       >
                         <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                       </button>

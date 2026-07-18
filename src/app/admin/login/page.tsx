@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin-client";
 import { Eye, EyeOff, LogIn } from "lucide-react";
@@ -102,9 +103,9 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-center mt-6">
-          <a href="/" className="text-xs text-text-muted hover:text-emerald transition-colors">
+          <Link href="/" className="text-xs text-text-muted hover:text-emerald transition-colors">
             ← Volver al sitio
-          </a>
+          </Link>
         </p>
       </div>
     </div>

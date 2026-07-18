@@ -9,7 +9,7 @@ const reviewSchema = z.object({
   author_country: z.string().optional(),
   rating: z.coerce.number().int().min(1).max(5),
   comment: z.string().min(1, "Comentario requerido"),
-  tour_id: z.string().uuid(),
+  tour_id: z.uuid(),
 });
 
 export async function submitReview(values: unknown) {

@@ -36,12 +36,12 @@ export function Sidebar() {
     <>
       {/* Mobile header with hamburger */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 h-14 bg-surface border-b border-border">
-        <button onClick={() => setOpen(true)} className="p-2 -ml-2 text-text-muted hover:text-text transition-colors">
+        <button type="button" onClick={() => setOpen(true)} className="p-2 -ml-2 text-text-muted hover:text-text transition-colors" aria-label="Abrir menú">
           <Menu className="h-5 w-5" strokeWidth={1.5} />
         </button>
         <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
         <form action="/admin/logout" method="post">
-          <button type="submit" className="p-2 text-text-muted hover:text-red-400 transition-colors">
+          <button type="submit" className="p-2 text-text-muted hover:text-red-400 transition-colors" aria-label="Cerrar sesión">
             <LogOut className="h-4 w-4" strokeWidth={1.5} />
           </button>
         </form>
@@ -60,7 +60,7 @@ export function Sidebar() {
       `}>
         <div className="flex items-center justify-between px-5 h-14 border-b border-border">
           <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
-          <button onClick={() => setOpen(false)} className="p-1 text-text-muted hover:text-text transition-colors">
+          <button type="button" onClick={() => setOpen(false)} className="p-1 text-text-muted hover:text-text transition-colors" aria-label="Cerrar menú">
             <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>

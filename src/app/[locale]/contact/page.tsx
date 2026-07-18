@@ -12,7 +12,7 @@ import { Send, CheckCircle } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(1),
-  email: z.string().email(),
+  email: z.email(),
   phone: z.string().optional(),
   message: z.string().min(1),
   tourInterest: z.string().optional(),
@@ -116,10 +116,11 @@ export default function ContactPage() {
                   className="mt-8 grid gap-5"
                 >
                   <div>
-                    <label className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
+                    <label htmlFor="name" className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
                       {t("form.name")}
                     </label>
                     <input
+                      id="name"
                       type="text"
                       placeholder={t("form.namePlaceholder")}
                       {...register("name")}
@@ -135,10 +136,11 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
+                    <label htmlFor="email" className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
                       {t("form.email")}
                     </label>
                     <input
+                      id="email"
                       type="email"
                       placeholder={t("form.emailPlaceholder")}
                       {...register("email")}
@@ -154,10 +156,11 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
+                    <label htmlFor="phone" className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
                       {t("form.phone")}
                     </label>
                     <input
+                      id="phone"
                       type="tel"
                       placeholder="+506..."
                       {...register("phone")}
@@ -166,10 +169,11 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
+                    <label htmlFor="tourInterest" className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
                       {t("form.tourInterest")}
                     </label>
                     <select
+                      id="tourInterest"
                       {...register("tourInterest")}
                       className="block w-full appearance-none rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text transition focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20"
                       style={{
@@ -186,10 +190,11 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
+                    <label htmlFor="message" className="mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-secondary">
                       {t("form.message")}
                     </label>
                     <textarea
+                      id="message"
                       rows={6}
                       placeholder={t("form.messagePlaceholder")}
                       {...register("message")}

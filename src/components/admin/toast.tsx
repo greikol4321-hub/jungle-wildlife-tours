@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from "react";
 import { CheckCircle, XCircle, AlertCircle, X } from "lucide-react";
 
 type ToastType = "success" | "error" | "info";
@@ -19,6 +19,24 @@ const Ctx = createContext<ToastCtx | null>(null);
 
 let nextId = 0;
 
+const icons = {
+  success: <CheckCircle className="h-5 w-5 text-emerald shrink-0" strokeWidth={2} />,
+  error: <XCircle className="h-5 w-5 text-red-400 shrink-0" strokeWidth={2} />,
+  info: <AlertCircle className="h-5 w-5 text-blue-400 shrink-0" strokeWidth={2} />,
+};
+
+const borders = {
+  success: "border-emerald/20",
+  error: "border-red-400/20",
+  info: "border-blue-400/20",
+};
+
+const bg = {
+  success: "bg-emerald-dim/40",
+  error: "bg-red-500/10",
+  info: "bg-blue-500/10",
+};
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
@@ -30,26 +48,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   const remove = (id: number) => setToasts((prev) => prev.filter((t) => t.id !== id));
 
-  const icons = {
-    success: <CheckCircle className="h-5 w-5 text-emerald shrink-0" strokeWidth={2} />,
-    error: <XCircle className="h-5 w-5 text-red-400 shrink-0" strokeWidth={2} />,
-    info: <AlertCircle className="h-5 w-5 text-blue-400 shrink-0" strokeWidth={2} />,
-  };
-
-  const borders = {
-    success: "border-emerald/20",
-    error: "border-red-400/20",
-    info: "border-blue-400/20",
-  };
-
-  const bg = {
-    success: "bg-emerald-dim/40",
-    error: "bg-red-500/10",
-    info: "bg-blue-500/10",
-  };
+  const ctx = useMemo(() => ({ toast: addToast }), [addToast]);
 
   return (
-    <Ctx.Provider value={{ toast: addToast }}>
+    <Ctx.Provider value={ctx}>
       {children}
       <div className="fixed top-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
@@ -65,7 +67,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           >
             {icons[t.type]}
             <p className="text-sm text-text flex-1 pt-0.5">{t.message}</p>
-            <button onClick={() => remove(t.id)} className="text-text-muted hover:text-text transition-colors p-0.5 -m-0.5">
+            <button type="button" onClick={() => remove(t.id)} className="text-text-muted hover:text-text transition-colors p-0.5 -m-0.5" aria-label="Cerrar notificación">
               <X className="h-3.5 w-3.5" strokeWidth={1.5} />
             </button>
           </div>

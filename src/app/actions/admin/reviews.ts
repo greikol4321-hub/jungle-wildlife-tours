@@ -10,7 +10,7 @@ const reviewSchema = z.object({
   rating: z.coerce.number().int().min(1).max(5),
   comment_es: z.string().optional(),
   comment_en: z.string().optional(),
-  tour_id: z.string().uuid().optional(),
+  tour_id: z.uuid().optional(),
   is_approved: z.boolean().default(false),
 });
 

@@ -29,7 +29,7 @@ export function GalleryContent({ images, locale }: { images: GalleryImage[]; loc
   const [activeCat, setActiveCat] = useState<string | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
 
-  const categories = [...new Set(images.map((img) => img.tours?.category).filter(Boolean))] as string[];
+  const categories = [...new Set(images.flatMap((img) => img.tours?.category ? [img.tours.category] : []))] as string[];
   const filtered = activeCat ? images.filter((img) => img.tours?.category === activeCat) : images;
 
   const close = useCallback(() => setSelected(null), []);

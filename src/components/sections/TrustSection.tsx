@@ -46,15 +46,15 @@ interface TrustSectionProps {
   locale: string;
 }
 
+const items = [
+  { key: "certifiedGuide" as const },
+  { key: "legalRegistration" as const },
+  { key: "localGuide" as const },
+  { key: "region" as const },
+];
+
 export function TrustSection({ locale }: TrustSectionProps) {
   const tTrust = useTranslations("trust");
-
-  const items = [
-    { key: "certifiedGuide" as const },
-    { key: "legalRegistration" as const },
-    { key: "localGuide" as const },
-    { key: "region" as const },
-  ];
 
   return (
     <section className="relative border-t border-border" aria-labelledby="trust-heading">
