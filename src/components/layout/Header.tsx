@@ -87,6 +87,13 @@ export function Header({ locale }: { locale: string }) {
                 {t(item.key)}
               </Link>
             ))}
+            <button
+              type="button"
+              className="locale-btn"
+              onClick={() => router.push(pathname, { locale: otherLocale })}
+            >
+              {otherLocale.toUpperCase()}
+            </button>
             <a
               href="https://wa.me/50688888888"
               target="_blank"
@@ -99,13 +106,6 @@ export function Header({ locale }: { locale: string }) {
               </svg>
               {t("bookByWhatsApp")}
             </a>
-            <button
-              type="button"
-              className="locale-btn"
-              onClick={() => router.push(pathname, { locale: otherLocale })}
-            >
-              {otherLocale.toUpperCase()}
-            </button>
 
           </div>
 
