@@ -14,47 +14,49 @@ type Review = {
   created_at: string | null;
 };
 
+const starLabelsEs = ["Pésimo", "Malo", "Regular", "Bueno", "Excelente"];
+const starLabelsEn = ["Terrible", "Poor", "Average", "Good", "Excellent"];
+
+type FormState = {
+  name: string;
+  country: string;
+  rating: number;
+  comment: string;
+  sending: boolean;
+  sent: boolean;
+};
+
+type FormAction =
+  | { type: "SET_FIELD"; field: "name" | "country" | "comment"; value: string }
+  | { type: "SET_RATING"; value: number }
+  | { type: "SUBMIT_START" }
+  | { type: "SUBMIT_DONE" }
+  | { type: "SUBMIT_ERROR" }
+  | { type: "RESET_FORM" };
+
+function formReducer(state: FormState, action: FormAction): FormState {
+  switch (action.type) {
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "SET_RATING":
+      return { ...state, rating: action.value };
+    case "SUBMIT_START":
+      return { ...state, sending: true };
+    case "SUBMIT_DONE":
+      return { ...state, sending: false, sent: true, name: "", country: "", rating: 5, comment: "" };
+    case "SUBMIT_ERROR":
+      return { ...state, sending: false };
+    case "RESET_FORM":
+      return { name: "", country: "", rating: 5, comment: "", sending: false, sent: false };
+    default:
+      return state;
+  }
+}
+
 export function ReviewsSection({ tourId, locale }: { tourId: string; locale: string }) {
   const { toast } = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-
-  type FormState = {
-    name: string;
-    country: string;
-    rating: number;
-    comment: string;
-    sending: boolean;
-    sent: boolean;
-  };
-
-  type FormAction =
-    | { type: "SET_FIELD"; field: "name" | "country" | "comment"; value: string }
-    | { type: "SET_RATING"; value: number }
-    | { type: "SUBMIT_START" }
-    | { type: "SUBMIT_DONE" }
-    | { type: "SUBMIT_ERROR" }
-    | { type: "RESET_FORM" };
-
-  function formReducer(state: FormState, action: FormAction): FormState {
-    switch (action.type) {
-      case "SET_FIELD":
-        return { ...state, [action.field]: action.value };
-      case "SET_RATING":
-        return { ...state, rating: action.value };
-      case "SUBMIT_START":
-        return { ...state, sending: true };
-      case "SUBMIT_DONE":
-        return { ...state, sending: false, sent: true, name: "", country: "", rating: 5, comment: "" };
-      case "SUBMIT_ERROR":
-        return { ...state, sending: false };
-      case "RESET_FORM":
-        return { name: "", country: "", rating: 5, comment: "", sending: false, sent: false };
-      default:
-        return state;
-    }
-  }
-
   const [form, dispatch] = useReducer(formReducer, { name: "", country: "", rating: 5, comment: "", sending: false, sent: false });
 
   useEffect(() => {
@@ -78,9 +80,9 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
     }
   }
 
-  const starLabels = locale === "es"
-    ? ["Pésimo", "Malo", "Regular", "Bueno", "Excelente"]
-    : ["Terrible", "Poor", "Average", "Good", "Excellent"];
+  const labels = locale === "es"
+    ? starLabelsEs
+    : starLabelsEn;
 
   return (
     <section className="mt-16 md:mt-20">
@@ -169,16 +171,16 @@ export function ReviewsSection({ tourId, locale }: { tourId: string; locale: str
               {locale === "es" ? "Puntuación:" : "Rating:"}
             </span>
             <div className="flex items-center gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <button key={i} type="button" onClick={() => dispatch({ type: "SET_RATING", value: i + 1 })}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button key={star} type="button" onClick={() => dispatch({ type: "SET_RATING", value: star })} aria-label={`${star} estrella${star > 1 ? "s" : ""}`}>
                   <Star
-                    className={`h-5 w-5 transition-colors ${i < form.rating ? "text-emerald fill-emerald" : "text-border-strong hover:text-emerald/50"}`}
+                    className={`h-5 w-5 transition-colors ${star <= form.rating ? "text-emerald fill-emerald" : "text-border-strong hover:text-emerald/50"}`}
                     strokeWidth={1.5}
                   />
                 </button>
               ))}
             </div>
-            <span className="text-[10px] text-text-muted font-mono ml-1">{starLabels[form.rating - 1]}</span>
+            <span className="text-[10px] text-text-muted font-mono ml-1">{labels[form.rating - 1]}</span>
           </div>
 
           <textarea

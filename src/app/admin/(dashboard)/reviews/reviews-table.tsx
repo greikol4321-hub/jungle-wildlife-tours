@@ -70,6 +70,7 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
           value={filter}
           onChange={(v) => v && setFilter(v.target.value as typeof filter)}
           className="admin-input w-[160px] cursor-pointer appearance-none bg-surface-elevated"
+          aria-label="Filtrar reseñas"
         >
           <option value="all">Todas las reseñas</option>
           <option value="pending">Pendientes ({pending})</option>
@@ -131,7 +132,7 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                 </td>
                 <td className="hidden sm:table-cell text-text-muted font-mono text-[10px] whitespace-nowrap">
                   {review.created_at
-                    ? new Date(review.created_at).toLocaleDateString("es", { day: "2-digit", month: "short", year: "numeric" })
+                    ? new Date(review.created_at).toLocaleDateString("es", { day: "2-digit", month: "short", year: "numeric", timeZone: "America/Costa_Rica" })
                     : "—"}
                 </td>
                 <td className="text-right">

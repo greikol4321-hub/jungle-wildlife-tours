@@ -153,7 +153,7 @@ export function HeroSection(_props: HeroSectionProps) {
             }}
             aria-hidden="true"
           />
-          <ChevronDown className="h-4 w-4 animate-bounce [animation-duration:2.5s]" strokeWidth={1.5} aria-hidden="true" />
+          <ChevronDown className="h-4 w-4 animate-pulse" strokeWidth={1.5} aria-hidden="true" />
           <span className="font-display text-[9px] tracking-[0.2em] uppercase">{t("scrollExplore")}</span>
         </div>
       </Reveal>

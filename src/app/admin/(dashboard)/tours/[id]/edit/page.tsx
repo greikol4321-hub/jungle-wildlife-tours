@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { use, useTransition, useState, useEffect } from "react";
+import { use, useTransition, useState, useEffect, useRef } from "react";
 import { updateTour } from "@/app/actions/admin/tours";
 import { uploadTourImage, deleteTourImage } from "@/app/actions/admin/tour-images";
 import { createAdminClient } from "@/lib/supabase/admin-client";
@@ -67,7 +67,7 @@ function dataToForm(tour: Tables<"tours">): FormData {
 export default function EditTourPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [tour, setTour] = useState<Tables<"tours"> | null>(null);
+  const tourRef = useRef<Tables<"tours"> | null>(null);
   const [images, setImages] = useState<Tables<"tour_images">[]>([]);
   const [uploading, setUploading] = useState(false);
   const [confirmDeleteImage, setConfirmDeleteImage] = useState<string | null>(null);
@@ -85,7 +85,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       const supabase = createAdminClient();
       const { data: t } = await supabase.from("tours").select("*").eq("id", id).single();
       if (t) {
-        setTour(t as Tables<"tours">);
+        tourRef.current = t as Tables<"tours">;
         reset(dataToForm(t as Tables<"tours">));
       }
       const { data: imgs } = await supabase.from("tour_images").select("*").eq("tour_id", id).order("display_order");

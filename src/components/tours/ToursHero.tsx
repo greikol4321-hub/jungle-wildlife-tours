@@ -136,7 +136,7 @@ export function ToursHero({ locale }: ToursHeroProps) {
           }}
           aria-hidden="true"
         />
-        <ChevronDown className="h-4 w-4 text-text-muted animate-bounce [animation-duration:2.5s]" strokeWidth={1.5} />
+        <ChevronDown className="h-4 w-4 text-text-muted animate-pulse" strokeWidth={1.5} />
       </m.div>
 
       <div

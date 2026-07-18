@@ -49,7 +49,7 @@ export function Sidebar() {
 
       {/* Mobile overlay */}
       {open && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+        <div className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} onKeyDown={(e) => e.key === "Escape" && setOpen(false)} role="presentation" />
       )}
 
       {/* Mobile drawer */}

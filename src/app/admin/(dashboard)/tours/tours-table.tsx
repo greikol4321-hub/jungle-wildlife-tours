@@ -77,6 +77,7 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
           value={category}
           onChange={(v) => v && setCategory(v.target.value)}
           className="admin-input w-[140px] cursor-pointer appearance-none bg-surface-elevated"
+          aria-label="Filtrar por categoría"
         >
           <option value="all">Todas</option>
           <option value="day_park">Day Park</option>
@@ -144,7 +145,7 @@ export function ToursTable({ tours }: { tours: Tour[] }) {
 
             <div className="flex items-center justify-between pt-3 border-t border-border">
               <form action={toggleTourActive.bind(null, tour.id, !tour.is_active)}>
-                <button
+                <button type="submit"
                   className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full transition-colors ${
                     tour.is_active
                       ? "bg-emerald-dim text-emerald hover:bg-emerald-dim/80"

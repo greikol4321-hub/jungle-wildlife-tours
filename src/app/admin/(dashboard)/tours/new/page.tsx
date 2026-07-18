@@ -176,7 +176,7 @@ export default function NewTourPage() {
               <div key={field.id} className="p-4 rounded-xl border border-border bg-surface-elevated/30">
                 <div className="flex items-start justify-between mb-3">
                   <span className="mono-ui text-[10px] text-text-muted bg-surface px-2 py-0.5 rounded-full">Paso {i + 1}</span>
-                  <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors">
+                  <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors" aria-label={`Eliminar paso ${i + 1}`}>
                     <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                   </button>
                 </div>

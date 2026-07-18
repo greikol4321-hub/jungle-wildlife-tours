@@ -18,7 +18,6 @@ export function Header({ locale }: { locale: string }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -55,9 +54,6 @@ export function Header({ locale }: { locale: string }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // Mount after hydration — prevents SSR flash of mobile panel
-  useEffect(() => { setMounted(true); }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -123,22 +119,18 @@ export function Header({ locale }: { locale: string }) {
         </nav>
       </div>
 
-      {/* Mobile panel — mount después de hydratación para evitar flash */}
-      {mounted && (
-        <div
-          className={cn("mobile-overlay", open && "open")}
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-      {mounted && (
-        <div
-          id="mobile-panel"
-          className={cn("mobile-panel", open && "open")}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("menu")}
-        >
+      {/* Mobile panel */}
+      <div
+        className={cn("mobile-overlay", open && "open")}
+        onClick={() => setOpen(false)}
+        onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+        aria-hidden="true"
+      />
+      <dialog
+        id="mobile-panel"
+        className={cn("mobile-panel", open && "open")}
+        aria-label={t("menu")}
+      >
         <div className="panel-header">
           <Link href="/" className="panel-logo" onClick={() => setOpen(false)}>
             Jungle <span className="panel-logo-accent">Wildlife</span> Tours
@@ -212,8 +204,7 @@ export function Header({ locale }: { locale: string }) {
             {locale === "es" ? "English" : "Español"}
           </button>
         </div>
-      </div>
-      )}
+      </dialog>
     </>
   );
 }

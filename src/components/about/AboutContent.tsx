@@ -68,11 +68,11 @@ const whyUsSubtitles: Record<string, [string, string]> = {
   small: ["EXCLUSIVO", "EXCLUSIVE"],
 };
 
+const certKeys = ["ict", "hacienda", "ccss"] as const;
+const whyUsKeys = ["local", "certified", "small"] as const;
+
 export function AboutContent({ locale }: { locale: string }) {
   const tA = useTranslations("about");
-
-  const certKeys = ["ict", "hacienda", "ccss"] as const;
-  const whyUsKeys = ["local", "certified", "small"] as const;
 
   return (
     <>

@@ -34,6 +34,11 @@ const statsData = [
   { value: 500, suffix: "+", key: "reviews" },
 ];
 
+function Count({ value, inView }: { value: number; inView: boolean }) {
+  const count = useCountUp(value, 2000, inView);
+  return <>{count.toLocaleString()}</>;
+}
+
 export function StatsSection({ locale }: { locale: string }) {
   const t = useTranslations("stats");
   const ref = useRef<HTMLDivElement>(null);
@@ -61,16 +66,12 @@ export function StatsSection({ locale }: { locale: string }) {
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
           {statsData.map((stat, i) => {
-            const Count = ({ value }: { value: number }) => {
-              const count = useCountUp(value, 2000, inView);
-              return <>{count.toLocaleString()}</>;
-            };
 
             return (
               <Reveal key={stat.key} delay={100 + i * 80}>
                 <div className="text-center">
                   <p className="font-heading font-bold text-emerald" style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", lineHeight: 1 }}>
-                    <Count value={stat.value} />
+                    <Count value={stat.value} inView={inView} />
                     {stat.suffix}
                   </p>
                   <p className="mt-2 text-xs md:text-sm font-medium text-text-secondary tracking-wide">

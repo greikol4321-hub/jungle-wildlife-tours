@@ -90,14 +90,13 @@ export default async function TourDetailPage({
   const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
   setRequestLocale(locale);
 
-  const t = await getTranslations({ locale, namespace: "tourDetail" });
-  const tTours = await getTranslations({ locale, namespace: "tours" });
-  const { data: tour } = await supabase
-    .from("tours")
-    .select("*, tour_images(*)")
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .single();
+  const [[t, tTours], { data: tour }] = await Promise.all([
+    Promise.all([
+      getTranslations({ locale, namespace: "tourDetail" }),
+      getTranslations({ locale, namespace: "tours" }),
+    ]),
+    supabase.from("tours").select("*, tour_images(*)").eq("slug", slug).eq("is_active", true).single(),
+  ]);
 
   if (!tour) notFound();
 
@@ -246,9 +245,8 @@ export default async function TourDetailPage({
               <div className="relative">
                 <div className="absolute left-3.5 top-2 bottom-2 w-px bg-gradient-to-b from-emerald/40 via-border-strong to-transparent" aria-hidden="true" />
                 <div className="space-y-8">
-                  {/* index key safe: static array, never reordered */}
                   {(typedTour.itinerary ?? []).map((stop, i) => (
-                    <div key={i} className="relative pl-10">
+                    <div key={`step-${stop.title}-${stop.time}`} className="relative pl-10">
                       <span
                         className={`absolute left-0 top-1 flex h-7 w-7 items-center justify-center rounded-full border-2 ${cc.border} bg-bg text-xs font-bold ${cc.text}`}
                       >
@@ -290,9 +288,8 @@ export default async function TourDetailPage({
                 {t("includes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {/* index key safe: static array, never reordered */}
-                {(typedTour.includes ?? []).map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
+                {(typedTour.includes ?? []).map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald" strokeWidth={2.5} aria-hidden="true" />
                     {item}
                   </li>
@@ -307,9 +304,8 @@ export default async function TourDetailPage({
                 {t("excludes")}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {/* index key safe: static array, never reordered */}
-                {(typedTour.excludes ?? []).map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
+                {(typedTour.excludes ?? []).map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
                     <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-text-muted" strokeWidth={2} aria-hidden="true" />
                     {item}
                   </li>

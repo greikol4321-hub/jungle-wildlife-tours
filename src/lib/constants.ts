@@ -1,6 +1,4 @@
-export const TOUR_CATEGORIES = ["day_park", "mangrove", "night_walk"] as const;
-
-export type TourCategory = (typeof TOUR_CATEGORIES)[number];
+export type TourCategory = "day_park" | "mangrove" | "night_walk";
 
 export const CATEGORY_STYLES: Record<
   TourCategory,

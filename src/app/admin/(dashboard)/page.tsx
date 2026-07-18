@@ -2,6 +2,14 @@ import { createClient } from "@/lib/supabase/server";
 import { TreePalm, Star, SquarePen, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+const dateStr = new Date().toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+const accentMap: Record<string, string> = {
+  emerald: "after:bg-emerald",
+  sand: "after:bg-sand",
+  canopy: "after:bg-canopy",
+};
+
 export default async function AdminDashboard() {
   const supabase = await createClient();
   const [{ count: tourCount }, { count: activeCount }, { count: reviewCount }, { count: pendingReviews }, { data: recentReviews }] = await Promise.all([
@@ -16,7 +24,7 @@ export default async function AdminDashboard() {
     <div className="space-y-10">
       <div>
         <p className="mono-ui text-emerald text-[11px] tracking-[0.25em] mb-2">
-          {new Date().toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+          {dateStr}
         </p>
         <h1 className="font-heading text-2xl font-bold text-text">Panel de control</h1>
         <p className="text-sm text-text-muted mt-1">Resumen general del sistema</p>
@@ -91,11 +99,6 @@ export default async function AdminDashboard() {
 }
 
 function MetricBox({ value, label, sub, accent }: { value: number; label: string; sub: string; accent: string }) {
-  const accentMap: Record<string, string> = {
-    emerald: "after:bg-emerald",
-    sand: "after:bg-sand",
-    canopy: "after:bg-canopy",
-  };
   return (
     <div className={`bg-surface p-5 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] ${accentMap[accent] ?? "after:bg-emerald"}`}>
       <p className="text-3xl font-bold text-text font-heading leading-none">{value}</p>

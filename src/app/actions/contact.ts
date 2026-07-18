@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 
 const contactSchema = z.object({
   name: z.string().min(1),
-  email: z.string().email(),
+  email: z.email(),
   phone: z.string().optional(),
   message: z.string().min(1),
   tourInterest: z.string().optional(),

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMotionValue, useSpring, useTransform, MotionValue } from "motion/react";
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 
 const defaultConfig = { stiffness: 80, damping: 20 };
 
@@ -15,12 +15,12 @@ export function useParallaxMouse(
   const springX = useSpring(mouseX, config);
   const springY = useSpring(mouseY, config);
 
-  const handleMouse = useCallback((e: React.MouseEvent) => {
+  const handleMouse = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     mouseX.set((e.clientX - rect.left) / rect.width);
     mouseY.set((e.clientY - rect.top) / rect.height);
-  }, []);
+  };
 
   return { ref, springX, springY, handleMouse };
 }

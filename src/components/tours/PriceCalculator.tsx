@@ -39,6 +39,7 @@ function Stepper({
           onClick={() => onChange(Math.max(min, value - 1))}
           disabled={value <= min}
           className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          aria-label={`Reducir ${label}`}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
@@ -52,10 +53,10 @@ function Stepper({
           onClick={() => onChange(Math.min(max, value + 1))}
           disabled={value >= max}
           className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          aria-label={`Aumentar ${label}`}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
-            <path d="M12 5v14" />
           </svg>
         </button>
       </div>

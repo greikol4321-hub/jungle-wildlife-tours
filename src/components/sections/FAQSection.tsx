@@ -75,16 +75,18 @@ export function FAQSection({ locale }: { locale: string }) {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <m.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
+                        initial={{ gridTemplateRows: "0fr", opacity: 0 }}
+                        animate={{ gridTemplateRows: "1fr", opacity: 1 }}
+                        exit={{ gridTemplateRows: "0fr", opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden"
+                        className="grid overflow-hidden"
                       >
-                        <div className="px-5 pb-4 md:px-6 md:pb-5">
-                          <p className="text-sm text-text-secondary leading-relaxed max-w-prose">
-                            {t(`${key}Answer`)}
-                          </p>
+                        <div className="min-h-0">
+                          <div className="px-5 pb-4 md:px-6 md:pb-5">
+                            <p className="text-sm text-text-secondary leading-relaxed max-w-prose">
+                              {t(`${key}Answer`)}
+                            </p>
+                          </div>
                         </div>
                       </m.div>
                     )}
