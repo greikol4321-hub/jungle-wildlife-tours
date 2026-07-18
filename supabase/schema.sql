@@ -50,7 +50,7 @@ create table public.reviews (
 create table public.contact_messages (
   id uuid primary key default gen_random_uuid(),
   name text not null,
-  email text not null,
+  email text,
   phone text,
   message text not null,
   tour_interest uuid references public.tours(id),
