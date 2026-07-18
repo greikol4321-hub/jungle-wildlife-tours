@@ -1,13 +1,19 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { createTour } from "@/app/actions/admin/tours";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
+
+const itineraryItem = z.object({
+  time: z.string().min(1, "Requerido"),
+  title: z.string().min(1, "Requerido"),
+  description: z.string().min(1, "Requerido"),
+});
 
 const schema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "solo minúsculas, números y guiones"),
@@ -21,12 +27,11 @@ const schema = z.object({
   min_age: z.coerce.number().optional(),
   max_people: z.coerce.number().optional(),
   price_usd: z.coerce.number().optional(),
-  child_price_pct: z.coerce.number().optional(),
   child_price_usd: z.coerce.number().optional(),
   languages: z.string().optional(),
   includes: z.string().optional(),
   excludes: z.string().optional(),
-  itinerary: z.string().optional(),
+  itinerary: z.array(itineraryItem).optional(),
   display_order: z.coerce.number().default(0),
 });
 
@@ -36,13 +41,16 @@ export default function NewTourPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, control, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema) as never,
     defaultValues: {
       languages: "Español, English",
       display_order: 0,
+      itinerary: [],
     },
   });
+
+  const { fields, append, remove } = useFieldArray({ control, name: "itinerary" });
 
   async function onSubmit(raw: FormData) {
     setSaving(true);
@@ -52,7 +60,7 @@ export default function NewTourPage() {
         languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
         includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
         excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-        itinerary: raw.itinerary ? JSON.parse(raw.itinerary) : undefined,
+        itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
       router.push("/admin/tours");
@@ -167,15 +175,35 @@ export default function NewTourPage() {
 
         {/* ── ITINERARIO ── */}
         <section>
-          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Itinerario (JSON)</h2>
-          <Field label="Arreglo de {time, title, description}" error={errors.itinerary?.message}>
-            <textarea
-              {...register("itinerary")}
-              rows={6}
-              className="admin-input admin-textarea font-mono text-xs"
-              placeholder='[{&#10;  "time": "8:00",&#10;  "title": "Inicio del tour",&#10;  "description": "Descripción aquí"&#10;}]'
-            />
-          </Field>
+          <h2 className="font-heading text-sm font-bold text-text mb-4 pb-2 border-b border-border">Itinerario</h2>
+          <div className="space-y-3">
+            {fields.map((field, i) => (
+              <div key={field.id} className="p-3 rounded-lg border border-border bg-surface-elevated/50">
+                <div className="flex items-start justify-between mb-2">
+                  <span className="mono-ui text-xs text-text-muted">Paso {i + 1}</span>
+                  <button type="button" onClick={() => remove(i)} className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors">
+                    <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mb-2">
+                  <div>
+                    <label className="block mono-ui text-text-secondary mb-1.5">HORA</label>
+                    <input {...register(`itinerary.${i}.time`)} className="admin-input" placeholder="8:00" />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block mono-ui text-text-secondary mb-1.5">TÍTULO</label>
+                    <input {...register(`itinerary.${i}.title`)} className="admin-input" placeholder="Inicio del tour" />
+                  </div>
+                </div>
+                <Field label="Descripción">
+                  <textarea {...register(`itinerary.${i}.description`)} rows={2} className="admin-input admin-textarea" placeholder="Descripción de este paso" />
+                </Field>
+              </div>
+            ))}
+            <button type="button" onClick={() => append({ time: "", title: "", description: "" })} className="admin-btn admin-btn-ghost text-xs flex items-center gap-1.5">
+              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Agregar paso
+            </button>
+          </div>
         </section>
 
         {/* ── ORDEN ── */}
