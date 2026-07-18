@@ -61,7 +61,7 @@ const syne = Syne({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`h-full antialiased ${cormorantGaramond.variable} ${outfit.variable} ${spaceMono.variable} ${syne.variable}`}>
-      <body className="min-h-full flex flex-col bg-bg text-text grain-overlay">
+      <body className="min-h-screen flex flex-col bg-bg text-text grain-overlay">
         <MotionProvider>
           <AppToastProvider>
             {children}
