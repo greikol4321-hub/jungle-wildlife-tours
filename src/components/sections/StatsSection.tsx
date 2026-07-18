@@ -51,7 +51,7 @@ export function StatsSection({ locale }: { locale: string }) {
   }, []);
 
   return (
-    <section ref={ref} className="relative" aria-labelledby="stats-heading">
+    <section ref={ref} className="relative section-gradient-top" aria-labelledby="stats-heading">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <Reveal delay={60}>
           <h2 id="stats-heading" className="font-heading font-extrabold tracking-tight text-text text-center text-balance" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
