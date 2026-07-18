@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { use, useTransition, useState, useEffect, useRef } from "react";
 import { updateTour } from "@/app/actions/admin/tours";
-import { uploadTourImage, deleteTourImage } from "@/app/actions/admin/tour-images";
+import { uploadTourImage, deleteTourImage, setTourCover } from "@/app/actions/admin/tour-images";
 import { createAdminClient } from "@/lib/supabase/admin-client";
 import Image from "next/image";
 import { ArrowLeft, Plus, Trash2, Upload, FileText, Clock, DollarSign, Globe, MapPin, ListOrdered } from "lucide-react";
@@ -36,6 +36,7 @@ const schema = z.object({
   languages: z.string().optional(),
   includes: z.string().optional(),
   excludes: z.string().optional(),
+  tide_table: z.string().optional(),
   itinerary: z.array(itineraryItem).optional(),
   display_order: z.coerce.number().default(0),
 });
@@ -59,6 +60,7 @@ function dataToForm(tour: Tables<"tours">): FormData {
     languages: (tour.languages ?? []).join(", "),
     includes: (tour.includes ?? []).join("\n"),
     excludes: (tour.excludes ?? []).join("\n"),
+    tide_table: tour.tide_table ? JSON.stringify(tour.tide_table, null, 2) : "",
     itinerary: (tour.itinerary as { time: string; title: string; description: string }[] | null) ?? [],
     display_order: tour.display_order ?? 0,
   };
@@ -102,6 +104,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
           includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
           excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
+          tide_table: raw.tide_table || undefined,
           itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
         };
         await updateTour(id, payload);
@@ -163,10 +166,18 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
                 className="object-cover"
                 sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
               />
-              {img.is_cover && (
-                <span className="absolute top-1 left-1 mono-ui px-1.5 py-0.5 rounded bg-emerald text-bg">
+              {img.is_cover ? (
+                <span className="absolute top-1 left-1 mono-ui px-1.5 py-0.5 rounded bg-emerald text-bg text-[10px]">
                   Cover
                 </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setTourCover(id, img.id)}
+                  className="absolute top-1 left-1 mono-ui px-1.5 py-0.5 rounded bg-surface/80 text-text-muted hover:text-emerald hover:bg-emerald-dim text-[10px] transition-colors opacity-0 group-hover:opacity-100"
+                >
+                  Cover
+                </button>
               )}
               {confirmDeleteImage === img.id ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl gap-1">
@@ -291,6 +302,17 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
               <textarea {...register("excludes")} rows={5} className="admin-input admin-textarea" />
             </Field>
           </div>
+        </div>
+
+        <div className="admin-card p-6">
+          <SectionHeading icon={Globe} title="Tabla de mareas" />
+          <Field label="Datos de mareas (JSON)">
+            <textarea
+              {...register("tide_table")}
+              rows={4}
+              className="admin-input admin-textarea font-mono text-xs"
+            />
+          </Field>
         </div>
 
         <div className="admin-card p-6">

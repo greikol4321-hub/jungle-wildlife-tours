@@ -42,3 +42,13 @@ export async function deleteTourImage(id: string, storagePath: string) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
 }
+
+export async function setTourCover(tourId: string, imageId: string) {
+  await verifyAdmin();
+  const supabase = await createClient();
+  const { error: resetError } = await supabase.from("tour_images").update({ is_cover: false }).eq("tour_id", tourId);
+  if (resetError) throw new Error(resetError.message);
+  const { error: setError } = await supabase.from("tour_images").update({ is_cover: true }).eq("id", imageId);
+  if (setError) throw new Error(setError.message);
+  revalidatePath("/admin/tours");
+}
