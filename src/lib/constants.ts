@@ -13,3 +13,8 @@ export const CATEGORY_STYLES: Record<
   mangrove: { ring: "ring-cyan/40", dot: "bg-cyan", border: "border-cyan/40", text: "text-cyan", label: "cyan" },
   night_walk: { ring: "ring-violet/40", dot: "bg-violet", border: "border-violet/40", text: "text-violet", label: "violet" },
 };
+
+export const difficultyLabels: Record<string, Record<string, string>> = {
+  es: { easy: "Fácil", moderate: "Moderada", challenging: "Exigente" },
+  en: { easy: "Easy", moderate: "Moderate", challenging: "Challenging" },
+};

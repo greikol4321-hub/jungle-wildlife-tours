@@ -23,15 +23,6 @@ async function verifyAdmin() {
   if (!admin) throw new Error("No autorizado");
 }
 
-export async function createReview(values: unknown) {
-  await verifyAdmin();
-  const data = reviewSchema.parse(values);
-  const supabase = await createClient();
-  const { error } = await supabase.from("reviews").insert(data);
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin/reviews");
-}
-
 export async function approveReview(id: string) {
   await verifyAdmin();
   const supabase = await createClient();
@@ -44,15 +35,6 @@ export async function rejectReview(id: string) {
   await verifyAdmin();
   const supabase = await createClient();
   const { error } = await supabase.from("reviews").update({ is_approved: false }).eq("id", id);
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin/reviews");
-}
-
-export async function updateReview(id: string, values: unknown) {
-  await verifyAdmin();
-  const data = reviewSchema.partial().parse(values);
-  const supabase = await createClient();
-  const { error } = await supabase.from("reviews").update(data).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
 }

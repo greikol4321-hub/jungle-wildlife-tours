@@ -58,23 +58,6 @@ export async function updateTour(id: string, values: unknown) {
   revalidatePath("/[locale]/tours");
 }
 
-export async function deleteTour(id: string, hard = false) {
-  await verifyAdmin();
-  const supabase = await createClient();
-  if (hard) {
-    const { error } = await supabase.from("tours").delete().eq("id", id);
-    if (error?.message?.includes("foreign key")) {
-      throw new Error("No se puede eliminar: el tour tiene mensajes de contacto asociados. Desactívalo (soft delete) o elimina los mensajes primero.");
-    }
-    if (error) throw new Error(error.message);
-  } else {
-    const { error } = await supabase.from("tours").update({ is_active: false }).eq("id", id);
-    if (error) throw new Error(error.message);
-  }
-  revalidatePath("/admin/tours");
-  revalidatePath("/[locale]/tours");
-}
-
 export async function toggleTourActive(id: string, isActive: boolean) {
   await verifyAdmin();
   const supabase = await createClient();

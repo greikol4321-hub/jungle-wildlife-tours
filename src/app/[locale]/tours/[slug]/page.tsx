@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
-import { difficultyLabels } from "@/lib/tour-demo-data";
+import { difficultyLabels } from "@/lib/constants";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { ReviewsSection } from "@/components/tours/ReviewsSection";

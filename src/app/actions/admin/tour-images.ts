@@ -34,34 +34,11 @@ export async function uploadTourImage(tourId: string, formData: FormData) {
   revalidatePath("/admin/tours");
 }
 
-export async function updateTourImage(id: string, values: {
-  alt_text_es?: string;
-  alt_text_en?: string;
-  is_cover?: boolean;
-  display_order?: number;
-}) {
-  await verifyAdmin();
-  const supabase = await createClient();
-  const { error } = await supabase.from("tour_images").update(values).eq("id", id);
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin/tours");
-}
-
 export async function deleteTourImage(id: string, storagePath: string) {
   await verifyAdmin();
   const supabase = await createClient();
   await supabase.storage.from("tour-images").remove([storagePath]);
   const { error } = await supabase.from("tour_images").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/tours");
-}
-
-export async function reorderTourImages(tourId: string, orderedIds: string[]) {
-  await verifyAdmin();
-  const supabase = await createClient();
-  const updates = orderedIds.map((id, i) =>
-    supabase.from("tour_images").update({ display_order: i }).eq("id", id)
-  );
-  await Promise.all(updates);
   revalidatePath("/admin/tours");
 }
