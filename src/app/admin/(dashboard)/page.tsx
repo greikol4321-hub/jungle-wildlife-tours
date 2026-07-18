@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { TreePalm, Star, SquarePen, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -12,6 +13,7 @@ const accentMap: Record<string, string> = {
 };
 
 export default async function AdminDashboard() {
+  noStore();
   const supabase = await createClient();
   const [{ count: tourCount }, { count: activeCount }, { count: reviewCount }, { count: pendingReviews }, { data: recentReviews }, { data: tours }] = await Promise.all([
     supabase.from("tours").select("*", { count: "exact", head: true }),
