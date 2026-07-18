@@ -37,7 +37,7 @@ export function TourCardsSection({ tours, locale }: TourCardsSectionProps) {
   if (tours.length === 0) return null;
 
   return (
-    <section className="relative border-t border-border" aria-labelledby="tours-heading">
+    <section className="relative section-gradient-top" aria-labelledby="tours-heading">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute -top-40 left-1/2 -translate-x-1/2 h-80 w-[60vw] opacity-[0.04]"

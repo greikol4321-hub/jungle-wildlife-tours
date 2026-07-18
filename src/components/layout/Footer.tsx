@@ -5,7 +5,7 @@ export async function Footer() {
   const t = await getTranslations("footer");
 
   return (
-    <footer className="relative leaf-pattern">
+    <footer className="relative">
       <div className="bg-surface border-t border-border">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">

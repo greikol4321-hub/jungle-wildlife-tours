@@ -57,7 +57,7 @@ export function TrustSection({ locale }: TrustSectionProps) {
   const tTrust = useTranslations("trust");
 
   return (
-    <section className="relative border-t border-border paw-pattern" aria-labelledby="trust-heading">
+    <section className="relative" aria-labelledby="trust-heading">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <Reveal delay={80}>
           <div className="flex items-center gap-3 mb-12 md:mb-16" aria-hidden="true">

@@ -37,7 +37,7 @@ export function FAQSection({ locale }: { locale: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative border-t border-border" aria-labelledby="faq-heading">
+    <section className="relative section-gradient-top" aria-labelledby="faq-heading">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <Reveal delay={60}>
           <h2 id="faq-heading" className="font-heading font-extrabold tracking-tight text-text text-center text-balance" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
