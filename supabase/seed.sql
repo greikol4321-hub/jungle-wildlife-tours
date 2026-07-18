@@ -1,4 +1,4 @@
--- Seed con datos reales de los 3 tours
+-- Seed con datos reales de los tours
 insert into public.tours (
   slug, category,
   title_es, title_en,
@@ -26,18 +26,32 @@ values
     true, 1
   ),
   (
-    'caminata-manglar-damas', 'mangrove',
-    'Caminata en manglar - Isla Damas',
-    'Mangrove walk - Damas Island',
-    'La caminata por los senderos de Isla Damas te lleva al corazón del ecosistema de manglar. Caminarás entre raíces aéreas mientras garzas, monos carablanca, cocodrilos y una gran variedad de aves aparecen a tu alrededor. Es una experiencia silenciosa y respetuosa con el entorno ideal para quienes buscan conectar con la naturaleza sin el ruido de la ciudad.',
-    'Walking the trails of Damas Island takes you into the heart of the mangrove ecosystem. You will walk among aerial roots while herons, white-faced monkeys, crocodiles and a wide variety of birds appear around you. It is a quiet, nature-honoring experience ideal for those seeking to connect with nature away from the city noise.',
+    'kayak-manglar-damas', 'mangrove',
+    'Tour en kayak en manglar - Isla Damas',
+    'Mangrove kayak tour - Damas Island',
+    'El recorrido en kayak por los canales de Isla Damas te lleva al corazón del ecosistema de manglar. Remarás entre raíces aéreas mientras garzas, monos carablanca, cocodrilos y una gran variedad de aves aparecen a tu alrededor. Es una experiencia silenciosa y respetuosa con el entorno ideal para quienes buscan conectar con la naturaleza sin el ruido de la ciudad.',
+    'Kayaking through the channels of Damas Island takes you into the heart of the mangrove ecosystem. You will paddle among aerial roots while herons, white-faced monkeys, crocodiles and a wide variety of birds appear around you. It is a quiet, nature-honoring experience ideal for those seeking to connect with nature away from the city noise.',
     150, 'easy', 4, 6,
     null, null,
     '{"Español","English"}',
-    '{"Guía naturalista certificado ICT","Telescopio profesional","Entrada a Isla Damas","Seguro de responsabilidad civil"}',
-    '{"Transporte al punto de encuentro","Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Propinas"}',
-    '[{"time":"6:00","title":"Salida desde Quepos","description":"Encuentro en el punto de encuentro. Instrucciones de seguridad y breve introducción al ecosistema del manglar."},{"time":"6:30","title":"Ingreso al sendero del manglar","description":"Caminata por los senderos de Isla Damas. Avistamiento de aves acuáticas, monos y cocodrilos."},{"time":"8:00","title":"Zona de avistamiento intensivo","description":"Recorrido guiado por los senderos entre la vegetación. Observación de fauna con telescopio profesional."},{"time":"9:30","title":"Regreso y cierre","description":"Retorno a Quepos. Café o fresco natural incluido."}]'::jsonb,
+    '{"Guía naturalista certificado ICT","Kayak doble con asiento","Chaleco salvavidas","Remos","Entrada a Isla Damas","Seguro de responsabilidad civil"}',
+    '{"Transporte al punto de encuentro","Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Protector solar biodegradable","Propinas"}',
+    '[{"time":"6:00","title":"Salida desde Quepos","description":"Encuentro en el punto de encuentro. Instrucciones de seguridad y breve introducción al ecosistema del manglar."},{"time":"6:30","title":"Inicio del recorrido en kayak","description":"Remo por los canales de Isla Damas. Avistamiento de aves acuáticas, monos y cocodrilos desde el kayak."},{"time":"8:00","title":"Zona de avistamiento intensivo","description":"Recorrido guiado por los canales entre la vegetación. Observación de fauna con telescopio profesional."},{"time":"9:30","title":"Regreso y cierre","description":"Retorno a Quepos. Café o fresco natural incluido."}]'::jsonb,
     true, 2
+  ),
+  (
+    'barco-manglar-damas', 'mangrove',
+    'Tour en barco por los manglares - Isla Damas',
+    'Mangrove boat tour - Damas Island',
+    'Navegá en lancha por los canales de Isla Damas y adentrate en el corazón del manglar. Garzas, monos carablanca, cocodrilos y una gran variedad de aves aparecen a tu alrededor mientras el guía te explica los secretos de este ecosistema único. Ideal para quienes buscan una experiencia cómoda y accesible para todas las edades.',
+    'Navigate by boat through the channels of Damas Island into the heart of the mangrove ecosystem. Herons, white-faced monkeys, crocodiles and a wide variety of birds appear around you as the guide explains the secrets of this unique ecosystem. Ideal for those seeking a comfortable experience accessible to all ages.',
+    120, 'easy', 0, 10,
+    null, null,
+    '{"Español","English"}',
+    '{"Guía naturalista certificado ICT","Lancha con motor y toldo","Chaleco salvavidas","Entrada a Isla Damas","Seguro de responsabilidad civil"}',
+    '{"Transporte al punto de encuentro","Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Protector solar biodegradable","Propinas"}',
+    '[{"time":"6:00","title":"Salida desde Quepos","description":"Encuentro en el punto de encuentro. Instrucciones de seguridad y breve introducción al ecosistema del manglar."},{"time":"6:30","title":"Inicio del recorrido en lancha","description":"Navegación por los canales de Isla Damas. Avistamiento de aves acuáticas, monos y cocodrilos."},{"time":"8:00","title":"Zona de avistamiento intensivo","description":"Recorrido guiado por los canales entre la vegetación. Observación de fauna con telescopio profesional."},{"time":"9:30","title":"Regreso y cierre","description":"Retorno a Quepos. Café o fresco natural incluido."}]'::jsonb,
+    true, 4
   ),
   (
     'caminata-nocturna', 'night_walk',

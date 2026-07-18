@@ -4,6 +4,7 @@ create table public.tours (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
   category text not null check (category in ('day_park','mangrove','night_walk')),
+  tide_table jsonb,
   title_es text not null,
   title_en text not null,
   description_es text not null,

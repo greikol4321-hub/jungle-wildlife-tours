@@ -158,6 +158,7 @@ export type Database = {
           min_age: number | null
           price_usd: number | null
           slug: string
+          tide_table: Json | null
           title_en: string
           title_es: string
         }
@@ -180,6 +181,7 @@ export type Database = {
           min_age?: number | null
           price_usd?: number | null
           slug: string
+          tide_table?: Json | null
           title_en: string
           title_es: string
         }
@@ -202,6 +204,7 @@ export type Database = {
           min_age?: number | null
           price_usd?: number | null
           slug?: string
+          tide_table?: Json | null
           title_en?: string
           title_es?: string
         }

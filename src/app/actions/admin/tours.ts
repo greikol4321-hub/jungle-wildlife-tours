@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import type { Json } from "@/types/database";
 
 const tourSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "solo minúsculas, números y guiones"),
@@ -20,6 +21,7 @@ const tourSchema = z.object({
   languages: z.array(z.string()).optional(),
   includes: z.array(z.string()).optional(),
   excludes: z.array(z.string()).optional(),
+  tide_table: z.string().optional(),
   itinerary: z.array(z.object({
     time: z.string(),
     title: z.string(),
@@ -28,6 +30,14 @@ const tourSchema = z.object({
   is_active: z.boolean().default(true),
   display_order: z.coerce.number().int().default(0),
 });
+
+function parseTideTable(raw: string): Json {
+  try {
+    return JSON.parse(raw) as Json;
+  } catch {
+    return raw;
+  }
+}
 
 async function verifyAdmin() {
   const supabase = await createClient();
@@ -42,7 +52,11 @@ export async function createTour(values: unknown) {
   await verifyAdmin();
   const data = tourSchema.parse(values);
   const supabase = await createClient();
-  const { error } = await supabase.from("tours").insert(data);
+  const payload = {
+    ...data,
+    tide_table: data.tide_table ? parseTideTable(data.tide_table) : null,
+  };
+  const { error } = await supabase.from("tours").insert(payload);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
@@ -53,7 +67,11 @@ export async function updateTour(id: string, values: unknown) {
   await verifyAdmin();
   const data = tourSchema.partial().parse(values);
   const supabase = await createClient();
-  const { error } = await supabase.from("tours").update(data).eq("id", id);
+  const payload = {
+    ...data,
+    tide_table: data.tide_table !== undefined ? (data.tide_table ? parseTideTable(data.tide_table) : null) : undefined,
+  };
+  const { error } = await supabase.from("tours").update(payload).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");

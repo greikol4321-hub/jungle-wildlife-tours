@@ -16,8 +16,8 @@ export async function generateMetadata({
     ? "Tours de Naturaleza · Manuel Antonio, Costa Rica"
     : "Nature Tours · Manuel Antonio, Costa Rica";
   const description = locale === "es"
-    ? "Explorá nuestros tours guiados en Manuel Antonio: safari terrestre, caminata en manglar y caminata nocturna. Guías locales certificados."
-    : "Explore our guided tours in Manuel Antonio: ground safari, mangrove walk, and night walk. Certified local guides.";
+    ? "Explorá nuestros tours guiados en Manuel Antonio: safari terrestre, tour en kayak en manglar, tour en barco por los manglares y caminata nocturna. Guías locales certificados."
+    : "Explore our guided tours in Manuel Antonio: ground safari, mangrove kayak tour, mangrove boat tour, and night walk. Certified local guides.";
 
   return {
     title,

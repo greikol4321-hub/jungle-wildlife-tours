@@ -32,6 +32,7 @@ const schema = z.object({
   languages: z.string().optional(),
   includes: z.string().optional(),
   excludes: z.string().optional(),
+  tide_table: z.string().optional(),
   itinerary: z.array(itineraryItem).optional(),
   display_order: z.coerce.number().default(0),
 });
@@ -62,6 +63,7 @@ export default function NewTourPage() {
         languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
         includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
         excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
+        tide_table: raw.tide_table || undefined,
         itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
@@ -167,6 +169,18 @@ export default function NewTourPage() {
               <textarea {...register("excludes")} rows={5} className="admin-input admin-textarea" placeholder="Alimentación y bebidas&#10;Propinas" />
             </Field>
           </div>
+        </div>
+
+        <div className="admin-card p-6">
+          <SectionHeading icon={Globe} title="Tabla de mareas" />
+          <Field label="Datos de mareas (JSON)">
+            <textarea
+              {...register("tide_table")}
+              rows={4}
+              className="admin-input admin-textarea font-mono text-xs"
+              placeholder='[{"date":"2026-07-18","time":"06:15","height_m":1.2,"type":"high"},{"date":"2026-07-18","time":"12:30","height_m":0.3,"type":"low"}]'
+            />
+          </Field>
         </div>
 
         <div className="admin-card p-6">

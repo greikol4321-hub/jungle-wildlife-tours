@@ -185,6 +185,7 @@ export default function ContactPage() {
                       <option value="">{t("form.none")}</option>
                       <option value="day_park">{t("form.tourDayPark")}</option>
                       <option value="mangrove">{t("form.tourMangrove")}</option>
+                      <option value="barco-manglar-damas">{t("form.tourBoatMangrove")}</option>
                       <option value="night_walk">{t("form.tourNight")}</option>
                     </select>
                   </div>

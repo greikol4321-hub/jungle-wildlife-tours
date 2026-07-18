@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 export function generateStaticParams() {
@@ -66,6 +67,7 @@ export default async function LocaleLayout({
       <Header locale={locale} />
       <main className="flex-1">{children}</main>
       <Footer />
+      <WhatsappFloatButton locale={locale} />
       <ScrollToTop />
     </NextIntlClientProvider>
     </>
