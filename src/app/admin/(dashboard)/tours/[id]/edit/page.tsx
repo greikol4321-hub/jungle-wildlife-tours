@@ -11,6 +11,7 @@ import { createAdminClient } from "@/lib/supabase/admin-client";
 import { ArrowLeft, Plus, Trash2, Upload } from "lucide-react";
 import Link from "next/link";
 import type { Tables } from "@/types/database";
+import { useToast } from "@/components/admin/toast";
 
 const itineraryItem = z.object({
   time: z.string().min(1, "Requerido"),
@@ -68,6 +69,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   const [tour, setTour] = useState<Tables<"tours"> | null>(null);
   const [images, setImages] = useState<Tables<"tour_images">[]>([]);
   const [uploading, setUploading] = useState(false);
+  const { toast } = useToast();
   const id = use(params).id;
 
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
@@ -101,10 +103,11 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
         };
         await updateTour(id, payload);
+        toast("success", "Tour actualizado correctamente");
         router.push("/admin/tours");
         router.refresh();
       } catch (e) {
-        alert(e instanceof Error ? e.message : "Error al actualizar");
+        toast("error", e instanceof Error ? e.message : "Error al actualizar");
       }
     });
   }
@@ -117,11 +120,12 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       const formData = new FormData();
       formData.append("file", file);
       await uploadTourImage(id, formData);
+      toast("success", "Imagen subida correctamente");
       const supabase = createAdminClient();
       const { data: imgs } = await supabase.from("tour_images").select("*").eq("tour_id", id).order("display_order");
       setImages(imgs ?? []);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Error al subir imagen");
+      toast("error", e instanceof Error ? e.message : "Error al subir imagen");
     }
     setUploading(false);
   }
@@ -130,9 +134,10 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
     if (!confirm("¿Eliminar esta imagen?")) return;
     try {
       await deleteTourImage(imageId, storagePath);
+      toast("success", "Imagen eliminada");
       setImages(images.filter((img) => img.id !== imageId));
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Error al eliminar imagen");
+      toast("error", e instanceof Error ? e.message : "Error al eliminar imagen");
     }
   }
 

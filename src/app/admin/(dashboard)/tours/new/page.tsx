@@ -8,6 +8,7 @@ import { createTour } from "@/app/actions/admin/tours";
 import { useState } from "react";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/components/admin/toast";
 
 const itineraryItem = z.object({
   time: z.string().min(1, "Requerido"),
@@ -40,6 +41,7 @@ type FormData = z.infer<typeof schema>;
 export default function NewTourPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const { toast } = useToast();
 
   const { register, handleSubmit, control, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema) as never,
@@ -63,10 +65,11 @@ export default function NewTourPage() {
         itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
+      toast("success", "Tour creado correctamente");
       router.push("/admin/tours");
       router.refresh();
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Error al crear tour");
+      toast("error", e instanceof Error ? e.message : "Error al crear tour");
     }
     setSaving(false);
   }
