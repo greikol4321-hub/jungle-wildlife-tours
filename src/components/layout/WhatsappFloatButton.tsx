@@ -17,6 +17,7 @@ export async function WhatsappFloatButton({ locale }: { locale: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={t("bookByWhatsApp")}
       className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-full bg-emerald px-3 py-3 md:px-5 md:py-3 text-sm font-semibold text-bg shadow-lg transition hover:bg-emerald/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald"
     >
       <svg
