@@ -9,6 +9,8 @@ import { useState } from "react";
 import { ArrowLeft, Plus, Trash2, FileText, Clock, DollarSign, Globe, MapPin, ListOrdered } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/components/admin/toast";
+import { TideTableEditor } from "@/components/admin/TideTableEditor";
+import type { TideEntry } from "@/components/admin/TideTableEditor";
 
 const itineraryItem = z.object({
   time: z.string().min(1, "Requerido"),
@@ -44,7 +46,7 @@ export default function NewTourPage() {
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  const { register, handleSubmit, control, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<FormData>({
     resolver: zodResolver(schema) as never,
     defaultValues: {
       languages: "Español, English",
@@ -54,6 +56,7 @@ export default function NewTourPage() {
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "itinerary" });
+  const [tideEntries, setTideEntries] = useState<TideEntry[]>([]);
 
   async function onSubmit(raw: FormData) {
     setSaving(true);
@@ -63,7 +66,7 @@ export default function NewTourPage() {
         languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
         includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
         excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-        tide_table: raw.tide_table || undefined,
+        tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : undefined,
         itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
@@ -171,17 +174,12 @@ export default function NewTourPage() {
           </div>
         </div>
 
-        <div className="admin-card p-6">
-          <SectionHeading icon={Globe} title="Tabla de mareas" />
-          <Field label="Datos de mareas (JSON)">
-            <textarea
-              {...register("tide_table")}
-              rows={4}
-              className="admin-input admin-textarea font-mono text-xs"
-              placeholder='[{"date":"2026-07-18","time":"06:15","height_m":1.2,"type":"high"},{"date":"2026-07-18","time":"12:30","height_m":0.3,"type":"low"}]'
-            />
-          </Field>
-        </div>
+        {watch("category") === "mangrove" && (
+          <div className="admin-card p-6">
+            <SectionHeading icon={Globe} title="Tabla de mareas" />
+            <TideTableEditor entries={tideEntries} onChange={setTideEntries} />
+          </div>
+        )}
 
         <div className="admin-card p-6">
           <SectionHeading icon={MapPin} title="Itinerario" />

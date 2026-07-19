@@ -13,6 +13,8 @@ import { ArrowLeft, Plus, Trash2, Upload, FileText, Clock, DollarSign, Globe, Ma
 import Link from "next/link";
 import type { Tables } from "@/types/database";
 import { useToast } from "@/components/admin/toast";
+import { TideTableEditor } from "@/components/admin/TideTableEditor";
+import type { TideEntry } from "@/components/admin/TideTableEditor";
 
 const itineraryItem = z.object({
   time: z.string().min(1, "Requerido"),
@@ -60,7 +62,7 @@ function dataToForm(tour: Tables<"tours">): FormData {
     languages: (tour.languages ?? []).join(", "),
     includes: (tour.includes ?? []).join("\n"),
     excludes: (tour.excludes ?? []).join("\n"),
-    tide_table: tour.tide_table ? JSON.stringify(tour.tide_table, null, 2) : "",
+    tide_table: "",
     itinerary: (tour.itinerary as { time: string; title: string; description: string }[] | null) ?? [],
     display_order: tour.display_order ?? 0,
   };
@@ -94,10 +96,11 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
   const [uploading, setUploading] = useState(false);
   const [confirmDeleteImage, setConfirmDeleteImage] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [tideEntries, setTideEntries] = useState<TideEntry[]>([]);
   const { toast } = useToast();
   const id = use(params).id;
 
-  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
+  const { register, handleSubmit, control, formState: { errors }, reset, watch } = useForm<FormData>({
     resolver: zodResolver(schema) as never,
   });
 
@@ -110,6 +113,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
       if (t) {
         tourRef.current = t as Tables<"tours">;
         reset(dataToForm(t as Tables<"tours">));
+        setTideEntries((t.tide_table as TideEntry[] | null) ?? []);
       }
       const { data: imgs } = await supabase.from("tour_images").select("*").eq("tour_id", id).order("display_order");
       setImages((imgs ?? []) as Tables<"tour_images">[]);
@@ -125,7 +129,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
           includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
           excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-          tide_table: raw.tide_table || undefined,
+          tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : undefined,
           itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
         };
         await updateTour(id, payload);
@@ -335,16 +339,12 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           </div>
         </div>
 
-        <div className="admin-card p-6">
-          <SectionHeading icon={Globe} title="Tabla de mareas" />
-          <Field label="Datos de mareas (JSON)">
-            <textarea
-              {...register("tide_table")}
-              rows={4}
-              className="admin-input admin-textarea font-mono text-xs"
-            />
-          </Field>
-        </div>
+        {watch("category") === "mangrove" && (
+          <div className="admin-card p-6">
+            <SectionHeading icon={Globe} title="Tabla de mareas" />
+            <TideTableEditor entries={tideEntries} onChange={setTideEntries} />
+          </div>
+        )}
 
         <div className="admin-card p-6">
           <SectionHeading icon={MapPin} title="Itinerario" />
