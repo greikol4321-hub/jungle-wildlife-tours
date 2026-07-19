@@ -376,7 +376,7 @@ export default async function TourDetailPage({
         </section>
 
         {/* ── TIDE TABLE ── */}
-        {typedTour.category === "mangrove" && typedTour.tide_table && typedTour.tide_table.length > 0 && (
+        {typedTour.category === "mangrove" && Array.isArray(typedTour.tide_table) && typedTour.tide_table.length > 0 && (
           <section className="mt-16 md:mt-20">
             <div className="h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" aria-hidden="true" />
             <h2 className="mt-8 font-heading text-xl md:text-2xl font-bold text-text">

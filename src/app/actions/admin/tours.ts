@@ -16,8 +16,8 @@ const tourSchema = z.object({
   difficulty: z.enum(["easy", "moderate", "challenging"]).optional(),
   min_age: z.coerce.number().int().min(0).optional(),
   max_people: z.coerce.number().int().min(1).optional(),
-  price_usd: z.coerce.number().positive().optional(),
-  child_price_usd: z.coerce.number().positive().optional(),
+  price_usd: z.coerce.number().min(0).optional(),
+  child_price_usd: z.coerce.number().min(0).optional(),
   languages: z.array(z.string()).optional(),
   includes: z.array(z.string()).optional(),
   excludes: z.array(z.string()).optional(),
@@ -55,6 +55,8 @@ export async function createTour(values: unknown) {
   const payload = {
     ...data,
     tide_table: data.tide_table ? parseTideTable(data.tide_table) : null,
+    price_usd: data.price_usd || null,
+    child_price_usd: data.child_price_usd || null,
   };
   const { error } = await supabase.from("tours").insert(payload);
   if (error) throw new Error(error.message);
@@ -67,10 +69,16 @@ export async function updateTour(id: string, values: unknown) {
   await verifyAdmin();
   const data = tourSchema.partial().parse(values);
   const supabase = await createClient();
-  const payload = {
+  const payload: Record<string, unknown> = {
     ...data,
+    price_usd: data.price_usd !== undefined ? (data.price_usd || null) : undefined,
+    child_price_usd: data.child_price_usd !== undefined ? (data.child_price_usd || null) : undefined,
     tide_table: data.tide_table !== undefined ? (data.tide_table ? parseTideTable(data.tide_table) : null) : undefined,
   };
+  // Remove undefined keys so supabase doesn't update them
+  for (const key of Object.keys(payload)) {
+    if (payload[key] === undefined) delete payload[key];
+  }
   const { error } = await supabase.from("tours").update(payload).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
