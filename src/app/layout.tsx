@@ -16,12 +16,6 @@ export const metadata: Metadata = {
     template: "%s · Jungle Wildlife Tours",
   },
   description: "Nature and wildlife tours in Manuel Antonio, Costa Rica. Ground safari, mangrove walk, and night walk with ICT-certified local guides.",
-  keywords: [
-    "Manuel Antonio", "Costa Rica", "Quepos", "nature tours", "wildlife",
-    "safari", "mangrove", "night walk", "jungle tours", "ICT certified",
-    "ecotourism", "Manuel Antonio tours", "Costa Rica wildlife",
-    "birdwatching", "Damas Island", "kayak manglar",
-  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -30,8 +24,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jungle Wildlife Tours",
-    description: "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
   },
   robots: { index: true, follow: true },
 };
