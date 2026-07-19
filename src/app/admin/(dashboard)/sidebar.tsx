@@ -62,15 +62,13 @@ export function Sidebar() {
         </div>
         <nav className="p-3 space-y-1">
           <NavItems pathname={pathname} onClick={() => setOpen(false)} />
-        </nav>
-        <div className="p-3 border-t border-border">
           <form action="/admin/logout" method="post">
-            <button type="submit" className="admin-btn admin-btn-ghost w-full justify-start">
-              <LogOut className="h-4 w-4" strokeWidth={1.5} />
+            <button type="submit" onClick={() => setOpen(false)} className="admin-sidebar-item w-full">
+              <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
               Cerrar sesión
             </button>
           </form>
-        </div>
+        </nav>
       </aside>
 
       {/* Desktop sidebar */}
@@ -81,15 +79,13 @@ export function Sidebar() {
         </div>
         <nav className="flex-1 p-3 space-y-1">
           <NavItems pathname={pathname} />
-        </nav>
-        <div className="p-3 border-t border-border shrink-0">
           <form action="/admin/logout" method="post">
             <button type="submit" className="admin-sidebar-item w-full">
               <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
               Cerrar sesión
             </button>
           </form>
-        </div>
+        </nav>
       </aside>
     </>
   );
