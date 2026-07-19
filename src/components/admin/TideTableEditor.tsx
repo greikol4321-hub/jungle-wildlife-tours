@@ -1,6 +1,7 @@
 "use client";
 
 import { Plus, Trash2 } from "lucide-react";
+import { useMemo, useCallback } from "react";
 
 type TideEntry = {
   date: string;
@@ -10,28 +11,44 @@ type TideEntry = {
 };
 
 export function TideTableEditor({
-  entries,
-  onChange,
+  raw,
+  onRawChange,
 }: {
-  entries: TideEntry[];
-  onChange: (entries: TideEntry[]) => void;
+  raw: string;
+  onRawChange: (json: string) => void;
 }) {
+  const entries: TideEntry[] = useMemo(() => {
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw) as TideEntry[];
+    } catch {
+      return [];
+    }
+  }, [raw]);
+
+  const sync = useCallback(
+    (next: TideEntry[]) => {
+      onRawChange(next.length > 0 ? JSON.stringify(next) : "");
+    },
+    [onRawChange]
+  );
+
   function addEntry() {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const dateStr = tomorrow.toISOString().split("T")[0];
-    onChange([...entries, { date: dateStr, time: "06:00", height_m: 1.0, type: "high" }]);
+    sync([...entries, { date: dateStr, time: "06:00", height_m: 1.0, type: "high" }]);
   }
 
   function updateEntry(i: number, field: keyof TideEntry, value: string | number) {
     const next = entries.map((e, idx) =>
       idx === i ? { ...e, [field]: field === "height_m" ? Number(value) : value } : e
     );
-    onChange(next);
+    sync(next);
   }
 
   function removeEntry(i: number) {
-    onChange(entries.filter((_, idx) => idx !== i));
+    sync(entries.filter((_, idx) => idx !== i));
   }
 
   return (

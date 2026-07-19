@@ -10,7 +10,6 @@ import { ArrowLeft, Plus, Trash2, FileText, Clock, DollarSign, Globe, MapPin, Li
 import Link from "next/link";
 import { useToast } from "@/components/admin/toast";
 import { TideTableEditor } from "@/components/admin/TideTableEditor";
-import type { TideEntry } from "@/components/admin/TideTableEditor";
 
 const itineraryItem = z.object({
   time: z.string().min(1, "Requerido"),
@@ -46,17 +45,17 @@ export default function NewTourPage() {
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  const { register, handleSubmit, control, formState: { errors }, watch } = useForm<FormData>({
+  const { register, handleSubmit, control, formState: { errors }, watch, setValue } = useForm<FormData>({
     resolver: zodResolver(schema) as never,
     defaultValues: {
       languages: "Español, English",
       display_order: 0,
       itinerary: [],
+      tide_table: "",
     },
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "itinerary" });
-  const [tideEntries, setTideEntries] = useState<TideEntry[]>([]);
 
   async function onSubmit(raw: FormData) {
     setSaving(true);
@@ -66,7 +65,6 @@ export default function NewTourPage() {
         languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
         includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
         excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-        tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : "",
         itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
@@ -177,7 +175,7 @@ export default function NewTourPage() {
         {watch("category") === "mangrove" && (
           <div className="admin-card p-6">
             <SectionHeading icon={Globe} title="Tabla de mareas" />
-            <TideTableEditor entries={tideEntries} onChange={setTideEntries} />
+            <TideTableEditor raw={watch("tide_table") ?? ""} onRawChange={(json) => setValue("tide_table", json)} />
           </div>
         )}
 
