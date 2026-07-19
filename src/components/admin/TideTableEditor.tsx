@@ -53,6 +53,13 @@ export function TideTableEditor({
         </p>
       )}
 
+      <div className="flex items-center gap-2 px-3 py-1.5 mb-1">
+        <span className="mono-ui text-[10px] text-text-muted w-[140px]">FECHA</span>
+        <span className="mono-ui text-[10px] text-text-muted w-[110px]">HORA</span>
+        <span className="mono-ui text-[10px] text-text-muted w-[80px]">ALTURA</span>
+        <span className="mono-ui text-[10px] text-text-muted w-[90px]">TIPO</span>
+        <span className="w-[34px]" />
+      </div>
       <div className="space-y-2">
         {entries.map((entry, i) => (
           <div
