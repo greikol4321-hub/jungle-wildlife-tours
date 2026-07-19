@@ -66,7 +66,7 @@ export default function NewTourPage() {
         languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
         includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
         excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-        tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : null,
+        tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : "",
         itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
       };
       await createTour(payload);
