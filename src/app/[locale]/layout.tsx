@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { WhatsappFloatButton } from "@/components/layout/WhatsappFloatButton";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { SITE_URL } from "@/lib/site-config";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -23,7 +24,7 @@ export async function generateMetadata({
   const meta = messages?.metadata as
     | { homeTitle?: string; homeDescription?: string }
     | undefined;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://junglewildlifetours.com";
+  const baseUrl = SITE_URL;
 
   const url = locale === "es" ? `${baseUrl}/es` : `${baseUrl}/en`;
 

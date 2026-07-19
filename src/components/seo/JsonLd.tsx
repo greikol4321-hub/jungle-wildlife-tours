@@ -1,4 +1,5 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+import { SITE_URL } from "@/lib/site-config";
+const siteUrl = SITE_URL;
 
 const localBusiness = {
   "@context": "https://schema.org",

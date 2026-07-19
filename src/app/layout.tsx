@@ -6,8 +6,8 @@ import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { AppToastProvider } from "@/components/app-toast-provider";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+import { SITE_URL } from "@/lib/site-config";
+const siteUrl = SITE_URL;
 
 export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),

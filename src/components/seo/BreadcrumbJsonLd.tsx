@@ -1,4 +1,5 @@
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+import { SITE_URL } from "@/lib/site-config";
+const baseUrl = SITE_URL;
 
 export function BreadcrumbJsonLd({ items }: { items: { name: string; href: string }[] }) {
   const breadcrumb = {

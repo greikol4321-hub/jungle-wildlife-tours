@@ -13,6 +13,7 @@ import { ShareButtons } from "@/components/ui/ShareButtons";
 import { TourViewTracker } from "@/components/tours/TourViewTracker";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { TourProductJsonLd } from "@/components/seo/TourProductJsonLd";
+import { SITE_URL } from "@/lib/site-config";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
 import { CATEGORY_STYLES } from "@/lib/constants";
 
@@ -95,8 +96,7 @@ export async function generateMetadata({
   const title = locale === "es" ? tour.title_es : tour.title_en;
   const description = locale === "es" ? tour.description_es : tour.description_en;
   const coverImg = (tour.tour_images as unknown as { url: string }[] | undefined)?.[0];
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://junglewildlifetours.com";
-  const ogImage = coverImg?.url ?? `${baseUrl}/og-image.jpg`;
+  const ogImage = coverImg?.url ?? `${SITE_URL}/og-image.jpg`;
 
   return {
     title: `${title} · Jungle Wildlife Tours`,
@@ -112,9 +112,10 @@ export async function generateMetadata({
       description: description?.slice(0, 160) ?? undefined,
     },
     alternates: {
+      canonical: `${SITE_URL}/${locale}/tours/${slug}`,
       languages: {
-        es: `/es/tours/${slug}`,
-        en: `/en/tours/${slug}`,
+        es: `${SITE_URL}/es/tours/${slug}`,
+        en: `${SITE_URL}/en/tours/${slug}`,
       },
     },
   };

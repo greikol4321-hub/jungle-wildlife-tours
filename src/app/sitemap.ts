@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { createStaticClient } from "@/lib/supabase/static";
+import { SITE_URL } from "@/lib/site-config";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://junglewildlifetours.com";
+const baseUrl = SITE_URL;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const locales = ["es", "en"] as const;
