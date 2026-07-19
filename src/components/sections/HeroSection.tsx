@@ -125,7 +125,7 @@ export function HeroSection(_props: HeroSectionProps) {
               {t("primaryCta")}
             </Link>
             <a
-              href="https://wa.me/50688888888"
+              href="https://wa.me/50684230485"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"

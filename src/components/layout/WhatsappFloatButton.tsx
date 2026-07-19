@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 function buildWhatsAppLink(locale: string, greeting: string) {
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50688888888";
+  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50684230485";
 
   return `https://wa.me/${number}?text=${encodeURIComponent(greeting)}`;
 }

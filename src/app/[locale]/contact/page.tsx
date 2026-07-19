@@ -60,8 +60,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: "WhatsApp",
-      value: "+506 8888-8888",
-      href: "https://wa.me/50688888888",
+      value: "+506 8423-0485",
+      href: "https://wa.me/50684230485",
     },
     {
       icon: (

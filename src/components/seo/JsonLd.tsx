@@ -5,7 +5,7 @@ const organization = {
   "@type": "TouristInformationCenter",
   name: "Jungle Wildlife Tours",
   url: siteUrl,
-  telephone: "+506 8888-8888",
+  telephone: "+506 8423-0485",
   email: "junglewildlifetours.cr@gmail.com",
   address: {
     "@type": "PostalAddress",

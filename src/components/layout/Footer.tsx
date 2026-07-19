@@ -122,7 +122,7 @@ export async function Footer() {
                 {/* WhatsApp */}
                 <li>
                   <a
-                    href="https://wa.me/50688888888"
+                    href="https://wa.me/50684230485"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 transition-colors duration-300 hover:text-emerald"

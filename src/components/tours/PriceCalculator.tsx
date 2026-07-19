@@ -90,7 +90,7 @@ export function PriceCalculator({
       ? `¡Hola! Quiero reservar el tour: ${title}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
       : `Hi! I'd like to book the tour: ${title}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
 
-  const whatsappNumberFallback = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50688888888";
+  const whatsappNumberFallback = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50684230485";
 
   async function handleBook() {
     if (!name.trim() || !phone.trim()) return;

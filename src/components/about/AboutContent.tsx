@@ -196,7 +196,7 @@ export function AboutContent({ locale }: { locale: string }) {
           <Reveal delay={240}>
             <div className="mt-8 text-center">
               <Link
-                href="https://wa.me/50688888888"
+                href="https://wa.me/50684230485"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"

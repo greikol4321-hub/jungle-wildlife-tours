@@ -95,7 +95,7 @@ export function Header({ locale }: { locale: string }) {
               {otherLocale.toUpperCase()}
             </button>
             <a
-              href="https://wa.me/50688888888"
+              href="https://wa.me/50684230485"
               target="_blank"
               rel="noopener noreferrer"
               className="nav-cta"
