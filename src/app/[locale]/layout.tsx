@@ -67,6 +67,8 @@ export default async function LocaleLayout({
 
   return (
     <>
+      <link rel="preconnect" href="https://pxujzdhvftpzupaszzna.supabase.co" />
+      <link rel="dns-prefetch" href="https://pxujzdhvftpzupaszzna.supabase.co" />
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${locale}"` }} />
       <ScrollProgress />
       <NextIntlClientProvider locale={locale} messages={messages}>
