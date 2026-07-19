@@ -21,7 +21,7 @@ export default async function AdminDashboard() {
     supabase.from("reviews").select("*", { count: "exact", head: true }),
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("is_approved", false),
     supabase.from("reviews").select("id, author_name, rating, is_approved, created_at, tours(title_es)").order("created_at", { ascending: false }).limit(6),
-    supabase.from("tours").select("id, slug, title_es, title_en, category, is_active").order("display_order"),
+    supabase.from("tours").select("id, slug, title_es, title_en, category, is_active, views").order("views", { ascending: false }).order("display_order"),
   ]);
 
   return (

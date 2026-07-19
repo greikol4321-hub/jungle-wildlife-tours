@@ -43,6 +43,7 @@ export default async function HomePage({
     .from("tours")
     .select("*, tour_images(*)")
     .eq("is_active", true)
+    .order("views", { ascending: false })
     .order("display_order")
     .limit(3);
 

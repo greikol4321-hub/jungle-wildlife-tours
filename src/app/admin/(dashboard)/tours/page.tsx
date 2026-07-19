@@ -6,6 +6,7 @@ export default async function AdminToursPage() {
   const { data: tours } = await supabase
     .from("tours")
     .select("*")
+    .order("views", { ascending: false })
     .order("display_order");
 
   return (

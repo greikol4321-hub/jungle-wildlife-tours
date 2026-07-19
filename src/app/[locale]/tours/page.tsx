@@ -39,7 +39,8 @@ export default async function ToursPage({
     .from("tours")
     .select("*, tour_images(*)")
     .eq("is_active", true)
-    .order("display_order");
+    .order("views", { ascending: false })
+      .order("display_order");
 
   return (
     <main className="flex-1">

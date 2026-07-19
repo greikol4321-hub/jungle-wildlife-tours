@@ -10,6 +10,7 @@ import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { ReviewsSection } from "@/components/tours/ReviewsSection";
 import { ShareButtons } from "@/components/ui/ShareButtons";
+import { TourViewTracker } from "@/components/tours/TourViewTracker";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
 import { CATEGORY_STYLES } from "@/lib/constants";
 
@@ -49,6 +50,7 @@ type Tour = {
   itinerary: ItineraryStop[] | null;
   tide_table: TideEntry[] | null;
   is_active: boolean;
+  views: number;
   tour_images: TourImage[];
 };
 
@@ -140,6 +142,7 @@ export default async function TourDetailPage({
 
   return (
     <main className="flex-1">
+      <TourViewTracker tourId={typedTour.id} />
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">
         {coverImage ? (
