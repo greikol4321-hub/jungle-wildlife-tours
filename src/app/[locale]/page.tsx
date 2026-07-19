@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TourCardsSection } from "@/components/sections/TourCardsSection";
@@ -6,6 +6,17 @@ import { StatsSection } from "@/components/sections/StatsSection";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { FAQSection } from "@/components/sections/FAQSection";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { FAQPageJsonLd } from "@/components/seo/FAQPageJsonLd";
+
+const faqKeys = [
+  "whatBring",
+  "transportIncluded",
+  "canChildren",
+  "whatWildlife",
+  "ifRains",
+  "beginnerFriendly",
+] as const;
 
 interface Tour {
   id: string;
@@ -49,8 +60,16 @@ export default async function HomePage({
 
   const featuredTours = (tours ?? []) as Tour[];
 
+  const tFaq = await getTranslations({ locale, namespace: "faq" });
+  const faqQuestions = faqKeys.map((key) => ({
+    question: tFaq(key),
+    answer: tFaq(`${key}Answer`),
+  }));
+
   return (
     <main className="flex-1">
+      <BreadcrumbJsonLd items={[{ name: "Inicio", href: `/${locale}` }]} />
+      <FAQPageJsonLd questions={faqQuestions} />
       <HeroSection locale={locale} />
 
       <TrustSection locale={locale} />

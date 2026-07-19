@@ -11,6 +11,8 @@ import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
 import { ReviewsSection } from "@/components/tours/ReviewsSection";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 import { TourViewTracker } from "@/components/tours/TourViewTracker";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { TourProductJsonLd } from "@/components/seo/TourProductJsonLd";
 import { Check, X, Clock, Users, Globe, ChevronRight } from "lucide-react";
 import { CATEGORY_STYLES } from "@/lib/constants";
 
@@ -109,6 +111,12 @@ export async function generateMetadata({
       title: `${title} · Jungle Wildlife Tours`,
       description: description?.slice(0, 160) ?? undefined,
     },
+    alternates: {
+      languages: {
+        es: `/es/tours/${slug}`,
+        en: `/en/tours/${slug}`,
+      },
+    },
   };
 }
 
@@ -158,9 +166,24 @@ export default async function TourDetailPage({
   const hours = Math.floor(typedTour.duration_minutes / 60);
   const minutes = typedTour.duration_minutes % 60;
 
+  const coverImgUrl = coverImage?.storage_path ?? "";
+
   return (
     <main className="flex-1">
       <TourViewTracker tourId={typedTour.id} />
+      <BreadcrumbJsonLd items={[{ name: "Tours", href: `/${locale}/tours` }, { name: title, href: `/${locale}/tours/${slug}` }]} />
+      <TourProductJsonLd
+        tour={{
+          name: title,
+          description: description ?? "",
+          slug,
+          image: coverImgUrl,
+          price: typedTour.price_usd ?? 0,
+          duration: typedTour.duration_minutes,
+          category: categoryLabel,
+          locale,
+        }}
+      />
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">
         {coverImage ? (

@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { GalleryContent } from "@/components/gallery/GalleryContent";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -41,5 +42,10 @@ export default async function GalleryPage({
     .order("display_order")
     .limit(100);
 
-  return <GalleryContent images={images ?? []} locale={locale} />;
+  return (
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Galería", href: `/${locale}/gallery` }]} />
+      <GalleryContent images={images ?? []} locale={locale} />
+    </>
+  );
 }

@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { ToursHero } from "@/components/tours/ToursHero";
 import { ToursGrid } from "@/components/tours/ToursGrid";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -44,6 +45,7 @@ export default async function ToursPage({
 
   return (
     <main className="flex-1">
+      <BreadcrumbJsonLd items={[{ name: "Tours", href: `/${locale}/tours` }]} />
       <ToursHero locale={locale} />
       <ToursGrid tours={tours ?? []} locale={locale} />
     </main>

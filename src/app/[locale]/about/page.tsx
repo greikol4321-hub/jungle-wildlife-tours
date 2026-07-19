@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { AboutHero } from "@/components/about/AboutHero";
 import { AboutContent } from "@/components/about/AboutContent";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -33,6 +34,7 @@ export default async function AboutPage({
 
   return (
     <main className="flex-1">
+      <BreadcrumbJsonLd items={[{ name: "Sobre Nosotros", href: `/${locale}/about` }]} />
       <AboutHero />
       <AboutContent locale={locale} />
     </main>
