@@ -11,6 +11,6 @@ export default function supabaseLoader({
 }) {
   const params = new URLSearchParams();
   params.set("width", String(width));
-  params.set("quality", String(quality ?? 85));
+  params.set("quality", String(quality ?? 75));
   return `https://${PROJECT_ID}.supabase.co/storage/v1/render/image/public/tour-images/${src}?${params}`;
 }
