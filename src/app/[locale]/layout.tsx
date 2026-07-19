@@ -23,6 +23,9 @@ export async function generateMetadata({
   const meta = messages?.metadata as
     | { homeTitle?: string; homeDescription?: string }
     | undefined;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://junglewildlifetours.com";
+
+  const url = locale === "es" ? `${baseUrl}/es` : `${baseUrl}/en`;
 
   return {
     title: meta?.homeTitle ?? "Jungle Wildlife Tours",
@@ -33,8 +36,10 @@ export async function generateMetadata({
       title: meta?.homeTitle ?? "Jungle Wildlife Tours",
       description: meta?.homeDescription ?? "Nature and wildlife tours in Manuel Antonio, Costa Rica.",
       locale: locale === "es" ? "es_CR" : "en_US",
+      url,
     },
     alternates: {
+      canonical: url,
       languages: {
         es: "/es",
         en: "/en",

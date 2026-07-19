@@ -147,7 +147,7 @@ export async function Footer() {
                 {/* Email */}
                 <li>
                   <a
-                    href="mailto:info@junglewildlifetours.com"
+                    href="mailto:junglewildlifetours.cr@gmail.com"
                     className="inline-flex items-center gap-2.5 transition-colors duration-300 hover:text-emerald"
                   >
                     {/* Mail inline SVG */}
@@ -164,7 +164,7 @@ export async function Footer() {
                       <rect width="20" height="16" x="2" y="4" rx="2" />
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </svg>
-                    info@junglewildlifetours.com
+                    junglewildlifetours.cr@gmail.com
                   </a>
                 </li>
               </ul>

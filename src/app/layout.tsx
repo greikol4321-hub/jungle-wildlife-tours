@@ -5,6 +5,7 @@ import "./admin/admin.css";
 import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { AppToastProvider } from "@/components/app-toast-provider";
 import { MotionProvider } from "@/components/ui/MotionProvider";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -15,7 +16,12 @@ export const metadata: Metadata = {
     template: "%s · Jungle Wildlife Tours",
   },
   description: "Nature and wildlife tours in Manuel Antonio, Costa Rica. Ground safari, mangrove walk, and night walk with ICT-certified local guides.",
-  keywords: ["Manuel Antonio", "Costa Rica", "nature tours", "wildlife", "safari", "mangrove", "night walk", "jungle tours"],
+  keywords: [
+    "Manuel Antonio", "Costa Rica", "Quepos", "nature tours", "wildlife",
+    "safari", "mangrove", "night walk", "jungle tours", "ICT certified",
+    "ecotourism", "Manuel Antonio tours", "Costa Rica wildlife",
+    "birdwatching", "Damas Island", "kayak manglar",
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -67,6 +73,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
           </AppToastProvider>
         </MotionProvider>
+        <JsonLd />
       </body>
     </html>
   );

@@ -83,7 +83,7 @@ export async function generateMetadata({
   const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
   const { data: tour } = await supabase
     .from("tours")
-    .select("title_es, title_en")
+    .select("title_es, title_en, description_es, description_en, tour_images(url)")
     .eq("slug", slug)
     .eq("is_active", true)
     .single();
@@ -91,7 +91,25 @@ export async function generateMetadata({
   if (!tour) return {};
 
   const title = locale === "es" ? tour.title_es : tour.title_en;
-  return { title: `${title} · Jungle Wildlife Tours` };
+  const description = locale === "es" ? tour.description_es : tour.description_en;
+  const coverImg = (tour.tour_images as unknown as { url: string }[] | undefined)?.[0];
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://junglewildlifetours.com";
+  const ogImage = coverImg?.url ?? `${baseUrl}/og-image.jpg`;
+
+  return {
+    title: `${title} · Jungle Wildlife Tours`,
+    description: description?.slice(0, 160) ?? undefined,
+    openGraph: {
+      title: `${title} · Jungle Wildlife Tours`,
+      description: description?.slice(0, 160) ?? undefined,
+      images: [{ url: ogImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · Jungle Wildlife Tours`,
+      description: description?.slice(0, 160) ?? undefined,
+    },
+  };
 }
 
 export default async function TourDetailPage({

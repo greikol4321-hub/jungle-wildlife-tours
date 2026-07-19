@@ -71,8 +71,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: t("emailLabel"),
-      value: "info@junglewildlifetours.com",
-      href: "mailto:info@junglewildlifetours.com",
+      value: "junglewildlifetours.cr@gmail.com",
+      href: "mailto:junglewildlifetours.cr@gmail.com",
     },
     {
       icon: (
