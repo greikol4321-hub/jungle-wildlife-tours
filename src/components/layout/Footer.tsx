@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
-export async function Footer() {
+export async function Footer({ locale }: { locale: string }) {
   const t = await getTranslations("footer");
 
   return (

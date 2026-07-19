@@ -74,7 +74,7 @@ export default async function LocaleLayout({
       <NextIntlClientProvider locale={locale} messages={messages}>
       <Header locale={locale} />
       <main className="flex-1">{children}</main>
-      <Footer />
+      <Footer locale={locale} />
       <WhatsappFloatButton locale={locale} />
       <ScrollToTop />
     </NextIntlClientProvider>
