@@ -79,15 +79,15 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
         </select>
       </div>
 
-      <div className="rounded-xl border border-border bg-card overflow-hidden admin-scrollbar">
-        <table className="admin-table">
+      <div className="rounded-xl border border-border bg-card overflow-x-auto admin-scrollbar">
+        <table className="admin-table min-w-[520px]">
           <thead>
             <tr>
-              <th className="w-24">Estado</th>
+              <th className="w-20 sm:w-24">Estado</th>
               <th>Autor</th>
-              <th className="w-28">Valoración</th>
+              <th className="w-24 sm:w-28">Valoración</th>
               <th className="hidden md:table-cell">Tour</th>
-              <th className="hidden sm:table-cell">Comentario</th>
+              <th>Comentario</th>
               <th className="hidden sm:table-cell w-24">Fecha</th>
               <th className="text-right w-28">Acciones</th>
             </tr>
@@ -121,10 +121,10 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
                   <Stars rating={review.rating} />
                   <span className="block text-[10px] text-text-muted font-mono mt-0.5">{review.rating}/5</span>
                 </td>
-                <td className="hidden md:table-cell text-text-muted text-xs max-w-[140px]">
+                <td className="hidden md:table-cell text-text-muted text-xs max-w-[100px]">
                   <span className="truncate block">{review.tours?.title_es ?? "—"}</span>
                 </td>
-                <td className="hidden sm:table-cell text-text-muted text-xs max-w-[280px]">
+                <td className="text-text-muted text-xs max-w-[200px]">
                   {review.comment_es || review.comment_en ? (
                     <div className="space-y-1">
                       {review.comment_es && (

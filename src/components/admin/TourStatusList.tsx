@@ -37,16 +37,16 @@ export function TourStatusList({ tours }: { tours: Tour[] }) {
           <div key={tour.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
             <span className={`w-2 h-2 rounded-full shrink-0 ${tour.is_active ? "bg-emerald" : "bg-text-muted/30"}`} />
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <p className="text-sm text-text font-medium truncate">{tour.title_es}</p>
+              <p className="text-sm text-text font-medium truncate leading-tight">{tour.title_es}</p>
+              <div className="flex items-center gap-2 mt-0.5">
                 {isPopular && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-dim text-emerald text-[10px] font-semibold tracking-wider uppercase shrink-0">
                     <Trophy className="h-3 w-3" strokeWidth={1.5} />
                     Popular
                   </span>
                 )}
+                <p className="text-xs text-text-muted truncate">{tour.slug}</p>
               </div>
-              <p className="text-xs text-text-muted truncate">{tour.slug}</p>
             </div>
             <div className="flex items-center gap-3">
               <span className="mono-ui text-[11px] text-text-muted/50">
