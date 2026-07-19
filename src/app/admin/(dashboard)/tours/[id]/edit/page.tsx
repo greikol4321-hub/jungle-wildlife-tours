@@ -129,7 +129,7 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
           languages: raw.languages?.split(",").map(s => s.trim()).filter(Boolean) ?? [],
           includes: raw.includes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
           excludes: raw.excludes?.split("\n").map(s => s.trim()).filter(Boolean) ?? [],
-          tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : undefined,
+          tide_table: tideEntries.length > 0 ? JSON.stringify(tideEntries) : null,
           itinerary: raw.itinerary?.length ? raw.itinerary : undefined,
         };
         await updateTour(id, payload);
