@@ -70,7 +70,7 @@ export function TideTableEditor({
         </p>
       )}
 
-      <div className="flex items-center gap-2 px-3 py-1.5 mb-1">
+      <div className="flex items-center gap-2 px-3 py-1.5 mb-1 max-sm:hidden">
         <span className="mono-ui text-[10px] text-text-muted w-[140px]">FECHA</span>
         <span className="mono-ui text-[10px] text-text-muted w-[110px]">HORA</span>
         <span className="mono-ui text-[10px] text-text-muted w-[80px]">ALTURA</span>
@@ -81,32 +81,36 @@ export function TideTableEditor({
         {entries.map((entry, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 p-3 rounded-xl border border-border bg-surface-elevated/30"
+            className="flex flex-col sm:flex-row sm:items-center gap-2 p-3 rounded-xl border border-border bg-surface-elevated/30"
           >
+            <label className="sm:hidden mono-ui text-[10px] text-text-muted">FECHA</label>
             <input
               type="date"
               value={entry.date}
               onChange={(e) => updateEntry(i, "date", e.target.value)}
-              className="admin-input w-[140px] text-xs"
+              className="admin-input w-full sm:w-[140px] text-xs"
             />
+            <label className="sm:hidden mono-ui text-[10px] text-text-muted">HORA</label>
             <input
               type="time"
               value={entry.time}
               onChange={(e) => updateEntry(i, "time", e.target.value)}
-              className="admin-input w-[110px] text-xs"
+              className="admin-input w-full sm:w-[110px] text-xs"
             />
+            <label className="sm:hidden mono-ui text-[10px] text-text-muted">ALTURA</label>
             <input
               type="number"
               step="0.1"
               value={entry.height_m}
               onChange={(e) => updateEntry(i, "height_m", e.target.value)}
-              className="admin-input w-[80px] text-xs"
+              className="admin-input w-full sm:w-[80px] text-xs"
               placeholder="Altura"
             />
+            <label className="sm:hidden mono-ui text-[10px] text-text-muted">TIPO</label>
             <select
               value={entry.type}
               onChange={(e) => updateEntry(i, "type", e.target.value)}
-              className="admin-input w-[90px] text-xs appearance-none cursor-pointer"
+              className="admin-input w-full sm:w-[90px] text-xs appearance-none cursor-pointer"
             >
               <option value="high">Alta</option>
               <option value="low">Baja</option>
@@ -114,7 +118,7 @@ export function TideTableEditor({
             <button
               type="button"
               onClick={() => removeEntry(i)}
-              className="p-1.5 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors shrink-0"
+              className="self-end sm:self-center p-1.5 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors shrink-0"
               aria-label="Eliminar entrada"
             >
               <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />

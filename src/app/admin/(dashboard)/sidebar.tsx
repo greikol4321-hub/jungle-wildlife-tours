@@ -40,11 +40,7 @@ export function Sidebar() {
           <Menu className="h-5 w-5" strokeWidth={1.5} />
         </button>
         <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
-        <form action="/admin/logout" method="post">
-          <button type="submit" className="p-2 text-text-muted hover:text-red-400 transition-colors" aria-label="Cerrar sesión">
-            <LogOut className="h-4 w-4" strokeWidth={1.5} />
-          </button>
-        </form>
+        <div className="w-9" />
       </div>
 
       {/* Mobile overlay */}
@@ -88,8 +84,8 @@ export function Sidebar() {
         </nav>
         <div className="p-3 border-t border-border shrink-0">
           <form action="/admin/logout" method="post">
-            <button type="submit" className="admin-btn admin-btn-ghost w-full justify-start">
-              <LogOut className="h-4 w-4" strokeWidth={1.5} />
+            <button type="submit" className="admin-sidebar-item w-full">
+              <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
               Cerrar sesión
             </button>
           </form>
