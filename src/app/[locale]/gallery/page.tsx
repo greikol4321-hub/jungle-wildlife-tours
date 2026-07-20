@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
+import { getGalleryImages } from "@/lib/queries";
 import { GalleryContent } from "@/components/gallery/GalleryContent";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
@@ -34,18 +34,12 @@ export default async function GalleryPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
-
-  const { data: images } = await supabase
-    .from("tour_images")
-    .select("*, tours(slug, title_es, title_en, category)")
-    .order("display_order")
-    .limit(100);
+  const images = await getGalleryImages();
 
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Galería", href: `/${locale}/gallery` }]} />
-      <GalleryContent images={images ?? []} locale={locale} />
+      <GalleryContent images={images} locale={locale} />
     </>
   );
 }

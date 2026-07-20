@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 async function verifyAdmin() {
   const supabase = await createClient();
@@ -32,6 +32,8 @@ export async function uploadTourImage(tourId: string, formData: FormData) {
     throw new Error(insertError.message);
   }
   revalidatePath("/admin/tours");
+  revalidateTag("tours", "seconds");
+  revalidateTag("gallery", "seconds");
 }
 
 export async function deleteTourImage(id: string, storagePath: string) {
@@ -41,6 +43,8 @@ export async function deleteTourImage(id: string, storagePath: string) {
   const { error } = await supabase.from("tour_images").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/tours");
+  revalidateTag("tours", "seconds");
+  revalidateTag("gallery", "seconds");
 }
 
 export async function setTourCover(tourId: string, imageId: string) {
@@ -51,4 +55,6 @@ export async function setTourCover(tourId: string, imageId: string) {
   const { error: setError } = await supabase.from("tour_images").update({ is_cover: true }).eq("id", imageId);
   if (setError) throw new Error(setError.message);
   revalidatePath("/admin/tours");
+  revalidateTag("tours", "seconds");
+  revalidateTag("gallery", "seconds");
 }

@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import type { Json } from "@/types/database";
 import { translateToEN } from "@/lib/translate";
 
@@ -69,6 +69,7 @@ export async function createTour(values: unknown) {
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
   revalidatePath("/admin");
+  revalidateTag("tours", "seconds");
 }
 
 export async function updateTour(id: string, values: unknown) {
@@ -91,6 +92,7 @@ export async function updateTour(id: string, values: unknown) {
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
   revalidatePath("/admin");
+  revalidateTag("tours", "seconds");
 }
 
 export async function toggleTourActive(id: string, isActive: boolean) {
@@ -101,4 +103,5 @@ export async function toggleTourActive(id: string, isActive: boolean) {
   revalidatePath("/admin/tours");
   revalidatePath("/[locale]/tours");
   revalidatePath("/admin");
+  revalidateTag("tours", "seconds");
 }

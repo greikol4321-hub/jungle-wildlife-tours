@@ -2,7 +2,8 @@
 
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { getApprovedReviews as getCachedReviews } from "@/lib/queries";
 
 const reviewSchema = z.object({
   author_name: z.string().min(1, "Nombre requerido"),
@@ -39,44 +40,52 @@ async function deeplTranslate(text: string, targetLang: string): Promise<{ trans
 
 export async function submitReview(values: unknown) {
   const data = reviewSchema.parse(values);
-
-  let comment_es: string;
-  let comment_en: string;
-
-  const { translatedText, detectedLang } = await deeplTranslate(data.comment, "EN");
-
-  if (detectedLang === "ES") {
-    comment_es = data.comment;
-    comment_en = translatedText;
-  } else if (detectedLang === "EN") {
-    comment_en = data.comment;
-    comment_es = await deeplTranslate(data.comment, "ES").then(r => r.translatedText);
-  } else {
-    comment_en = data.comment;
-    comment_es = translatedText;
-  }
-
   const supabase = await createClient();
-  const { error } = await supabase.from("reviews").insert({
-    author_name: data.author_name,
-    author_country: data.author_country ?? null,
-    rating: data.rating,
-    comment_es,
-    comment_en,
-    tour_id: data.tour_id,
-    is_approved: false,
-  });
+
+  const { data: review, error } = await supabase
+    .from("reviews")
+    .insert({
+      author_name: data.author_name,
+      author_country: data.author_country ?? null,
+      rating: data.rating,
+      comment_es: data.comment,
+      comment_en: data.comment,
+      tour_id: data.tour_id,
+      is_approved: false,
+    })
+    .select("id")
+    .single();
+
   if (error) throw new Error(error.message);
+
+  translateReview(review.id, data.comment);
+
   revalidatePath("/[locale]/tours/[slug]");
+  revalidateTag("reviews", "seconds");
+}
+
+async function translateReview(id: string, comment: string) {
+  try {
+    const { translatedText, detectedLang } = await deeplTranslate(comment, "EN");
+    let comment_es: string;
+    let comment_en: string;
+    if (detectedLang === "ES") {
+      comment_es = comment;
+      comment_en = translatedText;
+    } else if (detectedLang === "EN") {
+      comment_en = comment;
+      comment_es = (await deeplTranslate(comment, "ES")).translatedText;
+    } else {
+      comment_en = comment;
+      comment_es = translatedText;
+    }
+    const supabase = await createClient();
+    await supabase.from("reviews").update({ comment_es, comment_en }).eq("id", id);
+  } catch (e) {
+    console.error("Background translation failed:", e);
+  }
 }
 
 export async function getApprovedReviews(tourId: string) {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("reviews")
-    .select("*")
-    .eq("tour_id", tourId)
-    .eq("is_approved", true)
-    .order("created_at", { ascending: false });
-  return data ?? [];
+  return getCachedReviews(tourId);
 }

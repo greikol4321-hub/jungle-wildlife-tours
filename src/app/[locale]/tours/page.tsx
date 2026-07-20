@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
+import { getActiveTours } from "@/lib/queries";
 import { ToursHero } from "@/components/tours/ToursHero";
 import { ToursGrid } from "@/components/tours/ToursGrid";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
@@ -35,19 +35,13 @@ export default async function ToursPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
-  const { data: tours } = await supabase
-    .from("tours")
-    .select("*, tour_images(*)")
-    .eq("is_active", true)
-    .order("views", { ascending: false })
-      .order("display_order");
+  const tours = await getActiveTours();
 
   return (
     <main className="flex-1">
       <BreadcrumbJsonLd items={[{ name: "Tours", href: `/${locale}/tours` }]} />
       <ToursHero locale={locale} />
-      <ToursGrid tours={tours ?? []} locale={locale} />
+      <ToursGrid tours={tours} locale={locale} />
     </main>
   );
 }

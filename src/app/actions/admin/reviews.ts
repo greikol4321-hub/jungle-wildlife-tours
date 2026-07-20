@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const reviewSchema = z.object({
   author_name: z.string().min(1),
@@ -30,6 +30,7 @@ export async function approveReview(id: string) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
   revalidatePath("/admin");
+  revalidateTag("reviews", "seconds");
 }
 
 export async function rejectReview(id: string) {
@@ -39,6 +40,7 @@ export async function rejectReview(id: string) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
   revalidatePath("/admin");
+  revalidateTag("reviews", "seconds");
 }
 
 export async function deleteReview(id: string) {
@@ -48,4 +50,5 @@ export async function deleteReview(id: string) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviews");
   revalidatePath("/admin");
+  revalidateTag("reviews", "seconds");
 }

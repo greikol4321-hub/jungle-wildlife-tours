@@ -3,8 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
-import { createClient } from "@/lib/supabase/server";
-import { createStaticClient } from "@/lib/supabase/static";
+import { getTourBySlug, getTourSlugs } from "@/lib/queries";
 import { difficultyLabels } from "@/lib/constants";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
@@ -70,12 +69,7 @@ type TideEntry = {
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const supabase = createStaticClient();
-  const { data: tours } = await supabase
-    .from("tours")
-    .select("slug")
-    .eq("is_active", true);
-  const slugs = tours ?? [];
+  const slugs = await getTourSlugs();
   return slugs.flatMap((t) => ["es", "en"].map((locale) => ({ locale, slug: t.slug })));
 }
 
@@ -84,13 +78,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
-  const { data: tour } = await supabase
-    .from("tours")
-    .select("title_es, title_en, description_es, description_en, tour_images(url)")
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .single();
+  const [{ locale, slug }] = await Promise.all([params]);
+  const tour = await getTourBySlug(slug);
 
   if (!tour) return {};
 
@@ -127,15 +116,15 @@ export default async function TourDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const [{ locale, slug }, supabase] = await Promise.all([params, createClient()]);
+  const [{ locale, slug }] = await Promise.all([params]);
   setRequestLocale(locale);
 
-  const [[t, tTours], { data: tour }] = await Promise.all([
+  const [[t, tTours], tour] = await Promise.all([
     Promise.all([
       getTranslations({ locale, namespace: "tourDetail" }),
       getTranslations({ locale, namespace: "tours" }),
     ]),
-    supabase.from("tours").select("*, tour_images(*)").eq("slug", slug).eq("is_active", true).single(),
+    getTourBySlug(slug),
   ]);
 
   if (!tour) notFound();

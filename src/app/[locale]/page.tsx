@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
+import { getFeaturedTours } from "@/lib/queries";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TourCardsSection } from "@/components/sections/TourCardsSection";
 import { StatsSection } from "@/components/sections/StatsSection";
@@ -49,17 +49,8 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
-
-  const { data: tours } = await supabase
-    .from("tours")
-    .select("*, tour_images(*)")
-    .eq("is_active", true)
-    .order("views", { ascending: false })
-    .order("display_order")
-    .limit(3);
-
-  const featuredTours = (tours ?? []) as Tour[];
+  const tours = await getFeaturedTours();
+  const featuredTours = tours as Tour[];
 
   const tFaq = await getTranslations({ locale, namespace: "faq" });
   const faqQuestions = faqKeys.map((key) => ({
