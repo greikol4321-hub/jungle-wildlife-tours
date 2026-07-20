@@ -197,7 +197,7 @@ export function PriceCalculator({
   const childPrice = childPriceUsd ?? 0;
   const total = adults * priceUsd + children * childPrice;
 
-  const generalLabel = childMaxAge ? "General" : t("adult");
+  const generalLabel = "General";
   const childLabel = childMaxAge && minAge != null ? childAgeLabel(minAge, childMaxAge, locale) : t("child");
   const showAgeRange = childMaxAge && minAge != null && childMaxAge > 2;
 
