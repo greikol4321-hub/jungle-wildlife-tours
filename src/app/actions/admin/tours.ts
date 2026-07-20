@@ -4,7 +4,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import type { Json } from "@/types/database";
-import { translateToEN, translateArrayToEN } from "@/lib/translate";
+import { translateToEN } from "@/lib/translate";
 
 const tourSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "solo minúsculas, números y guiones"),

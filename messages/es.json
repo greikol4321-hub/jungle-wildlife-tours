@@ -113,11 +113,6 @@
     "askPrice": "Consultá tarifa",
     "askPriceSub": "Este tour no tiene tarifa publicada. Escribinos y te pasamos el precio."
   },
-  "mangrovePlaceholder": {
-    "title": "Tour en kayak en manglar · Isla Damas",
-    "note": "Todavía no hay fotos reales de este tour. Cuando las tengamos las reemplazamos por imágenes del manglar.",
-    "illustrationAlt": "Ilustración de tour en kayak en manglar"
-  },
   "about": {
     "title": "Sobre nosotros",
     "intro": "Somos una empresa local de tours de naturaleza en Manuel Antonio y Quepos, enfocada en experiencias reales de fauna silvestre en la zona del Pacífico central de Costa Rica.",
@@ -153,16 +148,6 @@
     },
     "mangroveComingSoon": "Galería de manglar próximamente.",
     "mangroveNote": "Todavía no hay fotos reales del tour en kayak en manglar."
-  },
-  "night": {
-    "heading": "Cuando cae la noche, la selva despierta",
-    "description": "La mayoría se va antes del atardecer. Ahí es cuando Manuel Antonio muestra su segundo acto — anfibios que cantan, insectos que brillan, mamíferos que se mueven donde ningún turista llega.",
-    "learnMore": "Más información",
-    "featureGuide": "Guía especializado",
-    "featureEquipment": "Equipo incluido",
-    "featureDuration": "2-3 horas",
-    "featureGroups": "Grupos pequeños",
-    "imageAlt": "Fauna nocturna en la selva de Manuel Antonio"
   },
   "parallax": {
     "eyebrow": "Experiencia salvaje",

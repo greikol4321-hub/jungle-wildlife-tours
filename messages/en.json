@@ -113,11 +113,6 @@
     "askPrice": "Ask for price",
     "askPriceSub": "This tour doesn't have a published price. Write to us and we'll get back to you."
   },
-  "mangrovePlaceholder": {
-    "title": "Mangrove kayak tour · Damas Island",
-    "note": "There are no real photos for this tour yet. We will replace them with mangrove images once they are available.",
-    "illustrationAlt": "Mangrove kayak tour illustration"
-  },
   "about": {
     "title": "About us",
     "intro": "We are a local nature tour company in Manuel Antonio and Quepos, focused on real wildlife experiences in Costa Rica's central Pacific region.",
@@ -153,16 +148,6 @@
     },
     "mangroveComingSoon": "Mangrove gallery coming soon.",
     "mangroveNote": "There are no real photos of the mangrove kayak tour yet."
-  },
-  "night": {
-    "heading": "When darkness falls, the jungle wakes",
-    "description": "Most visitors leave before sunset. That's when Manuel Antonio reveals its second act — amphibians calling, insects glowing, mammals stirring where no daytime crowd reaches.",
-    "learnMore": "Learn more",
-    "featureGuide": "Specialized guide",
-    "featureEquipment": "Equipment included",
-    "featureDuration": "2-3 hours",
-    "featureGroups": "Small groups",
-    "imageAlt": "Nocturnal wildlife in Manuel Antonio jungle"
   },
   "parallax": {
     "eyebrow": "Wild experience",

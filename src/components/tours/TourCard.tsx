@@ -44,6 +44,7 @@ const INFO_ITEMS = [
 
 export function TourCard({ tour, locale, index, featured }: TourCardProps) {
   const tTours = useTranslations("tours");
+  const tDetail = useTranslations("tourDetail");
   const reduce = useReducedMotion();
 
   const images = tour.tour_images as TourImage[];
@@ -181,10 +182,10 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                 </span>
               </span>
               {tour.min_age != null && tour.min_age > 0 && (
-                <span className="inline-flex items-center gap-1 text-text-muted" title={tTours("minAge")}>
+                <span className="inline-flex items-center gap-1 text-text-muted" title={tDetail("minAge")}>
                   <UserCheck className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
                   <span className="font-mono text-[9px] tracking-wider uppercase">
-                    {tour.min_age}+ {tTours("years")}
+                    {tour.min_age}+ {tDetail("years")}
                   </span>
                 </span>
               )}
