@@ -81,7 +81,7 @@ export function GalleryHero() {
       ))}
 
       <m.div
-        className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-20 pb-16"
+        className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-32 pb-16"
         style={{ opacity: contentOpacity, y: contentY }}
       >
         <div className="max-w-2xl">
