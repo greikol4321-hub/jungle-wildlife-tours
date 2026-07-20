@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { m, useScroll, useTransform } from "motion/react";
+import { m, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
 
@@ -21,6 +21,7 @@ const particles = [
 
 export function ToursHero({ locale }: ToursHeroProps) {
   const t = useTranslations("tours");
+  const reduce = useReducedMotion();
 
   const { ref, springX, springY, handleMouse } = useParallaxMouse();
   const { x: parallaxX, y: parallaxY } = useParallaxTransform(springX, springY, 10, 6);
@@ -30,10 +31,10 @@ export function ToursHero({ locale }: ToursHeroProps) {
     offset: ["start start", "end start"],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.6], [0, -60]);
+  const bgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 1.12]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], reduce ? [1, 1] : [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.6], reduce ? [0, 0] : [0, -60]);
 
   return (
     <section
@@ -90,8 +91,8 @@ export function ToursHero({ locale }: ToursHeroProps) {
         <div className="max-w-2xl">
           <m.p
             className="font-display text-xs font-medium tracking-[0.25em] text-emerald/80 uppercase"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={reduce ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             Manuel Antonio · Costa Rica
@@ -103,8 +104,8 @@ export function ToursHero({ locale }: ToursHeroProps) {
               fontSize: "clamp(2.8rem, 7vw, 5rem)",
               lineHeight: 1,
             }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduce ? false : { opacity: 0, y: 30 }}
+            animate={reduce ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="text-text">{t("title")}</span>
@@ -115,8 +116,8 @@ export function ToursHero({ locale }: ToursHeroProps) {
 
           <m.p
             className="mt-5 max-w-lg text-base md:text-lg font-light text-text-secondary leading-[1.75]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={reduce ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             {t("subtitle")}

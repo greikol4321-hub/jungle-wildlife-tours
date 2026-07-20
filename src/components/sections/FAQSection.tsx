@@ -72,25 +72,20 @@ export function FAQSection({ locale }: { locale: string }) {
                     <ChevronDown open={isOpen} />
                   </button>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <m.div
-                        initial={{ gridTemplateRows: "0fr", opacity: 0 }}
-                        animate={{ gridTemplateRows: "1fr", opacity: 1 }}
-                        exit={{ gridTemplateRows: "0fr", opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="grid overflow-hidden"
-                      >
-                        <div className="min-h-0">
-                          <div className="px-5 pb-4 md:px-6 md:pb-5">
-                            <p className="text-sm text-text-secondary leading-relaxed max-w-prose">
-                              {t(`${key}Answer`)}
-                            </p>
-                          </div>
-                        </div>
-                      </m.div>
-                    )}
-                  </AnimatePresence>
+                  {isOpen && (
+                    <m.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="grid overflow-hidden"
+                    >
+                      <div className="px-5 pb-4 md:px-6 md:pb-5">
+                        <p className="text-sm text-text-secondary leading-relaxed max-w-prose">
+                          {t(`${key}Answer`)}
+                        </p>
+                      </div>
+                    </m.div>
+                  )}
                 </div>
               </Reveal>
             );

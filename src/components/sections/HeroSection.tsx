@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
-import { m, useScroll, useTransform } from "motion/react";
+import { m, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useParallaxMouse, useParallaxTransform } from "@/hooks/useParallaxMouse";
 
 interface HeroSectionProps {
@@ -22,6 +22,7 @@ const particles = [
 export function HeroSection(_props: HeroSectionProps) {
   const t = useTranslations("hero");
   const tNav = useTranslations("nav");
+  const reduce = useReducedMotion();
 
   const { ref, springX, springY, handleMouse } = useParallaxMouse({ stiffness: 40, damping: 18, mass: 0.8 });
   const { x: mouseParallaxX, y: mouseParallaxY } = useParallaxTransform(springX, springY, 12, 8);
@@ -30,10 +31,10 @@ export function HeroSection(_props: HeroSectionProps) {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+  const bgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "25%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1.05, 1.15]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], reduce ? [1, 1] : [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], reduce ? [0, 0] : [0, -50]);
   const lineOpacity = useTransform(scrollYProgress, [0.05, 0.25], [0, 1]);
 
   return (
