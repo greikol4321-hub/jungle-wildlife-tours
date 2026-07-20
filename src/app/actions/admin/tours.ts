@@ -4,14 +4,15 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import type { Json } from "@/types/database";
+import { translateToEN, translateArrayToEN } from "@/lib/translate";
 
 const tourSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "solo minúsculas, números y guiones"),
   category: z.enum(["day_park", "mangrove", "night_walk"]),
   title_es: z.string().min(1),
-  title_en: z.string().min(1),
+  title_en: z.string().optional(),
   description_es: z.string().min(1),
-  description_en: z.string().min(1),
+  description_en: z.string().optional(),
   duration_minutes: z.coerce.number().int().positive(),
   difficulty: z.enum(["easy", "moderate", "challenging"]).optional(),
   min_age: z.coerce.number().int().min(0).optional(),
@@ -22,11 +23,6 @@ const tourSchema = z.object({
   includes: z.array(z.string()).optional(),
   excludes: z.array(z.string()).optional(),
   tide_table: z.string().optional(),
-  itinerary: z.array(z.object({
-    time: z.string(),
-    title: z.string(),
-    description: z.string(),
-  })).optional(),
   is_active: z.boolean().default(true),
   display_order: z.coerce.number().int().default(0),
 });
@@ -52,8 +48,16 @@ export async function createTour(values: unknown) {
   await verifyAdmin();
   const data = tourSchema.parse(values);
   const supabase = await createClient();
+
+  const [title_en, description_en] = await Promise.all([
+    data.title_en || translateToEN(data.title_es),
+    data.description_en || translateToEN(data.description_es),
+  ]);
+
   const payload = {
     ...data,
+    title_en,
+    description_en,
     tide_table: data.tide_table ? parseTideTable(data.tide_table) : null,
     price_usd: data.price_usd || null,
     child_price_usd: data.child_price_usd || null,

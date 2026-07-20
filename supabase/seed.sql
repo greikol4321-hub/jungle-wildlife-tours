@@ -7,7 +7,6 @@ insert into public.tours (
   price_usd, child_price_usd,
   languages,
   includes, excludes,
-  itinerary,
   is_active, display_order
 )
 values
@@ -22,7 +21,6 @@ values
     '{"Español","English"}',
     '{"Guía naturalista certificado ICT","Transporte ida y vuelta","Boleto de ingreso al Parque Nacional Manuel Antonio","Refrigerio","Telescopio profesional"}',
     '{"Alimentación y bebidas","Propinas"}',
-    '[{"time":"8:00","title":"Inicio del tour","description":"El pickup se coordina según tu ubicación de hospedaje y te confirmamos la hora al reservar."}]'::jsonb,
     true, 1
   ),
   (
@@ -36,7 +34,6 @@ values
     '{"Español","English"}',
     '{"Guía naturalista certificado ICT","Kayak doble con asiento","Chaleco salvavidas","Remos","Entrada a Isla Damas","Seguro de responsabilidad civil","Refrigerio","Transporte"}',
     '{"Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Protector solar biodegradable","Propinas"}',
-    '[{"time":"6:00","title":"Salida desde Quepos","description":"Encuentro en el punto de encuentro. Instrucciones de seguridad y breve introducción al ecosistema del manglar."},{"time":"6:30","title":"Inicio del recorrido en kayak","description":"Remo por los canales de Isla Damas. Avistamiento de aves acuáticas, monos y cocodrilos desde el kayak."},{"time":"8:00","title":"Zona de avistamiento intensivo","description":"Recorrido guiado por los canales entre la vegetación. Observación de fauna con telescopio profesional."},{"time":"9:30","title":"Regreso y cierre","description":"Retorno a Quepos. Café o fresco natural incluido."}]'::jsonb,
     true, 2
   ),
   (
@@ -50,7 +47,6 @@ values
     '{"Español","English"}',
     '{"Guía naturalista certificado ICT","Lancha con motor y toldo","Chaleco salvavidas","Entrada a Isla Damas","Seguro de responsabilidad civil","Refrigerio","Transporte"}',
     '{"Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Protector solar biodegradable","Propinas"}',
-    '[{"time":"6:00","title":"Salida desde Quepos","description":"Encuentro en el punto de encuentro. Instrucciones de seguridad y breve introducción al ecosistema del manglar."},{"time":"6:30","title":"Inicio del recorrido en lancha","description":"Navegación por los canales de Isla Damas. Avistamiento de aves acuáticas, monos y cocodrilos."},{"time":"8:00","title":"Zona de avistamiento intensivo","description":"Recorrido guiado por los canales entre la vegetación. Observación de fauna con telescopio profesional."},{"time":"9:30","title":"Regreso y cierre","description":"Retorno a Quepos. Café o fresco natural incluido."}]'::jsonb,
     true, 4
   ),
   (
@@ -64,7 +60,6 @@ values
     '{"Español","English"}',
     '{"Guía naturalista certificado ICT","Linterna frontal y de mano","Seguro de responsabilidad civil","Transporte"}',
     '{"Alimentación y bebidas","Repelente (traer propio, biodegradable recomendado)","Propinas"}',
-    '[{"time":"17:45","title":"Encuentro en la oficina","description":"Preparación del equipo: linternas frontal y de mano. Briefing de seguridad."},{"time":"18:00","title":"Inicio del recorrido nocturno","description":"Ingreso al sendero. La transición día-noche revela el cambio de guardia entre especies."},{"time":"19:00","title":"Zona de avistamiento intensivo","description":"Búsqueda de anfibios, insectos, serpientes y mamíferos nocturnos. Uso de linterna de mano para no alterar la fauna."},{"time":"20:00","title":"Cierre y reflexión","description":"Último tramo del sendero. Conversación sobre conservación y el rol de la fauna nocturna."}]'::jsonb,
     true, 3
   )
 on conflict (slug) do update set
@@ -82,6 +77,5 @@ on conflict (slug) do update set
   languages = excluded.languages,
   includes = excluded.includes,
   excludes = excluded.excludes,
-  itinerary = excluded.itinerary,
   is_active = excluded.is_active,
   display_order = excluded.display_order;

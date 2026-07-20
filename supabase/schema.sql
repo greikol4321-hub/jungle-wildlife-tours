@@ -18,13 +18,10 @@ create table public.tours (
   languages text[] default '{"Español","English"}',
   includes text[],
   excludes text[],
-  itinerary jsonb,
   is_active boolean default true,
   display_order integer default 0,
   created_at timestamptz default now()
 );
-
-create index if not exists idx_tours_itinerary on public.tours using gin (itinerary);
 
 create table public.tour_images (
   id uuid primary key default gen_random_uuid(),
