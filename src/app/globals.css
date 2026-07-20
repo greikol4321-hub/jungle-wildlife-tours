@@ -343,15 +343,12 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
   text-decoration: none;
   color: var(--color-text);
   transition: color 200ms var(--ease-out);
 }
 @media (min-width: 768px) {
-  .logo { font-size: 0.95rem; max-width: none; }
+  .logo { font-size: 0.95rem; }
 }
 .logo-accent { color: var(--color-emerald); }
 
