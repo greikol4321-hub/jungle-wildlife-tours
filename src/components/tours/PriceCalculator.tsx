@@ -9,8 +9,17 @@ interface Props {
   priceUsd: number;
   title: string;
   childPriceUsd?: number;
+  minAge?: number;
   locale: string;
   tourId?: string;
+}
+
+const CHILD_MAX_AGE = 12;
+
+function childAgeLabel(minAge: number | undefined, locale: string): string | null {
+  if (minAge == null) return null;
+  const lower = Math.max(2, minAge);
+  return locale === "es" ? `${lower}-${CHILD_MAX_AGE} años` : `${lower}-${CHILD_MAX_AGE} yrs`;
 }
 
 function Stepper({
@@ -71,6 +80,7 @@ export function PriceCalculator({
   priceUsd,
   title,
   childPriceUsd,
+  minAge,
   locale,
   tourId,
 }: Props) {
@@ -134,9 +144,13 @@ export function PriceCalculator({
               {t("adult")} <span className="text-sand">${priceUsd}</span>
             </span>
             <span className="font-mono text-sm font-bold text-text">
-              {t("child")} <span className="text-sand">${childPrice.toFixed(0)}</span>
+              {t("child")}
+              {childPriceUsd && minAge != null && childAgeLabel(minAge, locale)
+                ? ` (${childAgeLabel(minAge, locale)})`
+                : ''}
+              {' '}<span className="text-sand">${childPrice.toFixed(0)}</span>
             </span>
-            {childPriceUsd && (
+            {childPriceUsd && (minAge == null || minAge <= 2) && (
               <>
                 <span className="text-[10px] text-text-muted">|</span>
                 <span className="font-mono text-[10px] tracking-wider text-text-muted">{t("freeUnder2")}</span>
