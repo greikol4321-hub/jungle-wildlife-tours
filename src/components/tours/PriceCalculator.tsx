@@ -45,11 +45,18 @@ function Stepper({
   const decrement = () => onChange(Math.max(min, value - 1));
   const increment = () => onChange(Math.min(max, value + 1));
 
-  const buttonStyle = {
-    transition: reducedMotion
-      ? "transform 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out"
-      : "transform 120ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms cubic-bezier(0.23, 1, 0.32, 1), border-color 120ms cubic-bezier(0.23, 1, 0.32, 1)",
-  } as React.CSSProperties;
+  const buttonTransition = reducedMotion
+    ? "transform 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out"
+    : "transform 120ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms cubic-bezier(0.23, 1, 0.32, 1), border-color 120ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 120ms cubic-bezier(0.23, 1, 0.32, 1)";
+
+  const sharedButtonStyle: React.CSSProperties = {
+    transition: buttonTransition,
+  };
+
+  const baseButtonClass =
+    "flex h-12 w-12 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary " +
+    "disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.96] " +
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
 
   return (
     <div style={{ opacity: reducedMotion ? 1 : undefined }} className="group">
@@ -66,19 +73,29 @@ function Stepper({
           onTouchEnd={() => setIsDecrementPressed(false)}
           onClick={decrement}
           disabled={value <= min}
-          style={buttonStyle}
-          className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.96]"
+          style={sharedButtonStyle}
+          className={baseButtonClass + " hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim"}
           aria-label={`Reducir ${label}`}
           aria-pressed={isDecrementPressed}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M5 12h14" />
           </svg>
         </button>
         <span
-          className="font-mono text-3xl font-bold text-text w-12 text-center tabular-nums leading-none transition-all duration-150 ease-out"
+          className="font-mono text-3xl font-bold text-text w-14 text-center tabular-nums leading-none transition-all duration-150 ease-out"
           style={{
-            transform: `scale(${isDecrementPressed || isIncrementPressed ? 1.05 : 1})`,
+            transform: `scale(${isDecrementPressed || isIncrementPressed ? 1.08 : 1})`,
           }}
         >
           {value}
@@ -92,13 +109,24 @@ function Stepper({
           onTouchEnd={() => setIsIncrementPressed(false)}
           onClick={increment}
           disabled={value >= max}
-          style={buttonStyle}
-          className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.96]"
+          style={sharedButtonStyle}
+          className={baseButtonClass + " hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim"}
           aria-label={`Aumentar ${label}`}
           aria-pressed={isIncrementPressed}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M5 12h14" />
+            <path d="M12 5v14" />
           </svg>
         </button>
       </div>
