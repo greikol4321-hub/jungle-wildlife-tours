@@ -142,18 +142,7 @@ export default async function TourDetailPage({
 
   const typedTour = tour as Tour;
 
-  // Compartir galería entre tours de manglar
-  let galleryImages = typedTour.tour_images;
-  if (typedTour.category === "mangrove") {
-    const { data: siblings } = await supabase
-      .from("tour_images")
-      .select("*, tours!inner(slug, title_es, title_en)")
-      .eq("tours.category", "mangrove")
-      .eq("tours.is_active", true)
-      .neq("tour_id", typedTour.id)
-      .order("display_order");
-    if (siblings) galleryImages = [...typedTour.tour_images, ...siblings];
-  }
+  const galleryImages = typedTour.tour_images;
 
   const title = locale === "es" ? typedTour.title_es : typedTour.title_en;
   const description =

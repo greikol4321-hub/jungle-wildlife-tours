@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { useReducedMotion } from "motion/react";
 import { saveBookingLead } from "@/app/actions/booking-lead";
 import { useToast } from "@/components/admin/toast";
 
@@ -14,8 +15,6 @@ interface Props {
   locale: string;
   tourId?: string;
 }
-
-const CHILD_MAX_AGE_DEFAULT = 12;
 
 function childAgeLabel(minAge: number | undefined, childMaxAge: number, locale: string): string | null {
   if (minAge == null) return null;
@@ -30,6 +29,7 @@ function Stepper({
   min,
   max,
   price,
+  reducedMotion,
 }: {
   label: string;
   value: number;
@@ -37,43 +37,109 @@ function Stepper({
   min: number;
   max: number;
   price: number;
+  reducedMotion: boolean;
 }) {
+  const [isDecrementPressed, setIsDecrementPressed] = useState(false);
+  const [isIncrementPressed, setIsIncrementPressed] = useState(false);
+
+  const decrement = () => onChange(Math.max(min, value - 1));
+  const increment = () => onChange(Math.min(max, value + 1));
+
+  const buttonStyle = {
+    transition: reducedMotion
+      ? "transform 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out"
+      : "transform 120ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms cubic-bezier(0.23, 1, 0.32, 1), border-color 120ms cubic-bezier(0.23, 1, 0.32, 1)",
+  } as React.CSSProperties;
+
   return (
-    <div>
+    <div style={{ opacity: reducedMotion ? 1 : undefined }} className="group">
       <p className="font-mono text-[11px] tracking-widest uppercase text-text-muted mb-2">
         {label}
       </p>
       <div className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => onChange(Math.max(min, value - 1))}
+          onMouseDown={() => setIsDecrementPressed(true)}
+          onMouseUp={() => setIsDecrementPressed(false)}
+          onMouseLeave={() => setIsDecrementPressed(false)}
+          onTouchStart={() => setIsDecrementPressed(true)}
+          onTouchEnd={() => setIsDecrementPressed(false)}
+          onClick={decrement}
           disabled={value <= min}
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          style={buttonStyle}
+          className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.96]"
           aria-label={`Reducir ${label}`}
+          aria-pressed={isDecrementPressed}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
           </svg>
         </button>
-        <span className="font-mono text-2xl font-bold text-text w-8 text-center tabular-nums leading-none">
+        <span
+          className="font-mono text-3xl font-bold text-text w-12 text-center tabular-nums leading-none transition-all duration-150 ease-out"
+          style={{
+            transform: `scale(${isDecrementPressed || isIncrementPressed ? 1.05 : 1})`,
+          }}
+        >
           {value}
         </span>
         <button
           type="button"
-          onClick={() => onChange(Math.min(max, value + 1))}
+          onMouseDown={() => setIsIncrementPressed(true)}
+          onMouseUp={() => setIsIncrementPressed(false)}
+          onMouseLeave={() => setIsIncrementPressed(false)}
+          onTouchStart={() => setIsIncrementPressed(true)}
+          onTouchEnd={() => setIsIncrementPressed(false)}
+          onClick={increment}
           disabled={value >= max}
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+          style={buttonStyle}
+          className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-elevated border border-border text-text-secondary hover:border-emerald/40 hover:text-emerald hover:bg-emerald-dim disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.96]"
           aria-label={`Aumentar ${label}`}
+          aria-pressed={isIncrementPressed}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
           </svg>
         </button>
       </div>
-      <p className="mt-1.5 font-mono text-[10px] tracking-wider text-text-muted">
+      <p className="mt-2 font-mono text-[11px] tracking-wider text-text-muted">
         ${price.toFixed(0)} × {value}
       </p>
     </div>
+  );
+}
+
+function PriceDisplay({
+  label,
+  price,
+  isGeneral,
+  className = "",
+}: {
+  label: string | null;
+  price: number;
+  isGeneral?: boolean;
+  className?: string;
+}) {
+  return (
+    <span className={`font-mono text-base font-semibold text-text flex items-center gap-2 ${className}`}>
+      <span className="text-text-secondary">{label ?? ""}</span>
+      <span className="text-sand tabular-nums">${price.toFixed(0)}</span>
+    </span>
+  );
+}
+
+function AgeRangeBadge({
+  label,
+  className = "",
+}: {
+  label: string | null;
+  className?: string;
+}) {
+  if (!label) return null;
+  return (
+    <span className={`inline-flex items-center px-3 py-1 rounded-full bg-emerald/10 border border-emerald/20 text-emerald font-mono text-[11px] tracking-wider ${className}`}>
+      {label}
+    </span>
   );
 }
 
@@ -88,17 +154,24 @@ export function PriceCalculator({
 }: Props) {
   const { toast } = useToast();
   const t = useTranslations("tourDetail");
+  const reducedMotion = useReducedMotion() ?? false;
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [saving, setSaving] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const childPrice = childPriceUsd ?? 0;
   const total = adults * priceUsd + children * childPrice;
 
   const generalLabel = childMaxAge ? "General" : t("adult");
   const childLabel = childMaxAge && minAge != null ? childAgeLabel(minAge, childMaxAge, locale) : t("child");
+  const showAgeRange = childMaxAge && minAge != null && childMaxAge > 2;
 
   const whatsappText =
     locale === "es"
@@ -126,90 +199,172 @@ export function PriceCalculator({
     setSaving(false);
   }
 
+  const tariffItems = useMemo(() => {
+    const items: Array<{ label: string; price: number; isGeneral: boolean; isFree?: boolean }> = [
+      { label: generalLabel, price: priceUsd, isGeneral: true },
+      { label: childLabel ?? t("child"), price: childPrice, isGeneral: false },
+    ];
+    if (childPriceUsd && !childMaxAge && (minAge == null || minAge <= 2)) {
+      items.push({ label: t("freeUnder2"), price: 0, isGeneral: false, isFree: true });
+    }
+    return items;
+  }, [generalLabel, childLabel, priceUsd, childPrice, childPriceUsd, childMaxAge, minAge, locale, t]);
+
   return (
-    <div className="card p-6 md:p-8">
-      <div className="flex items-center gap-3">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald/10">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald" aria-hidden="true">
-            <line x1="12" x2="12" y1="2" y2="22" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg>
-        </span>
-        <div>
-          <h3 className="font-heading text-lg font-bold text-text">{t("calculator")}</h3>
-          <p className="text-sm text-text-secondary">{t("calculatorSub")}</p>
+    <div
+      className="card relative overflow-hidden"
+      style={{
+        opacity: isMounted && !reducedMotion ? 1 : 1,
+        transform: isMounted && !reducedMotion ? "translateY(0)" : "translateY(0)",
+        transition: reducedMotion
+          ? "none"
+          : "opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 500ms cubic-bezier(0.23, 1, 0.32, 1)",
+      }}
+    >
+      <div className="p-6 md:p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald/10">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald" aria-hidden="true">
+              <line x1="12" x2="12" y1="2" y2="22" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </span>
+          <div>
+            <h3 className="font-heading text-lg font-bold text-text">{t("calculator")}</h3>
+            <p className="text-sm text-text-secondary">{t("calculatorSub")}</p>
+          </div>
         </div>
-      </div>
 
-      {priceUsd > 0 && (
-        <>
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-xl bg-surface border border-border px-4 py-3">
-            <span className="font-mono text-[10px] tracking-widest uppercase text-text-muted">{t("tariff")}</span>
-            <span className="font-mono text-sm font-bold text-text">
-              {generalLabel} <span className="text-sand">${priceUsd}</span>
-            </span>
-            <span className="font-mono text-sm font-bold text-text">
-              {childLabel}
-              {' '}<span className="text-sand">${childPrice.toFixed(0)}</span>
-            </span>
-            {childPriceUsd && !childMaxAge && (minAge == null || minAge <= 2) && (
-              <>
-                <span className="text-[10px] text-text-muted">|</span>
-                <span className="font-mono text-[10px] tracking-wider text-text-muted">{t("freeUnder2")}</span>
-              </>
-            )}
-            <span className="text-[10px] text-text-muted">|</span>
-            <span className="font-mono text-[10px] tracking-wider text-emerald">{t("cashPrice")}</span>
-          </div>
-
-          <div className="mt-4 grid gap-6 sm:grid-cols-2">
-            <Stepper label={t("adults")} value={adults} onChange={setAdults} min={1} max={20} price={priceUsd} />
-            <Stepper label={t("children")} value={children} onChange={setChildren} min={0} max={20} price={childPrice} />
-          </div>
-
-          <div className="mt-6 flex items-end justify-between gap-4 border-t border-border pt-5">
-            <div className="text-sm text-text-secondary leading-relaxed">
-              <p>{adults} {generalLabel} × ${priceUsd}</p>
-              {children > 0 && <p>{children} {childLabel} × ${childPrice.toFixed(0)}</p>}
+        {priceUsd > 0 && (
+          <>
+            <div className="mb-6 rounded-xl bg-surface border border-border p-4 md:p-5">
+              <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted mb-3">{t("tariff")}</p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
+                <PriceDisplay label={generalLabel} price={priceUsd} isGeneral />
+                <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
+                <PriceDisplay label={childLabel} price={childPrice} />
+                {showAgeRange && (
+                  <>
+                    <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
+                    <AgeRangeBadge label={childLabel} />
+                  </>
+                )}
+                {tariffItems.some((item) => item.isFree) && (
+                  <>
+                    <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
+                    <span className="font-mono text-[11px] tracking-wider text-text-muted">{t("freeUnder2")}</span>
+                  </>
+                )}
+                <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
+                <span className="font-mono text-[11px] tracking-wider text-emerald font-medium">{t("cashPrice")}</span>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted">{t("totalLabel")}</p>
-              <p className="font-mono text-xl font-bold text-sand tabular-nums">${total.toFixed(0)}</p>
-            </div>
-          </div>
-        </>
-      )}
 
-      {priceUsd === 0 && (
-        <div className="mt-6 rounded-xl bg-surface border border-border px-4 py-6 text-center">
-          <p className="font-heading text-xl text-text mb-1">{t("askPrice")}</p>
-          <p className="text-sm text-text-secondary">{t("askPriceSub")}</p>
+            <div className="mb-6 grid gap-4 sm:grid-cols-2">
+              <Stepper
+                label={t("adults")}
+                value={adults}
+                onChange={setAdults}
+                min={1}
+                max={20}
+                price={priceUsd}
+                reducedMotion={reducedMotion}
+              />
+              <Stepper
+                label={t("children")}
+                value={children}
+                onChange={setChildren}
+                min={0}
+                max={20}
+                price={childPrice}
+                reducedMotion={reducedMotion}
+              />
+            </div>
+
+            <div className="mb-6 flex items-center justify-between gap-4 border-t border-border pt-5">
+              <div className="text-sm text-text-secondary leading-relaxed flex flex-col gap-1">
+                <p className="font-mono tabular-nums">
+                  <span className="text-text">{adults}</span> <span className="text-text-secondary">{generalLabel}</span> × <span className="text-sand">${priceUsd}</span>
+                </p>
+                {children > 0 && (
+                  <p className="font-mono tabular-nums">
+                    <span className="text-text">{children}</span> <span className="text-text-secondary">{childLabel}</span> × <span className="text-sand">${childPrice.toFixed(0)}</span>
+                  </p>
+                )}
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted mb-1">{t("totalLabel")}</p>
+                <p className="font-heading text-2xl md:text-3xl font-bold text-sand tabular-nums leading-none">${total.toFixed(0)}</p>
+              </div>
+            </div>
+          </>
+        )}
+
+        {priceUsd === 0 && (
+          <div className="mb-6 rounded-xl bg-surface border border-border px-4 py-6 text-center">
+            <p className="font-heading text-xl text-text mb-1">{t("askPrice")}</p>
+            <p className="text-sm text-text-secondary">{t("askPriceSub")}</p>
+          </div>
+        )}
+
+        <div className="space-y-3">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="relative group">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-text-muted group-focus-within:text-emerald transition-colors" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={locale === "es" ? "Tu nombre" : "Your name"}
+                className="admin-input w-full pl-10 pr-4 py-3 text-text placeholder:text-text-muted"
+                required
+                autoComplete="name"
+              />
+            </label>
+            <label className="relative group">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-text-muted group-focus-within:text-emerald transition-colors" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder={locale === "es" ? "Tu WhatsApp (con código de país)" : "Your WhatsApp (with country code)"}
+                className="admin-input w-full pl-10 pr-4 py-3 text-text placeholder:text-text-muted"
+                required
+                autoComplete="tel"
+              />
+            </label>
+          </div>
+          <button
+            type="button"
+            onClick={handleBook}
+            disabled={saving || !name.trim() || !phone.trim()}
+            className="btn btn-primary w-full py-3.5 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+            style={{
+              transition: reducedMotion
+                ? "transform 80ms ease-out, background-color 80ms ease-out"
+                : "transform 120ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms cubic-bezier(0.23, 1, 0.32, 1)",
+            }}
+          >
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              {saving ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  {saving ? t("saving") ?? "Guardando..." : t("bookThisTour")}
+                </>
+              ) : (
+                t("bookThisTour")
+              )}
+            </span>
+          </button>
         </div>
-      )}
-
-      <div className="mt-5 space-y-3">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder={locale === "es" ? "Tu nombre" : "Your name"}
-          className="admin-input w-full"
-          required
-        />
-        <input
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder={locale === "es" ? "Tu WhatsApp (con código de país)" : "Your WhatsApp (with country code)"}
-          className="admin-input w-full"
-          required
-        />
-        <button
-          type="button"
-          onClick={handleBook}
-          disabled={saving || !name.trim() || !phone.trim()}
-          className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {saving ? t("saving") ?? "Guardando..." : t("bookThisTour")}
-        </button>
       </div>
     </div>
   );
