@@ -74,7 +74,7 @@ export function Header({ locale }: { locale: string }) {
       <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
-            Jungle <span className="logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.svg" alt="" className="inline-block w-auto h-[1.5em] md:h-[2.7em] align-middle ml-1.5" />
+            Jungle <span className="logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.jpg" alt="" className="inline-block w-auto h-[1.5em] md:h-[2.7em] align-middle ml-1.5" />
           </Link>
 
           <div className="nav-links">
@@ -143,7 +143,7 @@ export function Header({ locale }: { locale: string }) {
         >
         <div className="panel-header">
           <Link href="/" className="panel-logo" onClick={() => setOpen(false)}>
-            Jungle <span className="panel-logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.svg" alt="" className="inline-block w-auto h-[1.5em] md:h-[2.7em] align-middle ml-1.5" />
+            Jungle <span className="panel-logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.jpg" alt="" className="inline-block w-auto h-[1.5em] md:h-[2.7em] align-middle ml-1.5" />
           </Link>
           <button
             type="button"
