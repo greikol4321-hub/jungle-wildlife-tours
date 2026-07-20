@@ -45,6 +45,7 @@ type Tour = {
   max_people: number | null;
   price_usd: number | null;
   child_price_usd: number | null;
+  child_max_age: number | null;
   languages: string[] | null;
   includes: string[] | null;
   excludes: string[] | null;
@@ -367,6 +368,7 @@ export default async function TourDetailPage({
               title={title}
               childPriceUsd={typedTour.child_price_usd ?? undefined}
               minAge={typedTour.min_age ?? undefined}
+              childMaxAge={typedTour.child_max_age ?? undefined}
               locale={locale}
               tourId={typedTour.id}
             />

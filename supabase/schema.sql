@@ -15,6 +15,7 @@ create table public.tours (
   max_people integer,
   price_usd numeric(10,2),
   child_price_usd numeric(10,2),
+  child_max_age integer,
   languages text[] default '{"Español","English"}',
   includes text[],
   excludes text[],

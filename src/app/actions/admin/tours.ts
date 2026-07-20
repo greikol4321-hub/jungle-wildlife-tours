@@ -19,6 +19,7 @@ const tourSchema = z.object({
   max_people: z.coerce.number().int().min(1).optional(),
   price_usd: z.coerce.number().min(0).optional(),
   child_price_usd: z.coerce.number().min(0).optional(),
+  child_max_age: z.coerce.number().int().min(1).optional(),
   languages: z.array(z.string()).optional(),
   includes: z.array(z.string()).optional(),
   excludes: z.array(z.string()).optional(),
@@ -61,6 +62,7 @@ export async function createTour(values: unknown) {
     tide_table: data.tide_table ? parseTideTable(data.tide_table) : null,
     price_usd: data.price_usd || null,
     child_price_usd: data.child_price_usd || null,
+    child_max_age: data.child_max_age || null,
   };
   const { error } = await supabase.from("tours").insert(payload);
   if (error) throw new Error(error.message);
@@ -77,6 +79,7 @@ export async function updateTour(id: string, values: unknown) {
     ...data,
     price_usd: data.price_usd !== undefined ? (data.price_usd || null) : undefined,
     child_price_usd: data.child_price_usd !== undefined ? (data.child_price_usd || null) : undefined,
+    child_max_age: data.child_max_age !== undefined ? (data.child_max_age || null) : undefined,
     tide_table: data.tide_table !== undefined ? (data.tide_table ? parseTideTable(data.tide_table) : null) : undefined,
   };
   // Remove undefined keys so supabase doesn't update them

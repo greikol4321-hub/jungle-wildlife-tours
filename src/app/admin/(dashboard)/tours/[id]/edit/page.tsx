@@ -26,6 +26,7 @@ const schema = z.object({
   max_people: z.coerce.number().optional(),
   price_usd: z.coerce.number().optional(),
   child_price_usd: z.coerce.number().optional(),
+  child_max_age: z.coerce.number().optional(),
   languages: z.string().optional(),
   includes: z.string().optional(),
   excludes: z.string().optional(),
@@ -47,6 +48,7 @@ function dataToForm(tour: Tables<"tours">): FormData {
     max_people: tour.max_people ?? undefined,
     price_usd: tour.price_usd ?? undefined,
     child_price_usd: tour.child_price_usd ?? undefined,
+    child_max_age: tour.child_max_age ?? undefined,
     languages: (tour.languages ?? []).join(", "),
     includes: (tour.includes ?? []).join("\n"),
     excludes: (tour.excludes ?? []).join("\n"),
@@ -327,6 +329,9 @@ export default function EditTourPage({ params }: { params: Promise<{ id: string 
             </Field>
             <Field label="Precio niño (USD)" error={errors.child_price_usd?.message}>
               <input {...register("child_price_usd")} type="number" step="0.01" className="admin-input" />
+            </Field>
+            <Field label="Edad máx. niño" error={errors.child_max_age?.message}>
+              <input {...register("child_max_age")} type="number" className="admin-input" />
             </Field>
           </div>
         </div>

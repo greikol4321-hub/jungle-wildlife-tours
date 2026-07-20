@@ -10,16 +10,17 @@ interface Props {
   title: string;
   childPriceUsd?: number;
   minAge?: number;
+  childMaxAge?: number;
   locale: string;
   tourId?: string;
 }
 
-const CHILD_MAX_AGE = 12;
+const CHILD_MAX_AGE_DEFAULT = 12;
 
-function childAgeLabel(minAge: number | undefined, locale: string): string | null {
+function childAgeLabel(minAge: number | undefined, childMaxAge: number, locale: string): string | null {
   if (minAge == null) return null;
   const lower = Math.max(2, minAge);
-  return locale === "es" ? `${lower}-${CHILD_MAX_AGE} años` : `${lower}-${CHILD_MAX_AGE} yrs`;
+  return locale === "es" ? `${lower}-${childMaxAge} años` : `${lower}-${childMaxAge} yrs`;
 }
 
 function Stepper({
@@ -81,6 +82,7 @@ export function PriceCalculator({
   title,
   childPriceUsd,
   minAge,
+  childMaxAge,
   locale,
   tourId,
 }: Props) {
@@ -94,6 +96,9 @@ export function PriceCalculator({
 
   const childPrice = childPriceUsd ?? 0;
   const total = adults * priceUsd + children * childPrice;
+
+  const generalLabel = childMaxAge ? "General" : t("adult");
+  const childLabel = childMaxAge && minAge != null ? childAgeLabel(minAge, childMaxAge, locale) : t("child");
 
   const whatsappText =
     locale === "es"
@@ -141,16 +146,13 @@ export function PriceCalculator({
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-xl bg-surface border border-border px-4 py-3">
             <span className="font-mono text-[10px] tracking-widest uppercase text-text-muted">{t("tariff")}</span>
             <span className="font-mono text-sm font-bold text-text">
-              {t("adult")} <span className="text-sand">${priceUsd}</span>
+              {generalLabel} <span className="text-sand">${priceUsd}</span>
             </span>
             <span className="font-mono text-sm font-bold text-text">
-              {t("child")}
-              {childPriceUsd && minAge != null && childAgeLabel(minAge, locale)
-                ? ` (${childAgeLabel(minAge, locale)})`
-                : ''}
+              {childLabel}
               {' '}<span className="text-sand">${childPrice.toFixed(0)}</span>
             </span>
-            {childPriceUsd && (minAge == null || minAge <= 2) && (
+            {childPriceUsd && !childMaxAge && (minAge == null || minAge <= 2) && (
               <>
                 <span className="text-[10px] text-text-muted">|</span>
                 <span className="font-mono text-[10px] tracking-wider text-text-muted">{t("freeUnder2")}</span>
@@ -167,8 +169,8 @@ export function PriceCalculator({
 
           <div className="mt-6 flex items-end justify-between gap-4 border-t border-border pt-5">
             <div className="text-sm text-text-secondary leading-relaxed">
-              <p>{adults} {t("adultLabel")} × ${priceUsd}</p>
-              {children > 0 && <p>{children} {t("childLabel")} × ${childPrice.toFixed(0)}</p>}
+              <p>{adults} {generalLabel} × ${priceUsd}</p>
+              {children > 0 && <p>{children} {childLabel} × ${childPrice.toFixed(0)}</p>}
             </div>
             <div className="text-right">
               <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted">{t("totalLabel")}</p>
