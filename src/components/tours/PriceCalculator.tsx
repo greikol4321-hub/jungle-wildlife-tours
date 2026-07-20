@@ -232,7 +232,7 @@ export function PriceCalculator({
       { label: generalLabel, price: priceUsd, isGeneral: true },
       { label: childLabel ?? t("child"), price: childPrice, isGeneral: false },
     ];
-    if (childPriceUsd && childMaxAge && minAge != null) {
+    if (childPriceUsd && childMaxAge && (minAge === undefined || minAge === null || minAge <= 0)) {
       items.push({ label: t("freeUnder2"), price: 0, isGeneral: false, isFree: true });
     }
     return items;
