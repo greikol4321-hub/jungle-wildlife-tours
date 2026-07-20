@@ -322,7 +322,7 @@ export function PriceCalculator({
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted mb-1">{t("totalLabel")}</p>
-                <p className="font-heading text-2xl md:text-3xl font-bold text-sand tabular-nums leading-none">${total.toFixed(0)}</p>
+                <p className="font-mono text-3xl font-bold text-sand tabular-nums leading-none">${total.toFixed(0)}</p>
               </div>
             </div>
           </>
