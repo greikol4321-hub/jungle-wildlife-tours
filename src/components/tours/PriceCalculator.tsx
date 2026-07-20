@@ -19,7 +19,7 @@ interface Props {
 function childAgeLabel(minAge: number | undefined, childMaxAge: number, locale: string): string | null {
   if (minAge == null) return null;
   const lower = Math.max(2, minAge);
-  return locale === "es" ? `${lower}-${childMaxAge} años` : `${lower}-${childMaxAge} yrs`;
+  return locale === "es" ? `${lower}-${childMaxAge} años` : `${lower}-${childMaxAge} years`;
 }
 
 function Stepper({

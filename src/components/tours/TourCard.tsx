@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { CATEGORY_STYLES, difficultyLabels } from "@/lib/constants";
 import { m, useReducedMotion } from "motion/react";
-import { Clock, ArrowRight, Footprints, Languages, Heart } from "lucide-react";
+import { Clock, ArrowRight, Footprints, Languages, Heart, UserCheck } from "lucide-react";
 
 interface TourImage {
   storage_path: string;
@@ -26,6 +26,7 @@ interface Tour {
   category: string;
   difficulty: string | null;
   languages: string[] | null;
+  min_age: number | null;
   tour_images: TourImage[];
 }
 
@@ -179,6 +180,14 @@ export function TourCard({ tour, locale, index, featured }: TourCardProps) {
                   {tour.languages?.join(" / ") ?? "ES / EN"}
                 </span>
               </span>
+              {tour.min_age != null && tour.min_age > 0 && (
+                <span className="inline-flex items-center gap-1 text-text-muted" title={tTours("minAge")}>
+                  <UserCheck className="h-3 w-3" strokeWidth={1.5} aria-hidden="true" />
+                  <span className="font-mono text-[9px] tracking-wider uppercase">
+                    {tour.min_age}+ {tTours("years")}
+                  </span>
+                </span>
+              )}
             </div>
 
             <div

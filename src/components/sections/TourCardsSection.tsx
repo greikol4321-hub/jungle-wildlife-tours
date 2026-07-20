@@ -25,6 +25,7 @@ interface Tour {
   category: string;
   difficulty: string | null;
   languages: string[] | null;
+  min_age: number | null;
   tour_images: TourImage[];
 }
 
