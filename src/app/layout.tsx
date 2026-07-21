@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: { index: true, follow: true },
-  icons: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
+  icons: [{ rel: "icon", url: "/favicon.jpg", type: "image/jpeg" }],
 };
 
 const cormorantGaramond = Cormorant_Garamond({
