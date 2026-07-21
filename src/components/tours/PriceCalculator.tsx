@@ -265,6 +265,7 @@ export function PriceCalculator({
                 )}
                 <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
                 <span className="font-mono text-[11px] tracking-wider text-emerald font-medium">{t("cashPrice")}</span>
+                <span className="font-mono text-[10px] tracking-wider text-text-muted/60">· {t("noIva")}</span>
               </div>
             </div>
 

@@ -93,6 +93,7 @@
     "child": "Child",
     "freeUnder2": "< 2 years free",
     "cashPrice": "Cash price",
+    "noIva": "Does not include 13% VAT",
     "calculator": "Price calculator",
     "calculatorSub": "Select the number of people to see the total.",
     "adults": "Adults",
