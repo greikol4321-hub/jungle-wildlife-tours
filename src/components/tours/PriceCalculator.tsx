@@ -184,13 +184,17 @@ export function PriceCalculator({
   const [children, setChildren] = useState(0);
   const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
   const [isMounted, setIsMounted] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"cash" | "card">("cash");
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const childPrice = childPriceUsd ?? 0;
+  const ivaRate = 0.13;
   const total = adults * priceUsd + children * childPrice;
+  const ivaAmount = total * ivaRate;
+  const totalWithIva = total + ivaAmount;
 
   const generalLabel = "General";
   const childLabel = childMaxAge && minAge != null ? childAgeLabel(minAge, childMaxAge, locale) : t("child");
@@ -198,8 +202,8 @@ export function PriceCalculator({
 
   const whatsappText =
     locale === "es"
-      ? `¡Hola! Quiero consultar disponibilidad para el tour: ${title}. Fecha: ${date}. Adultos: ${adults}, Niños: ${children}. Total estimado: $${total}`
-      : `Hi! I'd like to check availability for the tour: ${title}. Date: ${date}. Adults: ${adults}, Children: ${children}. Estimated total: $${total}`;
+      ? `¡Hola! Quiero consultar disponibilidad para el tour: ${title}. Fecha: ${date}. Adultos: ${adults}, Niños: ${children}. Total estimado (${paymentMethod === "card" ? "tarjeta" : "efectivo"}): $${paymentMethod === "card" ? totalWithIva.toFixed(0) : total.toFixed(0)}`
+      : `Hi! I'd like to check availability for the tour: ${title}. Date: ${date}. Adults: ${adults}, Children: ${children}. Estimated total (${paymentMethod === "card" ? "card" : "cash"}): $${paymentMethod === "card" ? totalWithIva.toFixed(0) : total.toFixed(0)}`;
 
   const whatsappNumberFallback = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50684230485";
 
@@ -265,7 +269,27 @@ export function PriceCalculator({
                 )}
                 <span className="w-px h-6 bg-border/40 mx-1" aria-hidden="true" />
                 <span className="font-mono text-[11px] tracking-wider text-emerald font-medium">{t("cashPrice")}</span>
-                <span className="font-mono text-[10px] tracking-wider text-text-muted/60">· {t("noIva")}</span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted mb-3">{t("paymentMethod")}</p>
+              <div className="flex gap-2">
+                {(["cash", "card"] as const).map((method) => (
+                  <button
+                    key={method}
+                    type="button"
+                    onClick={() => setPaymentMethod(method)}
+                    className={`flex-1 py-2.5 rounded-xl font-mono text-[11px] tracking-wider uppercase transition-all duration-200 border ${
+                      paymentMethod === method
+                        ? "bg-emerald/10 border-emerald/40 text-emerald font-semibold"
+                        : "bg-surface border-border text-text-secondary hover:border-emerald/30 hover:text-emerald/80"
+                    }`}
+                  >
+                    {t(method)}
+                    {method === "card" && <span className="block text-[9px] tracking-wider opacity-70">+13% IVA</span>}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -303,7 +327,14 @@ export function PriceCalculator({
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="font-mono text-[10px] tracking-widest uppercase text-text-muted mb-1">{t("totalLabel")}</p>
-                <p className="font-mono text-3xl font-bold text-sand tabular-nums leading-none">${total.toFixed(0)}</p>
+                {paymentMethod === "card" ? (
+                  <>
+                    <p className="font-mono text-3xl font-bold text-sand tabular-nums leading-none">${totalWithIva.toFixed(0)}</p>
+                    <p className="font-mono text-[10px] tracking-wider text-text-muted/70 mt-1">${total.toFixed(0)} + ${ivaAmount.toFixed(0)} {t("ivaLine")}</p>
+                  </>
+                ) : (
+                  <p className="font-mono text-3xl font-bold text-sand tabular-nums leading-none">${total.toFixed(0)}</p>
+                )}
               </div>
             </div>
           </>
