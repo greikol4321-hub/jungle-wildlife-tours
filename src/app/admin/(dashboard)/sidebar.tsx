@@ -61,10 +61,7 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
             <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
-          <NavItems pathname={pathname} onClick={() => setOpen(false)} />
-        </nav>
-        <div className="px-3 pb-3">
+        <div className="px-3 pt-3">
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald/10 border border-emerald/15">
             <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center text-white text-sm font-bold leading-none">
               {displayName.charAt(0)}
@@ -80,6 +77,9 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
             </form>
           </div>
         </div>
+        <nav className="flex-1 p-3 space-y-1">
+          <NavItems pathname={pathname} onClick={() => setOpen(false)} />
+        </nav>
       </aside>
 
       {/* Desktop sidebar */}
@@ -88,10 +88,7 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
           <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
           <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
-          <NavItems pathname={pathname} />
-        </nav>
-        <div className="px-3 pb-3">
+        <div className="px-3 pt-3">
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald/10 border border-emerald/15">
             <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center text-white text-sm font-bold leading-none">
               {displayName.charAt(0)}
@@ -107,6 +104,9 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
             </form>
           </div>
         </div>
+        <nav className="flex-1 p-3 space-y-1">
+          <NavItems pathname={pathname} />
+        </nav>
       </aside>
     </>
   );
