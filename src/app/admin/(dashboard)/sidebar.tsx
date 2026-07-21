@@ -56,19 +56,19 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
         ${open ? "translate-x-0" : "-translate-x-full"}
       `}>
         <div className="flex items-center justify-between px-5 h-14 border-b border-border">
-          <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
+          <div className="flex items-center gap-2">
+            <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
+            <span className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald/10 text-emerald text-[11px] font-medium leading-none">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
+              {displayName}
+            </span>
+          </div>
           <button type="button" onClick={() => setOpen(false)} className="p-1 text-text-muted hover:text-text transition-colors" aria-label="Cerrar menú">
             <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
         <nav className="p-3 space-y-1">
           <NavItems pathname={pathname} onClick={() => setOpen(false)} />
-          <div className="pt-2 pb-1">
-            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald/10 text-emerald text-xs font-medium w-fit">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
-              Bienvenido, {displayName}
-            </span>
-          </div>
           <form action="/admin/logout" method="post">
             <button type="submit" onClick={() => setOpen(false)} className="admin-sidebar-item w-full">
               <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
@@ -80,18 +80,18 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
 
       {/* Desktop sidebar */}
       <aside className="hidden md:flex md:flex-col admin-sidebar">
-        <div className="flex items-center gap-2 px-5 h-16 border-b border-border shrink-0">
-          <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
-          <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
+        <div className="flex items-center justify-between px-5 h-16 border-b border-border shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
+            <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
+          </div>
+          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald/10 text-emerald text-[11px] font-medium leading-none">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
+            {displayName}
+          </span>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           <NavItems pathname={pathname} />
-          <div className="pt-2 pb-1">
-            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald/10 text-emerald text-xs font-medium w-fit">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
-              Bienvenido, {displayName}
-            </span>
-          </div>
           <form action="/admin/logout" method="post">
             <button type="submit" className="admin-sidebar-item w-full">
               <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
