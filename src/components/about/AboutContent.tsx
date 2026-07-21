@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 import { ParallaxDivider } from "@/components/sections/ParallaxDivider";

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/ui/Reveal";
 import { TourCard } from "@/components/tours/TourCard";
 import { useTranslations } from "next-intl";

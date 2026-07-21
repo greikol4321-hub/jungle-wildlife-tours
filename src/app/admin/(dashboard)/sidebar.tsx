@@ -28,8 +28,9 @@ function NavItems({ pathname, onClick }: { pathname: string; onClick?: () => voi
   });
 }
 
-export function Sidebar() {
+export function Sidebar({ userEmail }: { userEmail: string }) {
   const pathname = usePathname();
+  const displayName = userEmail.split("@")[0].charAt(0).toUpperCase() + userEmail.split("@")[0].slice(1);
   const [open, setOpen] = useState(false);
 
   return (
@@ -62,6 +63,12 @@ export function Sidebar() {
         </div>
         <nav className="p-3 space-y-1">
           <NavItems pathname={pathname} onClick={() => setOpen(false)} />
+          <div className="pt-2 pb-1">
+            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald/10 text-emerald text-xs font-medium w-fit">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
+              Bienvenido, {displayName}
+            </span>
+          </div>
           <form action="/admin/logout" method="post">
             <button type="submit" onClick={() => setOpen(false)} className="admin-sidebar-item w-full">
               <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
@@ -79,6 +86,12 @@ export function Sidebar() {
         </div>
         <nav className="flex-1 p-3 space-y-1">
           <NavItems pathname={pathname} />
+          <div className="pt-2 pb-1">
+            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald/10 text-emerald text-xs font-medium w-fit">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
+              Bienvenido, {displayName}
+            </span>
+          </div>
           <form action="/admin/logout" method="post">
             <button type="submit" className="admin-sidebar-item w-full">
               <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
