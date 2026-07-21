@@ -52,6 +52,10 @@ next-env.d.ts
 captura.cjs
 trust-section.png
 
+# root screenshots / generated images
+/header-toucan*.png
+/admin-*.png
+
 # load test output
 load-test-results.json
 
