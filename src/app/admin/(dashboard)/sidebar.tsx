@@ -56,49 +56,57 @@ export function Sidebar({ userEmail }: { userEmail: string }) {
         ${open ? "translate-x-0" : "-translate-x-full"}
       `}>
         <div className="flex items-center justify-between px-5 h-14 border-b border-border">
-          <div className="flex items-center gap-2">
-            <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
-            <span className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald/10 text-emerald text-[11px] font-medium leading-none">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
-              {displayName}
-            </span>
-          </div>
+          <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
           <button type="button" onClick={() => setOpen(false)} className="p-1 text-text-muted hover:text-text transition-colors" aria-label="Cerrar menú">
             <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
-        <nav className="p-3 space-y-1">
+        <nav className="flex-1 p-3 space-y-1">
           <NavItems pathname={pathname} onClick={() => setOpen(false)} />
-          <form action="/admin/logout" method="post">
-            <button type="submit" onClick={() => setOpen(false)} className="admin-sidebar-item w-full">
-              <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
-              Cerrar sesión
-            </button>
-          </form>
         </nav>
+        <div className="px-3 pb-3">
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald/10 border border-emerald/15">
+            <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center text-white text-sm font-bold leading-none">
+              {displayName.charAt(0)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-text text-sm font-medium leading-tight truncate">{displayName}</p>
+              <p className="text-text-muted text-[11px] leading-tight mt-0.5">Administrador</p>
+            </div>
+            <form action="/admin/logout" method="post">
+              <button type="submit" onClick={() => setOpen(false)} className="p-1.5 rounded-lg text-text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors" title="Cerrar sesión">
+                <LogOut className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </form>
+          </div>
+        </div>
       </aside>
 
       {/* Desktop sidebar */}
       <aside className="hidden md:flex md:flex-col admin-sidebar">
-        <div className="flex items-center justify-between px-5 h-16 border-b border-border shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
-            <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
-          </div>
-          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald/10 text-emerald text-[11px] font-medium leading-none">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
-            {displayName}
-          </span>
+        <div className="flex items-center gap-2 px-5 h-16 border-b border-border shrink-0">
+          <div className="h-2 w-2 rounded-full bg-emerald animate-pulse-glow" />
+          <span className="font-heading font-bold text-sm tracking-wide text-text">Jungle Admin</span>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           <NavItems pathname={pathname} />
-          <form action="/admin/logout" method="post">
-            <button type="submit" className="admin-sidebar-item w-full">
-              <LogOut className="admin-sidebar-icon" strokeWidth={1.5} />
-              Cerrar sesión
-            </button>
-          </form>
         </nav>
+        <div className="px-3 pb-3">
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald/10 border border-emerald/15">
+            <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center text-white text-sm font-bold leading-none">
+              {displayName.charAt(0)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-text text-sm font-medium leading-tight truncate">{displayName}</p>
+              <p className="text-text-muted text-[11px] leading-tight mt-0.5">Administrador</p>
+            </div>
+            <form action="/admin/logout" method="post">
+              <button type="submit" className="p-1.5 rounded-lg text-text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors" title="Cerrar sesión">
+                <LogOut className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </form>
+          </div>
+        </div>
       </aside>
     </>
   );
