@@ -74,7 +74,7 @@ export function Header({ locale }: { locale: string }) {
       <div className={cn("nav-wrapper", navHidden && "hidden")}>
         <nav className={cn("nav-inner", scrolled && "scrolled")} aria-label={t("ariaNav")}>
           <Link href="/" className="logo" aria-label={t("ariaLogo")}>
-            Jungle <span className="logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.png" alt="" className="inline-block w-auto h-[1.8em] md:h-[3.2em] align-middle ml-1.5" />
+            Jungle <span className="logo-accent">Wildlife</span> Tours<span className="inline-flex items-center justify-center rounded-full bg-black/15 ml-2 p-1 align-middle"><img src="/images/logo-toucan.svg" alt="" className="block w-auto h-[1.8em] md:h-[3.2em]" /></span>
           </Link>
 
           <div className="nav-links">
@@ -143,7 +143,7 @@ export function Header({ locale }: { locale: string }) {
         >
         <div className="panel-header">
           <Link href="/" className="panel-logo" onClick={() => setOpen(false)}>
-            Jungle <span className="panel-logo-accent">Wildlife</span> Tours<img src="/images/logo-sloth.png" alt="" className="inline-block w-auto h-[1.8em] md:h-[3.2em] align-middle ml-1.5" />
+            Jungle <span className="panel-logo-accent">Wildlife</span> Tours<span className="inline-flex items-center justify-center rounded-full bg-black/15 ml-2 p-1 align-middle"><img src="/images/logo-toucan.svg" alt="" className="block w-auto h-[1.8em] md:h-[3.2em]" /></span>
           </Link>
           <button
             type="button"
