@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { approveReview, rejectReview, deleteReview } from "@/app/actions/admin/reviews";
+import { useState, useMemo, useCallback } from "react";
+import { approveReview, rejectReview, deleteReview, approveReviews, deleteReviews } from "@/app/actions/admin/reviews";
 import { Check, X, Trash2, Search, MessageSquareQuote } from "lucide-react";
 
 type Review = {
@@ -33,7 +33,9 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
   const [showDeleteModal, setShowDeleteModal] = useState<string | null>(null);
+  const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
   const [showCommentModal, setShowCommentModal] = useState<{ es: string | null; en: string | null } | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
     return reviews.filter((r) => {
@@ -53,6 +55,27 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
   }, [reviews, search, filter]);
 
   const pending = reviews.filter((r) => !r.is_approved).length;
+
+  const allSelected = filtered.length > 0 && filtered.every((r) => selectedIds.has(r.id));
+  const someSelected = selectedIds.size > 0;
+
+  const toggleSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAll = useCallback(() => {
+    if (allSelected) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filtered.map((r) => r.id)));
+    }
+  }, [filtered, allSelected]);
+
+  const deselectAll = useCallback(() => setSelectedIds(new Set()), []);
 
   return (
     <div className="space-y-4">
@@ -79,10 +102,43 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
         </select>
       </div>
 
+      {someSelected && (
+        <div className="admin-card flex items-center gap-3 px-4 py-2.5">
+          <span className="text-sm text-text font-medium">{selectedIds.size} seleccionadas</span>
+          <div className="flex-1" />
+          <form action={approveReviews.bind(null, Array.from(selectedIds))} onSubmit={() => setSelectedIds(new Set())}>
+            <button type="submit" className="admin-btn admin-btn-sm" style={{ color: "var(--color-emerald)", borderColor: "var(--color-emerald)" }}>
+              <Check className="h-3.5 w-3.5" strokeWidth={2} />
+              Aprobar seleccionadas
+            </button>
+          </form>
+          <button
+            type="button"
+            onClick={() => setShowBulkDeleteModal(true)}
+            className="admin-btn admin-btn-sm admin-btn-destructive"
+          >
+            <Trash2 className="h-3.5 w-3.5" strokeWidth={1.5} />
+            Eliminar seleccionadas
+          </button>
+          <button type="button" onClick={deselectAll} className="admin-btn admin-btn-ghost admin-btn-sm text-xs">
+            Deseleccionar
+          </button>
+        </div>
+      )}
+
       <div className="rounded-xl border border-border bg-card overflow-x-auto admin-scrollbar">
         <table className="admin-table min-w-[520px]">
           <thead>
             <tr>
+              <th className="w-10">
+                <input
+                  type="checkbox"
+                  className="admin-checkbox"
+                  checked={allSelected}
+                  onChange={toggleSelectAll}
+                  aria-label="Seleccionar todas"
+                />
+              </th>
               <th className="w-20 sm:w-24">Estado</th>
               <th>Autor</th>
               <th className="w-24 sm:w-28">Valoración</th>
@@ -93,11 +149,21 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((review) => (
+            {filtered.map((review, i) => (
               <tr
                 key={review.id}
-                className={!review.is_approved ? "border-l-2 border-l-yellow-400/40" : ""}
+                className={`stagger-fade ${selectedIds.has(review.id) ? "bg-surface-elevated/40" : ""}`}
+                style={{ animationDelay: `${i * 40}ms` }}
               >
+                <td>
+                  <input
+                    type="checkbox"
+                    className="admin-checkbox"
+                    checked={selectedIds.has(review.id)}
+                    onChange={() => toggleSelect(review.id)}
+                    aria-label={`Seleccionar reseña de ${review.author_name}`}
+                  />
+                </td>
                 <td>
                   <span className={`admin-badge ${review.is_approved ? "active" : "pending"}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${review.is_approved ? "bg-emerald" : "bg-yellow-400"}`} />
@@ -179,19 +245,26 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center py-16">
-                  {search || filter !== "all" ? (
-                    <div>
-                      <p className="text-sm text-text-muted">No se encontraron reseñas con esos filtros</p>
-                      <p className="text-xs text-text-muted/50 mt-1">Probá con otros términos</p>
-                    </div>
-                  ) : (
-                    <div>
-                      <MessageSquareQuote className="h-10 w-10 text-text-muted/20 mx-auto mb-3" strokeWidth={1.5} />
-                      <p className="text-sm text-text-muted">No hay reseñas todavía</p>
-                      <p className="text-xs text-text-muted/50 mt-1">Aparecerán cuando los clientes escriban</p>
-                    </div>
-                  )}
+                <td colSpan={8}>
+                  <div className="text-center py-16">
+                    {search || filter !== "all" ? (
+                      <div>
+                        <div className="w-14 h-14 rounded-2xl bg-surface-elevated flex items-center justify-center mx-auto mb-4">
+                          <Search className="h-6 w-6 text-text-muted/30" strokeWidth={1.5} />
+                        </div>
+                        <p className="text-sm text-text-muted font-medium">No se encontraron reseñas con esos filtros</p>
+                        <p className="text-xs text-text-muted/50 mt-1">Probá con otros términos</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="w-14 h-14 rounded-2xl bg-surface-elevated flex items-center justify-center mx-auto mb-4">
+                          <MessageSquareQuote className="h-6 w-6 text-text-muted/30" strokeWidth={1.5} />
+                        </div>
+                        <p className="text-sm text-text-muted font-medium">No hay reseñas todavía</p>
+                        <p className="text-xs text-text-muted/50 mt-1">Aparecerán cuando los clientes escriban</p>
+                      </div>
+                    )}
+                  </div>
                 </td>
               </tr>
             )}
@@ -203,8 +276,8 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
       </p>
 
       {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowDeleteModal(null)}>
-          <div className="bg-surface border border-border rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4" onClick={(e) => e.stopPropagation()}>
+        <div className="admin-dialog-overlay" onClick={() => setShowDeleteModal(null)}>
+          <div className="admin-dialog-content max-w-sm" onClick={(e) => e.stopPropagation()}>
             <h3 className="font-heading text-lg font-bold text-text">Eliminar reseña</h3>
             <p className="mt-2 text-sm text-text-secondary leading-relaxed">
               Esta acción no se puede deshacer. La reseña se borrará permanentemente.
@@ -223,9 +296,30 @@ export function ReviewsTable({ reviews }: { reviews: Review[] }) {
         </div>
       )}
 
+      {showBulkDeleteModal && (
+        <div className="admin-dialog-overlay" onClick={() => setShowBulkDeleteModal(false)}>
+          <div className="admin-dialog-content max-w-sm" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-heading text-lg font-bold text-text">Eliminar {selectedIds.size} reseñas</h3>
+            <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+              Esta acción no se puede deshacer. Las reseñas seleccionadas se borrarán permanentemente.
+            </p>
+            <div className="mt-6 flex items-center justify-end gap-2">
+              <button type="button" onClick={() => setShowBulkDeleteModal(false)} className="admin-btn admin-btn-ghost px-4 py-2 text-sm">
+                Cancelar
+              </button>
+              <form action={deleteReviews.bind(null, Array.from(selectedIds))} onSubmit={() => { setShowBulkDeleteModal(false); setSelectedIds(new Set()); }}>
+                <button type="submit" className="admin-btn admin-btn-destructive px-4 py-2 text-sm">
+                  Eliminar {selectedIds.size} reseñas
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showCommentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowCommentModal(null)}>
-          <div className="bg-surface border border-border rounded-2xl shadow-2xl p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="admin-dialog-overlay" onClick={() => setShowCommentModal(null)}>
+          <div className="admin-dialog-content max-w-lg" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading text-lg font-bold text-text">Comentario completo</h3>
               <button type="button" onClick={() => setShowCommentModal(null)} className="admin-btn admin-btn-ghost admin-btn-icon" aria-label="Cerrar">

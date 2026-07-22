@@ -65,13 +65,23 @@ function ImagePreview({ img, isCover, onSetCover, onDelete, onClose }: {
   onClose: () => void;
 }) {
   const [deleting, setDeleting] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", handler);
+    const el = overlayRef.current;
+    if (el) {
+      const prev = document.activeElement as HTMLElement | null;
+      requestAnimationFrame(() => { (el.querySelector("button") as HTMLElement | null)?.focus(); });
+      return () => {
+        window.removeEventListener("keydown", handler);
+        prev?.focus();
+      };
+    }
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
+    <div ref={overlayRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose} role="dialog" aria-modal="true" aria-label="Vista previa de imagen">
       <div className="flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
         <div className="relative max-h-full max-w-full">
           <Image src={img.storage_path} alt="" width={1200} height={800} className="max-h-[75vh] w-auto rounded-xl" />

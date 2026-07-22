@@ -52,3 +52,23 @@ export async function deleteReview(id: string) {
   revalidatePath("/admin");
   revalidateTag("reviews", "seconds");
 }
+
+export async function approveReviews(ids: string[]) {
+  await verifyAdmin();
+  const supabase = await createClient();
+  const { error } = await supabase.from("reviews").update({ is_approved: true }).in("id", ids);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/reviews");
+  revalidatePath("/admin");
+  revalidateTag("reviews", "seconds");
+}
+
+export async function deleteReviews(ids: string[]) {
+  await verifyAdmin();
+  const supabase = await createClient();
+  const { error } = await supabase.from("reviews").delete().in("id", ids);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/reviews");
+  revalidatePath("/admin");
+  revalidateTag("reviews", "seconds");
+}
