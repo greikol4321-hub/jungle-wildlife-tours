@@ -205,7 +205,7 @@ export async function Footer({ locale }: { locale: string }) {
                 {t("legal")}
               </p>
               <p className="text-text-muted/60 text-[10px] tracking-wider">
-                Desarrollado por <span className="text-emerald/60">Greikol Q.A</span>
+                Desarrollado por <a href="https://portafolio-greikol.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-emerald/60 transition-colors duration-300 hover:text-emerald">Greikol Q.A</a>
               </p>
               <div className="flex items-center gap-4">
                 <Link
