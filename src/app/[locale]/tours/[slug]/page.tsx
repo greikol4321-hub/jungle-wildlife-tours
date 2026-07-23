@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
-import { getTourBySlug, getTourSlugs } from "@/lib/queries";
+import { getTourBySlug, getTourSlugs, getTourReviewStats } from "@/lib/queries";
 import { difficultyLabels } from "@/lib/constants";
 import { PriceCalculator } from "@/components/tours/PriceCalculator";
 import { GalleryLightbox } from "@/components/tours/GalleryLightbox";
@@ -119,15 +119,18 @@ export default async function TourDetailPage({
   const [{ locale, slug }] = await Promise.all([params]);
   setRequestLocale(locale);
 
-  const [[t, tTours], tour] = await Promise.all([
+  const [translations, tour] = await Promise.all([
     Promise.all([
       getTranslations({ locale, namespace: "tourDetail" }),
       getTranslations({ locale, namespace: "tours" }),
     ]),
     getTourBySlug(slug),
   ]);
+  const [t, tTours] = translations;
 
   if (!tour) notFound();
+
+  const reviewStats = await getTourReviewStats(tour.id);
 
   const typedTour = tour as Tour;
 
@@ -163,6 +166,7 @@ export default async function TourDetailPage({
           category: categoryLabel,
           locale,
         }}
+        reviewStats={reviewStats}
       />
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">

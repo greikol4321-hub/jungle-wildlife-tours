@@ -88,3 +88,19 @@ export const getApprovedReviews = unstable_cache(
   ["reviews-approved"],
   { revalidate: 30, tags: ["reviews"] }
 );
+
+export const getTourReviewStats = unstable_cache(
+  async (tourId: string) => {
+    const supabase = createStaticClient();
+    const { data } = await supabase
+      .from("reviews")
+      .select("rating")
+      .eq("tour_id", tourId)
+      .eq("is_approved", true);
+    if (!data || data.length === 0) return null;
+    const sum = data.reduce((a, r) => a + (r.rating ?? 0), 0);
+    return { average: sum / data.length, count: data.length };
+  },
+  ["reviews-stats"],
+  { revalidate: 30, tags: ["reviews"] }
+);

@@ -12,10 +12,15 @@ type TourProduct = {
   locale: string;
 };
 
-export function TourProductJsonLd({ tour }: { tour: TourProduct }) {
-  const schema = {
+type ReviewStats = {
+  average: number;
+  count: number;
+};
+
+export function TourProductJsonLd({ tour, reviewStats }: { tour: TourProduct; reviewStats?: ReviewStats | null }) {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": ["Product", "TouristTrip"],
     name: tour.name,
     description: tour.description?.slice(0, 500),
     image: tour.image,
@@ -32,7 +37,20 @@ export function TourProductJsonLd({ tour }: { tour: TourProduct }) {
       availability: "https://schema.org/InStock",
       url: `${baseUrl}/${tour.locale}/tours/${tour.slug}`,
     },
+    touristType: {
+      "@type": "Audience",
+      name: "Amantes de la naturaleza, fotógrafos, familias",
+    },
   };
+
+  if (reviewStats && reviewStats.count > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: reviewStats.average.toFixed(1),
+      reviewCount: reviewStats.count,
+      bestRating: 5,
+    };
+  }
 
   return (
     <script

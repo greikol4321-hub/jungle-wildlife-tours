@@ -1,5 +1,26 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = locale === "es"
+    ? "Página no encontrada · Jungle Wildlife Tours"
+    : "Page not found · Jungle Wildlife Tours";
+  const description = locale === "es"
+    ? "La página que buscas no existe. Volvé al inicio para encontrar el tour perfecto en Manuel Antonio."
+    : "The page you're looking for doesn't exist. Go back home to find the perfect tour in Manuel Antonio.";
+
+  return {
+    title,
+    description,
+    robots: { index: false, follow: true },
+  };
+}
 
 export default async function NotFound() {
   const t = await getTranslations("notFound");
