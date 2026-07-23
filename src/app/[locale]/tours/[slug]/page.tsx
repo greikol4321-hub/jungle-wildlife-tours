@@ -244,9 +244,15 @@ export default async function TourDetailPage({
 
         {/* ── DESCRIPTION ── */}
         <section className="mt-12 md:mt-16 max-w-3xl">
-          <p className="text-base md:text-lg leading-[1.8] text-text-secondary">
-            {description}
-          </p>
+          <div className="text-text-secondary leading-relaxed" style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)", lineHeight: 1.75 }}>
+            {description.split('\n\n').filter(Boolean).map((paragraph, i) => (
+              <p key={i} className="text-pretty [&:not(:first-child)]:mt-5">
+                {paragraph.split('\n').map((line, j) => (
+                  <span key={j}>{j > 0 && <br />}{line}</span>
+                ))}
+              </p>
+            ))}
+          </div>
         </section>
 
         {/* ── INCLUDES / EXCLUDES ── */}
