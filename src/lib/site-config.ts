@@ -19,5 +19,5 @@ export const SITE = {
   openingHours: "Mo-Su 06:00-20:00",
   priceRange: "$",
   languages: ["es", "en"] as const,
-  businessImage: "/images/logo-sloth.png",
+  businessImage: "/images/logo-toucan.svg",
 } as const;
