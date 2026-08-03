@@ -14,7 +14,7 @@ const localBusiness = {
     addressRegion: SITE.address.region,
     addressCountry: SITE.address.country,
   },
-  image: `${SITE_URL}/og-image.jpg`,
+  image: `${SITE_URL}${SITE.businessImage}`,
   description: SITE.defaultDescription,
   priceRange: SITE.priceRange,
   areaServed: {
