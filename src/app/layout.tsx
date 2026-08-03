@@ -6,6 +6,7 @@ import { Cormorant_Garamond, Outfit, Space_Mono, Syne } from "next/font/google";
 import { AppToastProvider } from "@/components/app-toast-provider";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/site-config";
 const siteUrl = SITE_URL;
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </MotionProvider>
         <JsonLd />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
