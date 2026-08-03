@@ -1,43 +1,39 @@
-import { SITE_URL } from "@/lib/site-config";
-const siteUrl = SITE_URL;
+import { SITE_URL, SITE } from "@/lib/site-config";
 
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "TouristInformationCenter"],
-  "@id": `${siteUrl}/#organization`,
-  name: "Jungle Wildlife Tours",
-  url: siteUrl,
-  telephone: "+506 8423-0485",
-  email: "junglewildlifetours.cr@gmail.com",
+  "@id": `${SITE_URL}/#organization`,
+  name: SITE.name,
+  url: SITE_URL,
+  telephone: SITE.phone,
+  email: SITE.email,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Manuel Antonio",
-    addressRegion: "Quepos",
-    addressCountry: "CR",
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.region,
+    addressCountry: SITE.address.country,
   },
-  image: `${siteUrl}/og-image.jpg`,
-  description: "Nature and wildlife tours in Manuel Antonio, Costa Rica. Ground safari, mangrove kayak tour, mangrove boat tour, and night walk.",
-  priceRange: "$",
+  image: `${SITE_URL}/og-image.jpg`,
+  description: SITE.defaultDescription,
+  priceRange: SITE.priceRange,
   areaServed: {
     "@type": "City",
-    name: "Manuel Antonio",
+    name: SITE.address.locality,
     sameAs: "https://en.wikipedia.org/wiki/Manuel_Antonio,_Costa_Rica",
   },
-  knowsLanguage: ["es", "en"],
-  openingHours: "Mo-Su 06:00-20:00",
-  sameAs: [
-    "https://facebook.com/junglewildlifetours",
-    "https://instagram.com/junglewildlifetours",
-  ],
+  knowsLanguage: SITE.languages,
+  openingHours: SITE.openingHours,
+  sameAs: [SITE.socials.facebook, SITE.socials.instagram],
 };
 
 const website = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${siteUrl}/#website`,
-  name: "Jungle Wildlife Tours",
-  url: siteUrl,
-  inLanguage: ["es", "en"],
+  "@id": `${SITE_URL}/#website`,
+  name: SITE.name,
+  url: SITE_URL,
+  inLanguage: SITE.languages,
 };
 
 export function JsonLd() {

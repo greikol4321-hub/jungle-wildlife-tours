@@ -9,12 +9,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = ["", "/tours", "/about", "/gallery", "/contact"];
 
   const supabase = createStaticClient();
-  const now = new Date();
 
   const staticPages = routes.flatMap((route) =>
     locales.map((locale) => ({
       url: `${baseUrl}/${locale}${route}`,
-      lastModified: now,
       changeFrequency: route === "" ? ("monthly" as const) : ("weekly" as const),
       priority: route === "" ? 1 : 0.8,
       alternates: {
@@ -34,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const tourPages = (tours ?? []).flatMap((tour) =>
     locales.map((locale) => ({
       url: `${baseUrl}/${locale}/tours/${tour.slug}`,
-      lastModified: new Date(tour.created_at ?? now),
+      lastModified: tour.created_at ? new Date(tour.created_at) : undefined,
       changeFrequency: "weekly" as const,
       priority: 0.9,
       alternates: {

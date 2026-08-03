@@ -4,7 +4,7 @@ import { ToursHero } from "@/components/tours/ToursHero";
 import { ToursGrid } from "@/components/tours/ToursGrid";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/site-config";
+import { generatePageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
 
@@ -14,31 +14,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const title = locale === "es"
-    ? "Tours de Naturaleza · Manuel Antonio, Costa Rica"
-    : "Nature Tours · Manuel Antonio, Costa Rica";
+  const title = locale === "es" ? "Tours de Naturaleza" : "Nature Tours";
   const description = locale === "es"
     ? "Explorá nuestros tours guiados en Manuel Antonio: safari terrestre, tour en kayak en manglar, tour en barco por los manglares y caminata nocturna. Guías locales certificados."
     : "Explore our guided tours in Manuel Antonio: ground safari, mangrove kayak tour, mangrove boat tour, and night walk. Certified local guides.";
-  const url = `${SITE_URL}/${locale}/tours`;
-
-  return {
-    title,
-    description,
-    openGraph: { title, description, url },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-      languages: {
-        es: `${SITE_URL}/es/tours`,
-        en: `${SITE_URL}/en/tours`,
-      },
-    },
-  };
+  return generatePageMetadata({ locale, path: "/tours", title, description });
 }
 
 export default async function ToursPage({

@@ -12,7 +12,9 @@ import { ShareButtons } from "@/components/ui/ShareButtons";
 import { TourViewTracker } from "@/components/tours/TourViewTracker";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { TourProductJsonLd } from "@/components/seo/TourProductJsonLd";
+import { ReviewJsonLd } from "@/components/seo/ReviewJsonLd";
 import { SITE_URL } from "@/lib/site-config";
+import { generatePageMetadata } from "@/lib/seo";
 import { Check, X, Clock, Users, Globe, ChevronRight, UserCheck } from "lucide-react";
 import { CATEGORY_STYLES } from "@/lib/constants";
 
@@ -88,27 +90,13 @@ export async function generateMetadata({
   const coverImg = (tour.tour_images as unknown as { url: string }[] | undefined)?.[0];
   const ogImage = coverImg?.url ?? `${SITE_URL}/og-image.jpg`;
 
-  return {
-    title: `${title} · Jungle Wildlife Tours`,
-    description: description?.slice(0, 160) ?? undefined,
-    openGraph: {
-      title: `${title} · Jungle Wildlife Tours`,
-      description: description?.slice(0, 160) ?? undefined,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title} · Jungle Wildlife Tours`,
-      description: description?.slice(0, 160) ?? undefined,
-    },
-    alternates: {
-      canonical: `${SITE_URL}/${locale}/tours/${slug}`,
-      languages: {
-        es: `${SITE_URL}/es/tours/${slug}`,
-        en: `${SITE_URL}/en/tours/${slug}`,
-      },
-    },
-  };
+  return generatePageMetadata({
+    locale,
+    path: `/tours/${slug}`,
+    title,
+    description: description ?? "",
+    ogImage: { url: ogImage, width: 1200, height: 630 },
+  });
 }
 
 export default async function TourDetailPage({
@@ -168,6 +156,7 @@ export default async function TourDetailPage({
         }}
         reviewStats={reviewStats}
       />
+      <ReviewJsonLd tourId={typedTour.id} locale={locale} />
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] md:min-h-[65vh] flex items-end overflow-hidden">
         {coverImage ? (

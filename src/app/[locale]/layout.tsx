@@ -29,6 +29,7 @@ export async function generateMetadata({
   const url = locale === "es" ? `${baseUrl}/es` : `${baseUrl}/en`;
 
   return {
+    metadataBase: new URL(baseUrl),
     title: { absolute: meta?.homeTitle ?? "Jungle Wildlife Tours · Manuel Antonio, Costa Rica" },
     description:
       meta?.homeDescription ??

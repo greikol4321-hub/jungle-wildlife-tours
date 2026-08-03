@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/site-config";
+import { SITE_URL, SITE } from "@/lib/site-config";
 const baseUrl = SITE_URL;
 
 type TourProduct = {
@@ -20,14 +20,14 @@ type ReviewStats = {
 export function TourProductJsonLd({ tour, reviewStats }: { tour: TourProduct; reviewStats?: ReviewStats | null }) {
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": ["Product", "TouristTrip"],
+    "@type": ["Product", "TouristTrip", "TouristAttraction"],
     name: tour.name,
-    description: tour.description?.slice(0, 500),
+    description: (tour.description ?? "").slice(0, 500),
     image: tour.image,
     url: `${baseUrl}/${tour.locale}/tours/${tour.slug}`,
     brand: {
       "@type": "Brand",
-      name: "Jungle Wildlife Tours",
+      name: SITE.name,
     },
     category: tour.category,
     offers: {
